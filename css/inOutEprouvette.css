@@ -1,0 +1,90 @@
+table td.noInOut {
+  color:black;
+  background-color:black;
+}
+table td.d_checked  {
+  color:darkgreen;
+  background-color:darkgreen;
+}
+table td.done[data-done="0"]  {
+  color:darkred;
+  background-color:darkred;
+}
+table td.done[data-done="1"]  {
+  color:sienna;
+  background-color:sienna;
+}
+table td.done[data-done="2"]  {
+  color:darkgreen;
+  background-color:darkgreen;
+}
+table td[data-io]  {
+  cursor: pointer;
+}
+table td[data-idmaster]  {
+  cursor: pointer;
+}
+
+td .ui-selecting { background-color: #FECA40; }
+
+table td.highlight  {
+background: repeating-linear-gradient(
+  -45deg,
+  #606dbc,
+  #606dbc 10px,
+  #465298 10px,
+  #465298 20px
+) !important;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #5B9BD5;
+}
+
+
+
+table.DTFC_Cloned tr {
+  background-color: inherit;
+  margin-bottom: 0;
+}
+div.DTFC_LeftHeadWrapper table,
+div.DTFC_RightHeadWrapper table {
+  border-bottom: none !important;
+  margin-bottom: 0 !important;
+  background-color: inherit;
+}
+#table_ep_wrapper tfoot, #table_ep_wrapper tfoot input {
+  background-color:black;
+}
+
+
+
+div.DTE_Inline input {
+  border: none;
+  background-color: transparent;
+  padding: 0 !important;
+  font-size: 90%;
+}
+div.DTE_Inline input:focus {
+  outline: none;
+  background-color: transparent;
+}
+
+div.DTE_Bubble_Liner  {
+  width: 600px !important;
+}
+div.DTE_Bubble_Table  {
+  padding-top: 0px !important;
+}
+div.DTE_Bubble_Liner [class*="col-"], div.DTE [class*="col-"] {
+  background-color:transparent !important;
+  border: none !important;
+}
+div.DTE .form-control {
+  border-radius: 4px;
+    color:red  !important;
+}
+
+.splitCenter  .table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #536E94 !important;
+}

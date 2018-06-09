@@ -1,0 +1,18 @@
+tbody > tr:nth-of-type(odd) {
+  background-color: #536E94 !important;
+}
+caption{
+  color : White;
+  font-size: 250%;
+}
+
+select:not([multiple]) {
+    height: auto
+}
+select {
+    height: auto;
+}
+
+select[multiple] {
+    height: 300px !important;
+}

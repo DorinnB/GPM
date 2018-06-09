@@ -1,0 +1,173 @@
+table td.dispo[data-dispo="0"] {
+  color:darkred;
+  background-color:darkred;
+}
+table td.dispo[data-dispo="1"] {
+  color:brown;
+  background-color:brown;
+}
+table td.dispo[data-dispo="2"] {
+  color:chocolate;
+  background-color:chocolate;
+}
+table td.dispo[data-dispo="3"] {
+  color:darkgreen;
+  background-color:darkgreen;
+}
+table td.dispo[data-dispo="4"] {
+  color:gray;
+  background-color:gray;
+}
+table td.dispo[data-dispo="5"] {
+  color:dimgray;
+  background-color:dimgray;
+}
+table td.dispo[data-dispo="6"] {
+  color:black;
+  background-color:black;
+}
+
+.popover  {
+  max-width: 100%;
+}
+
+.flagMini  {
+  color:lightsalmon;
+}
+.checkValue_actif {
+  color:lightsalmon;
+}
+.checkValue_max {
+  background-color:darkred;
+}
+.checkValue_min {
+  background-color:purple;
+}
+.estimated {
+  font-style: italic;
+  font-size: 80%;
+}
+.Cycle_final_valid0 {
+  font-style: italic;
+  font-size: 80%;
+}
+
+table td.checkEp {
+  color:darkgreen;
+  background-color:darkgreen;
+}
+table td.checkEp[data-checked="0"]  {
+  color:darkred;
+  background-color:darkred;
+}
+table td.dCheckEp {
+  color:darkgreen;
+  background-color:darkgreen;
+}
+table td.dCheckEp[data-dchecked = "0"]  {
+  color:darkred;
+  background-color:darkred;
+}
+table td.flag_qualite {
+  color:transparent;
+  background-color:transparent;
+}
+table td.flag_qualite:not([data-flagQualite="0"])  {
+  color:#b96500;
+  background-color:#b96500;
+}
+table td.flag_qualite[data-flagQualite="-4"]  {
+  color:sienna;
+  background-color:sienna;
+}
+
+table td.IQC[data-value="1"]  {
+  color:darkgreen;
+  background-color:darkgreen;
+}
+table td.IQC[data-value="2"]  {
+  color:darkred;
+  background-color:darkred;
+}
+
+td .ui-selecting { background-color: #FECA40; }
+
+
+.open-GestionEp, .checkEp, .dCheckEp, .flag_qualite  {
+  cursor: pointer;
+}
+.unselectable {
+  cursor:default;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #5B9BD5;
+}
+
+
+
+table.DTFC_Cloned tr {
+  background-color: inherit;
+  margin-bottom: 0;
+}
+div.DTFC_LeftHeadWrapper table,
+div.DTFC_RightHeadWrapper table {
+  border-bottom: none !important;
+  margin-bottom: 0 !important;
+  background-color: inherit;
+}
+#table_ep_wrapper tfoot, #table_ep_wrapper tfoot input {
+  background-color:black;
+}
+
+
+
+div.DTE_Inline input {
+  border: none;
+  background-color: transparent;
+  padding: 0 !important;
+  font-size: 90%;
+}
+div.DTE_Inline input:focus {
+  outline: none;
+  background-color: transparent;
+}
+
+div.DTE_Bubble_Liner  {
+  width: 600px !important;
+}
+div.DTE_Bubble_Table  {
+  padding-top: 0px !important;
+}
+div.DTE_Bubble_Liner [class*="col-"], div.DTE [class*="col-"] {
+  background-color:transparent !important;
+  color:gray;
+  border: none !important;
+}
+div.DTE .form-control {
+  border-radius: 4px;
+  color:yellow;
+  font-weight:bold;
+}
+#DTE_Field_eprouvettes-stepcase_type  {
+  background-color: #44546A;
+  color:yellow;
+}
+.modal div.DTE .form-control {
+  border-radius: 4px;
+  color:darkblue;
+  font-weight:bold;
+}
+div.DTE_Form_Content .form-control {
+  color:darkblue;
+}
+div.DTE textarea {
+  color:darkblue !important;
+}
+.splitCenter  .table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #536E94 !important;
+}
+
+td[data-toggle="tooltip"]  {
+background:url("../img/changed.png") top right /15px no-repeat;
+}

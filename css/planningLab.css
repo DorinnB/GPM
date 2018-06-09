@@ -1,0 +1,116 @@
+#split-nav div{
+  color:white;
+  background-color: rgb(68, 84, 106);
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #536E94 !important;
+}
+.table-hover tbody tr:hover , .table-hover tbody tr:hover th {
+  background-color: #5B9BD5;
+}
+
+table.DTFC_Cloned tr {
+  background-color: rgb(68, 84, 106) !important;
+}
+
+input{
+  color:black;
+}
+
+td, th{
+  padding-right:5px !important;
+}
+
+.today  {
+  border-left: 5px solid black !important;
+}
+
+.ui-selecting { background: #FECA40 !important; }
+
+
+.newVal {
+  background-image: -webkit-repeating-radial-gradient(center center, black, black 1px, transparent 1px, transparent 100%);
+  background-image: -moz-repeating-radial-gradient(center center, black, black 1px, transparent 1px, transparent 100%);
+  background-image: -ms-repeating-radial-gradient(center center, black, black 1px, transparent 1px, transparent 100%);
+  background-image: repeating-radial-gradient(center center, black, black 1px, transparent 1px, transparent 100%);
+  -webkit-background-size: 3px 3px;
+  -moz-background-size: 3px 3px;
+  background-size: 3px 3px;
+}
+
+.unrated {
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 5px,
+    darkred 5px,
+    darkred 10px
+  ) !important;
+}
+.unknow {
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 10px,
+    yellow 10px,
+    yellow 20px
+  ) !important;
+}
+
+  .highlight {
+    animation: blinker 1s linear infinite;
+  }
+
+  @keyframes blinker {
+    50% { opacity: 0.5; }
+  }
+
+.ferie {
+  background-color : gray;
+}
+
+[data-color='X'],[data-color='L'], [data-color='e'], [data-color='u'], [data-color='?'], [data-color='T']    {
+  background-color:darkred !important;
+    color:white !important;
+}
+[data-color='0'], [data-color='0'] a  {
+  background-color:darkgreen !important;
+    color:white !important;
+}
+[data-color='1'], [data-color='1'] a  {
+  background-color:sienna !important;
+    color:white !important;
+}
+[data-color='2'], [data-color='2'] a  {
+  background-color:darkblue !important;
+    color:white !important;
+}
+[data-color='3'], [data-color='3'] a  {
+  background-color:yellow !important;
+    color:black !important;
+}
+[data-color='4'], [data-color='4'] a  {
+  background-color:purple !important;
+    color:white !important;
+}
+[data-color='5'], [data-color='5'] a  {
+  background-color:darkred !important;
+    color:white !important;
+}
+[data-color='6'], [data-color='6'] a  {
+  background-color:olive !important;
+    color:white !important;
+}
+[data-color='7'], [data-color='7'] a  {
+  background-color:lightblue !important;
+    color:black !important;
+}
+[data-color='8'], [data-color='8'] a  {
+  background-color:orange !important;
+    color:black !important;
+}
+[data-color='9'], [data-color='9'] a {
+  background-color:pink !important;
+  color:black !important;
+}

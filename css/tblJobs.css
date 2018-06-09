@@ -1,0 +1,54 @@
+#table_id_wrapper .table > thead > tr > th,
+#table_id_wrapper .table > tbody > tr > th,
+#table_id_wrapper .table > tfoot > tr > th,
+#table_id_wrapper .table > thead > tr > td,
+#table_id_wrapper .table > tbody > tr > td,
+#table_id_wrapper .table > tfoot > tr > td {
+  font-size: 12px;
+  padding: 4px;
+  line-height: 2;
+  vertical-align: middle;
+  text-align: center;
+  border-top: 1px solid #ddd;
+}
+#table_id_wrapper tbody tr td {
+  cursor:pointer;
+}
+#table_id_wrapper thead tr th {
+  color:white;
+  background: #44546A;
+  font-size: 10px;
+  font-weight: bold;
+  cursor:alias;
+  /*writing-mode: sideways-lr;    */
+}
+.table {
+    margin-bottom: 0px;
+}
+.delay1{
+  color:darkred;
+  background: darkred;
+}
+.delay0{
+  color:black;
+  background: black;
+}
+
+#sidebar-wrapper {
+  background-color: #44546A;
+  color : white;
+}
+#tbljob-nav .col-sm-12  {
+
+  padding-right: 0px;
+}
+#tbljob-nav [class*="col-"] {
+  background-color: #44546A;
+  color : white;
+}
+#tbljob-nav .table-striped > tbody > tr:nth-of-type(2n+1) {
+    background-color: #536E94;
+}
+#tbljob-nav button,#tbljob-nav input,#tbljob-nav optgroup,#tbljob-nav select,#tbljob-nav textarea {
+    color: black;
+}

@@ -1,0 +1,124 @@
+[class*="col-"], footer {
+  background-color: dimgray;
+  border: 1px solid black;
+ /* border-radius: 6px;
+  line-height: 40px;*/
+  text-align: center;
+}
+.splitCenter div{
+  color:white;
+  background-color: rgb(68, 84, 106);
+}
+.jobTop div{
+  color:white;
+  background-color: rgb(31, 78, 121);
+  text-align: left;
+}
+.splitBot div{
+  color:white;
+  background-color: rgb(91, 155, 213);
+  text-align: left;
+}
+.jobTop .commentaire2{
+  color: inherit;
+  background-color: inherit;
+  text-align: left;
+  border: 0px;
+  width:100%;
+  resize: none;
+}
+.splitBot .commentaire, .jobTop .commentaire{
+  color: inherit;
+  background-color: inherit;
+  text-align: left;
+  border: 0px;
+  resize:none;
+  height:70%;
+  width:100%;
+}
+.splitBot .commentaireEditable{
+  color: white;
+  background-color: dimgray;
+  text-align: left;
+  border: 0px;
+  resize:none;
+  height:70%;
+  width:100%;
+}
+#job{
+  font-weight:  bold;
+  font-size: x-large;
+}
+#compagnie{
+  font-weight:  bold;
+  font-size: large;
+}
+.titre{
+  color:lightblue;
+}
+.commentaire{
+
+}
+.split-bouton{
+  padding-left: 0px;
+}
+
+.table-condensed > tbody > tr > th,
+.table-condensed > tfoot > tr > th {
+  padding: 0px;
+}
+
+#check{
+  background-color: darkgreen;
+}
+#check.check0{
+  background-color: darkred;
+  cursor: pointer;
+}
+#planning{
+  background-color: darkgreen;
+}
+#planning.planning0{
+  background-color: darkred;
+  cursor: pointer;
+}
+.flip {
+  display:none;
+}
+
+#report_send{
+  background-color: darkgreen;
+}
+#report_send.report_send{
+  background-color: inherit;
+}
+#report_send.report_send0{
+  background-color: darkred;
+}
+
+#save{
+cursor:pointer;
+}
+
+
+
+#report-contextual-menu {
+display: none;
+z-index: 1000;
+position: absolute;
+overflow: hidden;
+border: 1px solid #CCC;
+white-space: nowrap;
+font-family: sans-serif;
+background: gray;
+color: #333;
+border-radius: 5px;
+}
+
+#report-contextual-menu li {
+cursor: pointer;
+}
+
+#report-contextual-menu li:hover {
+background-color: #DEF;
+}

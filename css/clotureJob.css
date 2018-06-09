@@ -1,0 +1,83 @@
+table td.noInOut {
+  color:black;
+  background-color:black;
+}
+table td.error  {
+  background-color:darkred;
+}
+table td[data-io]  {
+  cursor: pointer;
+}
+
+
+.ok  {
+  background-color:darkgreen;
+}
+.nok  {
+  background-color:darkred;
+}
+.half {
+background-color:darkorange;
+}
+.none {
+  color:black;
+  background-color:black;
+}
+
+
+dt { margin-top: 1em; }
+dt:first-child { margin-top: 0; }
+dd { width: 25% }
+
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #5B9BD5;
+}
+
+
+
+table.DTFC_Cloned tr {
+  background-color: inherit;
+  margin-bottom: 0;
+}
+div.DTFC_LeftHeadWrapper table,
+div.DTFC_RightHeadWrapper table {
+  border-bottom: none !important;
+  margin-bottom: 0 !important;
+  background-color: inherit;
+}
+#table_ep_wrapper tfoot, #table_ep_wrapper tfoot input {
+  background-color:black;
+}
+
+
+
+div.DTE_Inline input {
+  border: none;
+  background-color: transparent;
+  padding: 0 !important;
+  font-size: 90%;
+}
+div.DTE_Inline input:focus {
+  outline: none;
+  background-color: transparent;
+}
+
+div.DTE_Bubble_Liner  {
+  width: 600px !important;
+}
+div.DTE_Bubble_Table  {
+  padding-top: 0px !important;
+}
+div.DTE_Bubble_Liner [class*="col-"], div.DTE [class*="col-"] {
+  background-color:transparent !important;
+  border: none !important;
+}
+div.DTE .form-control {
+  border-radius: 4px;
+    color:red  !important;
+}
+
+.splitCenter  .table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #536E94 !important;
+}

@@ -1,0 +1,22 @@
+html, body, .container-fluid {
+    height:100%;
+}
+#wrapper {
+    height:calc(100% - 65px);
+}
+    #page-content-wrapper {
+        padding: 0px;
+    }
+	#page-content-wrapper {
+    padding-: 0 10px;
+}
+.navbar {
+  margin-bottom: 0px;
+}
+
+
+table.dataTable tbody tr.selected,
+table.dataTable tbody th.selected,
+table.dataTable tbody td.selected {
+  color: red;
+}

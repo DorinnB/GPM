@@ -1,0 +1,17 @@
+#exTab3 .nav-pills {
+  margin-top: 5px;
+}
+#exTab3 .nav-pills > li > a {
+  border-radius: 4px 4px 0 0 ;
+}
+#exTab3 .nav-pills > li > a.active {
+  color : white;
+  background-color: #44546A !important;
+  border-style: solid solid hidden solid;
+  border-width: 3px 3px 0px 3px;
+  border-color: black;
+}
+#exTab3 .tab-content {
+  color : white;
+  background-color: rgb(91, 155, 213);
+}

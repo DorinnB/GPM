@@ -1,0 +1,100 @@
+#page-content-wrapper div{
+  color:white;
+  background-color: rgb(68, 84, 106);
+}
+#page-content-wrapper .btn-group  {
+  color:black;
+}
+
+
+.form-group input, .form-group select{
+color:black;
+border-radius: 10px;
+}
+
+
+.table-condensed > thead > tr > th,
+.table-condensed > tbody > tr > th,
+.table-condensed > tfoot > tr > th,
+.table-condensed > thead > tr > td,
+.table-condensed > tbody > tr > td,
+.table-condensed > tfoot > tr > td {
+  padding: 3px;
+}
+
+
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #536E94 !important;
+}
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #5B9BD5;
+}
+input,  select{
+color:black;
+}
+a {
+  color:white;
+}
+
+
+.popover  {
+  max-width: 800px;
+}
+
+
+
+#sidebar-wrapper {
+  background-color: #44546A;
+  color : white;
+}
+
+.progress{
+    width: 10px;
+    background-color: inherit;
+    border-radius: 0px;
+}
+meter{
+    display: inline-block;
+    width: 100%;
+    background: inherit;
+}
+
+.location0  {
+  background-color: grey;
+  color: grey;
+}
+.location1  {
+  background-color: darkgreen;
+  color: darkgreen;
+}
+
+.clickable-row {
+    cursor: pointer;
+}
+.commentaire {
+   height:100%;
+   width:100%;
+   resize: none;
+   background-color: inherit;
+   text-align: left;
+   border: 0px;
+}
+
+/*
+meter::-webkit-meter-optimum-value {
+  background: red;
+}
+meter::-moz-meter-bar {
+  background: red;
+}
+
+/*
+progress::-moz-progress-bar { background: red; }
+progress::-webkit-progress-value { background: red; }
+progress { color: red; }
+*/

@@ -1,0 +1,28 @@
+#statut button.btn {
+  margin-top: 5px;
+  text-align:center;
+  border-radius: 4px !important;
+}
+#statut .dropdown-menu {
+top:40%;
+left:15%;
+color:white;
+background-color: black;
+padding:2px;
+}
+#statut .dropdown-menu > li > a {
+color:white;
+}
+
+#splitConsVal {
+  margin-top: 5px;
+  text-align:center;
+}
+#splitConsVal  > li {
+    border-radius: 4px !important;
+}
+#splitConsVal  > li > a {
+    border-radius: 4px !important;
+  color : white;
+  background-color: gray;
+}

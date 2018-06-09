@@ -1,0 +1,31 @@
+#page-content-wrapper div{
+  color:white;
+  background-color: rgb(68, 84, 106);
+}
+#page-content-wrapper .btn-group  {
+  color:black;
+}
+
+
+.form-group input, .form-group select{
+color:black;
+border-radius: 10px;
+}
+
+
+
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #5B9BD5;
+}
+input,  select{
+color:black;
+}
+a {
+  color:white;
+}

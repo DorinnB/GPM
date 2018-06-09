@@ -1,0 +1,138 @@
+#split-nav div{
+  color:white;
+  background-color: rgb(68, 84, 106);
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #536E94 !important;
+}
+.table-hover tbody tr:hover , .table-hover tbody tr:hover th {
+  background-color: #5B9BD5;
+}
+
+table.DTFC_Cloned tr {
+  background-color: rgb(68, 84, 106) !important;
+}
+
+input{
+  color:black;
+}
+
+td, th{
+  padding-right:5px !important;
+}
+
+.today  {
+  border-left: 5px solid black !important;
+}
+
+.ui-selecting { background: #FECA40 !important; }
+
+
+.newVal {
+  background-image: -webkit-repeating-radial-gradient(center center, black, black 1px, transparent 1px, transparent 100%);
+  background-image: -moz-repeating-radial-gradient(center center, black, black 1px, transparent 1px, transparent 100%);
+  background-image: -ms-repeating-radial-gradient(center center, black, black 1px, transparent 1px, transparent 100%);
+  background-image: repeating-radial-gradient(center center, black, black 1px, transparent 1px, transparent 100%);
+  -webkit-background-size: 3px 3px;
+  -moz-background-size: 3px 3px;
+  background-size: 3px 3px;
+}
+
+.unrated {
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 5px,
+    darkred 5px,
+    darkred 10px
+  ) !important;
+}
+.unknow {
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 10px,
+    yellow 10px,
+    yellow 20px
+  ) !important;
+}
+
+  .highlight {
+    animation: blinker 1s linear infinite;
+  }
+
+  @keyframes blinker {
+    50% { opacity: 0.5; }
+  }
+
+.ferie {
+  background-color : gray;
+}
+
+
+[data-customer] a{
+  color:inherit !important;
+}
+
+[data-customer] {
+    background-color:yellow !important;
+    color:black !important;
+}
+
+
+
+
+[data-customer='8003'] {
+  background-color:lightblue !important;
+  color:black !important;
+}
+[data-customer='8030'] {
+  background-color:plum !important;
+  color:black !important;
+}
+[data-customer='8043'] {
+  background-color:orange !important;
+  color:black !important;
+}
+[data-customer='8051'] {
+  background-color:gray !important;
+  color:white !important;
+}
+[data-customer='8093'] {
+  background-color:darkmagenta !important;
+  color:white !important;
+}
+[data-customer='8071'] {
+  background-color:Khaki  !important;
+  color:black !important;
+}
+[data-customer='8097'] {
+  background-color:darkgreen !important;
+  color:white !important;
+}
+[data-customer='8106'] {
+  background-color:sienna !important;
+  color:white !important;
+}
+[data-customer='8101'] {
+  background-color:lightgray !important;
+  color:black !important;
+}
+[data-customer='8077'] {
+  background-color:yellowgreen !important;
+  color:black !important;
+}
+[data-customer='8047'] {
+  background-color:maroon !important;
+  color:white !important;
+}
+[data-customer='8102'] {
+  background-color:olive !important;
+  color:white !important;
+}
+
+[data-color='X'],[data-color='L'], [data-color='e'], [data-color='u'], [data-color='?'],[data-color='T']    {
+  background-color:darkred !important;
+    color:white !important;
+}

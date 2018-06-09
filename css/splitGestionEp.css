@@ -1,0 +1,125 @@
+#gestionEp .modal-dialog {
+  width: 600px;
+  margin-top: 20%;
+}
+#gestionEp .modal-header {
+  color:black;
+}
+#gestionEp .modal-content {
+  height:400px;
+  color:white;
+  background-color : DarkGray;
+  border: 0px;
+}
+#exTab1 .carre {
+  background-color: DarkGray;
+}
+#exTab1 .tab-content {
+  color : white;
+  padding : 5px 15px;
+  background-color : #44546A;
+}
+#exTab1 .nav > li > a {
+  height:100%;
+}
+#exTab1 [class*="col-"] {
+  padding:0px;
+  border : 0px;
+  background-color : DarkGray;
+}
+#exTab1 .nav-stacked > li + li  {
+  margin-top:0px;
+}
+#exTab1 .carre [class*="row"] {
+  padding:5px;
+}
+#exTab1 .carre [class*="col-"]  {
+  background-color : #44546A;
+}
+#exTab1 li > a {
+  background-color: dimgray;
+  color: white;
+  border-width: 1px;
+  border-style: solid;
+  border-color : black;
+  border-radius: 0px;
+}
+#exTab1 .nav-pills > li.active > a  {
+  background-color : #44546A;
+}
+#exTab1 .nav-pills > li > a:hover  {
+  background-color : gray;
+  color: black;
+}
+#prestartForm [class*="col-"]{
+  padding:0px 10px;
+}
+#prestartForm .checkbox{
+  text-align: left;
+  margin-left: 20px;
+}
+
+#exTab1 .tab-content a  {
+  color:white;
+}
+#exTab1 .tab-content a:hover {
+    color: lightgrey;
+}
+
+#document {
+  background-color:#536E94 !important;
+}
+#document div{
+  background-color:#536E94 !important;
+}
+
+.gestionEpCommentaire{
+  color: yellow;
+  background-color: inherit;
+  text-align: left;
+  border: 0px;
+  width:100%;
+  resize:none;
+}
+
+.uploadFile > input
+{
+    display: none;
+}
+
+.uploadFile img
+{
+    height: 80px;
+    cursor: pointer;
+}
+.radio  {
+  margin-top:5px;
+}
+
+#check_rupture{
+  cursor: pointer;
+}
+.newval  {
+  color:gray;
+  font-style: italic;
+}
+#notComments .form-group  {
+  margin : 10px 5px 10px 0px;
+}
+
+.small{
+  padding:2px;
+}
+
+.PS1_0  {
+  display:inline; width:100%;
+}
+.PS1_1  {
+  display:inline; width:45%;
+}
+.PS2_0  {
+  display:none;
+}
+.PS2_1  {
+  display:inline; width:45%;
+}
