@@ -686,7 +686,7 @@ LEFT JOIN outillages outillage_bots ON outillage_bots.id_outillage=postes.id_out
 
       //Si ON a $this->_R (et donc $this->_A), ON calcule les autres valeurs selon la 2eme reference
 
-      If ($this->_R != "") {
+      If (($this->_R != "") OR ($this->_R == 0)) {
         If ($this->_MAX != "") {
           $this->_MIN = $this->_MAX * $this->_R;
           $this->_MEAN = ($this->_MAX + $this->_MIN) / 2;

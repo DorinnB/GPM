@@ -1118,14 +1118,7 @@ $style_gray = array(
         //calcul des limites avec le niveau le plus extreme des 5 stepcases
         //et des differents steps
         if ($essai['c_unite']=="MPa")	{
-          $maxMPa='';
-          $minMPa='';
-          $maxkN = "ERREUR d'unité";
-          $minkN = "ERREUR d'unité";
 
-          $maxLimitkN = "ERREUR d'unité";
-          $minLimitkN = "ERREUR d'unité";
-          /*
           $maxMPa = number_format($oEprouvette->MAX(), 0, '.', ' ');
           $minMPa = number_format($oEprouvette->MIN(), 0, '.', ' ');
           $maxkN = number_format($oEprouvette->MAX()*$area/1000, 2, '.', ' ');
@@ -1133,7 +1126,7 @@ $style_gray = array(
 
           $maxLimitkN = number_format(max($maxLimitkN,$maxkN+max(max(abs($maxkN),abs($minkN))*5/100,0.5)), 2, '.', ' ');
           $minLimitkN = number_format(min($minLimitkN,$minkN-max(max(abs($maxkN),abs($minkN))*5/100,0.5)), 2, '.', ' ');
-*/
+
         }
         Elseif ($essai['c_unite']=="kN")	{
           $maxMPa='';
