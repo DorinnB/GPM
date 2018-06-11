@@ -990,7 +990,7 @@ $style_gray = array(
 
       'A5' => $jobcomplet,
       'D5' => $essai['prefixe'],
-      'G5' => $essai['nom_eprouvette'],
+      'G5' => $wizard->toRichTextObject($essai['nom_eprouvette']),
       'J5' => $essai['n_fichier'],
       'M5' => $essai['n_essai'],
 
