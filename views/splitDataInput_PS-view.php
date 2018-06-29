@@ -60,6 +60,7 @@
             <option value="0" <?=  ($split['other_1']==0)?'selected':''    ?>>No</option>
             <option value="1" <?=  ($split['other_1']==1)?'selected':''    ?>>1</option>
             <option value="2" <?=  ($split['other_1']==2)?'selected':''    ?>>2</option>
+            <option value="3" <?=  ($split['other_1']==3)?'selected':''    ?>>3</option>
           </select>
         </div>
         <div class="form-group">
@@ -106,11 +107,6 @@
       <a href="#" id="special_instruction_clear">Clear</a>
     </div>
 
-
-    <div class="form-group">
-      <label for="Dy T">Dy&nbsp;T&nbsp;:</label>
-      <input type="text" class="form-control" name="DyT_Cust" id="DyT_Cust" value="<?= $split['DyT_Cust'] ?>">
-    </div>
 
   </form>
 </div>

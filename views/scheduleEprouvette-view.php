@@ -6,13 +6,18 @@
         <th rowspan=2>Groupe</th>
         <th rowspan=2 class="selectableTitle" data-id="<?=  $split['available_expected'] ?>" data-IO="available_expected" data-value="<?= $split['available_expected']   ?>" data-oldValue="<?= $split['available_expected']   ?>">Receipt</th>
         <?php  foreach ($splits as $splitJob): ?>
-          <th colspan=2><?= $splitJob['split'].' - '.$splitJob['test_type_abbr'].' ('.$splitJob['nbep'].' ep)'   ?></th>
+          <?php if (substr( $splitJob['test_type_abbr'], 0, 1 ) === ".") :  ?>
+            <th colspan=3><?= $splitJob['split'].' - '.$splitJob['test_type_abbr'].' ('.$splitJob['nbep'].' ep)'   ?></th>
+          <?php else: ?>
+            <th colspan=2><?= $splitJob['split'].' - '.$splitJob['test_type_abbr'].' ('.$splitJob['nbep'].' ep)'   ?></th>
+          <?php endif ?>
         <?php  endforeach  ?>
       </tr>
       <tr>
         <?php  foreach ($splits as $splitJob): ?>
           <?php if (substr( $splitJob['test_type_abbr'], 0, 1 ) === ".") :  ?>
             <th class="selectableTitle" data-idJob="<?=  $splitJob['id_tbljob'] ?>" data-IO="DyT_SubC"  data-value="<?= $splitJob['DyT_SubC']   ?>"data-oldValue="<?= $splitJob['DyT_SubC']   ?>">DyT SubC</th>
+            <th class="selectableTitle" data-idJob="<?=  $splitJob['id_tbljob'] ?>" data-IO="DyT_Cust"  data-value="<?= $splitJob['DyT_Cust']   ?>"data-oldValue="<?= $splitJob['DyT_Cust']   ?>">DyT Cust</th>
             <th class="selectableTitle" data-idJob="<?=  $splitJob['id_tbljob'] ?>" data-IO="DyT_expected"  data-value="<?= $splitJob['DyT_expected']   ?>"data-oldValue="<?= $splitJob['DyT_expected']   ?>">Expected</th>
           <?php else: ?>
             <th class="selectableTitle" data-idJob="<?=  $splitJob['id_tbljob'] ?>" data-IO="DyT_Cust"  data-value="<?= $splitJob['DyT_Cust']   ?>"data-oldValue="<?= $splitJob['DyT_Cust']   ?>">DyT Cust</th>
@@ -28,6 +33,7 @@
         <th>receipt</th>
         <?php  foreach ($splits as $splitJob): ?>
           <?php if ($splitJob['ST'] == 1) :  ?>
+            <th>Sent</th>
             <th>Sent</th>
             <th><?= $splitJob['test_type_abbr']  ?></th>
           <?php else: ?>
@@ -48,14 +54,21 @@
             <?php if (isset($groupes[$key]['split'][$splitJob['id_tbljob']])) : ?>
               <?php if ($splitJob['ST'] == 1) :  ?>
                 <td class="selectable <?= (isset($split2[$splitJob['id_tbljob']]['erreur_DyT_SubC']))?'error':'' ?>" data-idJob="<?=  $splitJob['id_tbljob'] ?>" data-idJob="<?=  $splitJob['id_tbljob'] ?>" data-IO="DyT_SubC" data-oldValue="<?= $splitJob['DyT_SubC']   ?>"><?= $splitJob['DyT_SubC']  ?></td>
+                <td class="selectable <?= (isset($split2[$splitJob['id_tbljob']]['erreur_DyT_Cust']))?'error':'' ?>" data-idJob="<?=  $splitJob['id_tbljob'] ?>" data-idJob="<?=  $splitJob['id_tbljob'] ?>" data-IO="DyT_Cust" data-oldValue="<?= $splitJob['DyT_Cust']   ?>"><?= $splitJob['DyT_Cust']  ?></td>
                 <td class="selectable <?= (isset($split2[$splitJob['id_tbljob']]['erreur_DyT_expected']))?'error':'' ?>" data-idJob="<?=  $splitJob['id_tbljob'] ?>" data-IO="DyT_expected" data-oldValue="<?= $splitJob['DyT_expected']   ?>"><?= $splitJob['DyT_expected']  ?></td>
               <?php else: ?>
                 <td class="selectable <?= (isset($split2[$splitJob['id_tbljob']]['erreur_DyT_Cust']))?'error':'' ?>" data-idJob="<?=  $splitJob['id_tbljob'] ?>" data-idJob="<?=  $splitJob['id_tbljob'] ?>" data-IO="DyT_Cust" data-oldValue="<?= $splitJob['DyT_Cust']   ?>"><?= $splitJob['DyT_Cust']  ?></td>
                 <td class="selectable <?= (isset($split2[$splitJob['id_tbljob']]['erreur_DyT_expected']))?'error':'' ?>" data-idJob="<?=  $splitJob['id_tbljob'] ?>" data-IO="DyT_expected" data-oldValue="<?= $splitJob['DyT_expected']   ?>"><?= $splitJob['DyT_expected']  ?></td>
               <?php endif ?>
             <?php else: ?>
-              <td class="noInOut"></td>
-              <td class="noInOut"></td>
+              <?php if ($splitJob['ST'] == 1) :  ?>
+                <td class="noInOut"></td>
+                <td class="noInOut"></td>
+                <td class="noInOut"></td>
+              <?php else: ?>
+                <td class="noInOut"></td>
+                <td class="noInOut"></td>
+              <?php endif ?>
             <?php endif ?>
           <?php  endforeach  ?>
 

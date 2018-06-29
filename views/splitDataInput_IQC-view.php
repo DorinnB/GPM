@@ -13,11 +13,6 @@
       <input type="text" class="form-control" name="comments" value="<?= $split['comments'] ?>">
     </div>
 
-    <div class="form-group">
-      <label for="Dy T">Dy T :</label>
-      <input type="text" class="form-control" name="DyT_Cust" id="DyT_Cust" value="<?= $split['DyT_Cust'] ?>">
-    </div>
-
   </form>
 </div>
 <script type="text/javascript" src="js/splitDataInput.js"></script>

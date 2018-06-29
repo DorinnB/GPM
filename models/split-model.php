@@ -196,10 +196,8 @@ class LstSplitModel
     `c_2` = '.$this->c_type_2.',
     `c_unite` = '.$this->c_unite.',
     `tbljob_frequence` = '.$this->tbljob_frequence.',
-    `DyT_Cust` = '.$this->DyT_Cust.',
     `tbljob_instruction` = '.$this->tbljob_instruction.',
     `comments` = '.$this->comments.',
-    `DyT_expected` = '.$this->DyT_expected.',
 
     `GE` = '.$this->GE.',
     `special_instruction` = '.$this->special_instruction.',

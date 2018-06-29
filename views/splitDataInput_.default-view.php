@@ -24,10 +24,6 @@
       </select>
     </div>
 
-    <div class="form-group">
-      <label for="Dy T">DyT Cust :</label>
-      <input type="text" class="form-control" name="DyT_Cust" id="DyT_Cust" value="<?= $split['DyT_Cust'] ?>">
-    </div>
 
   </form>
 </div>
