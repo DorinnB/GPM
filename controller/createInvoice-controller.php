@@ -151,15 +151,7 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
       //s'ily a une une quantité
       if ($invoicelines['qteUser']>0 OR $invoicelines['qteGPM']>0) {
 
-        if ($invoicelines['prodCode']=="") {
-          $code="O-".$nCode;
-          $nCode++;
-        }
-        else {
-          $code=$invoicelines['prodCode']."-".$invoicelines['OpnCode'];
-        }
-
-        $page->setCellValueByColumnAndRow(0, $row, $code);
+        $page->setCellValueByColumnAndRow(0, $row, $nCode);
         $page->setCellValueByColumnAndRow(1, $row, $invoicelines['pricingList']);
         $page->setCellValueByColumnAndRow(4, $row, ($invoicelines['qteUser']=="")?$invoicelines['qteGPM']:$invoicelines['qteUser']);
         $page->setCellValueByColumnAndRow(5, $row, $invoicelines['priceUnit']);
@@ -170,6 +162,7 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
 
         $row++;
         $nbLines++;
+                $nCode++;
       }
 
     }
@@ -190,15 +183,7 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
     //s'ily a une une quantité ou si UBR
     if ($invoicelines['qteUser']>0 OR isset($_GET['UBR'])) {
 
-      if ($invoicelines['prodCode']=="") {
-        $code="O-".$nCode;
-        $nCode++;
-      }
-      else {
-        $code=$invoicelines['prodCode']."-".$invoicelines['OpnCode'];
-      }
-
-      $page->setCellValueByColumnAndRow(0, $row, $code);
+      $page->setCellValueByColumnAndRow(0, $row, $nCode);
       $page->setCellValueByColumnAndRow(1, $row, $invoicelines['pricingList']);
       $page->setCellValueByColumnAndRow(4, $row, $invoicelines['qteUser']);
       $page->setCellValueByColumnAndRow(5, $row, $invoicelines['priceUnit']);
@@ -208,6 +193,7 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
       $page->getStyle("G".$row)->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);
 
       $row++;
+      $nCode++;
     }
   }
 

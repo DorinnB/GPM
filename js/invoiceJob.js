@@ -59,9 +59,14 @@ $(document).ready(function() {
     b.find('.priceUnit').find('input').val(price);
 
     //si la ligne est 0 "Others" on autorise le changement de description
+    /*
     if (prodCode=='') {
       b.find('.pricingList').find('input').prop("readonly", false);
     }
+    */
+    //on autorise le changement de Description
+    b.find('.pricingList').find('input').prop("readonly", false);
+
     //on reinitialise les select de new invoice line
     $(".addInvLine option[value='No']").prop('selected', true);
 
