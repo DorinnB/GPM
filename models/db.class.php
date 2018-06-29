@@ -113,13 +113,7 @@ class db {
 
 
   function quote($val) {
-    if ($val=="NULL") {
-      return $val;
-    }
-    else {
-    return $this->conn->quote($val);
-    }
-
+		return $this->conn->quote($val);
 	}
 
   function lastId() {
