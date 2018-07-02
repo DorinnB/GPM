@@ -213,7 +213,8 @@ LEFT JOIN eprouvettes_temp ON eprouvettes_temp.id_eprouvettes_temp=eprouvettes.i
     LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
     LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
     LEFT JOIN invoicelines ON invoicelines.id_tbljob=tbljobs.id_tbljob
-    WHERE etape < 95
+    LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job    
+    WHERE etape < 95 AND info_jobs.invoice_type < 2
     AND tbljob_actif=1
     GROUP BY tbljobs.id_info_job';
 

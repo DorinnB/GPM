@@ -12,8 +12,8 @@ include_once '../models/invoice-model.php';
 // Création d'une instance
 $oInvoice = new InvoiceModel($db);
 $invoices=$oInvoice->getAllInvoiceJob();
-    //pour chaque job ayant une invoiceline, on crée la facture dans UBR
-      echo '<script>function sleep(milliseconds) {
+//pour chaque job ayant une invoiceline, on crée la facture dans UBR
+echo '<script>function sleep(milliseconds) {
   var start = new Date().getTime();
   for (var i = 0; i < 1e7; i++) {
     if ((new Date().getTime() - start) > milliseconds){
@@ -21,17 +21,26 @@ $invoices=$oInvoice->getAllInvoiceJob();
     }
   }
 }';
+
+
 foreach ($invoices as $key => $value) {
-echo '
-
-window.open("createInvoice-controller.php?UBR=1&id_tbljob='.$value['id_tbljob'].'", "'.$value['id_tbljob'].'", "width=200, height=100");
-
-sleep(20000);
-';
-
-
+  echo '
+  setTimeout(function() {
+    window.open("createInvoice-controller.php?UBR=1&id_tbljob='.$value['id_tbljob'].'", "'.$value['id_tbljob'].'", "width=200, height=100");
+    ';
+  }
+  foreach ($invoices as $key => $value) {
+    echo '
+  }, 10000);
+  ';
 }
-      echo '</script>';
+echo '</script>';
+
+
+
+
+
+
 exit;
 
 
