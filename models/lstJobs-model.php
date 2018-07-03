@@ -392,7 +392,7 @@ class LstJobsModel
           LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
           WHERE tbljob_actif=1 AND eprouvette_actif=1 AND master_eprouvette_actif=1 AND auxilaire=0 AND info_jobs.id_info_job='.$id_infojob.'
           GROUP BY tbljobs.id_tbljob
-          ORDER BY split ASC';
+          ORDER BY phase ASC';
         return $this->db->getAll($req);
     }
 

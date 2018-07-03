@@ -4,7 +4,7 @@ $db = new db(); // create a new object, class db()
 
 
 if (!isset($_GET['customer']))	{
-exit;
+  exit;
 }
 
 
@@ -45,13 +45,24 @@ $objReader = PHPExcel_IOFactory::createReader('Excel2007');
 $objReader->setIncludeCharts(TRUE);
 
 
-$style_gray = array(
+$style_interligne = array(
+  'fill' => array(
+    'type' => PHPExcel_Style_Fill::FILL_SOLID,
+    'color' => array('rgb'=>'ddd9c4')
+  )
+);
+$style_InProgress = array(
   'fill' => array(
     'type' => PHPExcel_Style_Fill::FILL_SOLID,
     'color' => array('rgb'=>'E2EFDA')
   )
 );
-
+$style_Completed = array(
+  'fill' => array(
+    'type' => PHPExcel_Style_Fill::FILL_SOLID,
+    'color' => array('rgb'=>'e6e6e6')
+  )
+);
 
 //nom du fichier excel d'UBR
 $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/WeeklyReport.xlsx");
@@ -66,14 +77,14 @@ $row = 3; // 1-based index
 foreach ($lstJobCust as $key => $value) {
 
   //on copie le style de pour chaque job
- for ($colEnTete = 0; $colEnTete <= 10; $colEnTete++) {
-   $style = $page->getStyleByColumnAndRow($colEnTete, 3);
-   $dstCell = PHPExcel_Cell::stringFromColumnIndex($colEnTete) . (string)($row);
-   $page->duplicateStyle($style, $dstCell);
- }
-$firstLine=$row;
+  for ($colEnTete = 0; $colEnTete <= 10; $colEnTete++) {
+    $style = $page->getStyleByColumnAndRow($colEnTete, 3);
+    $dstCell = PHPExcel_Cell::stringFromColumnIndex($colEnTete) . (string)($row);
+    $page->duplicateStyle($style, $dstCell);
+  }
+  $firstLine=$row;
   //on ecrit les données par split
-  $page->setCellValueByColumnAndRow(0, $row, $value['po_number']);
+  $page->setCellValueByColumnAndRow(0, $row, $value['po_number']."\n".$value['instruction']);
   $page->setCellValueByColumnAndRow(1, $row, $value['ref_matiere']);
   $page->setCellValueByColumnAndRow(2, $row, $value['job']);
   $page->setCellValueByColumnAndRow(3, $row, 0);
@@ -86,35 +97,44 @@ $firstLine=$row;
   $page->setCellValueByColumnAndRow(10, $row, $value['contactsXLS']);
   $page->getStyleByColumnAndRow(10,$row)->getAlignment()->setWrapText(true);
 
-$row++;
+  $row++;
 
- foreach ($infoJobs[$value['id_info_job']] as $k => $v) {
+  foreach ($infoJobs[$value['id_info_job']] as $k => $v) {
 
     //on copie le style de pour chaque split
-   for ($colEnTete = 1; $colEnTete <= 10; $colEnTete++) {
-     $style = $page->getStyleByColumnAndRow($colEnTete, 4);
-     $dstCell = PHPExcel_Cell::stringFromColumnIndex($colEnTete) . (string)($row);
-     $page->duplicateStyle($style, $dstCell);
-   }
+    for ($colEnTete = 1; $colEnTete <= 10; $colEnTete++) {
+      $style = $page->getStyleByColumnAndRow($colEnTete, 4);
+      $dstCell = PHPExcel_Cell::stringFromColumnIndex($colEnTete) . (string)($row);
+      $page->duplicateStyle($style, $dstCell);
+    }
 
-  $page->setCellValueByColumnAndRow(3, $row, $v['split']);
-  $page->setCellValueByColumnAndRow(4, $row, $v['test_type_abbr']);
-  $page->setCellValueByColumnAndRow(5, $row, $v['nbtest']);
-  $page->setCellValueByColumnAndRow(6, $row, $v['nbtestplanned']);
-  $page->setCellValueByColumnAndRow(7, $row, $v['statut_client']);
-  $page->setCellValueByColumnAndRow(8, $row, $v['DyT_Cust']);
+    $page->setCellValueByColumnAndRow(3, $row, $v['split']);
+    $page->setCellValueByColumnAndRow(4, $row, $v['test_type_abbr']);
+    $page->setCellValueByColumnAndRow(5, $row, $v['nbtest']);
+    $page->setCellValueByColumnAndRow(6, $row, $v['nbtestplanned']);
+    $page->setCellValueByColumnAndRow(7, $row, $v['statut_client']);
+    $page->setCellValueByColumnAndRow(8, $row, $v['DyT_Cust']);
 
+
+if ($v['statut_client']=="In Progress") {
+$page->getStyle('D'.$row.':I'.$row)->applyFromArray( $style_InProgress );
+}
+elseif ($v['statut_client']=="Completed") {
+$page->getStyle('D'.$row.':I'.$row)->applyFromArray( $style_Completed );
+}
+
+
+    $row++;
+  }
+
+  $page->mergeCells('A'.$firstLine.':A'.($row-1));
+  $page->mergeCells('B'.$firstLine.':B'.($row-1));
+  $page->mergeCells('C'.$firstLine.':C'.($row-1));
+  $page->mergeCells('j'.$firstLine.':j'.($row-1));
+  $page->mergeCells('k'.$firstLine.':k'.($row-1));
+
+  $page->getStyle('A'.$row.':K'.$row)->applyFromArray( $style_interligne );
   $row++;
- }
-
-        $page->mergeCells('A'.$firstLine.':A'.($row-1));
-        $page->mergeCells('B'.$firstLine.':B'.($row-1));
-        $page->mergeCells('C'.$firstLine.':C'.($row-1));
-        $page->mergeCells('j'.$firstLine.':j'.($row-1));
-        $page->mergeCells('k'.$firstLine.':k'.($row-1));
-
-$page->getStyle('A'.$row.':K'.$row)->applyFromArray( $style_gray );
-$row++;
 }
 
 
