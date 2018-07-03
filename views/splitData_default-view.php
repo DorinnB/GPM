@@ -32,6 +32,15 @@
       <span class="name">Raw Data :</span>
       <span class="value <?= ($split['id_rawData']==0)?'':'warning' ?>"><?= $tbljobHisto2['name'] ?> <?= $split['name'] ?></span>
     </p>
+    <p class="title <?= (($split['other_3']==0) AND ($tbljobHisto2['other_3']==""))?'hide':'' ?>">
+  <span class="name">Specific Test :</span>
+  <span class="value warning"><?= $tbljobHisto2['other_3'] ?>
+    <?= ($split['other_3']==0)?'Standard':'' ?>
+    <?= ($split['other_3']==1)?'OCV':'' ?>
+    <?= ($split['other_3']==2)?'Tube':'' ?>
+    <?= ($split['other_3']==3)?'Custom':'' ?>
+  </span>
+</p>
   </div>
 
   <div class="bs-example advancedTestInfo" data-example-id="basic-forms">
@@ -55,6 +64,10 @@
       <span class="name">GE Test :</span>
       <span class="value warning"><?= ($split['GE']==0)?'':'YES' ?></span>
     </p>
+    <p class="title <?= (($split['other_4']==0) AND ($tbljobHisto2['other_4']==""))?'hide':'' ?>">
+  <span class="name">Camera :</span>
+  <span class="value warning"><?= $tbljobHisto2['other_4'] ?> <?= ($split['other_4']==0)?'NO':'YES' ?></span>
+</p>
     <p class="title" id="stepcase_data">
       <span class="name" id="stepcase_data_name"></span>
       <span class="value warning" id="stepcase_data_value"></span>

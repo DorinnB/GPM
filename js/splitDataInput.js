@@ -28,8 +28,25 @@ $(function() {
 
 
 
+  $(document).on('change', '.deliveredGoods', function() {
+
+    var deliveredGoods = $.param($('.deliveredGoods').map(function(){
+      return{
+        name:$(this).attr('name'),
+        value:$(this).val(),
+      }
+    }));
+
+  document.getElementById('other_4').value = deliveredGoods;
+
+  });
+
+
 
 });
+
+
+
 
 
 function save() {

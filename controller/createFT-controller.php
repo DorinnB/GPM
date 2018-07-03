@@ -44,8 +44,8 @@ $tempCorrected=$oEprouvette->getTempCorrected();
 
 $estimatedCycle=$oEprouvette->getEstimatedCycle();
 
-
-
+//a suppreimer apres bug 3 juillet 2018
+$maxLimitdeplacement="";
 
 
 
@@ -753,7 +753,7 @@ $style_gray = array(
       //copy du template du control change
       copyRows($FT,60);
       if ($essai['other_1']==0) {
-      $FT->getRowDimension(42)->setVisible(false);
+        $FT->getRowDimension(42)->setVisible(false);
         $FT->getRowDimension(43)->setVisible(false);
       }
       else {
@@ -886,6 +886,19 @@ $style_gray = array(
       $maxLimitkN = $maxkN+max(max(abs($maxkN),abs($minkN))*5/100,0.5);
       $minLimitkN = $minkN-max(max(abs($maxkN),abs($minkN))*5/100,0.5);
 
+      if (($essai['other_3']==0) OR ($essai['other_3']=="")) { //Standard
+        $maxLimitdeplacement=6;
+      }
+      elseif ($essai['other_3']==1) { //OCV
+        $maxLimitdeplacement=10;
+      }
+      elseif ($essai['other_3']==2) { //Tube
+        $maxLimitdeplacement=10;
+      }
+      elseif ($essai['other_3']==3) { //Custom
+        $maxLimitdeplacement='';
+      }
+
       $FT->setCellValue('K21', '(MPa) MAX (kN)');
       $FT->setCellValue('M21', '(MPa) MIN (kN)');
       $FT->setCellValue('K22', $maxMPa.' ');
@@ -893,8 +906,8 @@ $style_gray = array(
       $FT->setCellValue('L22', $maxkN.' ');
       $FT->setCellValue('N22', $minkN.' ');
 
-      $FT->setCellValue('B32', '6');
-      $FT->setCellValue('C32', '-6');
+      $FT->setCellValue('B32', $maxLimitdeplacement);
+      $FT->setCellValue('C32', '-'.$maxLimitdeplacement);
       $FT->setCellValue('B33', $maxLimitkN);
       $FT->setCellValue('C33', $minLimitkN);
       $FT->setCellValue('B34', '');
@@ -907,13 +920,26 @@ $style_gray = array(
       $maxLimitkN = $oEprouvette->MAX()+max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*5/100),0.5);
       $minLimitkN = $oEprouvette->MIN()-max(abs(max(abs($oEprouvette->MAX()), abs($oEprouvette->MIN()))*5/100),0.5);
 
+      if (($essai['other_3']==0) OR ($essai['other_3']=="")) { //Standard
+        $maxLimitdeplacement=6;
+      }
+      elseif ($essai['other_3']==1) { //OCV
+        $maxLimitdeplacement=10;
+      }
+      elseif ($essai['other_3']==2) { //Tube
+        $maxLimitdeplacement=10;
+      }
+      elseif ($essai['other_3']==3) { //Custom
+        $maxLimitdeplacement='';
+      }
+
       $FT->setCellValue('K21', 'MAX (kN)');
       $FT->setCellValue('M21', 'MIN (kN)');
       $FT->setCellValue('K22', $maxkN.' ');
       $FT->setCellValue('M22', $minkN.' ');
 
-      $FT->setCellValue('B32', '6');
-      $FT->setCellValue('C32', '-6');
+      $FT->setCellValue('B32', $maxLimitdeplacement);
+      $FT->setCellValue('C32', '-'.$maxLimitdeplacement);
       $FT->setCellValue('B33', $maxLimitkN);
       $FT->setCellValue('C33', $minLimitkN);
       $FT->setCellValue('B34', '');
@@ -926,13 +952,26 @@ $style_gray = array(
       $maxLimitStrain = $oEprouvette->MAX()+0.15;
       $minLimitStrain = $oEprouvette->MIN()-0.15;
 
+      if (($essai['other_3']==2) OR ($essai['test_type_abbr']=="PS")) { //Tube ou PS
+        $maxLimitdeplacement='';
+      }
+      elseif (($essai['other_3']==0) OR ($essai['other_3']=="")) { //Standard
+        $maxLimitdeplacement=3;
+      }
+      elseif ($essai['other_3']==1) { //OCV
+        $maxLimitdeplacement='';
+      }
+      elseif ($essai['other_3']==3) { //Custom
+        $maxLimitdeplacement='';
+      }
+
       $FT->setCellValue('K21', 'MAX (%)');
       $FT->setCellValue('M21', 'MIN (%)');
       $FT->setCellValue('K22', $maxStrain.' ');
       $FT->setCellValue('M22', $minStrain.' ');
 
-      $FT->setCellValue('B32', '3');
-      $FT->setCellValue('C32', '-3');
+      $FT->setCellValue('B32', $maxLimitdeplacement);
+      $FT->setCellValue('C32', '-'.$maxLimitdeplacement);
       $FT->setCellValue('B33', '');
       $FT->setCellValue('C33', '');
       $FT->setCellValue('B34', $maxLimitStrain);

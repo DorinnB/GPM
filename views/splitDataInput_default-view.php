@@ -48,7 +48,15 @@
             <option value="MPa" <?=  ($split['c_unite']=="MPa")?'selected':'' ?>>MPa</option>
           </select>
         </div>
-
+        <div class="form-group">
+          <label for="other_3">Specific Test :</label>
+          <select id="other_3" name="other_3" class="form-control">
+            <option value="0" <?=  ($split['other_3']== 0)?"selected":""  ?>>Standard</option>
+            <option value="1" <?=  ($split['other_3']== 1)?"selected":""  ?>>OCV</option>
+            <option value="2" <?=  ($split['other_3']== 2)?"selected":""  ?>>Tube</option>
+            <option value="3" <?=  ($split['other_3']== 3)?"selected":""  ?>>Custom</option>
+          </select>
+        </div>
 
 
       </div>
@@ -83,6 +91,13 @@
           <select class="form-control" name="specific_protocol">
             <option value="0" <?=  ($split['specific_protocol']==0)?'selected':''    ?>>No</option>
             <option value="1" <?=  ($split['specific_protocol']==1)?'selected':''    ?>>Yes</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="other_4">Camera :</label>
+          <select id="other_4" name="other_4" class="form-control">
+            <option value="0" <?=  ($split['other_4']== 0)?"selected":""  ?>>No</option>
+            <option value="1" <?=  ($split['other_4']== 1)?"selected":""  ?>>Yes</option>
           </select>
         </div>
       </div>

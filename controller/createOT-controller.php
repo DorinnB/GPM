@@ -589,6 +589,88 @@ $objReader->setIncludeCharts(TRUE);
       }
 
     }
+    ElseIf ($split['test_type_abbr']==".Ma")	{
+
+      $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_.Ma.xlsx");
+
+      $pageEN=$objPHPExcel->getSheetByName('SSTT EN');
+      $pageFR=$objPHPExcel->getSheetByName('SSTT FR');
+
+      //on unserialize les deliveredgoods
+      parse_str($split['other_4'], $deliveredGoods);
+
+      $val2Xls = array(
+        'B4'=> (($split['id_entrepriseST']==1001)?"MRI":strtoupper(str_replace('.','',$split['test_type_abbr']))),
+        'C4'=> (($split['id_entrepriseST']==1001)?$split['job']:$split['job'].'-'.$split['split']),
+        'C5'=> date('Y-m-d'),
+        'C6'=> $split['other_3'],
+        'C7'=> $split['entrepriseST'],
+        'C8'=> $split['prenomST'].' '.$split['nomST'],
+        'G2'=> strtoupper($split['test_type']),
+
+        'D13'=> $split['customer'].'-'.$split['job'],
+        'D14'=> $split['po_number'] .' - '.$split['info_jobs_instruction'],
+        'D15'=> $split['ref_matiere'],
+        'D16'=> $split['dessin'],
+
+        'F14'=> (isset($deliveredGoods['1_DG'])?$deliveredGoods['1_DG']:""),
+        'G14'=> (isset($deliveredGoods['1_DGQty'])?$deliveredGoods['1_DGQty']:""),
+        'F15'=> (isset($deliveredGoods['2_DG'])?$deliveredGoods['2_DG']:""),
+        'G15'=> (isset($deliveredGoods['2_DGQty'])?$deliveredGoods['2_DGQty']:""),
+        'F16'=> (isset($deliveredGoods['3_DG'])?$deliveredGoods['3_DG']:""),
+        'G16'=> (isset($deliveredGoods['3_DGQty'])?$deliveredGoods['3_DGQty']:""),
+
+        'D21'=> $split['DyT_SubC'],
+        'F21'=> (($split['other_1']==0)?'NO':'Fatigue Specimen'),
+        'C22'=> $split['nbep'],
+        'F22'=> (($split['other_2']==0)?'NO':'Yes'),
+        'C23'=> $split['specification'].' - '.$split['tbljob_instruction'],
+        'C24'=> $split['tbljob_commentaire']
+      );
+
+      //Pour chaque element du tableau associatif, on update les cellules Excel
+      foreach ($val2Xls as $key => $value) {
+        $pageEN->setCellValue($key, $value);
+        $pageFR->setCellValue($key, $value);
+      }
+
+
+      $row = 27; // 1-based index
+      $col = 0;
+
+      foreach ($ep as $key => $value) {
+        //copy des styles des colonnes
+        for ($col = 0; $col < 8; $col++) {
+          $style = $pageEN->getStyleByColumnAndRow($col, $row);
+          $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row+1);
+          $pageEN->duplicateStyle($style, $dstCell);
+
+          $style = $pageFR->getStyleByColumnAndRow($col, $row);
+          $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row+1);
+          $pageFR->duplicateStyle($style, $dstCell);
+        }
+
+        $pageEN->mergeCells('A'.$row.':C'.$row);
+        $pageEN->mergeCells('E'.$row.':H'.$row);
+        $pageEN->setCellValueByColumnAndRow(0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
+        $pageEN->setCellValueByColumnAndRow(3, $row, $value['dessin']);
+        $pageEN->setCellValueByColumnAndRow(4, $row, $value['c_commentaire']);
+
+        $pageFR->mergeCells('A'.$row.':C'.$row);
+        $pageFR->mergeCells('E'.$row.':H'.$row);
+        $pageFR->setCellValueByColumnAndRow(0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
+        $pageFR->setCellValueByColumnAndRow(3, $row, $value['dessin']);
+        $pageFR->setCellValueByColumnAndRow(4, $row, (($value['c_type_1_val']>0)?'Inertial Welding - ':'').$value['c_commentaire']);
+
+        $row++;
+      }
+
+      //zone d'impression
+      $colString = PHPExcel_Cell::stringFromColumnIndex($col-1);
+      $pageEN->getPageSetup()->setPrintArea('A1:'.$colString.($row-1));
+      $pageFR->getPageSetup()->setPrintArea('A1:'.$colString.($row-1));
+
+    }
     ElseIf ($split['ST']=="1")	{
 
       $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_.Default.xlsx");
