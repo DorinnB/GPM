@@ -22,6 +22,9 @@
         <th>Ovl-C1</th>
         <th>Ovl-C2</th>
         <th>Ovl-C</th>
+        <th>Ovl-C3</th>
+        <th>Ovl-C4</th>
+        <th>Ovl-C</th>
         <th>Ovl-B1</th>
         <th>Ovl-B2</th>
         <th>Ovl-B</th>
@@ -49,6 +52,9 @@
         <th>Ovl-T</th>
         <th>Ovl-C1</th>
         <th>Ovl-C2</th>
+        <th>Ovl-C</th>
+        <th>Ovl-C3</th>
+        <th>Ovl-C4</th>
         <th>Ovl-C</th>
         <th>Ovl-B1</th>
         <th>Ovl-B2</th>
@@ -108,6 +114,10 @@
           <td><?= $ep[$k]['val_4'] ?></td>
           <td><?= ((($ep[$k]['val_3'])*$ep[$k]['val_4']*$ep[$k]['dim1']>0)?
           sprintf("%.2f%%",abs($ep[$k]['val_3']-$ep[$k]['val_4'])/$ep[$k]['dim1']*100):'') ?></td>
+          <td><?= $ep[$k]['val_7'] ?></td>
+          <td><?= $ep[$k]['val_8'] ?></td>
+          <td><?= ((($ep[$k]['val_7'])*$ep[$k]['val_8']*$ep[$k]['dim1']>0)?
+          sprintf("%.2f%%",abs($ep[$k]['val_7']-$ep[$k]['val_8'])/$ep[$k]['dim1']*100):'') ?></td>
           <td><?= $ep[$k]['val_5'] ?></td>
           <td><?= $ep[$k]['val_6'] ?></td>
           <td><?= ((($ep[$k]['val_5'])*$ep[$k]['val_6']*$ep[$k]['dim1']>0)?

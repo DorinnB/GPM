@@ -156,13 +156,17 @@
                     <div class="col-md-10">
                       <div class="col-md-4">
                         <label for="val_1" class="small">Res. Load :</label>
-                        <input type="text" class="MaJ form-control small input-sm <?= ($eprouvette['other_1']==0)?'PS1_0':'PS1_1' ?>" name="val_1" value="<?= $eprouvette['val_1'] ?>" <?= ($eprouvette['check_rupture']<=0)?"":"disabled"  ?>>
-                        <input type="text" class="MaJ form-control small input-sm <?= ($eprouvette['other_1']==0)?'PS2_0':'PS2_1' ?>" name="val_2" value="<?= $eprouvette['val_2'] ?>" <?= ($eprouvette['check_rupture']<=0)?"":"disabled"  ?>>
+                        <input type="text" class="MaJ form-control small input-sm PS_Val_<?= $eprouvette['other_1'] ?> <?= ($eprouvette['other_1']<0)?'hide':'' ?>" name="val_1" value="<?= $eprouvette['val_1'] ?>" <?= ($eprouvette['check_rupture']<=0)?"":"disabled"  ?>>
+                        <input type="text" class="MaJ form-control small input-sm PS_Val_<?= $eprouvette['other_1'] ?> <?= ($eprouvette['other_1']<1)?'hide':'' ?>" name="val_2" value="<?= $eprouvette['val_2'] ?>" <?= ($eprouvette['check_rupture']<=0)?"":"disabled"  ?>>
+                        <input type="text" class="MaJ form-control small input-sm PS_Val_<?= $eprouvette['other_1'] ?> <?= ($eprouvette['other_1']<2)?'hide':'' ?>" name="val_6" value="<?= $eprouvette['val_6'] ?>" <?= ($eprouvette['check_rupture']<=0)?"":"disabled"  ?>>
+                        <input type="text" class="MaJ form-control small input-sm PS_Val_<?= $eprouvette['other_1'] ?> <?= ($eprouvette['other_1']<3)?'hide':'' ?>" name="val_7" value="<?= $eprouvette['val_7'] ?>" <?= ($eprouvette['check_rupture']<=0)?"":"disabled"  ?>>
                       </div>
                       <div class="col-md-4 col-md-offset-1">
                         <label for="val_3" class="small">Straightning&nbsp;(mm)&nbsp;:</label>
-                        <input type="text" class="MaJ form-control small input-sm <?= ($eprouvette['other_1']==0)?'PS1_0':'PS1_1' ?>" name="val_3" value="<?= $eprouvette['val_3'] ?>" <?= ($eprouvette['check_rupture']<=0)?"":"disabled"  ?>>
-                        <input type="text" class="MaJ form-control small input-sm <?= ($eprouvette['other_1']==0)?'PS2_0':'PS2_1' ?>" name="val_4" value="<?= $eprouvette['val_4'] ?>" <?= ($eprouvette['check_rupture']<=0)?"":"disabled"  ?>>
+                        <input type="text" class="MaJ form-control small input-sm PS_Val_<?= $eprouvette['other_1'] ?> <?= ($eprouvette['other_1']<0)?'hide':'' ?>" name="val_3" value="<?= $eprouvette['val_3'] ?>" <?= ($eprouvette['check_rupture']<=0)?"":"disabled"  ?>>
+                        <input type="text" class="MaJ form-control small input-sm PS_Val_<?= $eprouvette['other_1'] ?> <?= ($eprouvette['other_1']<1)?'hide':'' ?>" name="val_4" value="<?= $eprouvette['val_4'] ?>" <?= ($eprouvette['check_rupture']<=0)?"":"disabled"  ?>>
+                        <input type="text" class="MaJ form-control small input-sm PS_Val_<?= $eprouvette['other_1'] ?> <?= ($eprouvette['other_1']<2)?'hide':'' ?>" name="val_8" value="<?= $eprouvette['val_8'] ?>" <?= ($eprouvette['check_rupture']<=0)?"":"disabled"  ?>>
+                        <input type="text" class="MaJ form-control small input-sm PS_Val_<?= $eprouvette['other_1'] ?> <?= ($eprouvette['other_1']<3)?'hide':'' ?>" name="val_9" value="<?= $eprouvette['val_9'] ?>" <?= ($eprouvette['check_rupture']<=0)?"":"disabled"  ?>>
                       </div>
 
                       <div class="col-md-2 col-md-offset-1">

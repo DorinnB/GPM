@@ -68,7 +68,7 @@ class EprouvetteModel
     d_commentaire, check_rupture, flag_qualite, checked,
     n_essai, n_fichier, machine, enregistrementessais.date, eprouvettes.waveform, Rupture, Fracture,
     eprouvette_InOut_A, eprouvette_InOut_B,
-    val_1,val_2,val_3,val_4,val_5,val_6,
+    val_1,val_2,val_3,val_4,val_5,val_6,val_7,val_8,val_9,val_10,
     other_1, other_2, other_3, other_4, other_5,
     comments,
 
@@ -517,7 +517,7 @@ class EprouvetteModel
       ind_temps_strap.ind_temp as ind_temp_strap,
       ind_temps_bot.ind_temp as ind_temp_bot,
       name, GE,
-      val_1,val_2,val_3,val_4,val_5,val_6,
+      val_1,val_2,val_3,val_4,val_5,val_6,val_7,val_8,val_9,val_10,
       master_eprouvette_inOut_A,
       if(IF(Cycle_final is null,Cycle_final_temp, cycle_final) >0 AND c_frequence is not null and c_frequence !=0,
         CEIL(
@@ -648,6 +648,10 @@ LEFT JOIN outillages outillage_bots ON outillage_bots.id_outillage=postes.id_out
 
     public function niveaumaxmin($consigne_type_1, $consigne_type_2, $consigne_type_1_val, $consigne_type_2_val){
 
+      // on evite les variable en string en les passant en float
+      $consigne_type_1_val=floatval($consigne_type_1_val);
+      $consigne_type_2_val=floatval($consigne_type_2_val);
+
       $this->_R="";
       $this->_R=($consigne_type_1=="R")?$consigne_type_1_val:$this->_R;
       $this->_R=($consigne_type_2=="R")?$consigne_type_2_val:$this->_R;
@@ -670,7 +674,7 @@ LEFT JOIN outillages outillage_bots ON outillage_bots.id_outillage=postes.id_out
       $this->_ALT=($consigne_type_2=="Range")?$consigne_type_2_val/2:$this->_ALT;
 
 
-      If ((($this->_R != "") OR ($this->_R == 0)) And ($this->_A == ""))	{
+      If (is_numeric($this->_R) And !is_numeric($this->_A))	{
         If ($this->_R == -1) {
           $this->_A = "Infini";
         }
@@ -678,36 +682,35 @@ LEFT JOIN outillages outillage_bots ON outillage_bots.id_outillage=postes.id_out
           $this->_A = (1 - $this->_R) / (1 + $this->_R);
         }
       }
-      elseif ((($this->_A != "") OR ($this->_A == 0)) And ($this->_R == ""))	{
+      elseif (is_numeric($this->_A) And !is_numeric($this->_R))	{
         $this->_R = (1 - $this->_A) / (1 + $this->_A);
       }
 
 
-
       //Si ON a $this->_R (et donc $this->_A), ON calcule les autres valeurs selon la 2eme reference
 
-      If (($this->_R != "") OR ($this->_R == 0)) {
+      If (is_numeric($this->_R)) {
         If ($this->_MAX != "") {
           $this->_MIN = $this->_MAX * $this->_R;
           $this->_MEAN = ($this->_MAX + $this->_MIN) / 2;
           $this->_ALT = $this->_MAX - $this->_MEAN;
         }
-        ElseIf (($this->_MEAN != "") And ($this->_R != -1)) {
+        ElseIf (is_numeric($this->_MEAN != "") And ($this->_R != -1)) {
           $this->_ALT = $this->_MEAN * $this->_A;
           $this->_MAX = $this->_MEAN + $this->_ALT;
           $this->_MIN = $this->_MEAN - $this->_ALT;
         }
-        ElseIf (($this->_ALT != "") And ($this->_R == -1)) {
+        ElseIf (is_numeric($this->_ALT) And ($this->_R == -1)) {
           $this->_MEAN = 0;
           $this->_MAX = $this->_ALT;
           $this->_MIN = -$this->_ALT;
         }
-        ElseIf (($this->_ALT != "") And ($this->_R != -1)) {
+        ElseIf (is_numeric($this->_ALT) And ($this->_R != -1)) {
           $this->_MEAN = $this->_ALT / $this->_A;
           $this->_MAX = $this->_MEAN + $this->_ALT;
           $this->_MIN = $this->_MEAN - $this->_ALT;
         }
-        ElseIf ($this->_MIN != "") {
+        ElseIf (is_numeric($this->_MIN)) {
           $this->_MAX = $this->_MIN / $this->_R;
           $this->_MEAN = ($this->_MAX + $this->_MIN) / 2;
           $this->_ALT = $this->_MAX - $this->_MEAN;
@@ -715,39 +718,56 @@ LEFT JOIN outillages outillage_bots ON outillage_bots.id_outillage=postes.id_out
 
       }
       //Si l'on a pas $this->_R (et donc ni $this->_A), ON calcule les autres valeurs selon les 2 references
-      ElseIf ($this->_R == "") {
-        If (($this->_MAX != "") And ($this->_MIN != "")) {
+      ElseIf (!is_numeric($this->_R)) {
+        If (is_numeric($this->_MAX) And is_numeric($this->_MIN)) {
           $this->_MEAN = ($this->_MAX + $this->_MIN) / 2;
           $this->_ALT = $this->_MAX - $this->_MEAN;
         }
-        ElseIf (($this->_MEAN != "") And ($this->_ALT != "")) {
+        ElseIf (is_numeric($this->_MEAN) And is_numeric($this->_ALT)) {
           $this->_MAX = $this->_MEAN + $this->_ALT;
           $this->_MIN = $this->_MEAN - $this->_ALT;
         }
-        ElseIf (($this->_MAX != "") And ($this->_MEAN != "")) {
+        ElseIf (is_numeric($this->_MAX) And is_numeric($this->_MEAN)) {
           $this->_ALT = $this->_MAX - $this->_MEAN;
           $this->_MIN = $this->_MEAN - $this->_ALT;
         }
-        ElseIf (($this->_MAX != "") And ($this->_ALT != "")) {
+        ElseIf (is_numeric($this->_MAX) And is_numeric($this->_ALT)) {
           $this->_MEAN = $this->_MAX - $this->_ALT;
           $this->_MIN = $this->_MEAN - $this->_ALT;
         }
-        ElseIf (($this->_MIN != "") And ($this->_MEAN != "")) {
+        ElseIf (is_numeric($this->_MIN) And is_numeric($this->_MEAN)) {
           $this->_ALT = $this->_MEAN - $this->_MIN;
           $this->_MAX = $this->_MEAN + $this->_ALT;
         }
-        ElseIf (($this->_MIN != "") And ($this->_ALT != "")) {
+        ElseIf (is_numeric($this->_MIN) And is_numeric($this->_ALT)) {
           $this->_MEAN = $this->_ALT - $this->_MIN;
           $this->_MAX = $this->_MEAN + $this->_ALT;
         }
 
-        If ($this->_MAX !=0)  {
-          $this->_R=$this->_MIN/$this->_MAX;
-          If ($this->_R == -1)  {
-            $this->_A = "Infini";
+
+        if ($consigne_type_1=="-" OR $consigne_type_2=="-" OR $consigne_type_1=="" OR $consigne_type_2=="") {
+          // Pas de consigne à calculer
+        }
+        else {
+          If ($this->_MAX !="0")  {
+            $this->_R=$this->_MIN/$this->_MAX;
+            If ($this->_R == -1)  {
+              $this->_A = "Infini";
+            }
+            else{
+              $this->_A = (1 - $this->_R) / (1 + $this->_R);
+            }
           }
-          Else{
-            $this->_A = (1 - $this->_R) / (1 + $this->_R);
+          elseif ($this->_MAX == "0") {
+            if ($this->_MIN=="0") {
+              $this->_R = "NULL";
+              $this->_A= "NULL";
+            }
+            else {
+              $this->_R = "Infini";
+              $this->_A=$this->_ALT/$this->_MEAN;
+            }
+
           }
         }
       }

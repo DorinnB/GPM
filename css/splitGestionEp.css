@@ -111,15 +111,19 @@
   padding:2px;
 }
 
-.PS1_0  {
-  display:inline; width:100%;
+
+.PS_Val_0  {
+  width: 100%;
 }
-.PS1_1  {
-  display:inline; width:45%;
+.PS_Val_1  {
+    display:inline;
+  width: 45%;
 }
-.PS2_0  {
-  display:none;
+.PS_Val_2  {
+    display:inline;
+  width: 45%;
 }
-.PS2_1  {
-  display:inline; width:45%;
+.PS_Val_3  {
+    display:inline;
+  width: 45%;
 }

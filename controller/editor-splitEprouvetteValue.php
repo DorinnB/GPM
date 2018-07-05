@@ -73,6 +73,10 @@ Editor::inst( $db, 'eprouvettes' )
   Field::inst( 'eprouvettes.val_4')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.val_5')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.val_6')->setFormatter( 'Format::nullEmpty' ),
+  Field::inst( 'eprouvettes.val_7')->setFormatter( 'Format::nullEmpty' ),
+  Field::inst( 'eprouvettes.val_8')->setFormatter( 'Format::nullEmpty' ),
+  Field::inst( 'eprouvettes.val_9')->setFormatter( 'Format::nullEmpty' ),
+  Field::inst( 'eprouvettes.val_10')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.d_checked')->setFormatter( 'Format::nullEmpty' ),
     Field::inst( 'eprouvettes.currentBlock')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.d_modif' )->set( Field::SET_EDIT )

@@ -91,6 +91,18 @@
                         </div>
 
                         <div class="form-group">
+                          <label class="control-label col-sm-2" for="val_7">C3&nbsp;:</label>
+                          <div class="col-sm-4">
+                            <input type="text" class="MaJ form-control input-sm <?= ($eprouvette['val_7']=="")?'newval':'' ?>" name="val_7" id="val_7" value="<?= $eprouvette['val_7'] ?>" <?= ($eprouvette['d_checked']>0)?"disabled":""  ?>>
+                          </div>
+
+                          <label class="control-label col-sm-2" for="val_8">C4&nbsp;:</label>
+                          <div class="col-sm-4">
+                            <input type="text" class="MaJ form-control input-sm <?= ($eprouvette['val_8']=="")?'newval':'' ?>" name="val_8" id="val_8" value="<?= $eprouvette['val_8'] ?>" <?= ($eprouvette['d_checked']>0)?"disabled":""  ?>>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
                           <label class="control-label col-sm-2" for="val_5">B1&nbsp;:</label>
                           <div class="col-sm-4">
                             <input type="text" class="MaJ form-control input-sm <?= ($eprouvette['val_5']=="")?'newval':'' ?>" name="val_5" id="val_5" value="<?= $eprouvette['val_5'] ?>" <?= ($eprouvette['d_checked']>0)?"disabled":""  ?>>
