@@ -22,8 +22,8 @@ Editor::inst( $db, 'test_type' )
     ->validator( 'Validate::notEmpty' ),
   Field::inst( 'test_type.test_type_abbr')
     ->validator( 'Validate::notEmpty' ),
-  Field::inst( 'test_type.test_type_cust'),
-
+  Field::inst( 'test_type.test_type_cust')
+    ->validator( 'Validate::notEmpty' ),
   Field::inst( 'test_type.final')
     ->validator( 'Validate::numeric' )
     ->validator( 'Validate::notEmpty' ),

@@ -12,6 +12,7 @@ $(document).ready(function() {
     fields: [
       { label: "Designation", name: "test_type.test_type"  },
       { label: "Test Type Abbrevation", name: "test_type.test_type_abbr"  },
+      { label: "Test Type Customer", name: "test_type.test_type_cust"  },
       { label: "Final Split (0 or 1)", name: "test_type.final"  },
       { label: "Auxiliary Type (0 or 1)", name: "test_type.auxilaire"  },
       { label: "SubC Test  (0 or 1) (Abbr should start with a dot)", name: "test_type.ST"  },
@@ -41,6 +42,7 @@ var table = $('#table_test_type').DataTable( {
   columns: [
     { data: "test_type.test_type" },
     { data: "test_type.test_type_abbr" },
+    { data: "test_type.test_type_cust" },
     { data: "test_type.final" },
     { data: "test_type.auxilaire" },
     { data: "test_type.ST" },
@@ -68,8 +70,7 @@ var table = $('#table_test_type').DataTable( {
   },
   buttons: [
     { extend: "create", editor: editor },
-    { extend: "edit",   editor: editor },
-    { extend: "remove", editor: editor }
+    { extend: "edit",   editor: editor }
   ]
 } );
 

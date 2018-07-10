@@ -26,6 +26,7 @@
 					<th><acronym title='Temperature °C'>T°C</acronym></th>
 					<th><acronym title='Material'>Material</acronym></th>
 					<th><acronym title='Drawing'>Drawing</acronym></th>
+					<th><acronym title='Drawing Type'>Dwg Type</acronym></th>
 					<th><acronym title='Availability'>Avail.</acronym></th>
 					<th><acronym title='Delivery Time'>Dy T.</acronym></th>
 					<th><acronym title='Expected Time'>Exp. T.</acronym></th>
@@ -49,6 +50,7 @@
 					<th><acronym title='Temperature °C'>T°C</acronym></th>
 					<th><acronym title='Material'>Material</acronym></th>
 					<th><acronym title='Drawing'>Drawing</acronym></th>
+					<th><acronym title='Drawing Type'>Dwg Type</acronym></th>
 					<th><acronym title='Availability'>Avail.</acronym></th>
 					<th><acronym title='Delivery Time'>Dy T.</acronym></th>
 					<th><acronym title='Expected Time'>Exp. T.</acronym></th>
@@ -107,6 +109,7 @@
 						<td><?= round($row['temperature'],1) ?></td>
 						<td><?= $row['ref_matiere'] ?></td>
 						<td><?= $row['dessin'] ?></td>
+						<td><?= $row['gripType'].' '.$row['gripDimension'] ?></td>
 						<td><?= $row['available'] ?></td>
 						<td><?= $row['DyT_Cust'] ?></td>
 						<td><?= $row['DyT_expected'] ?></td>

@@ -75,7 +75,7 @@ class LstJobsModel
           customer, job, split,
 					test_type_abbr, final,
           etape, matiere, ref_matiere,
-          GROUP_CONCAT(DISTINCT(dessin) SEPARATOR " ") as dessin,
+          GROUP_CONCAT(DISTINCT(dessin) SEPARATOR " ") as dessin,GROUP_CONCAT(DISTINCT(gripType) SEPARATOR " ") as gripType, GROUP_CONCAT(DISTINCT(gripDimension) SEPARATOR " ") as gripDimension,
           GROUP_CONCAT(DISTINCT(c_temperature) SEPARATOR " ") as temperature,
           DyT_expected, DyT_Cust, DyT_SubC, refSubC,
 					count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbep,
@@ -376,7 +376,7 @@ class LstJobsModel
     public function getWeeklyReportJob($id_infojob) {
         $req = 'SELECT id_tbljob,
             tbljobs.id_statut, statut_color, statut_client,customer, statuts.etape, statuts.statut,
-            job, split, test_type_abbr, DyT_Cust,
+            job, split, test_type_abbr, test_type_cust, DyT_Cust,
             count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbep,
             count((eprouvettes.id_eprouvette)) as nbtestplanned,
             if(count(n_fichier)=0, sum(if(d_checked > 0,1,0)),count(n_fichier)) as nbtest,

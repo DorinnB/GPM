@@ -5,6 +5,7 @@
     <tr>
       <th>Designation</th>
       <th><acronym title="Test Type Abbrevation">Abbr</acronym></th>
+      <th><acronym title="Test Type Customer">Customer</acronym></th>
       <th><acronym title="Final Split">F.</acronym></th>
       <th><acronym title="auxiliary Type">Aux</acronym></th>
       <th><acronym title="SubC Test (should start with a dot)">SubC.</acronym></th>
@@ -16,6 +17,7 @@
     <tr>
       <th>Designation</th>
       <th><acronym title="Test Type Abbrevation">Abbr</acronym></th>
+      <th><acronym title="Test Type Customer">Customer</acronym></th>
       <th><acronym title="Final Split">F.</acronym></th>
       <th><acronym title="auxiliary Type">Aux</acronym></th>
       <th><acronym title="SubC Test (should start with a dot)">SubC.</acronym></th>
