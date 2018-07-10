@@ -91,7 +91,7 @@ foreach ($lstJobCust as $key => $value) {
   $page->setCellValueByColumnAndRow(4, $row, 'Réception Matière');
   $page->setCellValueByColumnAndRow(5, $row, $value['nbreceived']);
   $page->setCellValueByColumnAndRow(6, $row, $value['nbep']);
-  $page->setCellValueByColumnAndRow(7, $row, (isset($value['firstReceived'])?'Receipt '.$value['firstReceived']:''));
+  $page->setCellValueByColumnAndRow(7, $row, (isset($value['firstReceived'])?'Receipt '.$value['firstReceived']:' Not Received'));
   $page->setCellValueByColumnAndRow(8, $row, $value['available_expected']);
   $page->setCellValueByColumnAndRow(9, $row, $value['weeklyComment']);
   $page->setCellValueByColumnAndRow(10, $row, $value['contactsXLS']);
@@ -109,7 +109,7 @@ foreach ($lstJobCust as $key => $value) {
     }
 
     $page->setCellValueByColumnAndRow(3, $row, $v['split']);
-    $page->setCellValueByColumnAndRow(4, $row, $v['test_type_abbr']);
+    $page->setCellValueByColumnAndRow(4, $row, $v['test_type_cust']);
     $page->setCellValueByColumnAndRow(5, $row, $v['nbtest']);
     $page->setCellValueByColumnAndRow(6, $row, $v['nbtestplanned']);
     $page->setCellValueByColumnAndRow(7, $row, $v['statut_client']);
