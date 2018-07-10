@@ -164,7 +164,7 @@
           </div>
           <div class="col-md-2">
           </div>
-          <div class="col-md-4">
+          <div class="col-md-4"><?php $n_poste=27; include("lab-poste-small-view.php"); ?>
 
           </div>
           <div class="col-md-1">

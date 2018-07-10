@@ -194,14 +194,14 @@
           <div style="background-color:;border: 1px solid black;">Frame (<?= $planned['nb'] ?> Planned)</div>
           <?= (isset(array_count_values($runStop)['RUN'])?'<div style="background-color:darkgreen;border: 1px solid black;"> Running : '.array_count_values($runStop)['RUN'].'</div>':'') ?>
           <?= (isset(array_count_values($runStop)['WIP'])?'<div style="background-color:Sienna;border: 1px solid black;"> WIP : '.array_count_values($runStop)['WIP'].'</div>':'') ?>
+          <div style="background-color:;border: 1px solid black; margin-top:5px;">Split</div>
+          <?php foreach ($splitToDo as $row): ?>
+            <div style="background-color:<?=  $row['statut_color']  ?>;border: 1px solid black;"><?= $row['statut'].' '.$row['nb'] ?></div>
+          <?php endforeach  ?>
         </div>
         <div class="col-md-1">
         </div>
-        <div class="col-md-4">
-                    <div style="background-color:;border: 1px solid black;">Split</div>
-<?php foreach ($splitToDo as $row): ?>
-          <div style="background-color:<?=  $row['statut_color']  ?>;border: 1px solid black;"><?= $row['statut'].' '.$row['nb'] ?></div>
-<?php endforeach  ?>
+        <div class="col-md-4"><?php $n_poste=27; include("views/lab-poste-large-view.php"); ?>
         </div>
         <div class="col-md-1">
         </div>
@@ -248,23 +248,23 @@ require('views/login-view.php');
 
 <style>
 .custom-menu {
-display: none;
-z-index: 1000;
-position: absolute;
-overflow: hidden;
-border: 1px solid #CCC;
-white-space: nowrap;
-font-family: sans-serif;
-background: #FFF;
-color: #333;
-border-radius: 5px;
+  display: none;
+  z-index: 1000;
+  position: absolute;
+  overflow: hidden;
+  border: 1px solid #CCC;
+  white-space: nowrap;
+  font-family: sans-serif;
+  background: #FFF;
+  color: #333;
+  border-radius: 5px;
 }
 
 .custom-menu li {
-cursor: pointer;
+  cursor: pointer;
 }
 
 .custom-menu li:hover {
-background-color: #DEF;
+  background-color: #DEF;
 }
 </style>
