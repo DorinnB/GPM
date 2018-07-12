@@ -55,7 +55,7 @@ class QualiteModel
         WHERE enregistrementessais.date BETWEEN '.$this->db->quote($startDate).' AND '.$this->db->quote($endDate).'
         GROUP BY incident_cause
         ORDER BY count(*) DESC';
-        echo $req;
+        //echo $req;
         return $this->db->getAll($req);
     }
 
