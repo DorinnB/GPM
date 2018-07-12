@@ -13,7 +13,7 @@ class QualiteModel
         FROM tbljobs
         LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
 
-        WHERE checked = 0 AND tbljob_actif=1
+        WHERE checked = 0 AND tbljob_actif=1 AND invoice_type!=2
         GROUP BY id_tbljob
         ORDER BY job, split';
         //echo $req;
