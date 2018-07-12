@@ -46,6 +46,19 @@ class QualiteModel
         return $this->db->getAll($req);
     }
 
+    public function getFlagPareto($startDate='2000-01-01',$endDate="NOW()") {
+      $req='SELECT count(*) as nb, incident_cause
+        FROM `flagqualite_incidentcauses`
+        LEFT JOIN incident_causes ON incident_causes.id_incident_cause=flagqualite_incidentcauses.id_incident_cause
+        LEFT JOIN eprouvettes ON flagqualite_incidentcauses.id_eprouvette=eprouvettes.id_eprouvette
+        LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
+        WHERE enregistrementessais.date BETWEEN '.$this->db->quote($startDate).' AND '.$this->db->quote($endDate).'
+        GROUP BY incident_cause
+        ORDER BY count(*) DESC';
+        echo $req;
+        return $this->db->getAll($req);
+    }
+
     public function getTemperatureCorrectionParameters() {
       $req='SELECT *
         FROM temperature_correction_parameters

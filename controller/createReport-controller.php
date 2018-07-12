@@ -1754,19 +1754,22 @@ ElseIf ($split['test_type_abbr']=="Ovl")	{
     $pvEssais->setCellValueByColumnAndRow($col, 17, $value['val_3']);
     $pvEssais->setCellValueByColumnAndRow($col, 18, $value['val_4']);
     $pvEssais->setCellValueByColumnAndRow($col, 19, (abs($value['val_3']-$value['val_4'])/$value['dim1']));
-    $pvEssais->setCellValueByColumnAndRow($col, 20, $value['val_5']);
-    $pvEssais->setCellValueByColumnAndRow($col, 21, $value['val_6']);
-    $pvEssais->setCellValueByColumnAndRow($col, 22, (abs($value['val_5']-$value['val_6'])/$value['dim1']));
+    $pvEssais->setCellValueByColumnAndRow($col, 20, $value['val_7']);
+    $pvEssais->setCellValueByColumnAndRow($col, 21, $value['val_8']);
+    $pvEssais->setCellValueByColumnAndRow($col, 22, (abs($value['val_7']-$value['val_8'])/$value['dim1']));
+    $pvEssais->setCellValueByColumnAndRow($col, 23, $value['val_5']);
+    $pvEssais->setCellValueByColumnAndRow($col, 24, $value['val_6']);
+    $pvEssais->setCellValueByColumnAndRow($col, 25, (abs($value['val_5']-$value['val_6'])/$value['dim1']));
 
 
     if ($value['q_commentaire']!="") {
 
       $nb_q+=1; //on incremente le nombre de commentaire
 
-      $pvEssais->setCellValueByColumnAndRow($col, 25, '('.($nb_q).')');
-      $pvEssais->setCellValueByColumnAndRow($col_q, 27, $prev_value.' ('.($nb_q).') Test '.$value['n_fichier'].': '.$value['q_commentaire']."\n");
-      $pvEssais->mergeCells(PHPExcel_Cell::stringFromColumnIndex($col_q).'27:'.PHPExcel_Cell::stringFromColumnIndex($col_q+($nbPage-1)).'50');
-      $pvEssais->getRowDimension(27)->setRowHeight(-1);
+      $pvEssais->setCellValueByColumnAndRow($col, 28, '('.($nb_q).')');
+      $pvEssais->setCellValueByColumnAndRow($col_q, 30, $prev_value.' ('.($nb_q).') Test '.$value['n_fichier'].': '.$value['q_commentaire']."\n");
+      $pvEssais->mergeCells(PHPExcel_Cell::stringFromColumnIndex($col_q).'30:'.PHPExcel_Cell::stringFromColumnIndex($col_q+($nbPage-1)).'50');
+      $pvEssais->getRowDimension(30)->setRowHeight(-1);
 
 
       //calcul de la hauteur max de la cellule de commentaire Qualité
@@ -1777,7 +1780,7 @@ ElseIf ($split['test_type_abbr']=="Ovl")	{
         $rc += intval((strlen($source) / $width) +1);
       }
       $maxheight=max($maxheight,$rc);
-      $pvEssais->getRowDimension(27)->setRowHeight($maxheight * 12.75 + 13.25);
+      $pvEssais->getRowDimension(30)->setRowHeight($maxheight * 12.75 + 13.25);
 
 
     }
