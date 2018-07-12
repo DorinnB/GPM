@@ -36,7 +36,7 @@ class LstSplitModel
     tbljob_commentaire, tbljob_instruction, tbljob_commentaire_qualite, planning, tbljob_frequence,
     GE, specific_protocol, special_instruction, staircase,
     createur, t1.technicien as nomCreateur, t2.technicien as comCheckeur,
-    statuts.id_statut, statut, etape, statut_color, test_type, test_type_abbr, test_type_cust, ST, tbljobs.id_rawData, rawData.name, report_rev,
+    statuts.id_statut, statut, etape, statut_color, test_type, test_type_abbr, test_type_cust, ST, auxilaire, tbljobs.id_rawData, rawData.name, report_rev,
     invoice_type, invoice_date, invoice_commentaire, invoice_lang, invoice_currency,
     specification, ref_matiere, matiere, tbljobs.waveform, GROUP_CONCAT(DISTINCT dessin SEPARATOR " ") as dessin, GROUP_CONCAT(DISTINCT master_eprouvettes.id_dwg SEPARATOR " ") as id_dessin,
     other_1, other_2, other_3, other_4, other_5,

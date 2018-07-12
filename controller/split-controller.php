@@ -32,8 +32,11 @@ if (file_exists($filenameData)) {
   $splitData_ctrl=$filenameData;
 }
 else{
-  if (substr($split['test_type_abbr'],0,1)==".") {
+  if ($split['ST']==1) {
   $splitData_ctrl=  'controller/splitData_.default-controller.php';
+  }
+  elseif ($split['auxilaire']==1) {
+  $splitData_ctrl=  'controller/splitData_defaultAux-controller.php';
   }
   else {
   $splitData_ctrl=  'controller/splitData_default-controller.php';

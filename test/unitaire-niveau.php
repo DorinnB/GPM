@@ -141,8 +141,18 @@ $n=0;
     "c_type_1_val"=> "",
     "c_type_2_val"=> ""
   );$n++;
-
-
+  $ep[$n]=array(
+    "c_1_type"=> "R",
+    "c_2_type"=> "R",
+    "c_type_1_val"=> "0",
+    "c_type_2_val"=> "0"
+  );$n++;
+  $ep[$n]=array(
+    "c_1_type"=> "Max",
+    "c_2_type"=> "Max",
+    "c_type_1_val"=> "100",
+    "c_type_2_val"=> "50"
+  );$n++;
 
 
 
