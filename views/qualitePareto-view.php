@@ -1,9 +1,9 @@
-<link href="css/frameUtilization.css" rel="stylesheet">
-
+<script type="text/javascript" src="jquery/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+<link rel="stylesheet" href="jquery/jquery-ui-1.12.1.custom/jquery-ui.css">
 <script src="lib/plotly/plotly-latest.min.js"></script>
 
 
-
+<a href="index.php?page=qualitePareto<?=  isset($_GET['startDate'])?'&startDate='.$_GET['startDate']:''  ?><?=  isset($_GET['endDate'])?'&endDate='.$_GET['endDate']:''  ?>" style="height:100%;">
   <div id="chartPareto" style="height:100%;"></div>
 
 
@@ -21,6 +21,21 @@
   ?>
 
   <script>
+  $( "#startDate" ).datepicker({
+    showWeek: true,
+    firstDay: 1,
+    showOtherMonths: true,
+    selectOtherMonths: true,
+    dateFormat: "yy-mm-dd"
+  });
+  $( "#endDate" ).datepicker({
+    showWeek: true,
+    firstDay: 1,
+    showOtherMonths: true,
+    selectOtherMonths: true,
+    dateFormat: "yy-mm-dd"
+  });
+
   var data = [{
     x: [''<?= $traceX	?>],
     y: [''<?= $traceY	?>],
@@ -49,3 +64,5 @@
   Plotly.newPlot('chartPareto', data, layout);
 
   </script>
+
+</a>
