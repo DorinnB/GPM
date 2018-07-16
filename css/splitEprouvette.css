@@ -73,10 +73,10 @@ table td.flag_qualite {
   background-color:transparent;
 }
 table td.flag_qualite:not([data-flagQualite="0"])  {
-  color:#b96500;
-  background-color:#b96500;
+  color:chocolate;
+  background-color:chocolate;
 }
-table td.flag_qualite[data-flagQualite="-4"]  {
+table td.flag_qualite[data-flagQualite*="-"]  {
   color:sienna;
   background-color:sienna;
 }
