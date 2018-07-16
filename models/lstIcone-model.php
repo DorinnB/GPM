@@ -13,8 +13,12 @@ class IconeModel
     }
 
     public function updateIcone($idMachine, $idIcone) {
-      $reqUpdate='UPDATE machine_forecasts SET id_icone_machine_forecast='.$idIcone.' WHERE id_machine_forecast='.$idMachine;
-      //echo $reqUpdate;
+      $reqUpdate='INSERT INTO machine_forecasts
+        (id_machine_forecast,id_icone_machine_forecast)
+        VALUES
+        ('.$idMachine.','.$idIcone.')
+        ON DUPLICATE KEY UPDATE id_icone_machine_forecast='.$idIcone.';';
+//echo $reqUpdate;
 
       $result = $this->db->execute($reqUpdate);
 
@@ -24,7 +28,11 @@ class IconeModel
     }
 
     public function updatePriorite($idMachine, $idIcone) {
-      $reqUpdate='UPDATE machine_forecasts SET prio_machine_forecast='.$idIcone.' WHERE id_machine_forecast='.$idMachine;
+      $reqUpdate='INSERT INTO machine_forecasts
+        (id_machine_forecast,prio_machine_forecast)
+        VALUES
+        ('.$idMachine.','.$idIcone.')
+        ON DUPLICATE KEY UPDATE prio_machine_forecast='.$idIcone.';';
       //echo $reqUpdate;
 
       $result = $this->db->execute($reqUpdate);
