@@ -22,6 +22,8 @@ Editor::inst( $db, 'pricinglists' )
   ->validator( 'Validate::notEmpty' ),
   Field::inst( 'pricinglists.pricingListFR')
   ->validator( 'Validate::notEmpty' ),
+  Field::inst( 'pricinglists.pricingListUS')
+  ->validator( 'Validate::notEmpty' ),
   Field::inst( 'pricinglists.prodCode')
   ->setFormatter( 'Format::ifEmpty', null ),
   Field::inst( 'pricinglists.OpnCode')
