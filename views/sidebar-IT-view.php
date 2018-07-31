@@ -32,10 +32,10 @@
 			<a href="index.php?page=IT&tool=tempConvertors">Temp Convertors</a>
 		</li>
 		<li>
-			<a href="controller/createUBR-controller.php">UBR</a>
+			<a href="controller/UBR-controller.php">UBR</a>
 		</li>
 		<li>
-			<a href="../ticket/index.php?project=1">Issues Tracker</a>
+			<a href="../ticket/">Issues Tracker</a>
 		</li>
 	</ul>
 </div>

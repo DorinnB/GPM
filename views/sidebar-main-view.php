@@ -11,7 +11,7 @@
 			<a href="index.php?page=ListeEssais">Test list</a>
 		</li>
 		<li>
-			<a href="../ticket/index.php?project=1">Issues Tracker</a>
+			<a href="../ticket/">Issues Tracker</a>
 		</li>
 	</ul>
 </div>
