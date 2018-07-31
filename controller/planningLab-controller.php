@@ -149,7 +149,7 @@ $lstFrames=$oPoste->getAllMachine();
 
 //décompose la liste complete des plannings en tableau, par machine, des dates=id_tbljob
 foreach ($lstFrames as $frame)  {
-  $planningFrames=$oPlanningLab->getAllPlanningFrame($frame['id_machine']);
+  $planningFrames=$oPlanningLab->getAllPlanningFrame($frame['id_machine'],$nbAvantNow);
   foreach ($planningFrames as $key => $value) {
     if ($value['id_tbljob']==10) {
       $planningJob[$frame['id_machine']][$value['date']]   =   'EXT';
