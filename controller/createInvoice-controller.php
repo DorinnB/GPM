@@ -82,10 +82,6 @@ $styleBorder = array(
   )
 );
 $styleSplit = array(
-  'fill' => array(
-      'type' => PHPExcel_Style_Fill::FILL_SOLID,
-      'color' => array('rgb' => 'A0A0A0')
-  ),
   'font'  => array(
        'bold'  => true
    )
@@ -240,7 +236,7 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
     ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 
     $dt = date("Y-m-d");
-    $page->setCellValueByColumnAndRow(6, $row, date( "Y-m-d", strtotime( "$dt +7 day" ) ));
+    $page->setCellValueByColumnAndRow(6, $row, date( "Y-m-d", strtotime( "$dt +45 day" ) ));
     $row++;
   }
   else {    //pas de TVA
@@ -272,7 +268,7 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
     ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 
     $dt = date("Y-m-d");
-    $page->setCellValueByColumnAndRow(6, $row, date( "Y-m-d", strtotime( "$dt +7 day" ) ));
+    $page->setCellValueByColumnAndRow(6, $row, date( "Y-m-d", strtotime( "$dt +45 day" ) ));
     $row++;
   }
 
