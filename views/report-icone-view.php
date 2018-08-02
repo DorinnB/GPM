@@ -15,7 +15,7 @@
     </a>
   </li>
   <li class="list-group-item">
-    <a href="#" onclick="createReport('V2');">
+    <a href="#" onclick="createReport('','V2');">
       <img src="img/nextJob.png" style="width: auto;max-height: 30px;">
     </a>
   </li>

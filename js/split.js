@@ -68,8 +68,8 @@ $("#planning").click(function(e) {
 });
 
 
-function createReport(lang='') {
-  window.location='controller/createReport-controller.php?id_tbljob='+$('#table_ep').attr('data-idJob')+'&language='+lang;
+function createReport(lang='',version='') {
+  window.location='controller/createReport-controller.php?id_tbljob='+$('#table_ep').attr('data-idJob')+'&language='+lang+'&version='+version;
 
   var confirmation = confirm('Report Creation Process\nPlease wait.\nOnce done, do you want to update previous report with this one without any modifications ?');
   if (confirmation) {
