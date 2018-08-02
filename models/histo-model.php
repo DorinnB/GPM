@@ -20,7 +20,7 @@ class HistoModel
     $req = 'SELECT *
     FROM histo_eprouvettes
     WHERE id_eprouvette='.$this->db->quote($id).'
-    ORDER by date_action asc';
+    ORDER by date_action asc;';
 
     //echo $req;
     return $this->db->getAll($req);

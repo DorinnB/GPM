@@ -29,6 +29,8 @@ Editor::inst( $db, 'eprouvettes' )
   Field::inst( 'eprouvettes.c_frequence_STL')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.c_type_1_val')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.c_type_2_val')->setFormatter( 'Format::nullEmpty' ),
+  Field::inst( 'eprouvettes.val_1')->setFormatter( 'Format::nullEmpty' ),
+  Field::inst( 'eprouvettes.val_2')->setFormatter( 'Format::nullEmpty' ),
 
 
   Field::inst( 'eprouvettes.stepcase_type' )

@@ -106,6 +106,56 @@ for($k=0;$k < count($ep);$k++)	{
 
 
 
+  //HISTORIQUE
+  //recup de l'historique des modifications
+  $histoEp[$k]=$oHisto->getHistoEprouvette($ep[$k]['id_eprouvette']);
+  //s'il y a un historique pour l'eprouvette
+  if (count($histoEp[$k])>0) {
+    //initialisation des valeurs de l'historique sur le premier de la liste
+    foreach ($histoEp[$k][0] as $key => $value) {
+      $epHisto[$k][$key]=array();
+      array_push($epHisto[$k][$key],(($value=="")?' ':$value));
+    }
+    //on parcours tous les historiques de l'eprouvette
+    for ($i=1; $i < count($histoEp[$k]); $i++) {
+      //pour chaque champ de la table
+      foreach ($histoEp[$k][$i] as $key => $value) {
+        //on compare sa valeur avec celle de l'historique precedent, si different on ajoute la nouvelle valeur, sinon on garde la meme.
+        if ($histoEp[$k][$i][$key]!=$histoEp[$k][$i-1][$key]) {
+          //on affiche une etoile si vide
+          array_push($epHisto[$k][$key],(($value=="")?' ':$value));
+        }
+      }
+    }
+    //pour chaque champ de l'historique,on retire le dernier enregistrement si identique a la valeur actuelle de l'eprouvette et on prepare le tooltip d'affichage
+    foreach ($histoEp[$k][0] as $key => $value) {
+      //si la fin correspond a la derniere valeur, on supprime de l'historique
+      if (isset($ep[$k][$key]) AND end($epHisto[$k][$key])==$ep[$k][$key]   ) {
+        array_pop($epHisto[$k][$key]);
+      }
+      if (count($epHisto[$k][$key])>0 AND $epHisto[$k][$key][0]==" ") {
+        array_shift($epHisto[$k][$key]);
+      }
+      //si l'array de chaque element n'est pas vide et correspond a la denomination des champs de $ep
+      if (isset($ep[$k][$key]) and count($epHisto[$k][$key])>0) {
+        //initialisation du tooltip
+        $epHisto2[$k][$key]=' data-toggle="tooltip" title="';
+
+        //pour chaque element, on ajoute le texte au tooltip
+        foreach ($epHisto[$k][$key] as $ke => $va) {
+          $epHisto2[$k][$key].=$va." | ";
+        }
+        //finalisation du tooltip
+        $epHisto2[$k][$key].='"';
+      }
+    }
+  }
+  //on vient preparer le css dans le cas ou il n'y a pas d'historique
+  foreach ($ep[$k] as $key => $value) {
+    $epHisto2[$k][$key]=(isset($epHisto2[$k][$key]))?$epHisto2[$k][$key]:"";
+  }
+
+
 
 
   if ($k>0 && $format!=$ep[$k]['type']) {
@@ -127,56 +177,6 @@ for($k=0;$k < count($ep);$k++)	{
 
 
 
-
-
-    //HISTORIQUE
-    //recup de l'historique des modifications
-    $histoEp[$k]=$oHisto->getHistoEprouvette($ep[$k]['id_eprouvette']);
-    //s'il y a un historique pour l'eprouvette
-    if (count($histoEp[$k])>0) {
-      //initialisation des valeurs de l'historique sur le premier de la liste
-      foreach ($histoEp[$k][0] as $key => $value) {
-        $epHisto[$k][$key]=array();
-        array_push($epHisto[$k][$key],(($value=="")?' ':$value));
-      }
-      //on parcours tous les historiques de l'eprouvette
-      for ($i=1; $i < count($histoEp[$k]); $i++) {
-        //pour chaque champ de la table
-        foreach ($histoEp[$k][$i] as $key => $value) {
-          //on compare sa valeur avec celle de l'historique precedent, si different on ajoute la nouvelle valeur, sinon on garde la meme.
-          if ($histoEp[$k][$i][$key]!=$histoEp[$k][$i-1][$key]) {
-            //on affiche une etoile si vide
-            array_push($epHisto[$k][$key],(($value=="")?' ':$value));
-          }
-        }
-      }
-      //pour chaque champ de l'historique,on retire le dernier enregistrement si identique a la valeur actuelle de l'eprouvette et on prepare le tooltip d'affichage
-      foreach ($histoEp[$k][0] as $key => $value) {
-        //si la fin correspond a la derniere valeur, on supprime de l'historique
-        if (isset($ep[$k][$key]) AND end($epHisto[$k][$key])==$ep[$k][$key]   ) {
-          array_pop($epHisto[$k][$key]);
-        }
-        if (count($epHisto[$k][$key])>0 AND $epHisto[$k][$key][0]==" ") {
-          array_shift($epHisto[$k][$key]);
-        }
-        //si l'array de chaque element n'est pas vide et correspond a la denomination des champs de $ep
-        if (isset($ep[$k][$key]) and count($epHisto[$k][$key])>0) {
-          //initialisation du tooltip
-          $epHisto2[$k][$key]=' data-toggle="tooltip" title="';
-
-          //pour chaque element, on ajoute le texte au tooltip
-          foreach ($epHisto[$k][$key] as $ke => $va) {
-            $epHisto2[$k][$key].=$va." | ";
-          }
-          //finalisation du tooltip
-          $epHisto2[$k][$key].='"';
-        }
-      }
-    }
-    //on vient preparer le css dans le cas ou il n'y a pas d'historique
-    foreach ($ep[$k] as $key => $value) {
-      $epHisto2[$k][$key]=(isset($epHisto2[$k][$key]))?$epHisto2[$k][$key]:"";
-    }
 
 
 

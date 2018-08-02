@@ -118,7 +118,7 @@
               </div>
             <?php endif ?>
           </td>
-          <td class="checkEp selectable" data-checked="<?= max(0,$ep[$k]['c_checked']) ?>" data-idepchecked="<?= $ep[$k]['id_eprouvette'] ?>"><?= $ep[$k]['c_checked'] ?></td>
+          <td class="checkEp selectable" data-checked="<?= max(0,$ep[$k]['c_checked']) ?>" data-idepchecked="<?= $ep[$k]['id_eprouvette'] ?>" <?= $epHisto2[$k]['c_checked'] ?>><?= $ep[$k]['c_checked'] ?></td>
           <td class="popover-markup" data-placement="left"><?= ($ep[$k]['d_commentaire']=="")?"":substr($ep[$k]['d_commentaire'],0,5)." [...]" ?>
             <?php if ($ep[$k]['d_commentaire'] !=""):  ?>
               <div class="head hide">Lab Observation</div>
