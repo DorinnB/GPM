@@ -14,6 +14,12 @@ if (isset($_GET['language']) && $_GET['language']!='')	{
 else {
   $language='';
 }
+if (isset($_GET['version']) && $_GET['version']!='')	{
+  $version=$_GET['version'];
+}
+else {
+  $version='';
+}
 
 
 // Rendre votre modèle accessible
@@ -216,8 +222,6 @@ else {
 
 
 
-
-
 If (isset($_GET['Cust']) AND $_GET['Cust']=="SAE" AND $split['test_type_abbr']=="Str")	{
 
   if( $template!='')  {
@@ -362,13 +366,13 @@ If (isset($_GET['Cust']) AND $_GET['Cust']=="SAE" AND $split['test_type_abbr']==
 
 }
 
-ElseIf (isset($_GET['language']) AND $_GET['language']=="V2" AND $split['test_type_abbr']=="Loa")	{
+ElseIf ($version=="V2" AND $split['test_type_abbr']=="Loa")	{
 
   if( $template!='')  {
     $objPHPExcel = $objReader->load($template);
   }
   else {
-    $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/Report Loa".$language.".xlsx");
+    $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/Report Loa_".$version.".xlsx");
   }
 
   $enTete=$objPHPExcel->getSheetByName('En-tête');
@@ -400,7 +404,7 @@ ElseIf (isset($_GET['language']) AND $_GET['language']=="V2" AND $split['test_ty
     'C28'=> $split['nbtestdone'],
 
     //'C28' si .MA
-    'K30'=> ((isset($MArefSubC))?1:0),
+    'K30'=> ((isset($MArefSubC) AND $MArefSubC!="")?1:0),
     'C31'=> $MArefSubC,
     'C32'=> $MAspecifs,
     'C33'=> $split['dessin'],
