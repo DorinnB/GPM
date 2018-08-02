@@ -32,7 +32,7 @@
 
       <div class="col-md-6">
         <div class="form-group">
-          <label for="other_2">Number of other Steps&nbsp;:</label>
+          <label for="other_2">Other Information&nbsp;:</label>
           <input type="text" class="form-control" name="other_2" value="<?= $split['other_2'] ?>">
         </div>
         <div class="form-group">
