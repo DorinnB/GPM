@@ -154,3 +154,8 @@ input:checked + .slider:before {
 .openDocument{
   color:white;
 }
+
+
+.navbar-form > div > input  {
+  color:inherit;
+}
