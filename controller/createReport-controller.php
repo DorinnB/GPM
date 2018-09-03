@@ -211,6 +211,9 @@ $style_unchecked = array(
 if( file_exists('//Srvdc/donnees/JOB/'.$ep[0]['customer'].'/'.$ep[0]['customer'].'-'.$ep[0]['job'].'/Rapports Finals/DRAFT_Report_'.$jobcomplet.'.xlsx'))  {
   $template = '//Srvdc/donnees/JOB/'.$ep[0]['customer'].'/'.$ep[0]['customer'].'-'.$ep[0]['job'].'/Rapports Finals/DRAFT_Report_'.$jobcomplet.'.xlsx';
 }
+elseif( file_exists('//Srvdc/donnees/JOB/'.$ep[0]['customer'].'/'.$ep[0]['customer'].'-'.$ep[0]['job'].'/Rapports Finals/Report_'.$jobcomplet.'.xlsx'))  {
+  $template = '//Srvdc/donnees/JOB/'.$ep[0]['customer'].'/'.$ep[0]['customer'].'-'.$ep[0]['job'].'/Rapports Finals/Report_'.$jobcomplet.'.xlsx';
+}
 else {
   $template = '';
 }
