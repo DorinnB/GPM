@@ -1109,7 +1109,7 @@ $style_gray = array(
       'K54' => $dateEstime,
 
 
-      'A59' => $essai['comm'],
+      'A59' => $essai['comm'].' / '.$essai['c_commentaire'],
       'A60' => $essai['tbljob_instruction'],
       'P58' => (($essai['special_instruction']=='')?' ':'Special Instructions'),
       'P59' => $essai['special_instruction']
