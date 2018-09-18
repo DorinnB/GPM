@@ -83,16 +83,18 @@ class INOUT
 
   public function awaitingArrival(){
     $req='SELECT min(tbljobs.id_tbljob) as id_tbljob, min(job) as job
-    FROM master_eprouvettes
+    FROM eprouvettes
+    LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
     LEFT JOIN info_jobs ON info_jobs.id_info_job=master_eprouvettes.id_info_job
     LEFT JOIN tbljobs ON tbljobs.id_info_job=info_jobs.id_info_job
     LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
     LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
     WHERE master_eprouvette_inOut_A IS NULL
     AND master_eprouvette_actif = 1
-    AND info_job_actif=1
-    AND tbljob_actif=1
-    AND etape!=100
+    AND eprouvette_actif = 1
+    AND info_job_actif= 1
+    AND tbljob_actif= 1
+    AND etape != 100
     GROUP BY info_jobs.id_info_job
     ORDER BY job DESC
     ';
