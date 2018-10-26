@@ -19,7 +19,7 @@ $(document).ready(function() {
     info:false,
     fixedColumns:   {leftColumns: 1}
   });
-  var tableJobFrame2 = $('#table_planningJobFrame2').DataTable({
+  var tableJobFrame2 = $('#table_planningJobFrame2d').DataTable({
 
     order: [[ 0, "asc" ]],
             scrollY:        '100vh',
@@ -192,10 +192,11 @@ else {
     }
     $(this).attr('colSpan',colSpan);
     $(this).css('text-align','center');
-//je recup le customer, si on veut un code couleur customer    
+//je recup le customer, si on veut un code couleur customer
 $(this).attr('data-customer',$(this).children('div').eq(0).attr('data-customer'));
 
     $(this).children('div').eq(0).removeClass('hide');
+
   });
 
 

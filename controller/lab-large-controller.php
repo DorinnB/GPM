@@ -109,7 +109,7 @@ foreach ($test as $value) {
   elseif($value['currentBlock_temp']=='Send' OR $value['currentBlock_temp']=='send') {
     $poste[$value['poste']]['background-color']='dimgray';
     $runStop[]="STOP";
-//affichage en violet si "new condition ready"
+    //affichage en violet si "new condition ready"
     if ($poste[$value['poste']]['etape']==53) {
       $poste[$value['poste']]['background-color']='purple';
     }
@@ -158,8 +158,13 @@ foreach ($test as $value) {
   }
   else {
     if($value['runout']>0)  {
-      $poste[$value['poste']]['tempsRestant']=round(($value['runout']-$value['Cycle_final_temp'])/$frequence/3600, 1);
-      //$poste[$value['poste']]['tempsRestant']='pas de STL prevu';
+      if ($frequence<=0) {
+        $poste[$value['poste']]['tempsRestant']="Frequency NULL";
+      }
+      else {
+        $poste[$value['poste']]['tempsRestant']=round(($value['runout']-$value['Cycle_final_temp'])/$frequence/3600, 1);
+        //$poste[$value['poste']]['tempsRestant']='pas de STL prevu';
+      }
     }
     else {
       $poste[$value['poste']]['tempsRestant']='&infin;';

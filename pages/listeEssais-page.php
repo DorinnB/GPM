@@ -26,6 +26,7 @@
 						<th><acronym title="checker">Chk</acronym></th>
 						<th><acronym title="Extenso">Extenso</acronym></th>
 						<th><acronym title="Test Duration">Tps.</acronym></th>
+						<th><acronym title="Test Duration">Tps.</acronym></th>
 						<th><acronym title="Quality Flag">F.Q.</acronym></th>
 		      </tr>
 		    </thead>
@@ -45,6 +46,7 @@
 						<th>op</th>
 						<th>chk</th>
 						<th>Extenso</th>
+						<th><acronym title="Test Duration">Tps.</acronym></th>
 						<th><acronym title="Test Duration">Tps.</acronym></th>
 						<th><acronym title="Quality Flag">F.Q.</acronym></th>
 		      </tr>

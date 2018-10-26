@@ -42,6 +42,10 @@ $(document).ready(function() {
       render : function(data, type, full, meta){
           return (parseInt(data.eprouvettes.temps_essais)||' ');
       }},
+      { data: null,
+      render : function(data, type, full, meta){
+          return ((data.eprouvettes.Cycle_final)+'--'+(data.eprouvettes.c_frequence)+'--'+(data.eprouvettes.c_frequence_STL)||' ');
+      }},
       { data: "eprouvettes.flag_qualite" }
     ],
     scrollY: '70vh',
