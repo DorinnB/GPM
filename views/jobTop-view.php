@@ -64,7 +64,7 @@ $ecartOneNote = floor((time()-filemtime($latest_file))/3600);
 			</div>
 
 			<div class="col-md-6" id="" style="height:50%; padding:0px;">
-				<a data-toggle="tooltip" title="<?=	$ecartOneNote	?> hrs before last update" href="controller/openOnenote-controller?id_tbljob=<?=	$_GET['id_tbljob']	?>" class="btn btn-default btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
+				<a data-toggle="tooltip" title="<?=	$ecartOneNote	?> hrs since the last update" href="controller/openOnenote-controller?id_tbljob=<?=	$_GET['id_tbljob']	?>" class="btn btn-default btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
 					<p style="font-size:small;">
 						OneNote
 						<img type="image" src="img/onenote.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
