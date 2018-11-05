@@ -103,7 +103,7 @@ foreach ($test as $value) {
     $poste[$value['poste']]['background-color']='dimgray';
     $runStop[]="STOP";
     if ($poste[$value['poste']]['etape']==53) {
-      $poste[$value['poste']]['background-color']='purple';
+      $poste[$value['poste']]['background-color']='Gold';
     }
   }
   elseif($value['currentBlock_temp']=='Analysis') {

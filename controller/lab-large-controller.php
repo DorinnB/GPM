@@ -112,7 +112,7 @@ foreach ($test as $value) {
     $runStop[]="STOP";
     //affichage en violet si "new condition ready"
     if ($poste[$value['poste']]['etape']==53) {
-      $poste[$value['poste']]['background-color']='purple';
+      $poste[$value['poste']]['background-color']='Gold';
     }
 
   }
