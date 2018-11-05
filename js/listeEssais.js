@@ -16,7 +16,8 @@ $(document).ready(function() {
   var table = $('#table_listeEssais').DataTable( {
     ajax: {
       url : "controller/editor-listeEssais.php",
-      type: "POST"
+      type: "POST",
+      data: {"startFile" : startFile}
     },
     order: [[ 0, "desc" ]],
     columns: [
@@ -30,7 +31,7 @@ $(document).ready(function() {
       { data: "info_jobs.customer" },
       { data: "info_jobs.job" },
       { data: "tbljobs.split" },
-        { data: "eprouvettes.n_essai" },
+      { data: "eprouvettes.n_essai" },
       { data: "master_eprouvettes.prefixe" },
       { data: "master_eprouvettes.nom_eprouvette" },
       { data: "machines.machine" },
@@ -42,15 +43,12 @@ $(document).ready(function() {
       render : function(data, type, full, meta){
           return (parseInt(data.eprouvettes.temps_essais)||' ');
       }},
-      { data: null,
-      render : function(data, type, full, meta){
-          return ((data.eprouvettes.Cycle_final)+'--'+(data.eprouvettes.c_frequence)+'--'+(data.eprouvettes.c_frequence_STL)||' ');
-      }},
       { data: "eprouvettes.flag_qualite" }
     ],
     scrollY: '70vh',
     scrollCollapse: true,
-    paging: false
+    paging: false,
+    limit:'5'
   } );
 
 

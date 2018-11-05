@@ -18,6 +18,8 @@ $db = new db(); // create a new object, class db()
 
 echo $_GET['id_info_job'];
 $id_old_tbljob=$_GET['id_info_job'];
+$copyID=(isset($_GET['copyID']) AND $_GET['copyID']=="Yes")?1:0;
+$copyRequest=(isset($_GET['copyRequest']) AND $_GET['copyRequest']=="Yes")?1:0;
 
 
 // Rendre votre modèle accessible
@@ -34,7 +36,15 @@ echo '<br/>new id_info_job : '.$newInfoJob;
 
 //on parcourt les masters de l'infojob et pour chacun, on le copy en enregistrant dans un tableau l'ancien et le nouvel id equivalent
 foreach ($oInfoJob->getMasterEprouvettes() as $masterEprouvette) {
-  $idMasterEprouvette[$masterEprouvette['id_master_eprouvette']]=$oInfoJob->copyMasterEprouvette($masterEprouvette['id_master_eprouvette']);
+
+	if ($copyID==1) {
+		$idMasterEprouvette[$masterEprouvette['id_master_eprouvette']]=$oInfoJob->copyMasterEprouvetteID($masterEprouvette['id_master_eprouvette']);
+	}
+	else {
+		$idMasterEprouvette[$masterEprouvette['id_master_eprouvette']]=$oInfoJob->copyMasterEprouvette($masterEprouvette['id_master_eprouvette']);
+	}
+
+
 }
 var_dump($idMasterEprouvette);
 
@@ -46,7 +56,13 @@ foreach ($oInfoJob->getTbljobs() as $tbljob) {
   //pour chaque eprouvette de l'ancien split
   foreach ($oInfoJob->getEprouvettes($tbljob['id_tbljob']) as $eprouvette) {
     //on copy l'eprouvette en changeant l'id du nouveau split et du nouveau masterEprouvette
-    $oInfoJob->copyEprouvettes($newIdTbljob,$idMasterEprouvette[$eprouvette['id_master_eprouvette']] ,$eprouvette['id_eprouvette']);
+		if ($copyRequest==1) {
+			$oInfoJob->copyEprouvettesConsigne($newIdTbljob,$idMasterEprouvette[$eprouvette['id_master_eprouvette']] ,$eprouvette['id_eprouvette']);
+		}
+		else {
+			$oInfoJob->copyEprouvettes($newIdTbljob,$idMasterEprouvette[$eprouvette['id_master_eprouvette']] ,$eprouvette['id_eprouvette']);
+		}
+
   }
 }
 

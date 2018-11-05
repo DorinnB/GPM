@@ -14,7 +14,7 @@ class TestTypeModel
           ORDER BY CASE
             WHEN test_type_abbr="Loa" THEN 0
             WHEN test_type_abbr="Str" THEN 1
-            WHEN LEFT(test_type_abbr,1) = "." THEN 4 ELSE 3 
+            WHEN ST = 1 THEN 4 ELSE 3 
             END,
         test_type_abbr
           ;');

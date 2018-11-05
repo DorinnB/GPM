@@ -16,6 +16,11 @@ $oSplit->tbljob_commentaire=$_POST['tbljob_commentaire'];
 
 $oSplit->updateCommentaire();
 
+
+// Rendre votre modèle accessible
+include 'createConsigneList-controller.php';
+
+
 //Update du statut du job
 include '../models/statut-model.php';
 $oStatut = new StatutModel($db);

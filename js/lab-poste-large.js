@@ -51,6 +51,7 @@ $(".commentaire").contextmenu(function (event) {
 // If the menu element is clicked
   $(".commentaire").focus(function() {
       console.log('in');
+      window.stop();
   }).blur(function() {
       console.log('out');
 
@@ -66,6 +67,7 @@ $(".commentaire").contextmenu(function (event) {
         },
         success : function(data, statut){
           //$("#priorite_" + data['id_machine']).attr('src',"img/medal_" + data['id_icone']);
+          window.location.reload();
         },
         error : function(resultat, statut, erreur) {
           console.log(Object.keys(resultat));

@@ -34,6 +34,7 @@ $(document).ready(function() {
       {       label: "eprouvettes.c_type_4_val",       name: "eprouvettes.c_type_4_val"     },
       {       label: "eprouvettes.runout",       name: "eprouvettes.runout"     },
       {       label: "eprouvettes.cycle_estime",       name: "eprouvettes.cycle_estime"     },
+      {       label: "eprouvettes.priority",       name: "eprouvettes.priority"     },
       {       label: "eprouvettes.c_commentaire",       name: "eprouvettes.c_commentaire", type:  "textarea",     },
       {       label: "eprouvettes.c_checked",       name: "eprouvettes.c_checked"     },
       {       label: "enregistrementessais.n_fichier",       name: "enregistrementessais.n_fichier"     },
@@ -56,6 +57,7 @@ $(document).ready(function() {
       { data: "master_eprouvettes.id_master_eprouvette" },
       { data: "master_eprouvettes.prefixe" },
       { data: "master_eprouvettes.nom_eprouvette" },
+      { data: "eprouvettes.priority" },
       { data: "eprouvettes.c_temperature" },
       { data: "eprouvettes.c_type_1_val" },
       { data: "eprouvettes.c_type_2_val" },
@@ -86,11 +88,11 @@ $(document).ready(function() {
         }
     ],
     autoFill: {
-      columns: [3, 4, 5, 6, 7, 8, 9],
+      columns: [3, 4, 5, 6, 7, 8, 9, 10],
       editor:  editor
     },
     keys: {
-      columns: [3, 4, 5, 6, 7, 8, 9],
+      columns: [3, 4, 5, 6, 7, 8, 9, 10],
       editor:  editor
     },
     select: {
@@ -102,7 +104,7 @@ $(document).ready(function() {
   $('#table_ep').on( 'click', 'tbody td', function (e) {
           var index = $(this).index();
 
-          if ( index === 9 ) {
+          if ( index === 10 ) {
               editor.bubble( this,
                  ['eprouvettes.c_commentaire'],
                   { title: 'Order Comments :' ,

@@ -1,4 +1,4 @@
-#split-nav div{
+#table_planningJobFrame2_wrapper div{
   color:white;
   background-color: rgb(68, 84, 106);
 }
@@ -74,39 +74,39 @@ td, th{
   background-color:darkred !important;
     color:white !important;
 }
-[data-color='0'], [data-color='0'] a  {
+[data-color='0'], [data-color='0'] a div {
   background-color:darkgreen !important;
     color:white !important;
 }
-[data-color='1'], [data-color='1'] a  {
+[data-color='1'], [data-color='1'] a div {
   background-color:sienna !important;
     color:white !important;
 }
-[data-color='2'], [data-color='2'] a  {
+[data-color='2'], [data-color='2'] a div {
   background-color:darkblue !important;
     color:white !important;
 }
-[data-color='3'], [data-color='3'] a  {
+[data-color='3'], [data-color='3'] a div {
   background-color:yellow !important;
     color:black !important;
 }
-[data-color='4'], [data-color='4'] a  {
+[data-color='4'], [data-color='4'] a div {
   background-color:purple !important;
     color:white !important;
 }
-[data-color='5'], [data-color='5'] a  {
+[data-color='5'], [data-color='5'] a div {
   background-color:darkred !important;
     color:white !important;
 }
-[data-color='6'], [data-color='6'] a  {
+[data-color='6'], [data-color='6'] a div {
   background-color:olive !important;
     color:white !important;
 }
-[data-color='7'], [data-color='7'] a  {
+[data-color='7'], [data-color='7'] a div {
   background-color:lightblue !important;
     color:black !important;
 }
-[data-color='8'], [data-color='8'] a  {
+[data-color='8'],[data-color='8'] a div  {
   background-color:orange !important;
     color:black !important;
 }

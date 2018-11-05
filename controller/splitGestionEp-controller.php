@@ -10,6 +10,8 @@ include '../models/eprouvette-model.php';
 // Création d'une instance
 $oEprouvette = new EprouvetteModel($db,$_GET['idEp']);
 $eprouvette=$oEprouvette->getEprouvette();
+$oTDRCount=$oEprouvette->getTDRCount();
+$TDRCount=$oTDRCount['TDRCount'];
 
 $checkTechSplit=(isset($_COOKIE['id_user']))?$oEprouvette->checkTechSplit($_COOKIE['id_user']):'';
 

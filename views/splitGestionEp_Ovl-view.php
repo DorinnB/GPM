@@ -16,16 +16,16 @@
         <div class="row" style="height:100%;">
           <div class="col-sm-4" style="height:100%;">
             <ul  class="nav nav-pills nav-stacked" style="height:100%;">
-              <li style="height:25%;display:none;" id="newTest">
-                <a href="#1a" data-toggle="tab" style="line-height:7vh;"><p>NEW TEST</p></a>
+              <li class="tabLeft" style="display:none;" id="newTest">
+                <a href="#1a" data-toggle="tab" style=""><p>NEW TEST</p></a>
               </li>
-              <li style="height:25%;" id="document">
-                <a href="#1d" data-toggle="tab" style="line-height:7vh;"><p>DOC</p></a>
+              <li class="tabLeft" id="document">
+                <a href="#1d" data-toggle="tab" style=""><p>DOC</p></a>
               </li>
 
-              <li style="height:25%;" id="retest"><a href="#2a" data-toggle="tab" style="line-height:7vh;">RETEST</a>
+              <li class="tabLeft" id="retest"><a href="#2a" data-toggle="tab" style="">RETEST</a>
               </li>
-              <li style="height:25%;display:none;" id="delete"><a href="#3a" data-toggle="tab" style="line-height:7vh;">DELETE</a>
+              <li class="tabLeft" style="display:none;" id="delete"><a href="#3a" data-toggle="tab" style="">DELETE</a>
               </li>
 
             </ul>
@@ -33,7 +33,7 @@
 
 
           <div class="col-sm-8 carre" style="height:100%;">
-            <div class="tab-content clearfix" style="height:100%;">
+            <div class="tab-content clearfix" style="height:100%;overflow-y:auto;">
 
               <div class="tab-pane" id="1a" style="height:100%;">
 
@@ -146,11 +146,11 @@
                 </div>
 
 
-                <div class="row" style="height:%; padding: 0px 10px;">
-                  <form class="form-group" id="update_d_commentaire">
-                    <div class="col-md-10">
+                <div class="row" style="height:45%; padding: 0px 10px;">
+                  <form class="form-group" id="update_d_commentaire" style="height:100%;">
+                    <div class="col-md-10" style="height:100%;">
                       <b style="float:left;">Lab Observation</b><br/>
-                      <textarea rows="4" class="form-control" id="d_commentaire" name="d_commentaire"  style="resize:none;background-color:#5B9BD5;border-width:0px; color:white;"><?= $eprouvette['d_commentaire'] ?></textarea>
+                      <textarea class="form-control" id="d_commentaire" name="d_commentaire"  style="resize:none;background-color:#5B9BD5;border-width:0px; color:white;height:85%"><?= $eprouvette['d_commentaire'] ?></textarea>
                     </div>
                     <div class="col-md-2">
                       <div id="flagQualite" data-flagQualite="<?= $eprouvette['flag_qualite'] ?>"  data-idepflagqualite="<?= $eprouvette['id_eprouvette'] ?>">

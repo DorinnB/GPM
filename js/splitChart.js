@@ -219,7 +219,7 @@ $("#myChart").click(function(e) {
 
 
   //Graph stress def mi vie
-  if ($('.chartNiveau')[0]) {
+  if ($('.chartNiveau')[0] && $('.chartStressMax')[0]) {
 
     endLevel_StressStrain_X=  [];
     endLevel_StressStrain_Y=  [];

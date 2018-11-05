@@ -90,686 +90,1082 @@ $objReader->setIncludeCharts(TRUE);
 
 
 
-    If ($split['test_type_abbr']=="Loa")	{
+If ($split['final']=="1" && $split['test_type_abbr']!="PS")	{
 
-      $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_Loa.xlsx");
+  If ($split['test_type_abbr']=="Loa")	{
 
-      $page=$objPHPExcel->getActiveSheet();
+    $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_Loa.xlsx");
 
-
-      $val2Xls = array(
-
-        'L2' => $jobcomplet,
-        'C6'=> $split['tbljob_frequence'],
-        'G4'=> $split['dessin'],
-        'G5'=> $split['ref_matiere'],
-        'G6'=> $split['waveform'],
-        'K4'=> date("Y-m-d"),
-        'K5'=> $split['nomCreateur'],
-        'K6'=> $split['comCheckeur'],
-        'C24'=> $split['c_unite'],
-        'C25'=> $split['c_unite'],
-
-        'D42'=> $split['tbljob_instruction'],
-        'D47'=> $split['info_jobs_instruction']
-      );
-
-      //Pour chaque element du tableau associatif, on update les cellules Excel
-      foreach ($val2Xls as $key => $value) {
-        $page->setCellValue($key, $value);
-      }
-
-      //titre des lignes PV
-      $page->setCellValueByColumnAndRow(1, 22, $split['c_type_1']);
-      $page->setCellValueByColumnAndRow(2, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
-      $page->setCellValueByColumnAndRow(1, 23, $split['c_type_2']);
-      $page->setCellValueByColumnAndRow(2, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
+    $page=$objPHPExcel->getSheetByName('OT Loa');
 
 
+    $val2Xls = array(
 
-      $row = 0; // 1-based index
-      $col = 3;
-      foreach ($ep as $key => $value) {
+      'L2' => $jobcomplet,
+      'C6'=> $split['tbljob_frequence'],
+      'G4'=> $split['dessin'],
+      'G5'=> $split['ref_matiere'],
+      'G6'=> $split['waveform'],
+      'K4'=> date("Y-m-d"),
+      'K5'=> $split['nomCreateur'],
+      'K6'=> $split['comCheckeur'],
+      'C24'=> $split['c_unite'],
+      'C25'=> $split['c_unite'],
 
-        $page->setCellValueByColumnAndRow($col, 8, $value['prefixe']);
-        $page->setCellValueByColumnAndRow($col, 9, $value['nom_eprouvette']);
+      'D42'=> $split['tbljob_instruction'],
+      'D47'=> $split['info_jobs_instruction']
+    );
 
-        $page->setCellValueByColumnAndRow($col, 10, $value['n_essai']);
-        $page->setCellValueByColumnAndRow($col, 11, $value['n_fichier']);
-        $page->setCellValueByColumnAndRow($col, 12, $value['operateur']);
-        $page->setCellValueByColumnAndRow($col, 13, $value['machine']);
-        $page->setCellValueByColumnAndRow($col, 14, $value['date']);
-        $page->setCellValueByColumnAndRow($col, 15, $value['c_temperature']);
-        $page->setCellValueByColumnAndRow($col, 16, $value['c_frequence']);
-        $page->setCellValueByColumnAndRow($col, 17, $value['c_cycle_STL']);
-        $page->setCellValueByColumnAndRow($col, 18, $value['c_frequence_STL']);
-
-        if (isset($value['denomination']['denomination_1'])) {
-          $page->setCellValueByColumnAndRow($col, 19, $value['dim1']);
-          $page->setCellValueByColumnAndRow(0, 19, $value['denomination']['denomination_1']);
-        }
-        else {
-          $page->getRowDimension(19)->setVisible(FALSE);
-        }
-        if (isset($value['denomination']['denomination_2'])) {
-          $page->setCellValueByColumnAndRow($col, 20, $value['dim2']);
-          $page->setCellValueByColumnAndRow(0, 20, $value['denomination']['denomination_2']);
-        }
-        else {
-          $page->getRowDimension(20)->setVisible(FALSE);
-        }
-        if (isset($value['denomination']['denomination_3'])) {
-          $page->setCellValueByColumnAndRow($col, 21, $value['dim3']);
-          $page->setCellValueByColumnAndRow(0, 21, $value['denomination']['denomination_3']);
-        }
-        else {
-          $page->getRowDimension(21)->setVisible(FALSE);
-        }
-
-        $page->setCellValueByColumnAndRow($col, 22, $value['c_type_1_val']);
-        $page->setCellValueByColumnAndRow($col, 23, $value['c_type_2_val']);
-
-        $oEprouvette->niveaumaxmin($split['c_type_1'], $split['c_type_2'], $value['c_type_1_val'], $value['c_type_2_val']);
-        $page->setCellValueByColumnAndRow($col, 24, $oEprouvette->MAX());
-        $page->setCellValueByColumnAndRow($col, 25, $oEprouvette->MIN());
-
-
-        $page->setCellValueByColumnAndRow($col, 26, $value['Cycle_min']);
-        $page->setCellValueByColumnAndRow($col, 27, $value['runout']);
-
-        $page->setCellValueByColumnAndRow($col, 35, $value['cycle_estime']);
-
-
-        $col++;
-      }
-
-      $colImprimable=ceil(count($ep)/10)*10+3;
-      //zone d'impression
-      $colString = PHPExcel_Cell::stringFromColumnIndex($colImprimable-1);
-      $page->getPageSetup()->setPrintArea('A1:'.$colString.'51');
-
-
-
-
+    //Pour chaque element du tableau associatif, on update les cellules Excel
+    foreach ($val2Xls as $key => $value) {
+      $page->setCellValue($key, $value);
     }
-    ElseIf ($split['test_type_abbr']=="LoS" OR $split['test_type_abbr']=="Dwl")	{
 
-      $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_LoS.xlsx");
+    //titre des lignes PV
+    $page->setCellValueByColumnAndRow(1, 22, $split['c_type_1']);
+    $page->setCellValueByColumnAndRow(2, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
+    $page->setCellValueByColumnAndRow(1, 23, $split['c_type_2']);
+    $page->setCellValueByColumnAndRow(2, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
 
-      $page=$objPHPExcel->getActiveSheet();
 
 
-      $val2Xls = array(
+    $row = 0; // 1-based index
+    $col = 3;
+    foreach ($ep as $key => $value) {
 
-        'L2' => $jobcomplet,
-        'C6'=> $split['tbljob_frequence'],
-        'G4'=> $split['dessin'],
-        'G5'=> $split['ref_matiere'],
-        'G6'=> $split['waveform'],
-        'K4'=> date("Y-m-d"),
-        'K5'=> $split['nomCreateur'],
-        'K6'=> $split['comCheckeur'],
-        'C24'=> $split['c_unite'],
-        'C25'=> $split['c_unite'],
+      $page->setCellValueByColumnAndRow($col, 8, $value['prefixe']);
+      $page->setCellValueByColumnAndRow($col, 9, $value['nom_eprouvette']);
 
-        'D42'=> $split['tbljob_instruction'],
-        'D47'=> $split['info_jobs_instruction']
-      );
+      $page->setCellValueByColumnAndRow($col, 10, $value['n_essai']);
+      $page->setCellValueByColumnAndRow($col, 11, $value['n_fichier']);
+      $page->setCellValueByColumnAndRow($col, 12, $value['operateur']);
+      $page->setCellValueByColumnAndRow($col, 13, $value['machine']);
+      $page->setCellValueByColumnAndRow($col, 14, $value['date']);
+      $page->setCellValueByColumnAndRow($col, 15, $value['c_temperature']);
+      $page->setCellValueByColumnAndRow($col, 16, $value['c_frequence']);
+      $page->setCellValueByColumnAndRow($col, 17, $value['c_cycle_STL']);
+      $page->setCellValueByColumnAndRow($col, 18, $value['c_frequence_STL']);
 
-      //Pour chaque element du tableau associatif, on update les cellules Excel
-      foreach ($val2Xls as $key => $value) {
-        $page->setCellValue($key, $value);
+      if (isset($value['denomination']['denomination_1'])) {
+        $page->setCellValueByColumnAndRow($col, 19, $value['dim1']);
+        $page->setCellValueByColumnAndRow(0, 19, $value['denomination']['denomination_1']);
+      }
+      else {
+        $page->getRowDimension(19)->setVisible(FALSE);
+      }
+      if (isset($value['denomination']['denomination_2'])) {
+        $page->setCellValueByColumnAndRow($col, 20, $value['dim2']);
+        $page->setCellValueByColumnAndRow(0, 20, $value['denomination']['denomination_2']);
+      }
+      else {
+        $page->getRowDimension(20)->setVisible(FALSE);
+      }
+      if (isset($value['denomination']['denomination_3'])) {
+        $page->setCellValueByColumnAndRow($col, 21, $value['dim3']);
+        $page->setCellValueByColumnAndRow(0, 21, $value['denomination']['denomination_3']);
+      }
+      else {
+        $page->getRowDimension(21)->setVisible(FALSE);
       }
 
-      //titre des lignes PV
-      $page->setCellValueByColumnAndRow(1, 22, $split['c_type_1']);
-      $page->setCellValueByColumnAndRow(2, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
-      $page->setCellValueByColumnAndRow(1, 23, $split['c_type_2']);
-      $page->setCellValueByColumnAndRow(2, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
+      $page->setCellValueByColumnAndRow($col, 22, $value['c_type_1_val']);
+      $page->setCellValueByColumnAndRow($col, 23, $value['c_type_2_val']);
+
+      $oEprouvette->niveaumaxmin($split['c_type_1'], $split['c_type_2'], $value['c_type_1_val'], $value['c_type_2_val']);
+      $page->setCellValueByColumnAndRow($col, 24, $oEprouvette->MAX());
+      $page->setCellValueByColumnAndRow($col, 25, $oEprouvette->MIN());
 
 
+      $page->setCellValueByColumnAndRow($col, 26, $value['Cycle_min']);
+      $page->setCellValueByColumnAndRow($col, 27, $value['runout']);
 
-      $row = 0; // 1-based index
-      $col = 3;
-      foreach ($ep as $key => $value) {
-
-        $page->setCellValueByColumnAndRow($col, 8, $value['prefixe']);
-        $page->setCellValueByColumnAndRow($col, 9, $value['nom_eprouvette']);
-
-        $page->setCellValueByColumnAndRow($col, 10, $value['n_essai']);
-        $page->setCellValueByColumnAndRow($col, 11, $value['n_fichier']);
-        $page->setCellValueByColumnAndRow($col, 12, $value['operateur']);
-        $page->setCellValueByColumnAndRow($col, 13, $value['machine']);
-        $page->setCellValueByColumnAndRow($col, 14, $value['date']);
-        $page->setCellValueByColumnAndRow($col, 15, $value['c_temperature']);
-        $page->setCellValueByColumnAndRow($col, 16, $value['c_frequence']);
-        $page->setCellValueByColumnAndRow($col, 17, $value['c_cycle_STL']);
-        $page->setCellValueByColumnAndRow($col, 18, $value['c_frequence_STL']);
-
-        if (isset($value['denomination']['denomination_1'])) {
-          $page->setCellValueByColumnAndRow($col, 19, $value['dim1']);
-          $page->setCellValueByColumnAndRow(0, 19, $value['denomination']['denomination_1']);
-        }
-        else {
-          $page->getRowDimension(19)->setVisible(FALSE);
-        }
-        if (isset($value['denomination']['denomination_2'])) {
-          $page->setCellValueByColumnAndRow($col, 20, $value['dim2']);
-          $page->setCellValueByColumnAndRow(0, 20, $value['denomination']['denomination_2']);
-        }
-        else {
-          $page->getRowDimension(20)->setVisible(FALSE);
-        }
-        if (isset($value['denomination']['denomination_3'])) {
-          $page->setCellValueByColumnAndRow($col, 21, $value['dim3']);
-          $page->setCellValueByColumnAndRow(0, 21, $value['denomination']['denomination_3']);
-        }
-        else {
-          $page->getRowDimension(21)->setVisible(FALSE);
-        }
-
-        $page->setCellValueByColumnAndRow($col, 22, $value['c_type_1_val']);
-        $page->setCellValueByColumnAndRow($col, 23, $value['c_type_2_val']);
-
-        $oEprouvette->niveaumaxmin($split['c_type_1'], $split['c_type_2'], $value['c_type_1_val'], $value['c_type_2_val']);
-        $page->setCellValueByColumnAndRow($col, 24, $oEprouvette->MAX());
-        $page->setCellValueByColumnAndRow($col, 25, $oEprouvette->MIN());
+      $page->setCellValueByColumnAndRow($col, 35, $value['cycle_estime']);
 
 
-        $page->setCellValueByColumnAndRow($col, 26, $value['Cycle_min']);
-        $page->setCellValueByColumnAndRow($col, 27, $value['runout']);
-
-        $page->setCellValueByColumnAndRow($col, 35, $value['cycle_estime']);
-
-
-        $col++;
-      }
-
-      $colImprimable=ceil(count($ep)/10)*10+3;
-      //zone d'impression
-      $colString = PHPExcel_Cell::stringFromColumnIndex($colImprimable-1);
-      $page->getPageSetup()->setPrintArea('A1:'.$colString.'51');
-
-
-
-
-
-
+      $col++;
     }
-    ElseIf ($split['test_type_abbr']=="Str")	{
 
-      $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_Str.xlsx");
-
-      $page=$objPHPExcel->getActiveSheet();
-
-
-      $val2Xls = array(
-
-        'L2' => $jobcomplet,
-        'C6'=> $split['tbljob_frequence'],
-        'G4'=> $split['dessin'],
-        'G5'=> $split['ref_matiere'],
-        'G6'=> $split['waveform'],
-        'K4'=> date("Y-m-d"),
-        'K5'=> $split['nomCreateur'],
-        'K6'=> $split['comCheckeur'],
-        'C24'=> $split['c_unite'],
-        'C25'=> $split['c_unite'],
-
-        'D42'=> $split['tbljob_instruction'],
-        'D47'=> $split['info_jobs_instruction']
-      );
-
-      //Pour chaque element du tableau associatif, on update les cellules Excel
-      foreach ($val2Xls as $key => $value) {
-        $page->setCellValue($key, $value);
-      }
-
-      //titre des lignes PV
-      $page->setCellValueByColumnAndRow(1, 22, $split['c_type_1']);
-      $page->setCellValueByColumnAndRow(2, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
-      $page->setCellValueByColumnAndRow(1, 23, $split['c_type_2']);
-      $page->setCellValueByColumnAndRow(2, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
-
-
-
-      $row = 0; // 1-based index
-      $col = 3;
-      foreach ($ep as $key => $value) {
-        //copy des styles des colonnes
-        $page->setCellValueByColumnAndRow($col, 8, $value['prefixe']);
-        $page->setCellValueByColumnAndRow($col, 9, $value['nom_eprouvette']);
-
-        $page->setCellValueByColumnAndRow($col, 10, $value['n_essai']);
-        $page->setCellValueByColumnAndRow($col, 11, $value['n_fichier']);
-        $page->setCellValueByColumnAndRow($col, 12, $value['operateur']);
-        $page->setCellValueByColumnAndRow($col, 13, $value['machine']);
-        $page->setCellValueByColumnAndRow($col, 14, $value['date']);
-        $page->setCellValueByColumnAndRow($col, 15, $value['c_temperature']);
-        $page->setCellValueByColumnAndRow($col, 16, $value['c_frequence']);
-        $page->setCellValueByColumnAndRow($col, 17, $value['c_cycle_STL']);
-        $page->setCellValueByColumnAndRow($col, 18, $value['c_frequence_STL']);
-
-        if (isset($value['denomination']['denomination_1'])) {
-          $page->setCellValueByColumnAndRow($col, 19, $value['dim1']);
-          $page->setCellValueByColumnAndRow(0, 19, $value['denomination']['denomination_1']);
-        }
-        else {
-          $page->getRowDimension(19)->setVisible(FALSE);
-        }
-        if (isset($value['denomination']['denomination_2'])) {
-          $page->setCellValueByColumnAndRow($col, 20, $value['dim2']);
-          $page->setCellValueByColumnAndRow(0, 20, $value['denomination']['denomination_2']);
-        }
-        else {
-          $page->getRowDimension(20)->setVisible(FALSE);
-        }
-        if (isset($value['denomination']['denomination_3'])) {
-          $page->setCellValueByColumnAndRow($col, 21, $value['dim3']);
-          $page->setCellValueByColumnAndRow(0, 21, $value['denomination']['denomination_3']);
-        }
-        else {
-          $page->getRowDimension(21)->setVisible(FALSE);
-        }
-
-        $page->setCellValueByColumnAndRow($col, 22, $value['c_type_1_val']);
-        $page->setCellValueByColumnAndRow($col, 23, $value['c_type_2_val']);
-
-        $oEprouvette->niveaumaxmin($split['c_type_1'], $split['c_type_2'], $value['c_type_1_val'], $value['c_type_2_val']);
-        $page->setCellValueByColumnAndRow($col, 24, $oEprouvette->MAX());
-        $page->setCellValueByColumnAndRow($col, 25, $oEprouvette->MIN());
-
-
-        $page->setCellValueByColumnAndRow($col, 26, $value['Cycle_min']);
-        $page->setCellValueByColumnAndRow($col, 27, $value['runout']);
-
-        $page->setCellValueByColumnAndRow($col, 35, $value['cycle_estime']);
-
-
-        $col++;
-      }
-
-      $colImprimable=ceil(count($ep)/10)*10+3;
-      //zone d'impression
-      $colString = PHPExcel_Cell::stringFromColumnIndex($colImprimable-1);
-      $page->getPageSetup()->setPrintArea('A1:'.$colString.'51');
+    $colImprimable=ceil(count($ep)/10)*10+3;
+    //zone d'impression
+    $colString = PHPExcel_Cell::stringFromColumnIndex($colImprimable-1);
+    $page->getPageSetup()->setPrintArea('A1:'.$colString.'51');
 
 
 
 
+  }
+  ElseIf ($split['test_type_abbr']=="LoS" OR $split['test_type_abbr']=="Dwl")	{
 
+    $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_LoS.xlsx");
+
+    $page=$objPHPExcel->getSheetByName('OT LoS');
+
+
+    $val2Xls = array(
+
+      'L2' => $jobcomplet,
+      'C6'=> $split['tbljob_frequence'],
+      'G4'=> $split['dessin'],
+      'G5'=> $split['ref_matiere'],
+      'G6'=> $split['waveform'],
+      'K4'=> date("Y-m-d"),
+      'K5'=> $split['nomCreateur'],
+      'K6'=> $split['comCheckeur'],
+      'C24'=> $split['c_unite'],
+      'C25'=> $split['c_unite'],
+
+      'D42'=> $split['tbljob_instruction'],
+      'D47'=> $split['info_jobs_instruction']
+    );
+
+    //Pour chaque element du tableau associatif, on update les cellules Excel
+    foreach ($val2Xls as $key => $value) {
+      $page->setCellValue($key, $value);
     }
-    ElseIf ($split['test_type_abbr']=="PS")	{
 
-      $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_PS.xlsx");
+    //titre des lignes PV
+    $page->setCellValueByColumnAndRow(1, 22, $split['c_type_1']);
+    $page->setCellValueByColumnAndRow(2, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
+    $page->setCellValueByColumnAndRow(1, 23, $split['c_type_2']);
+    $page->setCellValueByColumnAndRow(2, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
 
-      $page=$objPHPExcel->getActiveSheet();
 
 
-      $val2Xls = array(
+    $row = 0; // 1-based index
+    $col = 3;
+    foreach ($ep as $key => $value) {
 
-        'L2' => $jobcomplet,
-        'C6'=> $split['tbljob_frequence'],
-        'G4'=> $split['dessin'],
-        'G5'=> $split['ref_matiere'],
-        'G6'=> $split['waveform'],
-        'K4'=> date("Y-m-d"),
-        'K5'=> $split['nomCreateur'],
-        'K6'=> $split['comCheckeur'],
-        'C24'=> $split['c_unite'],
-        'C25'=> $split['c_unite'],
+      $page->setCellValueByColumnAndRow($col, 8, $value['prefixe']);
+      $page->setCellValueByColumnAndRow($col, 9, $value['nom_eprouvette']);
 
-        'G9'=> (($split['other_1']==0)?'No':$split['other_1']),
-        'J9'=> $split['specification'],
+      $page->setCellValueByColumnAndRow($col, 10, $value['n_essai']);
+      $page->setCellValueByColumnAndRow($col, 11, $value['n_fichier']);
+      $page->setCellValueByColumnAndRow($col, 12, $value['operateur']);
+      $page->setCellValueByColumnAndRow($col, 13, $value['machine']);
+      $page->setCellValueByColumnAndRow($col, 14, $value['date']);
+      $page->setCellValueByColumnAndRow($col, 15, $value['c_temperature']);
+      $page->setCellValueByColumnAndRow($col, 16, $value['c_frequence']);
+      $page->setCellValueByColumnAndRow($col, 17, $value['c_cycle_STL']);
+      $page->setCellValueByColumnAndRow($col, 18, $value['c_frequence_STL']);
 
-        'D47'=> $split['tbljob_instruction'],
-        'D52'=> $split['info_jobs_instruction']
-      );
-
-      //Pour chaque element du tableau associatif, on update les cellules Excel
-      foreach ($val2Xls as $key => $value) {
-        $page->setCellValue($key, $value);
+      if (isset($value['denomination']['denomination_1'])) {
+        $page->setCellValueByColumnAndRow($col, 19, $value['dim1']);
+        $page->setCellValueByColumnAndRow(0, 19, $value['denomination']['denomination_1']);
+      }
+      else {
+        $page->getRowDimension(19)->setVisible(FALSE);
+      }
+      if (isset($value['denomination']['denomination_2'])) {
+        $page->setCellValueByColumnAndRow($col, 20, $value['dim2']);
+        $page->setCellValueByColumnAndRow(0, 20, $value['denomination']['denomination_2']);
+      }
+      else {
+        $page->getRowDimension(20)->setVisible(FALSE);
+      }
+      if (isset($value['denomination']['denomination_3'])) {
+        $page->setCellValueByColumnAndRow($col, 21, $value['dim3']);
+        $page->setCellValueByColumnAndRow(0, 21, $value['denomination']['denomination_3']);
+      }
+      else {
+        $page->getRowDimension(21)->setVisible(FALSE);
       }
 
-      //titre des lignes PV
-      $page->setCellValueByColumnAndRow(1, 26, $split['c_type_1']);
-      $page->setCellValueByColumnAndRow(2, 26, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
-      $page->setCellValueByColumnAndRow(1, 27, $split['c_type_2']);
-      $page->setCellValueByColumnAndRow(2, 27, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
+      $page->setCellValueByColumnAndRow($col, 22, $value['c_type_1_val']);
+      $page->setCellValueByColumnAndRow($col, 23, $value['c_type_2_val']);
+
+      $oEprouvette->niveaumaxmin($split['c_type_1'], $split['c_type_2'], $value['c_type_1_val'], $value['c_type_2_val']);
+      $page->setCellValueByColumnAndRow($col, 24, $oEprouvette->MAX());
+      $page->setCellValueByColumnAndRow($col, 25, $oEprouvette->MIN());
 
 
+      $page->setCellValueByColumnAndRow($col, 26, $value['Cycle_min']);
+      $page->setCellValueByColumnAndRow($col, 27, $value['runout']);
 
-      $row = 0; // 1-based index
-      $col = 3;
-      foreach ($ep as $key => $value) {
-
-        $page->setCellValueByColumnAndRow($col, 12, $value['prefixe']);
-        $page->setCellValueByColumnAndRow($col, 13, $value['nom_eprouvette']);
-
-        $page->setCellValueByColumnAndRow($col, 14, $value['n_essai']);
-        $page->setCellValueByColumnAndRow($col, 15, $value['n_fichier']);
-        $page->setCellValueByColumnAndRow($col, 16, $value['operateur']);
-        $page->setCellValueByColumnAndRow($col, 17, $value['machine']);
-        $page->setCellValueByColumnAndRow($col, 18, $value['date']);
-        $page->setCellValueByColumnAndRow($col, 19, $value['c_temperature']);
-        $page->setCellValueByColumnAndRow($col, 20, $value['c_frequence']);
-        $page->setCellValueByColumnAndRow($col, 21, $value['c_cycle_STL']);
-        $page->setCellValueByColumnAndRow($col, 22, $value['c_frequence_STL']);
-
-        if (isset($value['denomination']['denomination_1'])) {
-          $page->setCellValueByColumnAndRow($col, 23, $value['dim1']);
-          $page->setCellValueByColumnAndRow(0, 23, $value['denomination']['denomination_1']);
-        }
-        else {
-          $page->getRowDimension(23)->setVisible(FALSE);
-        }
-        if (isset($value['denomination']['denomination_2'])) {
-          $page->setCellValueByColumnAndRow($col, 24, $value['dim2']);
-          $page->setCellValueByColumnAndRow(0, 24, $value['denomination']['denomination_2']);
-        }
-        else {
-          $page->getRowDimension(24)->setVisible(FALSE);
-        }
-        if (isset($value['denomination']['denomination_3'])) {
-          $page->setCellValueByColumnAndRow($col, 25, $value['dim3']);
-          $page->setCellValueByColumnAndRow(0, 25, $value['denomination']['denomination_3']);
-        }
-        else {
-          $page->getRowDimension(25)->setVisible(FALSE);
-        }
-
-        $page->setCellValueByColumnAndRow($col, 26, $value['c_type_1_val']);
-        $page->setCellValueByColumnAndRow($col, 27, $value['c_type_2_val']);
-
-        $oEprouvette->niveaumaxmin($split['c_type_1'], $split['c_type_2'], $value['c_type_1_val'], $value['c_type_2_val']);
-        $page->setCellValueByColumnAndRow($col, 28, $oEprouvette->MAX());
-        $page->setCellValueByColumnAndRow($col, 29, $oEprouvette->MIN());
+      $page->setCellValueByColumnAndRow($col, 35, $value['cycle_estime']);
 
 
-        $page->setCellValueByColumnAndRow($col, 30, $value['other_2']);
-        $page->setCellValueByColumnAndRow($col, 31, $value['runout']);
-
-          $col++;
-      }
-
-      //on masque l'orientation 2 s'il n'y en a pas
-      if ($split['other_1']==0) {
-        for ($j=35; $j <=38 ; $j++) {
-          $page->getRowDimension($j)->setVisible(FALSE);
-        }
-      }
-
-      $colImprimable=ceil(count($ep)/10)*10+3;
-      //zone d'impression
-      $colString = PHPExcel_Cell::stringFromColumnIndex($colImprimable-1);
-      $page->getPageSetup()->setPrintArea('A1:'.$colString.'56');
-
-
-
-
+      $col++;
     }
-    ElseIf ($split['test_type_abbr']=="IQC")	{
 
-      $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_IQC.xlsx");
-
-      $page=$objPHPExcel->getSheetByName('Res Stress Req');
-
-      // Rendre votre modèle accessible
-      include '../models/annexe_IQC-model.php';
-
-      $oEp = new AnnexeIQCModel($db);
-      $epIQC=$oEp->getAllIQC($_GET['id_tbljob']);
-
-      $IQC=$oEp->getGlobalIQC($split['id_dessin']);
-
-      $val2Xls = array(
-
-        'A5' => $split['id_tbljob'],
-
-        'C5' => $split ['customer'].'-'.$split ['job']. '-'.$split ['split'],
-        'C6' => $split['dessin'],
-        'C7' => $split['ref_matiere'].' ('.$split['matiere'].')',
-
-        'N5' =>  $split['comments'],
-        'N6' => date("Y-m-d"),
-        'N7' => $split['specification'],
-
-        'B10' => $split['tbljob_instruction'],
-        'F10' => $split['tbljob_commentaire'],
-        'N10' => $split['tbljob_commentaire_qualite'],
-
-        'R1' => $IQC['nominal_1'],
-        'R2' => $IQC['tolerance_plus_1'],
-        'R3' => $IQC['tolerance_moins_1'],
-        'R4' => $IQC['nominal_2'],
-        'R5' => $IQC['tolerance_plus_2'],
-        'R6' => $IQC['tolerance_moins_2'],
-        'R7' => $IQC['nominal_3'],
-        'R8' => $IQC['tolerance_plus_3'],
-        'R9' => $IQC['tolerance_moins_3']
-      );
-
-      $row = 15; // 1-based index
-      $col = 0;
-
-      $oldData=$objPHPExcel->getSheetByName('OldData');
-      $data=$objPHPExcel->getSheetByName('INSPECTION QUALITE DIM INSTRUM');
-      $newEntry=$objPHPExcel->getSheetByName('New Entry');
-
-      foreach ($epIQC as $key => $value) {
-        $oldData->setCellValueByColumnAndRow(0, $row, $value['id_eprouvette']);
-
-        $oldData->setCellValueByColumnAndRow(1, $row, '*'.$value['prefixe']);
-        $oldData->setCellValueByColumnAndRow(2, $row, '*'.$value['nom_eprouvette']);
+    $colImprimable=ceil(count($ep)/10)*10+3;
+    //zone d'impression
+    $colString = PHPExcel_Cell::stringFromColumnIndex($colImprimable-1);
+    $page->getPageSetup()->setPrintArea('A1:'.$colString.'51');
 
 
-        $oldData->setCellValueByColumnAndRow(3, $row, $value['dim1']);
-        $oldData->setCellValueByColumnAndRow(4, $row, $value['dim2']);
-        $oldData->setCellValueByColumnAndRow(5, $row, $value['dim3']);
 
-        $oldData->setCellValueByColumnAndRow(7, $row, $value['marquage']);
-        $oldData->setCellValueByColumnAndRow(8, $row, $value['surface']);
-        $oldData->setCellValueByColumnAndRow(9, $row, $value['grenaillage']);
-        $oldData->setCellValueByColumnAndRow(10, $row, $value['revetement']);
-        $oldData->setCellValueByColumnAndRow(11, $row, $value['protection']);
-        $oldData->setCellValueByColumnAndRow(12, $row, $value['autre']);
 
-        $oldData->setCellValueByColumnAndRow(13, $row, $value['d_commentaire']);
-        $oldData->setCellValueByColumnAndRow(14, $row, $value['date_IQC']);
 
-        $oldData->setCellValueByColumnAndRow(15, $row, $value['technicien']);
 
-        $row++;
-      }
+  }
+  ElseIf ($split['test_type_abbr']=="Str")	{
 
-      //Pour chaque element du tableau associatif, on update les cellules Excel
-      foreach ($val2Xls as $key => $value) {
-        $data->setCellValue($key, $value);
-        $newEntry->setCellValue($key, $value);
-      }
+    $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_Str.xlsx");
 
+    $page=$objPHPExcel->getSheetByName('OT LCF');
+
+
+    $val2Xls = array(
+
+      'L2' => $jobcomplet,
+      'C6'=> $split['tbljob_frequence'],
+      'G4'=> $split['dessin'],
+      'G5'=> $split['ref_matiere'],
+      'G6'=> $split['waveform'],
+      'K4'=> date("Y-m-d"),
+      'K5'=> $split['nomCreateur'],
+      'K6'=> $split['comCheckeur'],
+      'C24'=> $split['c_unite'],
+      'C25'=> $split['c_unite'],
+
+      'D42'=> $split['tbljob_instruction'],
+      'D47'=> $split['info_jobs_instruction']
+    );
+
+    //Pour chaque element du tableau associatif, on update les cellules Excel
+    foreach ($val2Xls as $key => $value) {
+      $page->setCellValue($key, $value);
     }
-    ElseIf ($split['test_type_abbr']==".Ma")	{
 
-      $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_.Ma.xlsx");
+    //titre des lignes PV
+    $page->setCellValueByColumnAndRow(1, 22, $split['c_type_1']);
+    $page->setCellValueByColumnAndRow(2, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
+    $page->setCellValueByColumnAndRow(1, 23, $split['c_type_2']);
+    $page->setCellValueByColumnAndRow(2, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
 
-      $pageEN=$objPHPExcel->getSheetByName('SSTT EN');
-      $pageFR=$objPHPExcel->getSheetByName('SSTT FR');
 
-      //on unserialize les deliveredgoods
-      parse_str($split['other_4'], $deliveredGoods);
 
-      $val2Xls = array(
-        'B4'=> (($split['id_entrepriseST']==1001)?"MRI":strtoupper(str_replace('.','',$split['test_type_abbr']))),
-        'C4'=> (($split['id_entrepriseST']==1001)?$split['job']:$split['job'].'-'.$split['split']),
-        'C5'=> date('Y-m-d'),
-        'C6'=> $split['other_3'],
-        'C7'=> $split['entrepriseST'],
-        'C8'=> $split['prenomST'].' '.$split['nomST'],
-        'G2'=> strtoupper($split['test_type']),
+    $row = 0; // 1-based index
+    $col = 3;
+    foreach ($ep as $key => $value) {
+      //copy des styles des colonnes
+      $page->setCellValueByColumnAndRow($col, 8, $value['prefixe']);
+      $page->setCellValueByColumnAndRow($col, 9, $value['nom_eprouvette']);
 
-        'D13'=> $split['customer'].'-'.$split['job'],
-        'D14'=> $split['po_number'] .' - '.$split['info_jobs_instruction'],
-        'D15'=> $split['ref_matiere'],
-        'D16'=> $split['dessin'],
+      $page->setCellValueByColumnAndRow($col, 10, $value['n_essai']);
+      $page->setCellValueByColumnAndRow($col, 11, $value['n_fichier']);
+      $page->setCellValueByColumnAndRow($col, 12, $value['operateur']);
+      $page->setCellValueByColumnAndRow($col, 13, $value['machine']);
+      $page->setCellValueByColumnAndRow($col, 14, $value['date']);
+      $page->setCellValueByColumnAndRow($col, 15, $value['c_temperature']);
+      $page->setCellValueByColumnAndRow($col, 16, $value['c_frequence']);
+      $page->setCellValueByColumnAndRow($col, 17, $value['c_cycle_STL']);
+      $page->setCellValueByColumnAndRow($col, 18, $value['c_frequence_STL']);
 
-        'F14'=> (isset($deliveredGoods['1_DG'])?$deliveredGoods['1_DG']:""),
-        'G14'=> (isset($deliveredGoods['1_DGQty'])?$deliveredGoods['1_DGQty']:""),
-        'F15'=> (isset($deliveredGoods['2_DG'])?$deliveredGoods['2_DG']:""),
-        'G15'=> (isset($deliveredGoods['2_DGQty'])?$deliveredGoods['2_DGQty']:""),
-        'F16'=> (isset($deliveredGoods['3_DG'])?$deliveredGoods['3_DG']:""),
-        'G16'=> (isset($deliveredGoods['3_DGQty'])?$deliveredGoods['3_DGQty']:""),
-
-        'D21'=> $split['DyT_SubC'],
-        'F21'=> (($split['other_1']==0)?'NO':'Fatigue Specimen'),
-        'C22'=> $split['nbep'],
-        'F22'=> (($split['other_2']==0)?'NO':'Yes'),
-        'C23'=> $split['specification'].' - '.$split['tbljob_instruction'],
-        'C24'=> $split['tbljob_commentaire']
-      );
-
-      //Pour chaque element du tableau associatif, on update les cellules Excel
-      foreach ($val2Xls as $key => $value) {
-        $pageEN->setCellValue($key, $value);
-        $pageFR->setCellValue($key, $value);
+      if (isset($value['denomination']['denomination_1'])) {
+        $page->setCellValueByColumnAndRow($col, 19, $value['dim1']);
+        $page->setCellValueByColumnAndRow(0, 19, $value['denomination']['denomination_1']);
+      }
+      else {
+        $page->getRowDimension(19)->setVisible(FALSE);
+      }
+      if (isset($value['denomination']['denomination_2'])) {
+        $page->setCellValueByColumnAndRow($col, 20, $value['dim2']);
+        $page->setCellValueByColumnAndRow(0, 20, $value['denomination']['denomination_2']);
+      }
+      else {
+        $page->getRowDimension(20)->setVisible(FALSE);
+      }
+      if (isset($value['denomination']['denomination_3'])) {
+        $page->setCellValueByColumnAndRow($col, 21, $value['dim3']);
+        $page->setCellValueByColumnAndRow(0, 21, $value['denomination']['denomination_3']);
+      }
+      else {
+        $page->getRowDimension(21)->setVisible(FALSE);
       }
 
+      $page->setCellValueByColumnAndRow($col, 22, $value['c_type_1_val']);
+      $page->setCellValueByColumnAndRow($col, 23, $value['c_type_2_val']);
 
-      $row = 27; // 1-based index
-      $col = 0;
+      $oEprouvette->niveaumaxmin($split['c_type_1'], $split['c_type_2'], $value['c_type_1_val'], $value['c_type_2_val']);
+      $page->setCellValueByColumnAndRow($col, 24, $oEprouvette->MAX());
+      $page->setCellValueByColumnAndRow($col, 25, $oEprouvette->MIN());
 
-      foreach ($ep as $key => $value) {
-        //copy des styles des colonnes
-        for ($col = 0; $col < 8; $col++) {
-          $style = $pageEN->getStyleByColumnAndRow($col, $row);
-          $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row+1);
-          $pageEN->duplicateStyle($style, $dstCell);
 
-          $style = $pageFR->getStyleByColumnAndRow($col, $row);
-          $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row+1);
-          $pageFR->duplicateStyle($style, $dstCell);
-        }
+      $page->setCellValueByColumnAndRow($col, 26, $value['Cycle_min']);
+      $page->setCellValueByColumnAndRow($col, 27, $value['runout']);
 
-        $pageEN->mergeCells('A'.$row.':C'.$row);
-        $pageEN->mergeCells('E'.$row.':H'.$row);
-        $pageEN->setCellValueByColumnAndRow(0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
-        $pageEN->setCellValueByColumnAndRow(3, $row, $value['dessin']);
-        $pageEN->setCellValueByColumnAndRow(4, $row, $value['c_commentaire']);
+      $page->setCellValueByColumnAndRow($col, 35, $value['cycle_estime']);
 
-        $pageFR->mergeCells('A'.$row.':C'.$row);
-        $pageFR->mergeCells('E'.$row.':H'.$row);
-        $pageFR->setCellValueByColumnAndRow(0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
-        $pageFR->setCellValueByColumnAndRow(3, $row, $value['dessin']);
-        $pageFR->setCellValueByColumnAndRow(4, $row, (($value['c_type_1_val']>0)?'Inertial Welding - ':'').$value['c_commentaire']);
 
-        $row++;
-      }
-
-      //zone d'impression
-      $colString = PHPExcel_Cell::stringFromColumnIndex($col-1);
-      $pageEN->getPageSetup()->setPrintArea('A1:'.$colString.($row-1));
-      $pageFR->getPageSetup()->setPrintArea('A1:'.$colString.($row-1));
-
+      $col++;
     }
-    ElseIf ($split['ST']=="1")	{
 
-      $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_.Default.xlsx");
+    $colImprimable=ceil(count($ep)/10)*10+3;
+    //zone d'impression
+    $colString = PHPExcel_Cell::stringFromColumnIndex($colImprimable-1);
+    $page->getPageSetup()->setPrintArea('A1:'.$colString.'51');
 
-      $pageEN=$objPHPExcel->getSheetByName('SSTT EN');
-      $pageFR=$objPHPExcel->getSheetByName('SSTT FR');
 
-      $val2Xls = array(
-        'B4'=> (($split['id_entrepriseST']==1001)?"MRI":strtoupper(str_replace('.','',$split['test_type_abbr']))),
-        'C4'=> (($split['id_entrepriseST']==1001)?$split['job']:$split['job'].'-'.$split['split']),
-        'C5'=> date('Y-m-d'),
-        'C7'=> $split['entrepriseST'],
-        'C8'=> $split['prenomST'].' '.$split['nomST'],
-        'G2'=> strtoupper($split['test_type']),
 
-        'D13'=> $split['customer'].'-'.$split['job'],
-        'D14'=> $split['po_number'] .' - '.$split['info_jobs_instruction'],
-        'D15'=> $split['ref_matiere'],
-        'D16'=> $split['dessin'],
 
-        'D21'=> $split['DyT_SubC'],
-        'C22'=> $split['nbep'],
-        'C23'=> $split['specification'].' - '.$split['tbljob_instruction'],
-        'C24'=> $split['tbljob_commentaire']
-      );
 
-      //Pour chaque element du tableau associatif, on update les cellules Excel
-      foreach ($val2Xls as $key => $value) {
-        $pageEN->setCellValue($key, $value);
-        $pageFR->setCellValue($key, $value);
+  }
+
+
+// dé-commenter la ligne ci dessous et supprimer au dessus une fois validé le nouveau format d'OT
+//    $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_Default.xlsx");
+
+    $page=$objPHPExcel->getSheetByName('OT');
+
+
+    $val2Xls = array(
+
+      'C2'=> $split['test_type_abbr']." Fatigue Test",
+      'O2' => 'OT - '.$split['job'].'-'.$split['split'],
+
+      'A5' => $jobcomplet,
+      'I5'=> $split['po_number'],
+      'G5'=> $split['ref_matiere'],
+      'I5'=> $split['dessin'],
+      'K5'=> $split['nomCreateur'],
+      'M5'=> $split['comCheckeur'],
+      'A7'=> $split['info_jobs_instruction'],
+      'M7'=> date("Y-m-d"),
+
+      'A12'=> $split['waveform'],
+      'C12'=> $split['tbljob_frequence'],
+      'E12'=> $split['c_type_1'],
+      'G12'=> $split['c_type_2'],
+      'I12'=> $split['c_unite'],
+      'K12'=> $split['temperature'],
+      'M12'=> (($split['other_4']==0)?'-':$split['other_4']),
+
+
+      'A14'=> $split['name'],
+      'C14'=> (($split['GE']==0)?'-':$split['GE']),
+      'E14'=> (($split['staircase']==0)?'-':$split['staircase']),
+      'G14'=> (($split['specific_protocol']==0)?'-':$split['specific_protocol']),
+
+      'J14'=> $split['special_instruction'],
+
+      'A18'=> $split['tbljob_instruction']
+
+    );
+
+    //Pour chaque element du tableau associatif, on update les cellules Excel
+    foreach ($val2Xls as $key => $value) {
+      $page->setCellValue($key, $value);
+    }
+
+
+
+    $row = 28; // 1-based index
+    $col = 0;
+    foreach ($ep as $key => $value) {
+      //copy des styles des colonnes
+      for ($col = 0; $col <= 15; $col++) {
+        $style = $page->getStyleByColumnAndRow($col, 28);
+        $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row);
+        $page->duplicateStyle($style, $dstCell);
       }
 
+      $page->setCellValueByColumnAndRow(0, $row, $value['prefixe']);
+      $page->setCellValueByColumnAndRow(2, $row, $value['nom_eprouvette']);
 
-      $row = 27; // 1-based index
-      $col = 0;
+      $page->setCellValueByColumnAndRow(5, $row, ' '.$value['n_fichier']);
+      $page->setCellValueByColumnAndRow(8, $row, ' ');
+      $page->setCellValueByColumnAndRow(12, $row, ' ');
 
-      foreach ($ep as $key => $value) {
-        //copy des styles des colonnes
-        for ($col = 0; $col < 8; $col++) {
-          $style = $pageEN->getStyleByColumnAndRow($col, $row);
-          $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row+1);
-          $pageEN->duplicateStyle($style, $dstCell);
+      $row++;
+    }
 
-          $style = $pageFR->getStyleByColumnAndRow($col, $row);
-          $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row+1);
-          $pageFR->duplicateStyle($style, $dstCell);
-        }
 
-        $pageEN->mergeCells('A'.$row.':C'.$row);
-        $pageEN->mergeCells('E'.$row.':H'.$row);
-        $pageEN->setCellValueByColumnAndRow(0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
-        $pageEN->setCellValueByColumnAndRow(3, $row, $value['dessin']);
-        $pageEN->setCellValueByColumnAndRow(4, $row, $value['c_commentaire']);
 
-        $pageFR->mergeCells('A'.$row.':C'.$row);
-        $pageFR->mergeCells('E'.$row.':H'.$row);
-        $pageFR->setCellValueByColumnAndRow(0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
-        $pageFR->setCellValueByColumnAndRow(3, $row, $value['dessin']);
-        $pageFR->setCellValueByColumnAndRow(4, $row, $value['c_commentaire']);
+    //zone d'impression
+    $page->getPageSetup()->setPrintArea('A1:P'.($row-1));
 
-        $row++;
-      }
 
-      //zone d'impression
-      $colString = PHPExcel_Cell::stringFromColumnIndex($col-1);
-      $pageEN->getPageSetup()->setPrintArea('A1:'.$colString.($row-1));
-      $pageFR->getPageSetup()->setPrintArea('A1:'.$colString.($row-1));
 
+
+
+
+}
+
+
+/*
+ElseIf ($split['test_type_abbr']=="Loa")	{
+
+$objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_Loa.xlsx");
+
+$page=$objPHPExcel->getActiveSheet();
+
+
+$val2Xls = array(
+
+'L2' => $jobcomplet,
+'C6'=> $split['tbljob_frequence'],
+'G4'=> $split['dessin'],
+'G5'=> $split['ref_matiere'],
+'G6'=> $split['waveform'],
+'K4'=> date("Y-m-d"),
+'K5'=> $split['nomCreateur'],
+'K6'=> $split['comCheckeur'],
+'C24'=> $split['c_unite'],
+'C25'=> $split['c_unite'],
+
+'D42'=> $split['tbljob_instruction'],
+'D47'=> $split['info_jobs_instruction']
+);
+
+//Pour chaque element du tableau associatif, on update les cellules Excel
+foreach ($val2Xls as $key => $value) {
+$page->setCellValue($key, $value);
+}
+
+//titre des lignes PV
+$page->setCellValueByColumnAndRow(1, 22, $split['c_type_1']);
+$page->setCellValueByColumnAndRow(2, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
+$page->setCellValueByColumnAndRow(1, 23, $split['c_type_2']);
+$page->setCellValueByColumnAndRow(2, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
+
+
+
+$row = 0; // 1-based index
+$col = 3;
+foreach ($ep as $key => $value) {
+
+$page->setCellValueByColumnAndRow($col, 8, $value['prefixe']);
+$page->setCellValueByColumnAndRow($col, 9, $value['nom_eprouvette']);
+
+$page->setCellValueByColumnAndRow($col, 10, $value['n_essai']);
+$page->setCellValueByColumnAndRow($col, 11, $value['n_fichier']);
+$page->setCellValueByColumnAndRow($col, 12, $value['operateur']);
+$page->setCellValueByColumnAndRow($col, 13, $value['machine']);
+$page->setCellValueByColumnAndRow($col, 14, $value['date']);
+$page->setCellValueByColumnAndRow($col, 15, $value['c_temperature']);
+$page->setCellValueByColumnAndRow($col, 16, $value['c_frequence']);
+$page->setCellValueByColumnAndRow($col, 17, $value['c_cycle_STL']);
+$page->setCellValueByColumnAndRow($col, 18, $value['c_frequence_STL']);
+
+if (isset($value['denomination']['denomination_1'])) {
+$page->setCellValueByColumnAndRow($col, 19, $value['dim1']);
+$page->setCellValueByColumnAndRow(0, 19, $value['denomination']['denomination_1']);
+}
+else {
+$page->getRowDimension(19)->setVisible(FALSE);
+}
+if (isset($value['denomination']['denomination_2'])) {
+$page->setCellValueByColumnAndRow($col, 20, $value['dim2']);
+$page->setCellValueByColumnAndRow(0, 20, $value['denomination']['denomination_2']);
+}
+else {
+$page->getRowDimension(20)->setVisible(FALSE);
+}
+if (isset($value['denomination']['denomination_3'])) {
+$page->setCellValueByColumnAndRow($col, 21, $value['dim3']);
+$page->setCellValueByColumnAndRow(0, 21, $value['denomination']['denomination_3']);
+}
+else {
+$page->getRowDimension(21)->setVisible(FALSE);
+}
+
+$page->setCellValueByColumnAndRow($col, 22, $value['c_type_1_val']);
+$page->setCellValueByColumnAndRow($col, 23, $value['c_type_2_val']);
+
+$oEprouvette->niveaumaxmin($split['c_type_1'], $split['c_type_2'], $value['c_type_1_val'], $value['c_type_2_val']);
+$page->setCellValueByColumnAndRow($col, 24, $oEprouvette->MAX());
+$page->setCellValueByColumnAndRow($col, 25, $oEprouvette->MIN());
+
+
+$page->setCellValueByColumnAndRow($col, 26, $value['Cycle_min']);
+$page->setCellValueByColumnAndRow($col, 27, $value['runout']);
+
+$page->setCellValueByColumnAndRow($col, 35, $value['cycle_estime']);
+
+
+$col++;
+}
+
+$colImprimable=ceil(count($ep)/10)*10+3;
+//zone d'impression
+$colString = PHPExcel_Cell::stringFromColumnIndex($colImprimable-1);
+$page->getPageSetup()->setPrintArea('A1:'.$colString.'51');
+
+
+
+
+}
+ElseIf ($split['test_type_abbr']=="LoS" OR $split['test_type_abbr']=="Dwl")	{
+
+$objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_LoS.xlsx");
+
+$page=$objPHPExcel->getActiveSheet();
+
+
+$val2Xls = array(
+
+'L2' => $jobcomplet,
+'C6'=> $split['tbljob_frequence'],
+'G4'=> $split['dessin'],
+'G5'=> $split['ref_matiere'],
+'G6'=> $split['waveform'],
+'K4'=> date("Y-m-d"),
+'K5'=> $split['nomCreateur'],
+'K6'=> $split['comCheckeur'],
+'C24'=> $split['c_unite'],
+'C25'=> $split['c_unite'],
+
+'D42'=> $split['tbljob_instruction'],
+'D47'=> $split['info_jobs_instruction']
+);
+
+//Pour chaque element du tableau associatif, on update les cellules Excel
+foreach ($val2Xls as $key => $value) {
+$page->setCellValue($key, $value);
+}
+
+//titre des lignes PV
+$page->setCellValueByColumnAndRow(1, 22, $split['c_type_1']);
+$page->setCellValueByColumnAndRow(2, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
+$page->setCellValueByColumnAndRow(1, 23, $split['c_type_2']);
+$page->setCellValueByColumnAndRow(2, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
+
+
+
+$row = 0; // 1-based index
+$col = 3;
+foreach ($ep as $key => $value) {
+
+$page->setCellValueByColumnAndRow($col, 8, $value['prefixe']);
+$page->setCellValueByColumnAndRow($col, 9, $value['nom_eprouvette']);
+
+$page->setCellValueByColumnAndRow($col, 10, $value['n_essai']);
+$page->setCellValueByColumnAndRow($col, 11, $value['n_fichier']);
+$page->setCellValueByColumnAndRow($col, 12, $value['operateur']);
+$page->setCellValueByColumnAndRow($col, 13, $value['machine']);
+$page->setCellValueByColumnAndRow($col, 14, $value['date']);
+$page->setCellValueByColumnAndRow($col, 15, $value['c_temperature']);
+$page->setCellValueByColumnAndRow($col, 16, $value['c_frequence']);
+$page->setCellValueByColumnAndRow($col, 17, $value['c_cycle_STL']);
+$page->setCellValueByColumnAndRow($col, 18, $value['c_frequence_STL']);
+
+if (isset($value['denomination']['denomination_1'])) {
+$page->setCellValueByColumnAndRow($col, 19, $value['dim1']);
+$page->setCellValueByColumnAndRow(0, 19, $value['denomination']['denomination_1']);
+}
+else {
+$page->getRowDimension(19)->setVisible(FALSE);
+}
+if (isset($value['denomination']['denomination_2'])) {
+$page->setCellValueByColumnAndRow($col, 20, $value['dim2']);
+$page->setCellValueByColumnAndRow(0, 20, $value['denomination']['denomination_2']);
+}
+else {
+$page->getRowDimension(20)->setVisible(FALSE);
+}
+if (isset($value['denomination']['denomination_3'])) {
+$page->setCellValueByColumnAndRow($col, 21, $value['dim3']);
+$page->setCellValueByColumnAndRow(0, 21, $value['denomination']['denomination_3']);
+}
+else {
+$page->getRowDimension(21)->setVisible(FALSE);
+}
+
+$page->setCellValueByColumnAndRow($col, 22, $value['c_type_1_val']);
+$page->setCellValueByColumnAndRow($col, 23, $value['c_type_2_val']);
+
+$oEprouvette->niveaumaxmin($split['c_type_1'], $split['c_type_2'], $value['c_type_1_val'], $value['c_type_2_val']);
+$page->setCellValueByColumnAndRow($col, 24, $oEprouvette->MAX());
+$page->setCellValueByColumnAndRow($col, 25, $oEprouvette->MIN());
+
+
+$page->setCellValueByColumnAndRow($col, 26, $value['Cycle_min']);
+$page->setCellValueByColumnAndRow($col, 27, $value['runout']);
+
+$page->setCellValueByColumnAndRow($col, 35, $value['cycle_estime']);
+
+
+$col++;
+}
+
+$colImprimable=ceil(count($ep)/10)*10+3;
+//zone d'impression
+$colString = PHPExcel_Cell::stringFromColumnIndex($colImprimable-1);
+$page->getPageSetup()->setPrintArea('A1:'.$colString.'51');
+
+
+
+
+
+
+}
+ElseIf ($split['test_type_abbr']=="Str")	{
+
+$objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_Str.xlsx");
+
+$page=$objPHPExcel->getActiveSheet();
+
+
+$val2Xls = array(
+
+'L2' => $jobcomplet,
+'C6'=> $split['tbljob_frequence'],
+'G4'=> $split['dessin'],
+'G5'=> $split['ref_matiere'],
+'G6'=> $split['waveform'],
+'K4'=> date("Y-m-d"),
+'K5'=> $split['nomCreateur'],
+'K6'=> $split['comCheckeur'],
+'C24'=> $split['c_unite'],
+'C25'=> $split['c_unite'],
+
+'D42'=> $split['tbljob_instruction'],
+'D47'=> $split['info_jobs_instruction']
+);
+
+//Pour chaque element du tableau associatif, on update les cellules Excel
+foreach ($val2Xls as $key => $value) {
+$page->setCellValue($key, $value);
+}
+
+//titre des lignes PV
+$page->setCellValueByColumnAndRow(1, 22, $split['c_type_1']);
+$page->setCellValueByColumnAndRow(2, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
+$page->setCellValueByColumnAndRow(1, 23, $split['c_type_2']);
+$page->setCellValueByColumnAndRow(2, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
+
+
+
+$row = 0; // 1-based index
+$col = 3;
+foreach ($ep as $key => $value) {
+//copy des styles des colonnes
+$page->setCellValueByColumnAndRow($col, 8, $value['prefixe']);
+$page->setCellValueByColumnAndRow($col, 9, $value['nom_eprouvette']);
+
+$page->setCellValueByColumnAndRow($col, 10, $value['n_essai']);
+$page->setCellValueByColumnAndRow($col, 11, $value['n_fichier']);
+$page->setCellValueByColumnAndRow($col, 12, $value['operateur']);
+$page->setCellValueByColumnAndRow($col, 13, $value['machine']);
+$page->setCellValueByColumnAndRow($col, 14, $value['date']);
+$page->setCellValueByColumnAndRow($col, 15, $value['c_temperature']);
+$page->setCellValueByColumnAndRow($col, 16, $value['c_frequence']);
+$page->setCellValueByColumnAndRow($col, 17, $value['c_cycle_STL']);
+$page->setCellValueByColumnAndRow($col, 18, $value['c_frequence_STL']);
+
+if (isset($value['denomination']['denomination_1'])) {
+$page->setCellValueByColumnAndRow($col, 19, $value['dim1']);
+$page->setCellValueByColumnAndRow(0, 19, $value['denomination']['denomination_1']);
+}
+else {
+$page->getRowDimension(19)->setVisible(FALSE);
+}
+if (isset($value['denomination']['denomination_2'])) {
+$page->setCellValueByColumnAndRow($col, 20, $value['dim2']);
+$page->setCellValueByColumnAndRow(0, 20, $value['denomination']['denomination_2']);
+}
+else {
+$page->getRowDimension(20)->setVisible(FALSE);
+}
+if (isset($value['denomination']['denomination_3'])) {
+$page->setCellValueByColumnAndRow($col, 21, $value['dim3']);
+$page->setCellValueByColumnAndRow(0, 21, $value['denomination']['denomination_3']);
+}
+else {
+$page->getRowDimension(21)->setVisible(FALSE);
+}
+
+$page->setCellValueByColumnAndRow($col, 22, $value['c_type_1_val']);
+$page->setCellValueByColumnAndRow($col, 23, $value['c_type_2_val']);
+
+$oEprouvette->niveaumaxmin($split['c_type_1'], $split['c_type_2'], $value['c_type_1_val'], $value['c_type_2_val']);
+$page->setCellValueByColumnAndRow($col, 24, $oEprouvette->MAX());
+$page->setCellValueByColumnAndRow($col, 25, $oEprouvette->MIN());
+
+
+$page->setCellValueByColumnAndRow($col, 26, $value['Cycle_min']);
+$page->setCellValueByColumnAndRow($col, 27, $value['runout']);
+
+$page->setCellValueByColumnAndRow($col, 35, $value['cycle_estime']);
+
+
+$col++;
+}
+
+$colImprimable=ceil(count($ep)/10)*10+3;
+//zone d'impression
+$colString = PHPExcel_Cell::stringFromColumnIndex($colImprimable-1);
+$page->getPageSetup()->setPrintArea('A1:'.$colString.'51');
+
+
+
+
+
+}
+*/
+ElseIf ($split['test_type_abbr']=="PS")	{
+
+  $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_PS.xlsx");
+
+  $page=$objPHPExcel->getActiveSheet();
+
+
+  $val2Xls = array(
+
+    'L2' => $jobcomplet,
+    'C6'=> $split['tbljob_frequence'],
+    'G4'=> $split['dessin'],
+    'G5'=> $split['ref_matiere'],
+    'G6'=> $split['waveform'],
+    'K4'=> date("Y-m-d"),
+    'K5'=> $split['nomCreateur'],
+    'K6'=> $split['comCheckeur'],
+    'C24'=> $split['c_unite'],
+    'C25'=> $split['c_unite'],
+
+    'G9'=> (($split['other_1']==0)?'No':$split['other_1']),
+    'J9'=> $split['specification'],
+
+    'D47'=> $split['tbljob_instruction'],
+    'D52'=> $split['info_jobs_instruction']
+  );
+
+  //Pour chaque element du tableau associatif, on update les cellules Excel
+  foreach ($val2Xls as $key => $value) {
+    $page->setCellValue($key, $value);
+  }
+
+  //titre des lignes PV
+  $page->setCellValueByColumnAndRow(1, 26, $split['c_type_1']);
+  $page->setCellValueByColumnAndRow(2, 26, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
+  $page->setCellValueByColumnAndRow(1, 27, $split['c_type_2']);
+  $page->setCellValueByColumnAndRow(2, 27, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
+
+
+
+  $row = 0; // 1-based index
+  $col = 3;
+  foreach ($ep as $key => $value) {
+
+    $page->setCellValueByColumnAndRow($col, 12, $value['prefixe']);
+    $page->setCellValueByColumnAndRow($col, 13, $value['nom_eprouvette']);
+
+    $page->setCellValueByColumnAndRow($col, 14, $value['n_essai']);
+    $page->setCellValueByColumnAndRow($col, 15, $value['n_fichier']);
+    $page->setCellValueByColumnAndRow($col, 16, $value['operateur']);
+    $page->setCellValueByColumnAndRow($col, 17, $value['machine']);
+    $page->setCellValueByColumnAndRow($col, 18, $value['date']);
+    $page->setCellValueByColumnAndRow($col, 19, $value['c_temperature']);
+    $page->setCellValueByColumnAndRow($col, 20, $value['c_frequence']);
+    $page->setCellValueByColumnAndRow($col, 21, $value['c_cycle_STL']);
+    $page->setCellValueByColumnAndRow($col, 22, $value['c_frequence_STL']);
+
+    if (isset($value['denomination']['denomination_1'])) {
+      $page->setCellValueByColumnAndRow($col, 23, $value['dim1']);
+      $page->setCellValueByColumnAndRow(0, 23, $value['denomination']['denomination_1']);
     }
     else {
-      $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT INCONNU.xlsx");
+      $page->getRowDimension(23)->setVisible(FALSE);
+    }
+    if (isset($value['denomination']['denomination_2'])) {
+      $page->setCellValueByColumnAndRow($col, 24, $value['dim2']);
+      $page->setCellValueByColumnAndRow(0, 24, $value['denomination']['denomination_2']);
+    }
+    else {
+      $page->getRowDimension(24)->setVisible(FALSE);
+    }
+    if (isset($value['denomination']['denomination_3'])) {
+      $page->setCellValueByColumnAndRow($col, 25, $value['dim3']);
+      $page->setCellValueByColumnAndRow(0, 25, $value['denomination']['denomination_3']);
+    }
+    else {
+      $page->getRowDimension(25)->setVisible(FALSE);
     }
 
+    $page->setCellValueByColumnAndRow($col, 26, $value['c_type_1_val']);
+    $page->setCellValueByColumnAndRow($col, 27, $value['c_type_2_val']);
+
+    $oEprouvette->niveaumaxmin($split['c_type_1'], $split['c_type_2'], $value['c_type_1_val'], $value['c_type_2_val']);
+    $page->setCellValueByColumnAndRow($col, 28, $oEprouvette->MAX());
+    $page->setCellValueByColumnAndRow($col, 29, $oEprouvette->MIN());
+
+
+    $page->setCellValueByColumnAndRow($col, 30, $value['other_2']);
+    $page->setCellValueByColumnAndRow($col, 31, $value['runout']);
+
+    $col++;
+  }
+
+  //on masque l'orientation 2 s'il n'y en a pas
+  if ($split['other_1']==0) {
+    for ($j=35; $j <=38 ; $j++) {
+      $page->getRowDimension($j)->setVisible(FALSE);
+    }
+  }
+
+  $colImprimable=ceil(count($ep)/10)*10+3;
+  //zone d'impression
+  $colString = PHPExcel_Cell::stringFromColumnIndex($colImprimable-1);
+  $page->getPageSetup()->setPrintArea('A1:'.$colString.'56');
 
 
 
-    //exit;
+
+}
+ElseIf ($split['test_type_abbr']=="IQC")	{
+
+  $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_IQC.xlsx");
+
+  $page=$objPHPExcel->getSheetByName('Res Stress Req');
+
+  // Rendre votre modèle accessible
+  include '../models/annexe_IQC-model.php';
+
+  $oEp = new AnnexeIQCModel($db);
+  $epIQC=$oEp->getAllIQC($_GET['id_tbljob']);
+
+  $IQC=$oEp->getGlobalIQC($split['id_dessin']);
+
+  $val2Xls = array(
+
+    'A5' => $split['id_tbljob'],
+
+    'C5' => $split ['customer'].'-'.$split ['job']. '-'.$split ['split'],
+    'C6' => $split['dessin'],
+    'C7' => $split['ref_matiere'].' ('.$split['matiere'].')',
+
+    'N5' =>  $split['comments'],
+    'N6' => date("Y-m-d"),
+    'N7' => $split['specification'],
+
+    'B10' => $split['tbljob_instruction'],
+    'F10' => $split['tbljob_commentaire'],
+    'N10' => $split['tbljob_commentaire_qualite'],
+
+    'R1' => $IQC['nominal_1'],
+    'R2' => $IQC['tolerance_plus_1'],
+    'R3' => $IQC['tolerance_moins_1'],
+    'R4' => $IQC['nominal_2'],
+    'R5' => $IQC['tolerance_plus_2'],
+    'R6' => $IQC['tolerance_moins_2'],
+    'R7' => $IQC['nominal_3'],
+    'R8' => $IQC['tolerance_plus_3'],
+    'R9' => $IQC['tolerance_moins_3']
+  );
+
+  $row = 15; // 1-based index
+  $col = 0;
+
+  $oldData=$objPHPExcel->getSheetByName('OldData');
+  $data=$objPHPExcel->getSheetByName('INSPECTION QUALITE DIM INSTRUM');
+  $newEntry=$objPHPExcel->getSheetByName('New Entry');
+
+  foreach ($epIQC as $key => $value) {
+    $oldData->setCellValueByColumnAndRow(0, $row, $value['id_eprouvette']);
+
+    $oldData->setCellValueByColumnAndRow(1, $row, '*'.$value['prefixe']);
+    $oldData->setCellValueByColumnAndRow(2, $row, '*'.$value['nom_eprouvette']);
 
 
-    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-    //$objWriter->setIncludeCharts(TRUE);
-    $objWriter->save('../lib/PHPExcel/files/OT-'.$split['job'].'-'.$split['split'].'-'.$split['test_type_abbr'].'.xlsx');
+    $oldData->setCellValueByColumnAndRow(3, $row, $value['dim1']);
+    $oldData->setCellValueByColumnAndRow(4, $row, $value['dim2']);
+    $oldData->setCellValueByColumnAndRow(5, $row, $value['dim3']);
 
-    // Redirect output to a client’s web browser (Excel2007)
-    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    header('Content-Disposition: attachment;filename="OT-'.$split['job'].'-'.$split['split'].'-'.$split['test_type_abbr'].'.xlsx"');
-    header('Cache-Control: max-age=0');
-    // If you're serving to IE 9, then the following may be needed
-    header('Cache-Control: max-age=1');
+    $oldData->setCellValueByColumnAndRow(7, $row, $value['marquage']);
+    $oldData->setCellValueByColumnAndRow(8, $row, $value['surface']);
+    $oldData->setCellValueByColumnAndRow(9, $row, $value['grenaillage']);
+    $oldData->setCellValueByColumnAndRow(10, $row, $value['revetement']);
+    $oldData->setCellValueByColumnAndRow(11, $row, $value['protection']);
+    $oldData->setCellValueByColumnAndRow(12, $row, $value['autre']);
 
-    // If you're serving to IE over SSL, then the following may be needed
-    header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
-    header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
-    header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
-    header ('Pragma: public'); // HTTP/1.0
+    $oldData->setCellValueByColumnAndRow(13, $row, $value['d_commentaire']);
+    $oldData->setCellValueByColumnAndRow(14, $row, $value['date_IQC']);
 
-    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-    //$objWriter->setIncludeCharts(TRUE);
-    $objWriter->save('php://output');
-    exit;
+    $oldData->setCellValueByColumnAndRow(15, $row, $value['technicien']);
 
-    ?>
+    $row++;
+  }
+
+  //Pour chaque element du tableau associatif, on update les cellules Excel
+  foreach ($val2Xls as $key => $value) {
+    $data->setCellValue($key, $value);
+    $newEntry->setCellValue($key, $value);
+  }
+
+}
+ElseIf ($split['test_type_abbr']==".Ma")	{
+
+  $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_.Ma.xlsx");
+
+  $pageEN=$objPHPExcel->getSheetByName('SSTT EN');
+  $pageFR=$objPHPExcel->getSheetByName('SSTT FR');
+
+  //on unserialize les deliveredgoods
+  parse_str($split['other_4'], $deliveredGoods);
+
+  $val2Xls = array(
+    'B4'=> (($split['id_entrepriseST']==1001)?"MRI":strtoupper(str_replace('.','',$split['test_type_abbr']))),
+    'C4'=> (($split['id_entrepriseST']==1001)?$split['job']:$split['job'].'-'.$split['split']),
+    'C5'=> date('Y-m-d'),
+    'C6'=> $split['other_3'],
+    'C7'=> $split['entrepriseST'],
+    'C8'=> $split['prenomST'].' '.$split['nomST'],
+    'G2'=> strtoupper($split['test_type']),
+
+    'D13'=> $split['customer'].'-'.$split['job'],
+    'D14'=> $split['po_number'] .' - '.$split['info_jobs_instruction'],
+    'D15'=> $split['ref_matiere'],
+    'D16'=> $split['dessin'],
+
+    'F14'=> (isset($deliveredGoods['1_DG'])?$deliveredGoods['1_DG']:""),
+    'G14'=> (isset($deliveredGoods['1_DGQty'])?$deliveredGoods['1_DGQty']:""),
+    'F15'=> (isset($deliveredGoods['2_DG'])?$deliveredGoods['2_DG']:""),
+    'G15'=> (isset($deliveredGoods['2_DGQty'])?$deliveredGoods['2_DGQty']:""),
+    'F16'=> (isset($deliveredGoods['3_DG'])?$deliveredGoods['3_DG']:""),
+    'G16'=> (isset($deliveredGoods['3_DGQty'])?$deliveredGoods['3_DGQty']:""),
+
+    'D21'=> $split['DyT_SubC'],
+    'G21'=> $split['nbep'],
+    'C22'=> $split['specification'].' - '.$split['tbljob_instruction'],
+    'D23'=> (($split['other_2']==0)?'NO':'Yes'),
+    'F23'=> (($split['other_1']==0)?'NO':'Fatigue Specimen'),
+
+    'C24'=> $split['tbljob_commentaire']
+  );
+
+  //Pour chaque element du tableau associatif, on update les cellules Excel
+  foreach ($val2Xls as $key => $value) {
+    $pageEN->setCellValue($key, $value);
+    $pageFR->setCellValue($key, $value);
+  }
+
+
+  $row = 27; // 1-based index
+  $col = 0;
+
+  foreach ($ep as $key => $value) {
+    //copy des styles des colonnes
+    for ($col = 0; $col < 8; $col++) {
+      $style = $pageEN->getStyleByColumnAndRow($col, $row);
+      $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row+1);
+      $pageEN->duplicateStyle($style, $dstCell);
+
+      $style = $pageFR->getStyleByColumnAndRow($col, $row);
+      $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row+1);
+      $pageFR->duplicateStyle($style, $dstCell);
+    }
+
+    $pageEN->mergeCells('A'.$row.':C'.$row);
+    $pageEN->mergeCells('E'.$row.':H'.$row);
+    $pageEN->setCellValueByColumnAndRow(0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
+    $pageEN->setCellValueByColumnAndRow(3, $row, $value['dessin']);
+    $pageEN->setCellValueByColumnAndRow(4, $row, $value['c_commentaire']);
+
+    $pageFR->mergeCells('A'.$row.':C'.$row);
+    $pageFR->mergeCells('E'.$row.':H'.$row);
+    $pageFR->setCellValueByColumnAndRow(0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
+    $pageFR->setCellValueByColumnAndRow(3, $row, $value['dessin']);
+    $pageFR->setCellValueByColumnAndRow(4, $row, (($value['c_type_1_val']>0)?'Inertial Welding - ':'').$value['c_commentaire']);
+
+    $row++;
+  }
+
+  //zone d'impression
+  $colString = PHPExcel_Cell::stringFromColumnIndex($col-1);
+  $pageEN->getPageSetup()->setPrintArea('A1:'.$colString.($row-1));
+  $pageFR->getPageSetup()->setPrintArea('A1:'.$colString.($row-1));
+
+}
+ElseIf ($split['ST']=="1")	{
+
+  $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_.Default.xlsx");
+
+  $pageEN=$objPHPExcel->getSheetByName('SSTT EN');
+  $pageFR=$objPHPExcel->getSheetByName('SSTT FR');
+
+  $val2Xls = array(
+    'B4'=> (($split['id_entrepriseST']==1001)?"MRI":strtoupper(str_replace('.','',$split['test_type_abbr']))),
+    'C4'=> (($split['id_entrepriseST']==1001)?$split['job']:$split['job'].'-'.$split['split']),
+    'C5'=> date('Y-m-d'),
+    'C7'=> $split['entrepriseST'],
+    'C8'=> $split['prenomST'].' '.$split['nomST'],
+    'G2'=> strtoupper($split['test_type']),
+
+    'D13'=> $split['customer'].'-'.$split['job'],
+    'D14'=> $split['po_number'] .' - '.$split['info_jobs_instruction'],
+    'D15'=> $split['ref_matiere'],
+    'D16'=> $split['dessin'],
+
+    'D21'=> $split['DyT_SubC'],
+    'C22'=> $split['nbep'],
+    'C23'=> $split['specification'].' - '.$split['tbljob_instruction'],
+    'C24'=> $split['tbljob_commentaire']
+  );
+
+  //Pour chaque element du tableau associatif, on update les cellules Excel
+  foreach ($val2Xls as $key => $value) {
+    $pageEN->setCellValue($key, $value);
+    $pageFR->setCellValue($key, $value);
+  }
+
+
+  $row = 27; // 1-based index
+  $col = 0;
+
+  foreach ($ep as $key => $value) {
+    //copy des styles des colonnes
+    for ($col = 0; $col < 8; $col++) {
+      $style = $pageEN->getStyleByColumnAndRow($col, $row);
+      $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row+1);
+      $pageEN->duplicateStyle($style, $dstCell);
+
+      $style = $pageFR->getStyleByColumnAndRow($col, $row);
+      $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row+1);
+      $pageFR->duplicateStyle($style, $dstCell);
+    }
+
+    $pageEN->mergeCells('A'.$row.':C'.$row);
+    $pageEN->mergeCells('E'.$row.':H'.$row);
+    $pageEN->setCellValueByColumnAndRow(0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
+    $pageEN->setCellValueByColumnAndRow(3, $row, $value['dessin']);
+    $pageEN->setCellValueByColumnAndRow(4, $row, $value['c_commentaire']);
+
+    $pageFR->mergeCells('A'.$row.':C'.$row);
+    $pageFR->mergeCells('E'.$row.':H'.$row);
+    $pageFR->setCellValueByColumnAndRow(0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
+    $pageFR->setCellValueByColumnAndRow(3, $row, $value['dessin']);
+    $pageFR->setCellValueByColumnAndRow(4, $row, $value['c_commentaire']);
+
+    $row++;
+  }
+
+  //zone d'impression
+  $colString = PHPExcel_Cell::stringFromColumnIndex($col-1);
+  $pageEN->getPageSetup()->setPrintArea('A1:'.$colString.($row-1));
+  $pageFR->getPageSetup()->setPrintArea('A1:'.$colString.($row-1));
+
+}
+else {
+  $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT INCONNU.xlsx");
+}
+
+
+
+
+//exit;
+
+
+$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+//$objWriter->setIncludeCharts(TRUE);
+$objWriter->save('../lib/PHPExcel/files/OT-'.$split['job'].'-'.$split['split'].'-'.$split['test_type_abbr'].'.xlsx');
+
+// Redirect output to a client’s web browser (Excel2007)
+header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+header('Content-Disposition: attachment;filename="OT-'.$split['job'].'-'.$split['split'].'-'.$split['test_type_abbr'].'.xlsx"');
+header('Cache-Control: max-age=0');
+// If you're serving to IE 9, then the following may be needed
+header('Cache-Control: max-age=1');
+
+// If you're serving to IE over SSL, then the following may be needed
+header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
+header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+header ('Pragma: public'); // HTTP/1.0
+
+$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+//$objWriter->setIncludeCharts(TRUE);
+$objWriter->save('php://output');
+exit;
+
+?>

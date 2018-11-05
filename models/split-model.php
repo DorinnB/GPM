@@ -36,7 +36,7 @@ class LstSplitModel
     tbljob_commentaire, tbljob_instruction, tbljob_commentaire_qualite, planning, tbljob_frequence,
     GE, specific_protocol, special_instruction, staircase,
     createur, t1.technicien as nomCreateur, t2.technicien as comCheckeur,
-    statuts.id_statut, statut, etape, statut_color, test_type, test_type_abbr, test_type_cust, ST, auxilaire, tbljobs.id_rawData, rawData.name, report_rev,
+    statuts.id_statut, statut, etape, statut_color, test_type, test_type_abbr, test_type_cust, ST,final, auxilaire, tbljobs.id_rawData, rawData.name, report_rev,
     invoice_type, invoice_date, invoice_commentaire, invoice_lang, invoice_currency,
     specification, ref_matiere, matiere, tbljobs.waveform, GROUP_CONCAT(DISTINCT dessin SEPARATOR " ") as dessin, GROUP_CONCAT(DISTINCT master_eprouvettes.id_dwg SEPARATOR " ") as id_dessin,
     other_1, other_2, other_3, other_4, other_5,
@@ -45,6 +45,8 @@ class LstSplitModel
     GROUP_CONCAT( DISTINCT round(c_frequence_STL,1) ORDER BY c_frequence_STL DESC SEPARATOR " / ") as c_frequence_STL,
     GROUP_CONCAT( DISTINCT machine SEPARATOR " / ") as machines,
     GROUP_CONCAT( DISTINCT cell_load_capacity SEPARATOR " / ") as cell_load_capacity,
+    if(type1.consigne_type="R",GROUP_CONCAT( DISTINCT round(c_type_1_val,2) ORDER BY c_type_1_val DESC SEPARATOR " / "),"") as ratio1,
+    if(type2.consigne_type="R",GROUP_CONCAT( DISTINCT round(c_type_1_val,2) ORDER BY c_type_1_val DESC SEPARATOR " / "),"") as ratio2,
     sum(if(type_chauffage="Four",1,0)) as four,
     sum(if(type_chauffage="Coil",1,0)) as coil,
     type1.consigne_type as c_type_1, type2.consigne_type as c_type_2, c_unite,
@@ -184,6 +186,15 @@ class LstSplitModel
     return $this->db->getOne($req);
   }
 
+  public function getInfoSplit() {
+
+    $req = 'SELECT customer, job, split
+    FROM tbljobs
+    LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
+    WHERE id_tbljob='.$this->id.';';
+    //echo $req;
+    return $this->db->getOne($req);
+  }
 
 
   public function updateDataInput(){
@@ -284,10 +295,22 @@ class LstSplitModel
     echo json_encode($maReponse);
   }
 
-  public function updateReportSend($id_reportSend){
+  public function updateReportDate($reportDate){
     $reqUpdate='UPDATE `tbljobs` SET
-    `report_send` = '.$this->db->quote($id_reportSend).',
-    report_date = "'.date('Y-m-d').'"
+    report_send = '.$_COOKIE['id_user'].',
+    report_date = '.$this->db->quote($reportDate).'
+    WHERE `tbljobs`.`id_tbljob` = '.$this->id.';';
+    //echo $reqUpdate;
+    $result = $this->db->query($reqUpdate);
+
+    $maReponse = array('result' => 'ok', 'req'=> $reqUpdate, 'id_tbljob' => $this->id);
+    echo json_encode($maReponse);
+  }
+
+  public function resetReportDate(){
+    $reqUpdate='UPDATE `tbljobs` SET
+    report_send = '.-$_COOKIE['id_user'].',
+    report_date = NULL
     WHERE `tbljobs`.`id_tbljob` = '.$this->id.';';
     //echo $reqUpdate;
     $result = $this->db->query($reqUpdate);
@@ -315,6 +338,19 @@ class LstSplitModel
     $reqUpdate='
     UPDATE `tbljobs`
     SET report_rev = if(report_rev is null,0,report_rev + 1)
+    WHERE `tbljobs`.`id_tbljob` = '.$this->id.';';
+    //echo $reqUpdate;
+    $result = $this->db->query($reqUpdate);
+
+    $maReponse = array('result' => 'ok', 'req'=> $reqUpdate, 'id_tbljob' => $this->id);
+    echo json_encode($maReponse);
+  }
+
+  public function resetRev(){
+    //on inverse le signe de l'opérateur (sauf si 0 on fait positif)
+    $reqUpdate='
+    UPDATE `tbljobs`
+    SET report_rev = NULL
     WHERE `tbljobs`.`id_tbljob` = '.$this->id.';';
     //echo $reqUpdate;
     $result = $this->db->query($reqUpdate);

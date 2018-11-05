@@ -16,33 +16,33 @@
         <div class="row" style="height:100%;">
           <div class="col-sm-4" style="height:100%;">
             <ul  class="nav nav-pills nav-stacked" style="height:100%;">
-              <li style="height:25%;display:none;" id="newTest">
-                <a href="#1a" data-toggle="tab" style="line-height:7vh;"><p>NEW TEST</p></a>
+              <li class="tabLeft" style="display:none;" id="newTest">
+                <a href="#1a" data-toggle="tab" style=""><p>NEW TEST</p></a>
               </li>
-              <li style="height:25%;display:none;" id="prepa">
-                <a href="#1b" data-toggle="tab" style="line-height:7vh;"><p>PREPA</p></a>
+              <li class="tabLeft" style="display:none;" id="prepa">
+                <a href="#1b" data-toggle="tab" style=""><p>PREPA</p></a>
               </li>
-              <li style="height:25%;" id="eval">
-                <a href="#1e" data-toggle="tab" style="line-height:7vh;"><p>EVAL</p></a>
+              <li class="tabLeft" id="eval">
+                <a href="#1e" data-toggle="tab" style=""><p>EVAL</p></a>
               </li>
-              <li style="height:25%;" id="document">
-                <a href="#1d" data-toggle="tab" style="line-height:7vh;"><p>DOC</p></a>
+              <li class="tabLeft" id="document">
+                <a href="#1d" data-toggle="tab" style=""><p>DOC</p></a>
               </li>
-              <li style="height:25%;display:none;" id="prestart">
-                <a href="#1c" data-toggle="tab" style="line-height:7vh;"><p>PRESTART CHECKLIST</p></a>
+              <li class="tabLeft" style="display:none;" id="prestart">
+                <a href="#1c" data-toggle="tab" style=""><p>PRESTART CHECKLIST</p></a>
               </li>
-              <li style="height:25%;" id="retest"><a href="#2a" data-toggle="tab" style="line-height:7vh;">RETEST</a>
+              <li class="tabLeft" id="retest"><a href="#2a" data-toggle="tab" style="">RETEST</a>
               </li>
-              <li style="height:25%;display:none;" id="delete"><a href="#3a" data-toggle="tab" style="line-height:7vh;">DELETE</a>
+              <li class="tabLeft" style="display:none;" id="delete"><a href="#3a" data-toggle="tab" style="">DELETE</a>
               </li>
-              <li style="height:25%;display:none;"id="cancel"><a href="#3b" data-toggle="tab" style="line-height:7vh;">CANCEL</a>
+              <li class="tabLeft" style="display:none;"id="cancel"><a href="#3b" data-toggle="tab" style="">CANCEL</a>
               </li>
             </ul>
           </div>
 
 
           <div class="col-sm-8 carre" style="height:100%;">
-            <div class="tab-content clearfix" style="height:100%;">
+            <div class="tab-content clearfix" style="height:100%;overflow-y:auto;">
 
               <div class="tab-pane" id="1a" style="height:100%;">
                 <form class="form-group" style="height:100%;" id="newTestForm">
@@ -150,7 +150,7 @@
                   </div>
                 </div>
 
-                <div class="row" style="padding: 0px 10px; border-bottom: medium solid  #536E94; border-top: medium solid #536E94;">
+                <div class="row" style="border-bottom: medium solid  #536E94; border-top: medium solid #536E94;">
                   <form class="form-group" style="height:100%;" id="update_Aux">
 
                     <div class="col-md-10">
@@ -176,7 +176,7 @@
                     </div>
 
                     <div class="col-md-2 check<?=	$eprouvette['d_checked']	?>" id="d_checked" data-d_checked="<?= $eprouvette['d_checked'] ?>" style="background-color:<?=	($eprouvette['d_checked']==0)?'':(($eprouvette['d_checked']<=0)?'darkred':'darkgreen')	?>">
-                      <img type="image" src="img/<?=	($eprouvette['d_checked']==0)?'nextJob.png':(($eprouvette['d_checked']<0)?'save.png':'check.png')	?>" style="height:65px;padding:5px; margin: auto;" title="<?=	($eprouvette['d_checked']<=0)?'Check Aux ('.($eprouvette['d_checked']).')':$eprouvette['d_checked']	?>">
+                      <img type="image" src="img/<?=	($eprouvette['d_checked']==0)?'nextJob.png':(($eprouvette['d_checked']<0)?'save.png':'check.png')	?>" style="height:65px;padding:5px; margin: auto; cursor:pointer;" title="<?=	($eprouvette['d_checked']<=0)?'Check Aux ('.($eprouvette['d_checked']).')':$eprouvette['d_checked']	?>">
                     </div>
 
                     <input type="hidden" id="checkAux" name="checkAux" value="<?=  ($eprouvette['d_checked']==0)?'save':(($eprouvette['d_checked']<0)?'valid':'cancel')	?>">
@@ -186,11 +186,11 @@
                   </form>
                 </div>
 
-                <div class="row" style="padding: 0px 10px;">
-                  <form class="form-group" id="update_d_commentaire">
-                    <div class="col-md-10">
+                <div class="row" style="height:45%; padding: 0px 10px;">
+                  <form class="form-group" id="update_d_commentaire" style="height:100%;">
+                    <div class="col-md-10" style="height:100%;">
                       <b style="float:left;">Lab Observation</b><br/>
-                      <textarea rows="4" class="form-control" id="d_commentaire" name="d_commentaire"  style="resize:none;background-color:#5B9BD5;border-width:0px; color:white;"><?= $eprouvette['d_commentaire'] ?></textarea>
+                      <textarea class="form-control" id="d_commentaire" name="d_commentaire"  style="resize:none;background-color:#5B9BD5;border-width:0px; color:white;height:85%"><?= $eprouvette['d_commentaire'] ?></textarea>
                     </div>
                     <div class="col-md-2">
                       <div id="flagQualite" data-flagQualite="<?= $eprouvette['flag_qualite'] ?>"  data-idepflagqualite="<?= $eprouvette['id_eprouvette'] ?>">

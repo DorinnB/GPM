@@ -29,7 +29,11 @@ $(document).ready(function() {
       {       label: "eprouvettes.n_essai",       name: "eprouvettes.n_essai"     },
       {       label: "eprouvettes.c_temperature",       name: "eprouvettes.c_temperature"     },
       {       label: "eprouvettes.c_frequence",       name: "eprouvettes.c_frequence"     },
-      {       label: "eprouvettes.c_type_1_val",       name: "eprouvettes.c_type_1_val"     },
+      {       label: "eprouvettes.c_type_1_val",       name: "eprouvettes.c_type_1_val",
+      type:"radio",
+      options:[
+        {'label':"No", value:0},
+      {'label':"IW", value:1}     ]},
       {       label: "eprouvettes.c_type_2_val",       name: "eprouvettes.c_type_2_val"     },
       {       label: "eprouvettes.stepcase_type",       name: "eprouvettes.stepcase_type", type:"select"     },
       {       label: "eprouvettes.stepcase_val",       name: "eprouvettes.stepcase_val"     },

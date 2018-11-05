@@ -10,14 +10,23 @@ include '../models/split-model.php';
 // Création d'une instance
 $oSplit = new LstSplitModel($db,$_POST['idtbljob']);
 
-if ($_POST['role']=="rev") {
+if ($_POST['role']=="revAdd") {
   $oSplit->updateRev();
+}
+elseif ($_POST['role']=="revReset") {
+  $oSplit->resetRev();
 }
 elseif ($_POST['role']=="Q") {
   $oSplit->updateCheckQ();
 }
 elseif ($_POST['role']=="TM") {
   $oSplit->updateCheckTM();
+}
+elseif ($_POST['role']=="reportDateSet") {
+  $oSplit->updateReportDate($_POST['report_date']);
+}
+elseif ($_POST['role']=="reportDateReset") {
+  $oSplit->resetReportDate();
 }
 elseif ($_POST['role']=="RawData") {
   $oSplit->updateRawData();

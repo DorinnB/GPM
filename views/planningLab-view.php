@@ -39,7 +39,7 @@
 							<?php if ($value['id_tbljob']==$id_tbljob) : ?>
 								<div class="hide" style="background-color:inherit; color:inherit;" data-customer="<?= $value['customer']	?>">
 									<a href="index.php?page=split&id_tbljob=<?= $value['id_tbljob'] ?>">
-										<?= $value['customer'].'-'.$value['job'].'-'.$value['split']	?>
+										<div class="planningDisplay" data-customer="<?= $value['customer']	?>" data-job="<?= $value['job']	?>" data-split="<?= $value['split']	?>"></div>
 									</a>
 								</div>
 								<div class="content hide">
@@ -56,17 +56,17 @@
 							<?php endif ?>
 						<?php endforeach ?>
 						<?php if ($id_tbljob==10) : ?>
-							<div class="hide" style="background-color:inherit; color:inherit;">Cal Extenso</div>
+							<div class="hide maintenanceDisplay" style="background-color:inherit; color:inherit;" data-type="Calibration" data-device="Extenso" data-deviceShort="&epsilon;"></div>
 						<?php elseif ($id_tbljob==11) : ?>
-							<div class="hide" style="background-color:inherit; color:inherit;">Alignement</div>
+							<div class="hide maintenanceDisplay" style="background-color:inherit; color:inherit;" data-type="" data-device="Alignement" data-deviceShort="Al"></div>
 						<?php elseif ($id_tbljob==12) : ?>
-							<div class="hide" style="background-color:inherit; color:inherit;">Cal Temperature</div>
+							<div class="hide maintenanceDisplay" style="background-color:inherit; color:inherit;" data-type="Calibration" data-device="Temperature" data-deviceShort="T°"></div>
 						<?php elseif ($id_tbljob==13) : ?>
-							<div class="hide" style="background-color:inherit; color:inherit;">Dummy</div>
+							<div class="hide maintenanceDisplay" style="background-color:inherit; color:inherit;" data-type="Tuning" data-device="Dummy" data-deviceShort="Du"></div>
 						<?php elseif ($id_tbljob==14) : ?>
-							<div class="hide" style="background-color:inherit; color:inherit;">???</div>
+							<div class="hide maintenanceDisplay" style="background-color:inherit; color:inherit;" data-type="Unknown" data-device="Job" data-deviceShort="?"></div>
 						<?php elseif ($id_tbljob==15) : ?>
-							<div class="hide" style="background-color:inherit; color:inherit;">MTS</div>
+							<div class="hide maintenanceDisplay" style="background-color:inherit; color:inherit;" data-type="Calibration" data-device="MTS" data-deviceShort="MT"></div>
 						<?php endif ?>
 					</td>
 				<?php endforeach ?>

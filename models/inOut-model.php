@@ -243,33 +243,7 @@ class INOUT
     return $this->db->getAll($req);
   }
 
-  public function FQC(){
-    $req='SELECT id_tbljob, job, split
-    FROM tbljobs
-    LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
-    LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
-    LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
-    WHERE (etape = 70 OR etape=71)
-    AND info_job_actif=1
-    AND tbljob_actif=1
-    ORDER BY job DESC, split ASC
-    ';
-    return $this->db->getAll($req);
-  }
 
-  public function reportReady(){
-    $req='SELECT id_tbljob, job, split
-    FROM tbljobs
-    LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
-    LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
-    LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
-    WHERE etape = 80
-    AND info_job_actif=1
-    AND tbljob_actif=1
-    ORDER BY job DESC, split ASC
-    ';
-    return $this->db->getAll($req);
-  }
   public function notInvoiced(){
     $req='SELECT max(id_tbljob) as id_tbljob, job
     FROM tbljobs
@@ -306,51 +280,81 @@ class INOUT
     return $this->db->getAll($req);
   }
 
+  public function RawData(){
+    $req='SELECT id_tbljob, job, split
+    FROM tbljobs
+    LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
+    LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+    LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
+    WHERE id_rawdata!=0 AND report_rawdata<=0
+    AND etape>80
+    AND info_job_actif=1
+    AND tbljob_actif=1
+    AND invoice_type!=2
+    ORDER BY job DESC, split ASC
+    ';
+    return $this->db->getAll($req);
+  }
+
+  public function stepStatut($step){
+    $req='SELECT id_tbljob, job, split
+    FROM tbljobs
+    LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
+    LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+    LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
+    WHERE etape='.$this->db->quote($step).'
+    AND info_job_actif=1
+    AND tbljob_actif=1
+    AND invoice_type!=2
+    ORDER BY job DESC, split ASC
+    ';
+    return $this->db->getAll($req);
+  }
+
+  public function noDateSubC(){
+    $req='SELECT id_tbljob, job, split
+    FROM tbljobs
+    LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
+    LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+    LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
+    LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
+    WHERE DyT_SubC IS NULL
+    AND ST=1
+    AND info_job_actif=1
+    AND tbljob_actif=1
+    AND invoice_type!=2
+    ORDER BY job DESC, split ASC
+    ';
+    return $this->db->getAll($req);
+  }
+
+  public function noDateCust(){
+    $req='SELECT id_tbljob, job, split
+    FROM tbljobs
+    LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
+    LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+    LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
+    LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
+    WHERE DyT_Cust IS NULL
+    AND final=1 AND ST=0
+    AND info_job_actif=1
+    AND tbljob_actif=1
+    AND invoice_type!=2
+    ORDER BY job DESC, split ASC
+    ';
+    return $this->db->getAll($req);
+  }
+
+
   public function inOutError(){
 
-    /*SELECT job, (id_tbljob) as id_tbljob, eprouvettes.id_eprouvette
-    from eprouvettes
-    left join master_eprouvettes on master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
-    left join tbljobs on tbljobs.id_tbljob=eprouvettes.id_job
-    LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
-    WHERE (
-
-     (master_eprouvettes.master_eprouvette_inOut_A is null and eprouvettes.eprouvette_inOut_A is not null)
-    OR
-        (eprouvettes.eprouvette_inOut_A is null and eprouvettes.eprouvette_inOut_B is not null)
-    OR
-
-    )
-    AND job=0
-
-
-
-
-
-
-    SELECT job, (id_tbljob) as id_tbljob, eprouvettes.id_eprouvette, master_eprouvettes.nom_eprouvette, master_eprouvettes.prefixe
-        from eprouvettes
-        left join master_eprouvettes on master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
-        left join tbljobs on tbljobs.id_tbljob=eprouvettes.id_job
-        LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
-        WHERE (
-
-         (master_eprouvettes.master_eprouvette_inOut_A is null and eprouvettes.eprouvette_inOut_A is not null)
-        OR
-            (eprouvettes.eprouvette_inOut_A is null and eprouvettes.eprouvette_inOut_B is not null)
-        OR
-        (eprouvettes.eprouvette_inOut_A is not null and (select count(eps.id_eprouvette) from eprouvettes eps left join tbljobs tbl on tbl.id_tbljob=eps.id_job where eps.id_master_eprouvette=eprouvettes.id_master_eprouvette and tbl.phase<tbljobs.phase and eps.eprouvette_actif=1 and eps.eprouvette_inOut_A is null group by eps.id_master_eprouvette
-                )>=1)
-        )
-        AND job=0
-    */
     $req='SELECT job, max(id_tbljob) as id_tbljob
     from eprouvettes
     left join master_eprouvettes on master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
     left join tbljobs on tbljobs.id_tbljob=eprouvettes.id_job
     LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
     LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
-LEFT JOIN enregistrementessais on enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
+    LEFT JOIN enregistrementessais on enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
     LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
     WHERE (
       (master_eprouvettes.master_eprouvette_inOut_A is null and eprouvettes.eprouvette_inOut_A is not null)

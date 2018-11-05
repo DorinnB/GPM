@@ -70,23 +70,6 @@ $("#planning").click(function(e) {
 
 function createReport(lang='',version='') {
   window.location='controller/createReport-controller.php?id_tbljob='+$('#table_ep').attr('data-idJob')+'&language='+lang+'&version='+version;
-
-  var confirmation = confirm('Report Creation Process\nPlease wait.\nOnce done, do you want to update previous report with this one without any modifications ?');
-  if (confirmation) {
-    $.ajax({
-      type: "GET",
-      url: 'controller/createReport_filename-controller.php',
-      data:  "id_tbljob="+$('#table_ep').attr('data-idJob')
-      ,
-      success : function(data, statut){
-        //location.reload();
-      },
-      error : function(resultat, statut, erreur) {
-        console.log(Object.keys(resultat));
-        alert('ERREUR lors de la copie du rapport. Veuillez prevenir au plus vite le responsable SI. \n Sauf si le rapport initial est resté ouvert.');
-      }
-    });
-  }
 }
 
 $("#report").click(function(e) {
@@ -108,29 +91,6 @@ $("#report").contextmenu(function (event) {
         left: (event.pageX -150)+ "px"
     });
         $('#report-contextual-menu').load('views/report-icone-view.php?id_tbljob='+$('#id_tbljob').val());
-});
-
-$("#report_send").click(function(e) {
-  var confirmation = confirm('Update Report Emission ?');
-  if (confirmation) {
-    $.ajax({
-      type: "POST",
-      url: 'controller/updateReportSend.php',
-      dataType: "json",
-      data:  {
-        id_tbljob : $('#table_ep').attr('data-idJob'),
-        id_reportSend : $('#report_send').attr('data-report_send')
-      }
-      ,
-      success : function(data, statut){
-        location.reload();
-      },
-      error : function(resultat, statut, erreur) {
-        console.log(Object.keys(resultat));
-        alert('ERREUR lors de l insertion au planning. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez de valider une non modification.');
-      }
-    });
-  }
 });
 
 $("#flecheUpJob").click(function(e) {
@@ -213,5 +173,5 @@ var transitionEvent = whichTransitionEvent();
 $("#wrapper").addClass("toggled");
 $("#wrapper").one(transitionEvent,
   function(event) {
-    $('#table_ep').DataTable().draw();
+    //$('#table_ep').DataTable().draw();
   });

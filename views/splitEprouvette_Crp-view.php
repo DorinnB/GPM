@@ -7,6 +7,7 @@
         <th><acronym title="Availability">A</acronym></th>
         <th>Prefixe</th>
         <th>ID</th>
+        <th class="<?= $classpriority ?>"><acronym title="Priority">P.</acronym></th>
         <th><acronym title="Temperature">T°</acronym></th>
 
         <th id="ChartTitreCons" data-titre="Level">1-Level</th>
@@ -46,6 +47,7 @@
         <th><acronym title="Availability">A</acronym></th>
         <th>Prefixe</th>
         <th>ID</th>
+        <th class="<?= $classpriority ?>"><acronym title="Priority">P.</acronym></th>
         <th><acronym title="Temperature">T°</acronym></th>
 
         <th><?= $split['cons1'] ?></th>
@@ -86,6 +88,7 @@
           <td class="dispo open-GestionEp selectable"  data-toggle="modal" data-target="#gestionEp" data-id="<?= $ep[$k]['id_eprouvette'] ?>" data-dispo="<?= $ep[$k]['dispo'] ?>"><acronym title="<?= $ep[$k]['dispoText'] ?>"><?= $ep[$k]['dispo'] ?></acronym></td>
           <td><?= $ep[$k]['prefixe'] ?></td>
           <td><?= $ep[$k]['nom_eprouvette'] ?><sup><?= ($ep[$k]['retest']!=1)?$ep[$k]['retest']:'' ?></sup></td>
+          <td class="<?= $classpriority ?>"><?= $ep[$k]['priority'] ?></td>
           <td class="decimal1" <?= $epHisto2[$k]['c_temp'] ?>><?= $ep[$k]['c_temp'] ?></td>
           <td class="decimal<?=  $ep[$k]['c_type_1_deci']  ?> <?=  $split['ChartCons2']  ?>" <?= $epHisto2[$k]['c_type_1_val'] ?>><?= $ep[$k]['c_type_1_val'] ?></td>
           <td class="decimal<?=  $ep[$k]['c_type_2_deci']  ?> <?=  $split['ChartCons3']  ?>" <?= $epHisto2[$k]['c_type_2_val'] ?>><?= $ep[$k]['c_type_2_val'] ?></td>

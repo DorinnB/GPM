@@ -1,15 +1,21 @@
 #gestionEp .modal-dialog {
   width: 600px;
-  margin-top: 20%;
+  margin-top: 10%;
 }
 #gestionEp .modal-header {
   color:black;
 }
 #gestionEp .modal-content {
-  height:400px;
+  height:500px;
   color:white;
   background-color : DarkGray;
   border: 0px;
+}
+.tabLeft  {
+  height:20%;
+}
+.tabLeft > a {
+  line-height:7vh;
 }
 #exTab1 .carre {
   background-color: DarkGray;
@@ -63,7 +69,7 @@
   color:white;
 }
 #exTab1 .tab-content a:hover {
-    color: lightgrey;
+  color: lightgrey;
 }
 
 #document {
@@ -84,13 +90,13 @@
 
 .uploadFile > input
 {
-    display: none;
+  display: none;
 }
 
 .uploadFile img
 {
-    height: 80px;
-    cursor: pointer;
+  height: 80px;
+  cursor: pointer;
 }
 .radio  {
   margin-top:5px;
@@ -116,14 +122,70 @@
   width: 100%;
 }
 .PS_Val_1  {
-    display:inline;
+  display:inline;
   width: 45%;
 }
 .PS_Val_2  {
-    display:inline;
+  display:inline;
   width: 45%;
 }
 .PS_Val_3  {
-    display:inline;
+  display:inline;
   width: 45%;
+}
+
+
+button.create,
+div.TDR {
+  position: relative;
+  box-sizing: border-box;
+  float: left;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  /*background-color: #eee;*/
+  background-color: inherit;
+  //min-height: 105px;
+  padding: 5px;
+  margin: 1em 2% 0 0;
+}
+
+button.create:hover {
+  background-color: #ddd;
+}
+
+div.TDR i.edit,
+div.TDR i.remove {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  color: #999;
+}
+
+div.TDR i.remove {
+  right: 25px;
+}
+
+div.TDR i.edit:hover,
+div.TDR i.remove:hover {
+  color: black;
+}
+
+div.TDR dl {
+  margin: 0;
+}
+
+div.TDR dt {
+  clear: both;
+  float: left;
+  width: 33%;
+  padding-left: 2%;
+  margin: 0;
+  color: #999;
+}
+
+div.TDR dd {
+  float: left;
+  width: 65%;
+  margin: 0;
 }

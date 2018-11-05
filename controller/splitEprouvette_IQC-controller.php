@@ -17,6 +17,9 @@ include 'models/annexe_IQC-model.php';
 $oEp = new AnnexeIQCModel($db);
 $ep=$oEp->getAllIQC($split['id_tbljob']);
 
+
+$classpriority="hidden";  //priority
+
 //declaration des variables calculées
 for($k=0;$k < count($ep);$k++)	{
   $oEp = new EprouvetteModel($db,$ep[$k]['id_eprouvette']);
@@ -49,6 +52,10 @@ for($k=0;$k < count($ep);$k++)	{
   elseif (isset($workflow['local']) & $workflow['local']>0) {
     $ep[$k]['dispo']='1';
     $ep[$k]['dispoText']='Awaiting Previous Split';
+  }
+  elseif ($ep[$k]['c_checked']<=0) {
+    $ep[$k]['dispo']='2';
+    $ep[$k]['dispoText']='Consigne UnChecked';
   }
   elseif (isset($ep[$k]['master_eprouvette_inOut_A']) & $ep[$k]['master_eprouvette_inOut_A']>0) {
     $ep[$k]['dispo']='3';
@@ -131,11 +138,6 @@ for($k=0;$k < count($ep);$k++)	{
     }
 
 
-
-
-
-
-
   }
 
 
@@ -145,8 +147,8 @@ for($k=0;$k < count($ep);$k++)	{
   $ep[$k]['dim2'] =!empty($ep[$k]['dim2'] )?number_format($ep[$k]['dim2'] , 3,'.', ' '):'';
   $ep[$k]['dim3'] =!empty($ep[$k]['dim3'] )?number_format($ep[$k]['dim3'] , 3,'.', ' '):'';
 
-
-
+  //gestion priority test & specimen
+  $classpriority=($ep[$k]['priority']>0)?'':$classpriority;
 
 
 

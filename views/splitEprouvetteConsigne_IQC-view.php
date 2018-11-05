@@ -8,6 +8,7 @@
         <th>id</th>
         <th><acronym title="Prefixe">P</acronym></th>
         <th>ID</th>
+        <th><acronym title="Priority">P.</acronym></th>
         <?php  foreach ($dimDenomination as $dimTexte): ?>
           <th><?= $dimTexte  ?></th>
         <?php  endforeach  ?>
@@ -31,6 +32,7 @@
         <th>id</th>
         <th><acronym title="Prefixe">P</acronym></th>
         <th>ID</th>
+        <th><acronym title="Priority">P.</acronym></th>
         <?php  foreach ($dimDenomination as $dimTexte): ?>
           <th><?= $dimTexte  ?></th>
         <?php  endforeach  ?>

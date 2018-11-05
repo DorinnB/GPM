@@ -22,6 +22,7 @@ $runStop=array();
 
 foreach ($test as $value) {
   $poste[$value['poste']]=$value;
+  $poste[$value['poste']]['planned']=$oPlanningLab->getPlanningDayFrame($value['id_machine']);
 
   //initialisation couleur
   $poste[$value['poste']]['background-color']='Yellow';

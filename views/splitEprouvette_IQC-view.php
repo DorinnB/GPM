@@ -7,6 +7,7 @@
         <th><acronym title="Availability">A</acronym></th>
         <th>Prefixe</th>
         <th>ID</th>
+        <th class="<?= $classpriority ?>"><acronym title="Priority">P.</acronym></th>
         <?php  foreach ($dimDenomination as $dimTexte): ?>
           <th><?= $dimTexte  ?></th>
         <?php  endforeach  ?>
@@ -31,6 +32,7 @@
         <th><acronym title="Availability">A</acronym></th>
         <th>Prefixe</th>
         <th>ID</th>
+        <th class="<?= $classpriority ?>"><acronym title="Priority">P.</acronym></th>
         <?php  foreach ($dimDenomination as $dimTexte): ?>
           <th><?= $dimTexte  ?></th>
         <?php  endforeach  ?>
@@ -56,6 +58,7 @@
           <td class="dispo selectable chartFile" data-id="<?= $ep[$k]['id_eprouvette'] ?>" data-dispo="<?= $ep[$k]['dispo'] ?>"><acronym title="<?= $ep[$k]['dispoText'] ?>"><?= $ep[$k]['dispo'] ?></acronym></td>
           <td><?= $ep[$k]['prefixe'] ?></td>
           <td><?= $ep[$k]['nom_eprouvette'] ?></td>
+          <td class="<?= $classpriority ?>"><?= $ep[$k]['priority'] ?></td>
           <?php for($i=1;$i <= count($dimDenomination);$i++): ?>
             <td class="chartIQC<?=  'dim'.$i  ?>" <?= $epHisto2[$k]['dim'.$i] ?>><?= $ep[$k]['dim'.$i]  ?></td>
           <?php  endfor  ?>

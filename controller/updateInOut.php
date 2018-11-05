@@ -26,13 +26,6 @@ $oInOut->updateinOut();
 
 
 
-//Update du statut des splits
-include '../models/statut-model.php';
-$oStatut = new StatutModel($db);
-foreach ($oStatut->getJobFromInfoJob($_POST['id_info_job']) as $key => $value) {
-	$oStatut->id_tbljob=$value['id_tbljob'];
-	$state=$oStatut->findStatut();
-}
 
 
 
@@ -63,6 +56,16 @@ if ($formInOutEp[0]!="") {
 
 		$oInOut->updateinOutEp($type, $id, $date);
 	}
+}
+
+
+
+//Update du statut des splits
+include '../models/statut-model.php';
+$oStatut = new StatutModel($db);
+foreach ($oStatut->getJobFromInfoJob($_POST['id_info_job']) as $key => $value) {
+	$oStatut->id_tbljob=$value['id_tbljob'];
+	$state=$oStatut->findStatut();
 }
 
 

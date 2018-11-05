@@ -18,10 +18,6 @@ DataTables\Editor\Validate;
 Editor::inst( $db, 'contacts' )
 ->pkey( 'contacts.id_contact' )
 ->fields(
-  Field::inst( 'contacts.genre'),
-
-  Field::inst( 'contacts.adresse'),
-
   Field::inst( 'contacts.prenom'),
   Field::inst( 'contacts.nom'),
   Field::inst( 'contacts.departement'),
@@ -29,7 +25,6 @@ Editor::inst( $db, 'contacts' )
   Field::inst( 'contacts.rue2'),
   Field::inst( 'contacts.ville'),
   Field::inst( 'contacts.pays'),
-
   Field::inst( 'contacts.email'),
   Field::inst( 'contacts.telephone'),
   Field::inst( 'contacts.poste'),

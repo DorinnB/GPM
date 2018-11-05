@@ -4,7 +4,7 @@
 <div class="row" style="height:100%;">
   <div class="col-md-12" style="height:90%">
 
-    <button id="save_selected">Save Selection</button>
+    <button id="save_selected" style="color:black;">Save Selection</button>
     <table id="table_ep" class="table table-condensed table-bordered" cellspacing="0" width="100%"  style="height:100%; white-space:nowrap;">
       <thead>
         <tr>
@@ -101,7 +101,7 @@
   </div>
 
   <div class="col-md-12" style="height:10%;">
-    <button id="submit_ep" style="float: right;">SAVE</button>
+    <button id="submit_ep" style="float: right; color:black;"">SAVE</button>
   </div>
 </div>
 

@@ -4,58 +4,73 @@
   </h3>
   <div class="row" style="height:95%;">
     <div class="col-md-12" style="height:100%;">
-      <div class="row" style="height:10%;overflow-y:scroll;border-bottom:2px solid white;">
-        <div class="col-md-3">
+      <div class="row bandeau" style="height:10%;overflow-y:scroll;border-bottom:2px solid white;">
+        <div class="col-md-2">
           <div class="col-md-12 titre">
             Unchecked
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
           <div class="col-md-12 titre">
             Unchecked Started
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
           <div class="col-md-12 titre">
-            Quality Flag
+            Quality Flag (nb)
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
           <div class="col-md-12 titre">
             Report Check
           </div>
         </div>
+        <div class="col-md-2">
+          <div class="col-md-12 titre">
+            Raw&nbsp;Data Requested
+          </div>
+        </div>
       </div>
-      <div class="row" style="height:90%;overflow-y:scroll">
-        <div class="col-md-3">
-          <?php foreach ($uncheckedJob as $key => $value) : ?>
-            <div class="col-md-12 valeur" onclick="document.location='index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
-              <?= $value['job'].'-'.$value['split']  ?>
-            </div>
-          <?php endforeach  ?>
-        </div>
-        <div class="col-md-3">
-          <?php foreach ($uncheckedStartedJob as $key => $value) : ?>
-            <div class="col-md-12 valeur" onclick="document.location='index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
-              <?= $value['job'].'-'.$value['split']  ?>
-            </div>
-          <?php endforeach  ?>
-        </div>
-        <div class="col-md-3">
-          <?php foreach ($flag as $key => $value) : ?>
-            <div class="col-md-12 valeur" onclick="document.location='index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>'" style="cursor:help">
-              <?= $value['job'].'-'.$value['split']  ?>
-            </div>
-          <?php endforeach  ?>
-        </div>
-        <div class="col-md-3">
-          <?php foreach ($oInOut->FQC() as $key => $value) : ?>
-            <a href="index.php?page=clotureJob&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
+      <div class="row bandeauVal" style="height:90%;overflow-y:scroll">
+        <div class="col-md-2">
+          <?php foreach ($oQualite->getUncheckedJob() as $key => $value) : ?>
+            <a href="index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
               <?= $value['job'].'-'.$value['split']  ?>
             </a>
           <?php endforeach  ?>
         </div>
+        <div class="col-md-2">
+          <?php foreach ($oQualite->getUncheckedStartedJob() as $key => $value) : ?>
+            <a href="index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
+              <?= $value['job'].'-'.$value['split']  ?>
+            </a>
+          <?php endforeach  ?>
+        </div>
+        <div class="col-md-4">
+          <?php foreach ($oQualite->getFlagJob() as $key => $value) : ?>
+            <a href="index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
+              <?= $value['job'].'-'.$value['split'].' ('.$value['nb'].')'  ?>
+            </a>
+        <?php endforeach  ?>
+      </div>
+      <div class="col-md-2">
+        <?php foreach ($oInOut->stepStatut(70) as $key => $value) : ?>
+          <a href="index.php?page=clotureJob&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
+            <?= $value['job'].'-'.$value['split']  ?>
+          </a>
+        <?php endforeach  ?>
+      </div>
+      <div class="col-md-2">
+        <?php foreach ($oQualite->RawData() as $key => $value) : ?>
+          <a href="index.php?page=clotureJob&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
+            <?= $value['job'].'-'.$value['split']  ?>
+          </a>
+        <?php endforeach  ?>
+      </div>
+      <div class="col-md-2">
+
       </div>
     </div>
   </div>
+</div>
 </div>

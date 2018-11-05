@@ -36,5 +36,19 @@
       <?php  endforeach  ?>
     </tbody>
   </table>
+  <div id="dialog-rev" style="display:none;"  title="Revision Management">
+    <p><span class="ui-icon ui-icon-info" style="float:left; margin:12px 12px 20px 0;"></span>Increase the revision number (or set to 0) on this Report ?<br/>Only Quality Manager should do this</p>
+  </div>
 
+  <div id="dialog-report_date" style="display:none;" title="Report Emission">
+    <p class="validateTips">Date of the report emission</p>
+    <form>
+      <fieldset>
+        <label for="report_date">Date</label>
+        <input type="text" name="report_date" id="report_date" class="text ui-widget-content ui-corner-all">
+        <!-- Allow form submission with keyboard without duplicating the dialog button -->
+        <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+      </fieldset>
+    </form>
+  </div>
 </div>

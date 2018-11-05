@@ -19,7 +19,9 @@
 						<th><acronym title="">Tech</acronym></th>
 						<th><acronym title="">Comm Qualite</acronym></th>
 						<th><acronym title="">Valid</acronym></th>
+						<th><acronym title="Test Deviation Report">TDR</acronym></th>
 						<th><acronym title="">Cause</acronym></th>
+						<th><acronym title="Test Type Abbreviation">Type</acronym></th>
 					</tr>
 				</thead>
 				<tfoot>
@@ -33,7 +35,9 @@
 						<th><acronym title="">Tech</acronym></th>
 						<th><acronym title="">Comm Qualite</acronym></th>
 						<th><acronym title="">Valid</acronym></th>
+						<th><acronym title="Test Deviation Report">TDR</acronym></th>
 						<th><acronym title="">Cause</acronym></th>
+						<th><acronym title="Test Type Abbreviation">Type</acronym></th>
 					</tr>
 				</tfoot>
 
@@ -42,13 +46,13 @@
 
 		</div>
 
-		<script type="text/javascript" src="js/listeFlagQualite.js"></script>
+				<script type="text/javascript" src="js/listeFlagQualite.js"></script>
 
 
 
-
-	</div>
-</div>
-<?php
-require('views/login-view.php');
-?>
+			</div>
+		</div>
+		<?php
+		require('views/login-view.php');
+		require('views/splitGestionEpBlank-view.php');
+		?>

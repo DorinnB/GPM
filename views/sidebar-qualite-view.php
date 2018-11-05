@@ -5,7 +5,7 @@
 			MENU
 		</li>
 		<li>
-			<a href="index.php?page=gestionQualite">Quality Managment</a>
+			<a href="index.php?page=gestionQualite">T/C Factor Correction</a>
 		</li>
 		<li>
 			<a href="index.php?page=listeFlagQualite&filtre='>'">Quality Flag to proceed</a>
@@ -14,7 +14,7 @@
 			<a href="index.php?page=gestionPoste">Frame Management</a>
 		</li>
 		<li>
-			<a href="index.php?page=ListeEssais">Test list</a>
+			<a href="index.php?page=ListeEssais&startFile=<?=	date("Y")	?>"">Test list</a>
 		</li>
 		<li>
 			<a href="../ticket/">Issues Tracker</a>

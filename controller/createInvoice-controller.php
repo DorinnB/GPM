@@ -153,6 +153,8 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
         $page->setCellValueByColumnAndRow(5, $row, $invoicelines['priceUnit']);
         $page->setCellValueByColumnAndRow(6, $row, (($invoicelines['qteUser']=="")?$invoicelines['qteGPM']:$invoicelines['qteUser'])*$invoicelines['priceUnit']);
 
+        $page->setCellValueByColumnAndRow(10, $row, $invoicelines['qteGPM']);
+
         $page->getStyle("F".$row)->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);
         $page->getStyle("G".$row)->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);
 
@@ -181,9 +183,11 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
 
       $page->setCellValueByColumnAndRow(0, $row, $nCode);
       $page->setCellValueByColumnAndRow(1, $row, $invoicelines['pricingList']);
-      $page->setCellValueByColumnAndRow(4, $row, $invoicelines['qteUser']);
+      $page->setCellValueByColumnAndRow(4, $row, ($invoicelines['qteUser']=="")?$invoicelines['qteGPM']:$invoicelines['qteUser']);
       $page->setCellValueByColumnAndRow(5, $row, $invoicelines['priceUnit']);
-      $page->setCellValueByColumnAndRow(6, $row, $invoicelines['qteUser']*$invoicelines['priceUnit']);
+      $page->setCellValueByColumnAndRow(6, $row, (($invoicelines['qteUser']=="")?$invoicelines['qteGPM']:$invoicelines['qteUser'])*$invoicelines['priceUnit']);
+
+      $page->setCellValueByColumnAndRow(10, $row, $invoicelines['qteGPM']);
 
       $page->getStyle("F".$row)->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);
       $page->getStyle("G".$row)->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);

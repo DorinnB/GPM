@@ -81,7 +81,8 @@ class StatutModel
     sum(if((eprouvette_inOut_B is not null or report_creation_date is not null or d_checked >0),0,1)) as nb_before_end,
     sum(if((eprouvette_inOut_A is null AND enregistrementessais.date is null),1,0)) as nb_untested,
 
-    sum(if(d_checked<=0,1,0)) as nb_unDchecked,
+
+    sum(if(d_checked>0,0,1)+if(check_rupture>0 OR n_fichier is null,0,1)) as nb_unDchecked,
 
     sum( IFNULL(
       (SELECT if((ep.eprouvette_inOut_B is not null or ep.report_creation_date is not null or ep.d_checked >0),0,1)
@@ -145,6 +146,8 @@ class StatutModel
         LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
         LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
         LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
+        LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+        LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
         LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
         LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
 

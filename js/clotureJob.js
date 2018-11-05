@@ -32,7 +32,13 @@ $(document).ready(function() {
     dateFormat: "yy-mm-dd"
   });
 
-
+  $( "#report_date" ).datepicker({
+    showWeek: true,
+    firstDay: 1,
+    showOtherMonths: true,
+    selectOtherMonths: true,
+    dateFormat: "yy-mm-dd"
+  });
 
 
 
@@ -73,35 +79,63 @@ $(document).ready(function() {
 
 
 
-// Check Qualité
+// revision du rapport
 $(".report_rev").click(function(e) {
+  var $this = $(this);
+  $( "#dialog-rev" ).dialog({
+    resizable: false,
+    height: "auto",
+    width: 400,
+    modal: true,
+    buttons: {
+      "Increase": function() {
+        $( this ).dialog( "close" );
 
-  if ($(this).attr('data-report_rev')>=0) {
-    var confirmation = confirm('Increase the revision number on this Report ? Only Quality Manager should do this');
-}
-else {
-  var confirmation = confirm('Set revision number to 0 on this Report ? Only Quality Manager should do this');
-}
-    if (confirmation) {
+        $.ajax({
+          type: "POST",
+          url: 'controller/updateReportFlow.php',
+          dataType: "json",
+          data:  {
+            idtbljob : $this.attr('data-idtbljob'),
+            role : 'revAdd'
+          }
+          ,
+          success : function(data, statut){
+            location.reload();
+          },
+          error : function(resultat, statut, erreur) {
+            console.log(Object.keys(resultat));
+            alert('ERREUR lors de la modification du check Qualité du rapport. Veuillez prevenir au plus vite le responsable SI.');
+          }
+        });
 
-      $.ajax({
-        type: "POST",
-        url: 'controller/updateReportFlow.php',
-        dataType: "json",
-        data:  {
-          idtbljob : $(this).attr('data-idtbljob'),
-          role : 'rev'
-        }
-        ,
-        success : function(data, statut){
-          location.reload();
-        },
-        error : function(resultat, statut, erreur) {
-          console.log(Object.keys(resultat));
-          alert('ERREUR lors de la modification du check Qualité du rapport. Veuillez prevenir au plus vite le responsable SI.');
-        }
-      });
+      },
+      "Reset": function() {
+        $( this ).dialog( "close" );
+
+        $.ajax({
+          type: "POST",
+          url: 'controller/updateReportFlow.php',
+          dataType: "json",
+          data:  {
+            idtbljob : $this.attr('data-idtbljob'),
+            role : 'revReset'
+          }
+          ,
+          success : function(data, statut){
+            location.reload();
+          },
+          error : function(resultat, statut, erreur) {
+            console.log(Object.keys(resultat));
+            alert('ERREUR lors de la modification du check Qualité du rapport. Veuillez prevenir au plus vite le responsable SI.');
+          }
+        });
+
+      }
     }
+  });
+
+
 
 });
 
@@ -172,26 +206,72 @@ $(".report_TM").click(function(e) {
 
 
 $(".report_send").click(function(e) {
-  var confirmation = confirm('Have you send the Final Report ?');
-  if (confirmation) {
-    $.ajax({
-      type: "POST",
-      url: 'controller/updateReportSend.php',
-      dataType: "json",
-      data:  {
-        id_tbljob : $(this).attr('data-idtbljob'),
-        id_reportSend : $(this).attr('data-report_send')
-      }
-      ,
-      success : function(data, statut){
-        location.reload();
-      },
-      error : function(resultat, statut, erreur) {
-        console.log(Object.keys(resultat));
-        alert('ERREUR lors de l enregistrement de l envoi du rapport. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez de valider une non modification.');
-      }
-    });
+
+  //affichage de la date précédente
+  if ($(this).text()!="") {
+    $("#report_date").val($(this).text());
   }
+  else {
+    $("#report_date").val($.datepicker.formatDate('yy-mm-dd', new Date()));
+  }
+
+
+  var $this = $(this);
+
+  $( "#dialog-report_date" ).dialog({
+    resizable: false,
+    height: "auto",
+    width: 400,
+    modal: true,
+    buttons: {
+      "Set": function() {
+        $( this ).dialog( "close" );
+
+        $.ajax({
+          type: "POST",
+          url: 'controller/updateReportFlow.php',
+          dataType: "json",
+          data:  {
+            idtbljob : $this.attr('data-idtbljob'),
+            report_date : $('#report_date').val(),
+            role : 'reportDateSet'
+          }
+          ,
+          success : function(data, statut){
+            location.reload();
+          },
+          error : function(resultat, statut, erreur) {
+            console.log(Object.keys(resultat));
+            alert('ERREUR lors de la modification du check Qualité du rapport. Veuillez prevenir au plus vite le responsable SI.');
+          }
+        });
+
+      },
+      "Reset": function() {
+        $( this ).dialog( "close" );
+
+        $.ajax({
+          type: "POST",
+          url: 'controller/updateReportFlow.php',
+          dataType: "json",
+          data:  {
+            idtbljob : $this.attr('data-idtbljob'),
+            role : 'reportDateReset'
+          }
+          ,
+          success : function(data, statut){
+            location.reload();
+          },
+          error : function(resultat, statut, erreur) {
+            console.log(Object.keys(resultat));
+            alert('ERREUR lors de la modification du check Qualité du rapport. Veuillez prevenir au plus vite le responsable SI.');
+          }
+        });
+
+      }
+    }
+  });
+
 });
 
 // Raw Data

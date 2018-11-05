@@ -7,6 +7,7 @@
         <th>id</th>
         <th><acronym title="Prefixe">P</acronym></th>
         <th>ID</th>
+        <th><acronym title="Priority">P.</acronym></th>
         <th><acronym title="Temperature">T°</acronym></th>
         <th>Freq</th>
         <th><acronym title="Switch To Load">STL</acronym></th>
@@ -17,7 +18,6 @@
         <th>Runout</th>
         <th><acronym title="Estimated Cycle">Cy Est.</acronym></th>
         <th><acronym title="Order Comment">Com.</acronym></th>
-
         <th><acronym title="Test Number">Test</acronym></th>
         <th><acronym title="Files Number">Files</acronym></th>
         <th><acronym title="Final Cycles">Final</acronym></th>
@@ -28,6 +28,7 @@
         <th>id</th>
         <th><acronym title="Prefixe">P</acronym></th>
         <th>ID</th>
+        <th><acronym title="Priority">P.</acronym></th>
         <th><acronym title="Temperature">T°</acronym></th>
         <th>Freq</th>
         <th><acronym title="Switch To Load">STL</acronym></th>
@@ -38,7 +39,6 @@
         <th>Runout</th>
         <th><acronym title="Estimated Cycle">Cy Est.</acronym></th>
         <th><acronym title="Order Comment">Com.</acronym></th>
-
         <th><acronym title="Test Number">Test</acronym></th>
         <th><acronym title="Files Number">Files</acronym></th>
         <th><acronym title="Final Cycles">Final</acronym></th>

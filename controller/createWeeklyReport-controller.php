@@ -63,7 +63,16 @@ $style_Completed = array(
     'color' => array('rgb'=>'e6e6e6')
   )
 );
-
+$style_AwaitingInstructions = array(
+  'font'  => array(
+        'color' => array('rgb' => '800000')
+      )
+);
+$style_ReportEdition = array(
+  'font'  => array(
+        'color' => array('rgb' => '008000')
+      )
+);
 //nom du fichier excel d'UBR
 $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/WeeklyReport.xlsx");
 
@@ -122,7 +131,12 @@ $page->getStyle('D'.$row.':I'.$row)->applyFromArray( $style_InProgress );
 elseif ($v['statut_client']=="Completed") {
 $page->getStyle('D'.$row.':I'.$row)->applyFromArray( $style_Completed );
 }
-
+elseif ($v['statut_client']=="Awaiting Instructions") {
+$page->getStyle('D'.$row.':I'.$row)->applyFromArray( $style_AwaitingInstructions );
+}
+elseif ($v['statut_client']=="Report Edition") {
+$page->getStyle('D'.$row.':I'.$row)->applyFromArray( $style_ReportEdition );
+}
 
     $row++;
   }
@@ -138,12 +152,160 @@ $page->getStyle('D'.$row.':I'.$row)->applyFromArray( $style_Completed );
 }
 
 
+
+
+
+
+
+
+$availability=$objPHPExcel->getSheetByName('FrameAvailability');
+
+
+$nbJourPlanning=(isset($_GET['nbDayPlanned']))?$_GET['nbDayPlanned']:31*6;
+$nbAvantNow=(isset($_GET['nbDayBefore']))?$_GET['nbDayBefore']:5;
+
+// Rendre votre modèle accessible
+include '../models/planningLab-model.php';
+$oPlanningLab = new PLANNINGLAB($db);
+
+include '../models/poste-model.php';
+$oPoste = new PosteModel($db,0);
+$lstFrames=$oPoste->getAllMachine();
+
+
+//décompose la liste complete des plannings en tableau, par machine, des dates=id_tbljob
+foreach ($lstFrames as $frame)  {
+  $planningFrames=$oPlanningLab->getAllPlanningFrame($frame['id_machine'],$nbAvantNow);
+  foreach ($planningFrames as $key => $value) {
+    $planningFrame[$frame['id_machine']][$value['date']]   =   1;
+  }
+}
+
+$now=date("Y-m-d");
+
+for ($i=-$nbAvantNow; $i < $nbJourPlanning; $i++) {
+  $date2[$i]=date('Y-m-d', strtotime($now . ' +'.$i.' day'));
+}
+
+$colDate=3;
+foreach ($date2 as $key => $value) {
+  $availability->setCellValueByColumnAndRow($colDate, 47, date('Y-m-d', strtotime($value)));
+  $colDate++;
+}
+
+$row2=53;
+
+foreach ($lstFrames as $frame)  {
+  $availability->setCellValueByColumnAndRow(0, $row2, $frame['machine']);
+
+  $colDate=3;
+  foreach ($date2 as $key => $value) {
+    $availability->setCellValueByColumnAndRow($colDate, $row2, ((isset($planningFrame[$frame['id_machine']][$value]))?1:0));
+    $colDate++;
+  }
+  $row2++;
+}
+
+
+
+
+
+
+//	Set the Labels for each data series we want to plot
+//		Datatype
+//		Cell reference for data
+//		Format Code
+//		Number of datapoints in series
+//		Data values
+//		Data Marker
+$dataSeriesLabels = array(
+	new PHPExcel_Chart_DataSeriesValues('String', 'FrameAvailability!$C$39', NULL, 1),	//	100 Strain
+	new PHPExcel_Chart_DataSeriesValues('String', 'FrameAvailability!$C$40', NULL, 1),	//	100 Load
+	new PHPExcel_Chart_DataSeriesValues('String', 'FrameAvailability!$C$41', NULL, 1),	//	250 Strain
+	new PHPExcel_Chart_DataSeriesValues('String', 'FrameAvailability!$C$42', NULL, 1),	//	250 Load
+);
+//	Set the X-Axis Labels
+//		Datatype
+//		Cell reference for data
+//		Format Code
+//		Number of datapoints in series
+//		Data values
+//		Data Marker
+$xAxisTickValues = array(
+	new PHPExcel_Chart_DataSeriesValues('String', 'FrameAvailability!$D$38:$O$38', NULL, 4),	//	Q1 to Q4
+);
+//	Set the Data values for each data series we want to plot
+//		Datatype
+//		Cell reference for data
+//		Format Code
+//		Number of datapoints in series
+//		Data values
+//		Data Marker
+$dataSeriesValues = array(
+	new PHPExcel_Chart_DataSeriesValues('Number', 'FrameAvailability!$D$39:$O$39', NULL, 4),
+	new PHPExcel_Chart_DataSeriesValues('Number', 'FrameAvailability!$D$40:$O$40', NULL, 4),
+	new PHPExcel_Chart_DataSeriesValues('Number', 'FrameAvailability!$D$41:$O$41', NULL, 4),
+	new PHPExcel_Chart_DataSeriesValues('Number', 'FrameAvailability!$D$42:$O$42', NULL, 4),
+);
+
+//	Build the dataseries
+$series = new PHPExcel_Chart_DataSeries(
+	PHPExcel_Chart_DataSeries::TYPE_BARCHART,		// plotType
+	PHPExcel_Chart_DataSeries::GROUPING_STANDARD,	// plotGrouping
+	range(0, count($dataSeriesValues)-1),			// plotOrder
+	$dataSeriesLabels,								// plotLabel
+	$xAxisTickValues,								// plotCategory
+	$dataSeriesValues								// plotValues
+);
+//	Set additional dataseries parameters
+//		Make it a vertical column rather than a horizontal bar graph
+$series->setPlotDirection(PHPExcel_Chart_DataSeries::DIRECTION_COL);
+
+//	Set the series in the plot area
+$plotArea = new PHPExcel_Chart_PlotArea(NULL, array($series));
+//	Set the chart legend
+$legend = new PHPExcel_Chart_Legend(PHPExcel_Chart_Legend::POSITION_BOTTOM, NULL, false);
+
+$title = new PHPExcel_Chart_Title('Disponibilité Machines Metcut France');
+$xAxisLabel = new PHPExcel_Chart_Title('Semaine');
+
+
+//	Create the chart
+$chart = new PHPExcel_Chart(
+	'chart1',		// name
+	$title,			// title
+	$legend,		// legend
+	$plotArea,		// plotArea
+	true,			// plotVisibleOnly
+	0,				// displayBlanksAs
+	$xAxisLabel,			// xAxisLabel
+	NULL		// yAxisLabel
+);
+
+//	Set the position where the chart should appear in the FrameAvailability
+$chart->setTopLeftPosition('A1');
+$chart->setBottomRightPosition('P26');
+
+//	Add the chart to the FrameAvailability
+$availability->addChart($chart);
+
+
+
+
+
+
+
+
+
+
+
+
 //$page->setCellValue('K'.($row+2), $date);
 
 
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-//$objWriter->setIncludeCharts(TRUE);
+$objWriter->setIncludeCharts(TRUE);
 $objWriter->save('../lib/PHPExcel/files/WeeklyReport-'.$date.'.xlsx');
 
 
@@ -161,6 +323,6 @@ header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
 header ('Pragma: public'); // HTTP/1.0
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-//$objWriter->setIncludeCharts(TRUE);
+$objWriter->setIncludeCharts(TRUE);
 $objWriter->save('php://output');
 exit;

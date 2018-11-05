@@ -22,6 +22,7 @@ Editor::inst( $db, 'eprouvettes' )
   Field::inst( 'master_eprouvettes.id_master_eprouvette'),
   Field::inst( 'master_eprouvettes.prefixe')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'master_eprouvettes.nom_eprouvette'),
+  Field::inst( 'eprouvettes.priority')->setFormatter( 'Format::nullEmpty' ),
 
   Field::inst( 'eprouvettes.c_commentaire')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.d_commentaire')->setFormatter( 'Format::nullEmpty' ),

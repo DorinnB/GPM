@@ -15,9 +15,6 @@ $oInOut = new INOUT($db);
 
 
 
-$uncheckedJob=$oQualite->getUncheckedJob();
-$uncheckedStartedJob=$oQualite->getUncheckedStartedJob();
-$flag=$oQualite->getFlagJob();
 // Affichage du résultat
 include 'views/qualiteList-view.php';
 

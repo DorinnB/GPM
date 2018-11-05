@@ -58,7 +58,7 @@ class AnnexeIQCModel
 
   public function getAllIQC($idjob) {
 
-    $req = 'SELECT eprouvettes.id_eprouvette, master_eprouvettes.id_master_eprouvette,
+    $req = 'SELECT eprouvettes.id_eprouvette, master_eprouvettes.id_master_eprouvette, priority,
     master_eprouvettes.prefixe, master_eprouvettes.nom_eprouvette,
     dim1, dim2, dim3, marquage, surface, grenaillage, revetement, protection, autre,
     nominal_1, tolerance_plus_1, tolerance_moins_1,

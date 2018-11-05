@@ -11,7 +11,7 @@ Require("connection.php");
 	<meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
 	<meta name="description" content="Gestion de Production">
 	<meta name="author" content="Pierrick Gonnet">
-
+	<link rel="icon" type="image/png" href="logo.ico" />
 	<title>Gestion Production Metcut</title>
 
 	<!-- Bootstrap Core CSS -->
@@ -61,7 +61,7 @@ Require("connection.php");
 		$_chemin = '/';
 
 		// la page par defaut, si les valeurs fournies sont incorrect :
-		$page_defaut = 'pages/labo';
+		$page_defaut = 'pages/lab';
 
 		// on recupere la valeur passé dans l'url :
 		if(isset($_GET["page"]))

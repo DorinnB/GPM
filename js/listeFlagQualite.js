@@ -1,9 +1,9 @@
 
-var editor; // use a global for the submit and return data rendering in the examples
+var editorQ; // use a global for the submit and return data rendering in the examples
 
 $(document).ready(function() {
 
-  editor = new $.fn.dataTable.Editor( {
+  editorQ = new $.fn.dataTable.Editor( {
     ajax: {
       url : "controller/editor-listeFlagQualite.php",
       type: "POST"
@@ -52,20 +52,24 @@ $(document).ready(function() {
     },
     order: [[ 1, "desc" ]],
     columns: [
+      { data: "info_jobs.customer" },
       { data: null,
         render : function(data, type, full, meta){
-          test=data+"a";
-          return '<a href="index.php?page=split&id_tbljob='+data.tbljobs.id_tbljob+'">'+data.info_jobs.customer+'</a>';
+          return '<a href="index.php?page=split&id_tbljob='+data.tbljobs.id_tbljob+'">'+data.info_jobs.job+'</a>';
         }},
-        { data: "info_jobs.job" },
-        { data: "tbljobs.split" },
-        { data: "enregistrementessais.n_fichier" },
-        { data: "machines.machine" },
-        { data: "eprouvettes.d_commentaire", width: "40%" },
-        { data: "eprouvettes.flag_qualite" },
-        { data: "eprouvettes.q_commentaire", width: "30%" },
-        { data: "eprouvettes.valid" },
-        { data: "incident_causes", render: "[, ].incident_cause" }
+      { data: "tbljobs.split" },
+      { data: null,
+        render : function(data, type, full, meta){
+          return '<a href="#" class="open-GestionEp" data-toggle="modal" data-target="#gestionEp" data-id="'+data.eprouvettes.id_eprouvette+'" onclick="gestionEp('+data.eprouvettes.id_eprouvette+');">'+data.enregistrementessais.n_fichier+'</a>';
+        }},
+      { data: "machines.machine" },
+      { data: "eprouvettes.d_commentaire", width: "40%" },
+      { data: "eprouvettes.flag_qualite" },
+      { data: "eprouvettes.q_commentaire", width: "30%" },
+      { data: "eprouvettes.valid" },
+      { data: "TDR_types", render: "[, ].TDR_type" },
+      { data: "incident_causes", render: "[, ].incident_cause" },
+      { data: "test_type.test_type_abbr" }
       ],
       scrollY: '70vh',
       scrollCollapse: true,
@@ -77,7 +81,7 @@ $(document).ready(function() {
       buttons: [
       {
         extend: "edit",
-        editor: editor,
+        editor: editorQ,
         formButtons: [
           'Edit',
           { label: 'Cancel', fn: function () { this.close(); } }
@@ -111,6 +115,10 @@ $(document).ready(function() {
 
   } );
 
+
+  function gestionEp(idEp) {
+    $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+idEp);
+  }
 
 
   //Selon le navigateur utilisé, on detecte le style de transition utilisé

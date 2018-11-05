@@ -18,6 +18,7 @@ DataTables\Editor\Validate;
 Editor::inst( $db, 'eprouvettes' )
 ->pkey( 'eprouvettes.id_eprouvette' )
 ->fields(
+  Field::inst( 'eprouvettes.id_eprouvette'),
   Field::inst( 'enregistrementessais.n_fichier'),
   Field::inst( 'eprouvettes.n_essai'),
   Field::inst( 'info_jobs.customer'),
@@ -30,7 +31,8 @@ Editor::inst( $db, 'eprouvettes' )
   Field::inst( 'eprouvettes.d_commentaire'),
   Field::inst( 'eprouvettes.q_commentaire'),
   Field::inst( 'eprouvettes.valid'),
-  Field::inst( 'eprouvettes.flag_qualite')
+  Field::inst( 'eprouvettes.flag_qualite'),
+  Field::inst( 'test_type.test_type_abbr')
 //  Field::inst( 'techniciens.technicien')
 
 
@@ -38,13 +40,29 @@ Editor::inst( $db, 'eprouvettes' )
   ->leftJoin( 'enregistrementessais',     'enregistrementessais.id_eprouvette',          '=', 'eprouvettes.id_eprouvette' )
   ->leftJoin( 'master_eprouvettes',     'master_eprouvettes.id_master_eprouvette',          '=', 'eprouvettes.id_master_eprouvette' )
   ->leftJoin( 'tbljobs',     'tbljobs.id_tbljob',          '=', 'eprouvettes.id_job' )
+  ->leftJoin( 'test_type',     'test_type.id_test_type',          '=', 'tbljobs.id_type_essai' )
   ->leftJoin( 'info_jobs',     'info_jobs.id_info_job',          '=', 'tbljobs.id_info_job' )
   ->leftJoin( 'prestart',     'prestart.id_prestart',          '=', 'enregistrementessais.id_prestart' )
   ->leftJoin( 'postes',     'postes.id_poste',          '=', 'prestart.id_poste' )
   ->leftJoin( 'machines',     'machines.id_machine',          '=', 'postes.id_machine' )
   //->leftJoin( 'techniciens',     'techniciens.id_technicien',          '=', 'eprouvettes.flag_qualite' )
 
-
+  ->join(
+          Mjoin::inst( 'TDR_types' )
+              ->link( 'eprouvettes.id_eprouvette', 'TDRs.id_eprouvette' )
+              ->link( 'TDR_types.id_TDR_type', 'TDRs.id_TDR_type' )
+              ->order( 'TDR_type asc' )
+              ->fields(
+                  Field::inst( 'id_TDR_type' )
+                      ->validator( 'Validate::required' )
+                      ->options( Options::inst()
+                          ->table( 'TDR_types' )
+                          ->value( 'id_TDR_type' )
+                          ->label( 'TDR_type' )
+                      ),
+                  Field::inst( 'TDR_type' )
+              )
+    )
   ->join(
           Mjoin::inst( 'incident_causes' )
               ->link( 'eprouvettes.id_eprouvette', 'flagQualite_incidentCauses.id_eprouvette' )
@@ -60,7 +78,7 @@ Editor::inst( $db, 'eprouvettes' )
                       ),
                   Field::inst( 'incident_cause' )
               )
-)
+    )
 
 
   ->where('flag_qualite',0,(isset($_POST['filtre']))?$_POST['filtre']:"!=")

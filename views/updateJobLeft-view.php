@@ -123,12 +123,12 @@
 
       <div class="bs-example comm" data-example-id="basic-forms">
         <div class="form-group">
-          <label for="instruction">Instruction :</label>
-          <textarea style="width:100%;" name="instruction"><?= $job['instruction'] ?></textarea>
+          <label for="instruction">Instructions :</label>
+          <textarea style="width:100%;" name="instruction" placeholder="Customer reference or instructions for this job"><?= $job['instruction'] ?></textarea>
         </div>
         <div class="form-group">
-          <label for="commentaire">Commentaire :</label>
-          <textarea style="width:100%;" name="commentaire"><?= $job['commentaire'] ?></textarea>
+          <label for="commentaire">Job Comments :</label>
+          <textarea style="width:100%;" name="commentaire" placeholder="Metcut informations for this job"><?= $job['commentaire'] ?></textarea>
         </div>
       </div>
 

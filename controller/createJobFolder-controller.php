@@ -1,5 +1,4 @@
 <?php
-
 $dir_source = '//Srvdc/donnees/JOB/#TEMPLATE';
 $dir_dest = '//Srvdc/donnees/JOB/'.$_POST['ref_customer'].'/'.$_POST['ref_customer'].'-'.$_POST['job'];
 $dir_dest_customer = '//Srvdc/donnees/JOB/'.$_POST['ref_customer'];

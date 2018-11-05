@@ -51,6 +51,7 @@ Editor::inst( $db, 'eprouvettes' )
   Field::inst( 'eprouvettes.Cycle_min')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.runout')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.cycle_estime')->setFormatter( 'Format::nullEmpty' ),
+  Field::inst( 'eprouvettes.priority')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.c_commentaire')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'enregistrementessais.n_fichier'),
   Field::inst( 'machines.machine'),

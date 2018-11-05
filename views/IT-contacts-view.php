@@ -4,10 +4,7 @@
   <thead>
     <tr>
       <th>N°</th>
-      <th><acronym title="Conpagnie">Cie</acronym></th>
-
-      <th>Adress [ANCIEN]</th>
-
+      <th><acronym title="Compagnie">Cie</acronym></th>
       <th>First Name</th>
       <th>Last Name</th>
       <th>Dpt</th>
@@ -15,7 +12,6 @@
       <th>Street</th>
       <th>City</th>
       <th>Country</th>
-
       <th>Email</th>
       <th>Cell n°</th>
       <th>Office</th>
@@ -25,10 +21,7 @@
   <tfoot>
     <tr>
       <th>N°</th>
-      <th><acronym title="Conpagnie">Cie</acronym></th>
-
-      <th>Adress</th>
-
+      <th><acronym title="Compagnie">Cie</acronym></th>
       <th>First Name</th>
       <th>Last Name</th>
       <th>Dpt</th>
@@ -36,7 +29,6 @@
       <th>Street</th>
       <th>City</th>
       <th>Country</th>
-
       <th>Email</th>
       <th>Cell n°</th>
       <th>Office</th>

@@ -10,7 +10,7 @@ class LstJobsModel
 
     public function getAllJobs($filtre="") {
 		$req = 'SELECT id_tbljob,
-					tbljobs.id_statut, statut_color, customer, statuts.etape,
+					id_statut_temp, statut_color, customer, statuts.etape,
 					job, split, test_type_abbr,
 					count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbep,
           if(count(n_fichier)=0, sum(if(d_checked > 0,1,0)),count(n_fichier)) as nbtest,
@@ -26,7 +26,7 @@ class LstJobsModel
 				WHERE tbljob_actif=1 AND eprouvette_actif=1
         '.$filtre.'
         GROUP BY tbljobs.id_tbljob
-				ORDER BY customer=8000 desc, id_statut ASC, job DESC, split ASC
+				ORDER BY customer=8000 desc, id_statut_temp ASC, job DESC, split ASC
         LIMIT 1000';
         return $this->db->getAll($req);
     }
@@ -69,7 +69,7 @@ class LstJobsModel
 
 
 		$req = 'SELECT id_tbljob,
-					tbljobs.id_statut, statut_color,
+					id_statut_temp, statut_color,
           statut, max(entreprises.entreprise_abbr) as entreprise_abbr, max(entreprises.entreprise) as entreprise, entrepriseST.entreprise_abbr as entreprise_abbrST,
           po_number, instruction,
           customer, job, split,
@@ -105,7 +105,7 @@ class LstJobsModel
 				WHERE tbljob_actif=1 AND eprouvette_actif=1
         '.$reqfiltre.'
         GROUP BY tbljobs.id_tbljob
-				ORDER BY id_statut ASC, job DESC, split ASC
+				ORDER BY id_statut_temp ASC, job DESC, split ASC
         '.$limit;
         //echo $req;
         return $this->db->getAll($req);
@@ -169,7 +169,7 @@ class LstJobsModel
 
     public function searchJob($searchInfo="") {
 		$req = 'SELECT id_tbljob,
-					tbljobs.id_statut, statut_color, customer, statuts.etape,
+					id_statut_temp, statut_color, customer, statuts.etape,
 					job, split, test_type_abbr,
           po_number, instruction, specification
 				FROM eprouvettes
@@ -182,14 +182,14 @@ class LstJobsModel
 				WHERE tbljob_actif=1 AND eprouvette_actif=1 AND info_job_actif=1
         AND job LIKE '.$this->db->quote('%'.$searchInfo.'%').'
         GROUP BY tbljobs.id_tbljob
-				ORDER BY customer=8000 desc, id_statut ASC, job DESC, split ASC
+				ORDER BY customer=8000 desc, id_statut_temp ASC, job DESC, split ASC
         ';
         return $this->db->getAll($req);
     }
 
     public function searchSpecification($searchInfo="") {
 		$req = 'SELECT id_tbljob,
-					tbljobs.id_statut, statut_color, customer, statuts.etape,
+					id_statut_temp, statut_color, customer, statuts.etape,
 					job, split, test_type_abbr,
           po_number, instruction, specification
 				FROM eprouvettes
@@ -202,13 +202,13 @@ class LstJobsModel
 				WHERE tbljob_actif=1 AND eprouvette_actif=1
         AND specification LIKE '.$this->db->quote('%'.$searchInfo.'%').'
         GROUP BY tbljobs.id_tbljob
-				ORDER BY customer=8000 desc, id_statut ASC, job DESC, split ASC
+				ORDER BY customer=8000 desc, id_statut_temp ASC, job DESC, split ASC
         ';
         return $this->db->getAll($req);
     }
     public function searchPO($searchInfo="") {
 		$req = 'SELECT id_tbljob,
-					tbljobs.id_statut, statut_color, customer, statuts.etape,
+					id_statut_temp, statut_color, customer, statuts.etape,
 					job, split, test_type_abbr,
           po_number, instruction, specification
 				FROM eprouvettes
@@ -221,14 +221,14 @@ class LstJobsModel
 				WHERE tbljob_actif=1 AND eprouvette_actif=1
         AND po_number LIKE '.$this->db->quote('%'.$searchInfo.'%').'
         GROUP BY tbljobs.id_tbljob
-				ORDER BY customer=8000 desc, id_statut ASC, job DESC, split ASC
+				ORDER BY customer=8000 desc, id_statut_temp ASC, job DESC, split ASC
         ';
         return $this->db->getAll($req);
     }
 
     public function searchInst($searchInfo="") {
 		$req = 'SELECT id_tbljob,
-					tbljobs.id_statut, statut_color, customer, statuts.etape,
+					id_statut_temp, statut_color, customer, statuts.etape,
 					job, split, test_type_abbr,
           po_number, instruction, specification
 				FROM eprouvettes
@@ -241,7 +241,7 @@ class LstJobsModel
 				WHERE tbljob_actif=1 AND eprouvette_actif=1
         AND instruction LIKE '.$this->db->quote('%'.$searchInfo.'%').'
         GROUP BY tbljobs.id_tbljob
-				ORDER BY customer=8000 desc, id_statut ASC, job DESC, split ASC
+				ORDER BY customer=8000 desc, id_statut_temp ASC, job DESC, split ASC
         ';
         return $this->db->getAll($req);
     }
@@ -375,7 +375,7 @@ class LstJobsModel
 
     public function getWeeklyReportJob($id_infojob) {
         $req = 'SELECT id_tbljob,
-            tbljobs.id_statut, statut_color, statut_client,customer, statuts.etape, statuts.statut,
+            id_statut_temp, statut_color, statut_client,customer, statuts.etape, statuts.statut,
             job, split, test_type_abbr, test_type_cust, DyT_Cust,
             count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbep,
             count((eprouvettes.id_eprouvette)) as nbtestplanned,

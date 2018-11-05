@@ -63,7 +63,7 @@ if (file_exists($filenameEPView)) {
   $splitEp_View=$filenameEPView;
 }
 else{
-    if (substr($split['test_type_abbr'],0,1)==".") {
+    if ($split['ST']==1) {
   $splitEp_View= 'views/splitEprouvette'.$eprouvetteConsigne.$eprouvetteValue.'_.default-view.php';
     }
     else {
@@ -71,18 +71,6 @@ else{
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // Affichage du résultat

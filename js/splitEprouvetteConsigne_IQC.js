@@ -30,6 +30,7 @@ $(document).ready(function() {
       {       label: 'Dim 1',       name: 'annexe_iqc.dim1'     },
       {       label: 'Dim 2',       name: 'annexe_iqc.dim2'     },
       {       label: 'Dim 3',       name: 'annexe_iqc.dim3'     },
+      {       label: "eprouvettes.priority",       name: "eprouvettes.priority"     },
       {       label: 'Order Comment',       name: 'eprouvettes.c_commentaire'     },
       {       label: 'Lab Observation',       name: 'eprouvettes.d_commentaire'     },
       {       label: 'Quality Review',       name: 'eprouvettes.flag_qualite'     },
@@ -95,6 +96,7 @@ var table = $('#table_ep').DataTable( {
     { data: "master_eprouvettes.id_master_eprouvette" },
     { data: "master_eprouvettes.prefixe" },
     { data: "master_eprouvettes.nom_eprouvette" },
+    { data: "eprouvettes.priority" },
     { data: "annexe_iqc.dim1" },
     { data: "annexe_iqc.dim2" },
     { data: "annexe_iqc.dim3" },
@@ -151,11 +153,11 @@ var table = $('#table_ep').DataTable( {
     }
   ],
   autoFill: {
-    columns: [3, 4, 5, 6, 10,11,12,13,14,15],
+    columns: [3, 4, 5, 6, 7, 11, 12, 13, 14, 15, 16],
     editor:  editor
   },
   keys: {
-    columns: [3, 4, 5, 6, 10,11,12,13,14,15],
+    columns: [3, 4, 5, 6, 7, 11, 12, 13, 14, 15, 16],
     editor:  editor
   },
   select: {
@@ -167,7 +169,7 @@ var table = $('#table_ep').DataTable( {
 $('#table_ep').on( 'click', 'tbody td', function (e) {
   var index = $(this).index();
 
-  if ( index === 5 ) {
+  if ( index === 6 ) {
     editor.bubble( this,
       ['eprouvettes.c_commentaire'],
       { title: 'Order Comments :' ,

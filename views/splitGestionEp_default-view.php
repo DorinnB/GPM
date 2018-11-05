@@ -1,4 +1,10 @@
 <script type="text/javascript" src="js/splitGestionEp.js"></script>
+<script type="text/javascript" src="js/splitGestionEp_TDRs.js"></script>
+<link href="lib/dropdown-with-search-using-jquery/select2.min.css" rel="stylesheet" />
+<script src="lib/dropdown-with-search-using-jquery/select2.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <div class="modal-dialog">
 
   <!-- Modal content-->
@@ -16,33 +22,39 @@
         <div class="row" style="height:100%;">
           <div class="col-sm-4" style="height:100%;">
             <ul  class="nav nav-pills nav-stacked" style="height:100%;">
-              <li style="height:25%;display:none;" id="newTest">
-                <a href="#1a" data-toggle="tab" style="line-height:7vh;"><p>NEW TEST</p></a>
+              <li class="tabLeft" style="display:none;" id="prestart">
+                <a href="#1c" data-toggle="tab"><p>PRESTART CHECKLIST</p></a>
               </li>
-              <li style="height:25%;display:none;" id="prepa">
-                <a href="#1b" data-toggle="tab" style="line-height:7vh;"><p>PREPA</p></a>
+              <li class="tabLeft" style="display:none;" id="prepa">
+                <a href="#1b" data-toggle="tab"><p>PREPA</p></a>
               </li>
-              <li style="height:25%;" id="eval">
-                <a href="#1e" data-toggle="tab" style="line-height:7vh;"><p>EVAL</p></a>
+              <li class="tabLeft" style="display:none;" id="newTest">
+                <a href="#1a" data-toggle="tab"><p>NEW TEST</p></a>
               </li>
-              <li style="height:25%;" id="document">
-                <a href="#1d" data-toggle="tab" style="line-height:7vh;"><p>DOC</p></a>
+              <li class="tabLeft" id="TDR">
+                <a href="#1f" data-toggle="tab"><acronym title="Test Deviation Report">TDR</acronym></a>
               </li>
-              <li style="height:25%;display:none;" id="prestart">
-                <a href="#1c" data-toggle="tab" style="line-height:7vh;"><p>PRESTART CHECKLIST</p></a>
+              <li class="tabLeft" id="eval">
+                <a href="#1e" data-toggle="tab"><p>EVAL</p></a>
               </li>
-              <li style="height:25%;" id="retest"><a href="#2a" data-toggle="tab" style="line-height:7vh;">RETEST</a>
+              <li class="tabLeft" id="document">
+                <a href="#1d" data-toggle="tab"><p>DOC</p></a>
               </li>
-              <li style="height:25%;display:none;" id="delete"><a href="#3a" data-toggle="tab" style="line-height:7vh;">DELETE</a>
+              <li class="tabLeft" id="retest">
+                <a href="#2a" data-toggle="tab">RETEST</a>
               </li>
-              <li style="height:25%;display:none;"id="cancel"><a href="#3b" data-toggle="tab" style="line-height:7vh;">CANCEL</a>
+              <li class="tabLeft" style="display:none;" id="delete">
+                <a href="#3a" data-toggle="tab">DELETE</a>
+              </li>
+              <li class="tabLeft" style="display:none;"id="cancel">
+                <a href="#3b" data-toggle="tab">CANCEL</a>
               </li>
             </ul>
           </div>
 
 
           <div class="col-sm-8 carre" style="height:100%;">
-            <div class="tab-content clearfix" style="height:100%;">
+            <div class="tab-content clearfix" style="height:100%;overflow-y:auto;">
 
               <div class="tab-pane" id="1a" style="height:100%;">
                 <form class="form-group" style="height:100%;" id="newTestForm">
@@ -142,7 +154,7 @@
                   </div>
                   <div class="col-md-3">Cycles:</b>
                   </div>
-                  <div class="col-md-3"><b><?= $eprouvette ['Cycle_final'] ?></b>
+                  <div class="col-md-3" id="cycleFinal"><b><?= $eprouvette ['Cycle_final'] ?></b>
                   </div>
                   <div class="col-md-3">State:</b>
                   </div>
@@ -169,13 +181,22 @@
                   </form>
                 </div>
 
-                <div class="row" style="padding: 0px 10px;">
-                  <form class="form-group" id="update_d_commentaire">
-                    <div class="col-md-10">
+                <div class="row" style="height:55%; padding: 0px 10px;">
+                  <form class="form-group" id="update_d_commentaire" style="height:100%;">
+                    <div class="col-md-10" style="height:100%;">
                       <b style="float:left;">Lab Observation</b><br/>
-                      <textarea rows="4" class="form-control" id="d_commentaire" name="d_commentaire"  style="resize:none;background-color:#5B9BD5;border-width:0px; color:white;"><?= $eprouvette['d_commentaire'] ?></textarea>
+                      <textarea class="form-control" id="d_commentaire" name="d_commentaire"  style="resize:none;background-color:#5B9BD5;border-width:0px; color:white;height:85%"><?= $eprouvette['d_commentaire'] ?></textarea>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2" style="height:100%;">
+                      <div style="padding:5px 5px; margin: auto;">
+                        <a href="#1f" data-toggle="tab">
+                          <?php if ($TDRCount==0) :?>
+                            <h1><span class="label label-default"><?= $TDRCount ?></span></h1>
+                          <?php else  :?>
+                            <h1><span class="label label-warning"><?= $TDRCount ?></span></h1>
+                          <?php endif ?>
+                        </a>
+                      </div>
                       <div id="flagQualite" data-flagQualite="<?= $eprouvette['flag_qualite'] ?>"  data-idepflagqualite="<?= $eprouvette['id_eprouvette'] ?>">
                         <img type="image" src="img/warning_<?= $iconeFlagQualite ?>.png" style="height:65px; padding:5px 5px; margin: auto;" title="<?=	($eprouvette['flag_qualite']==0)?'Quality Flag':$eprouvette['flag_qualite']	?>">
                       </div>
@@ -297,7 +318,8 @@
                   <figcaption>Restart (<?= $oDocument->nbDocuments('eprouvettes',$eprouvette['id_eprouvette'],'Restart'); ?>)</figcaption>
                 </figure>
 
-                <figure style="display:inline-block;" id="doc_IRR" class="document" data-type="IRR">
+
+                <figure style="display:inline-block;" id="IRR" class="document" data-type="IRR">
                   <img  src="img/excel-IRR.png" height="90" width="60"  alt="" />
                   <figcaption>IRR (<?= $oDocument->nbDocuments('eprouvettes',$eprouvette['id_eprouvette'],'IRR'); ?>)</figcaption>
                 </figure>
@@ -322,6 +344,12 @@
                 <div id="doc_ep" style=height:40%;>
 
                 </div>
+
+              </div>
+
+              <div class="tab-pane" id="1f" style="height:100%;">
+                <button class="create">New</button>
+
 
               </div>
 

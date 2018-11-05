@@ -131,6 +131,43 @@ class LabModel
         return $this->db->getAll($req);
     }
 
+    public function getAwaitingTechnicianList() {
+      $req='SELECT eprouvettes.id_eprouvette, info_jobs.customer, info_jobs.job, master_eprouvettes.prefixe, master_eprouvettes.nom_eprouvette, n_fichier, split, machine, poste, id_job, n_essai, operateur, currentBlock_temp, t1.technicien as nom_operateur
+        FROM enregistrementessais
+        LEFT JOIN eprouvettes ON eprouvettes.id_eprouvette=enregistrementessais.id_eprouvette
+        LEFT JOIN eprouvettes_temp ON eprouvettes_temp.id_eprouvettes_temp=eprouvettes.id_eprouvette
+        LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
+        LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
+        LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+        LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
+        LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
+        LEFT JOIN prestart ON prestart.id_prestart=enregistrementessais.id_prestart
+        LEFT JOIN postes ON postes.id_poste=prestart.id_poste
+        LEFT JOIN machines ON machines.id_machine=postes.id_machine
+        LEFT JOIN techniciens t1 ON t1.id_technicien=enregistrementessais.id_operateur
+        LEFT JOIN techniciens t2 ON t2.id_technicien=enregistrementessais.id_controleur
+
+        WHERE d_checked<=0
+          AND (currentBlock_temp="Init"
+            OR currentBlock_temp="Menu"
+            OR currentBlock_temp="Parameters"
+            OR currentBlock_temp="Amb."
+            OR currentBlock_temp="Adv."
+            OR currentBlock_temp="Amb."
+            OR currentBlock_temp="ET"
+            OR currentBlock_temp="Ramp"
+            OR currentBlock_temp="Straightening"
+            OR currentBlock_temp="Analysis"
+            OR currentBlock_temp="Restart")
+          AND n_fichier>48150
+          AND n_essai !=1
+          AND etape<80
+
+        order by machine';
+        //echo $req;
+        return $this->db->getAll($req);
+    }
+
     public function getTodoLab() {
       $req='SELECT texte_lab_forecast, prio_lab_forecast, icone_file, icone_name
         FROM lab_forecasts

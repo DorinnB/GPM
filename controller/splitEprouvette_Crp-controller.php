@@ -41,6 +41,7 @@ else {
 $estimatedTimeLeft=0;
 $unestimatedTestLeft=0;
 $shortTest=0;
+$classpriority="hidden";  //priority
 
 //declaration des variables calculées
 for($k=0;$k < count($ep);$k++)	{
@@ -357,6 +358,8 @@ for($k=0;$k < count($ep);$k++)	{
   ';
 
 
+    //gestion priority test & specimen
+    $classpriority=($ep[$k]['priority']>0)?'':$classpriority;
 }
 
 

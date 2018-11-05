@@ -67,7 +67,7 @@
 					</a>
 				</acronym>
 			</div>
-			<div class="col-md-4 report_send<?=	(($split['report_send']<0)?0:$split['report_send'])	?>" id="report_send" data-report_send="<?=	$split['report_send']	?>" style="height:33%; cursor:pointer;">
+			<div class="col-md-4 report_send<?=	(($split['report_send']<0)?0:$split['report_send'])	?>" id="report_send" data-report_send="<?=	$split['report_send']	?>" style="height:33%;">
 				<acronym title="End of Job (<?= $split['report_send']?>)">
 					<img type="image" src="img/send.png" style="max-width:100%; max-height:100%; padding:5px 0px;display: block; margin: auto;"  />
 				</acronym>

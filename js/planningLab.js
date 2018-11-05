@@ -4,7 +4,7 @@ $(document).ready(function() {
   var tableJob = $('#table_planningJob').DataTable({
 
     order: [[ 1, "desc" ]],
-        scrollY:        '80vh',
+    scrollY:        '80vh',
     scrollCollapse: true,
     paging: false,
     scrollX: true,
@@ -12,22 +12,22 @@ $(document).ready(function() {
   });
   var tableJobFrame = $('#table_planningJobFrame').DataTable({
     order: [[ 0, "asc" ]],
-            scrollY:        '80vh',
+    scrollY:        '73vh',
     scrollCollapse: true,
     paging: false,
     scrollX: true,
     info:false,
     fixedColumns:   {leftColumns: 1}
   });
-  var tableJobFrame2 = $('#table_planningJobFrame2d').DataTable({
+  var tableJobFrame2 = $('#table_planningJobFrame2').DataTable({
 
     order: [[ 0, "asc" ]],
-            scrollY:        '100vh',
+    scrollY:        '100vh',
     scrollCollapse: true,
     paging: false,
     scrollX: true,
     info:false,
- ordering: false,
+    ordering: false,
     fixedColumns:   {leftColumns: 1}
   });
 
@@ -66,15 +66,15 @@ $(document).ready(function() {
 
   $('.popover-markup').hover(function(){
     //mise en couleur des cases de ce split
-      val=$(this).attr('data-id_tbljob');
-      $('.popover-markup').each(function() {
-          if ($(this).attr('data-id_tbljob')==val) {
-            $(this).toggleClass('highlight');
-          }
-          else {
-            $(this).removeClass('highlight');
-          }
-     });
+    val=$(this).attr('data-id_tbljob');
+    $('.popover-markup').each(function() {
+      if ($(this).attr('data-id_tbljob')==val) {
+        $(this).toggleClass('highlight');
+      }
+      else {
+        $(this).removeClass('highlight');
+      }
+    });
   });
 
   $('.machine').click(function(){
@@ -84,24 +84,24 @@ $(document).ready(function() {
     $('#id_tbljob_actif').attr('data-split', $(this).attr('data-split'));
     $('#id_tbljob_actif').attr('data-color',$(this).attr('data-color'));
 
-if (($(this).attr('data-id_tbljob')>=10) & ($(this).attr('data-id_tbljob')<=15)) {
-  $('#id_tbljob_actif').html($(this).html());
-}
-else {
+    if (($(this).attr('data-id_tbljob')>=10) & ($(this).attr('data-id_tbljob')<=15)) {
+      $('#id_tbljob_actif').html($(this).html());
+    }
+    else {
 
-    $('#id_tbljob_actif').html($(this).attr('data-customer')+'-'+$(this).attr('data-job')+'-'+$(this).attr('data-split'));
-}
+      $('#id_tbljob_actif').html($(this).attr('data-customer')+'-'+$(this).attr('data-job')+'-'+$(this).attr('data-split'));
+    }
 
     //mise en couleur des cases de ce split
-      val=$(this).attr('data-id_tbljob');
-      $('.selectable').each(function() {
-          if ($(this).attr('data-id_tbljob')==val) {
-            $(this).toggleClass('highlight');
-          }
-          else {
-            $(this).removeClass('highlight');
-          }
-     });
+    val=$(this).attr('data-id_tbljob');
+    $('.selectable').each(function() {
+      if ($(this).attr('data-id_tbljob')==val) {
+        $(this).toggleClass('highlight');
+      }
+      else {
+        $(this).removeClass('highlight');
+      }
+    });
   });
   $('#gomme').click(function(){
     $('#id_tbljob_actif').attr('data-id_tbljob','');
@@ -192,10 +192,39 @@ else {
     }
     $(this).attr('colSpan',colSpan);
     $(this).css('text-align','center');
-//je recup le customer, si on veut un code couleur customer
-$(this).attr('data-customer',$(this).children('div').eq(0).attr('data-customer'));
+    //je recup le customer, si on veut un code couleur customer
+    $(this).attr('data-customer',$(this).children('div').eq(0).attr('data-customer'));
 
     $(this).children('div').eq(0).removeClass('hide');
+
+    var infojob=$(this).find(".planningDisplay");
+    if (infojob.length) {
+      if (colSpan>=10) {
+        infojob.text(infojob.attr('data-customer')+'-'+infojob.attr('data-job')+'-'+infojob.attr('data-split'));
+      }
+      else if (colSpan>=4) {
+        infojob.text(infojob.attr('data-job')+'-'+infojob.attr('data-split'));
+      }
+      else if (colSpan>=2) {
+        infojob.text(infojob.attr('data-job').slice(3,5)+'-'+infojob.attr('data-split'));
+      }
+      else if (colSpan>=1) {
+        infojob.text(infojob.attr('data-job').slice(3,5));
+      }
+    }
+
+    var infomaintenance=$(this).find(".maintenanceDisplay");
+    if (infomaintenance.hasClass("maintenanceDisplay")) {
+      if (colSpan>=10) {
+        infomaintenance.text(infomaintenance.attr('data-type')+' '+infomaintenance.attr('data-device'));
+      }
+      else if (colSpan>=5) {
+        infomaintenance.text(infomaintenance.attr('data-device'));
+      }
+      else if (colSpan>=1) {
+        infomaintenance.text(infomaintenance.attr('data-deviceShort'));
+      }
+    }
 
   });
 

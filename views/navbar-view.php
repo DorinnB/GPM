@@ -9,12 +9,13 @@
 			<li><a href="controller/copyJob.php?id_info_job=13463" onClick="return confirm('Are you sure you want to create a new Job?');" style="padding : 0px; padding-left : 10px;padding-right:10px;" ><img src="img/newjob.png" class="img-responsive" alt="New Job" width="40" height="40"></a></li>
 			<li><a href="#" style="padding : 0px; padding-left : 10px;padding-right:10px;"><img src="img/onenote-icone.png" class="img-responsive" alt="Onenote" width="40" height="40"></a></li>
 			<li><a href="index.php?page=main"><acronym title="Main View">ALL</acronym></a></li>
-			<li><a href="index.php?page=labo"><acronym title="LAB View">LAB</acronym></a></li>
-			<li><a href="index.php?page=qualite"><acronym title="QUALITY View">Quality</acronym></a></li>
 			<li><a href="index.php?page=administrative"><acronym title="Administrative View">Administrative</acronym></a></li>
-			<li><a href="index.php?page=followupJob&filtreFollowup=100"><acronym title="Follow UP JOB View : Job">Follow UP JOB</acronym></a></li>
+			<li><a href="index.php?page=followupJob&filtreFollowup=100"><acronym title="Follow UP JOB View : Job">F. UP JOB</acronym></a></li>
 			<li><a href="index.php?page=followup"><acronym title="Follow UP LAB View : LAB">F.UP LAB</acronym></a></li>
 			<li><a href="index.php?page=followupSubC&filtreFollowup=SubC"><acronym title="Follow UP SubC View : SubC">F.UP SubC</acronym></a></li>
+			<li><a href="index.php?page=labo"><acronym title="LAB View">LAB</acronym></a></li>
+			<li><a href="index.php?page=manager"><acronym title="Manager View">Manager</acronym></a></li>
+			<li><a href="index.php?page=qualite"><acronym title="QUALITY View">Quality</acronym></a></li>
 			<li><a href="index.php?page=IT"><acronym title="IT Managment">IT</acronym></a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">

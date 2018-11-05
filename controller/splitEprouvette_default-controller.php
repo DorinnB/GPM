@@ -43,7 +43,7 @@ $unestimatedTestLeft=0;
 $shortTest=0;
 $nbSTL=0;       //nombre de STL à incrementer
 $nbStepcase=0;  //nombre de stepcase à incrementer
-
+$classpriority="hidden";  //priority
 
 //declaration des variables calculées
 for($k=0;$k < count($ep);$k++)	{
@@ -364,6 +364,11 @@ for($k=0;$k < count($ep);$k++)	{
   $nbSTL+=($ep[$k]['c_cycle_STL']!='')?1:0;
   //detection des StepCases
   $nbStepcase+=($ep[$k]['stepcase_val']!='')?1:0;
+
+
+
+  //gestion priority test & specimen
+  $classpriority=($ep[$k]['priority']>0)?'':$classpriority;
 }
 
 $classSTL="hidden";

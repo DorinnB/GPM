@@ -4,7 +4,7 @@
   </h3>
   <div class="row" style="height:47%;">
     <div class="col-md-12" style="height:100%;">
-      <div class="row" style="height:25%;overflow-y:scroll;border-bottom:2px solid white;">
+      <div class="row bandeau" style="height:25%;overflow-y:scroll;border-bottom:2px solid white;">
         <div class="col-md-2">
           <div class="col-md-12 titre">
             Awaiting specimen
@@ -36,7 +36,7 @@
           </div>
         </div>
       </div>
-      <div class="row" style="height:75%;overflow-y:scroll;">
+      <div class="row bandeauVal" style="height:75%;overflow-y:scroll;">
         <div class="col-md-2">
           <?php foreach ($oInOut->awaitingArrival() as $key => $value) : ?>
             <a href="index.php?page=inOut&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
@@ -84,7 +84,7 @@
   </div>
   <div class="row" style="height:47%;border-top:2px solid white;">
     <div class="col-md-12" style="height:100%;">
-      <div class="row" style="height:24%;overflow-y:scroll;border-bottom:2px solid white;">
+      <div class="row bandeau" style="height:24%;overflow-y:scroll;border-bottom:2px solid white;">
         <div class="col-md-2">
           <div class="col-md-12 titre">
             Out Ready
@@ -116,7 +116,7 @@
           </div>
         </div>
       </div>
-      <div class="row" style="height:75%;overflow-y:scroll;">
+      <div class="row bandeauVal" style="height:75%;overflow-y:scroll;">
         <div class="col-md-2">
           <?php foreach ($oInOut->outReady() as $key => $value) : ?>
             <a href="index.php?page=inOut&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
@@ -132,14 +132,24 @@
           <?php endforeach  ?>
         </div>
         <div class="col-md-2">
-          <?php foreach ($oInOut->FQC() as $key => $value) : ?>
+          <?php foreach ($oInOut->stepStatut(59) as $key => $value) : ?>
+            <a href="index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
+              <?= $value['job'].'-'.$value['split']  ?>
+            </a>
+          <?php endforeach  ?>
+          <?php foreach ($oInOut->stepStatut(70) as $key => $value) : ?>
             <a href="index.php?page=clotureJob&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
+              <?= $value['job'].'-'.$value['split']  ?>
+            </a>
+          <?php endforeach  ?>
+          <?php foreach ($oInOut->stepStatut(71) as $key => $value) : ?>
+            <a href="index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
               <?= $value['job'].'-'.$value['split']  ?>
             </a>
           <?php endforeach  ?>
         </div>
         <div class="col-md-2">
-          <?php foreach ($oInOut->reportReady() as $key => $value) : ?>
+          <?php foreach ($oInOut->stepStatut(80) as $key => $value) : ?>
             <a href="index.php?page=clotureJob&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
               <?= $value['job'].'-'.$value['split']  ?>
             </a>

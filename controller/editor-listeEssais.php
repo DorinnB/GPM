@@ -34,10 +34,7 @@ Editor::inst( $db, 'enregistrementessais' )
   Field::inst( 'tbljobs.id_tbljob'),
   Field::inst( 'extensometres.extensometre'),
   Field::inst( 'eprouvettes.flag_qualite'),
-  Field::inst( 'eprouvettes.temps_essais'),
-  Field::inst( 'eprouvettes.c_frequence'),
-  Field::inst( 'eprouvettes.c_frequence_STL'),
-  Field::inst( 'eprouvettes.Cycle_final')
+  Field::inst( 'eprouvettes.temps_essais')
   )
 ->leftJoin( 'eprouvettes',     'eprouvettes.id_eprouvette',          '=', 'enregistrementessais.id_eprouvette' )
 ->leftJoin( 'master_eprouvettes',     'master_eprouvettes.id_master_eprouvette',          '=', 'eprouvettes.id_master_eprouvette' )
@@ -52,7 +49,7 @@ Editor::inst( $db, 'enregistrementessais' )
 ->leftJoin( 'techniciens as op',     'op.id_technicien',          '=', 'enregistrementessais.id_operateur' )
 ->leftJoin( 'techniciens as chk',     'chk.id_technicien',          '=', 'enregistrementessais.id_controleur' )
 
-->where('n_fichier',48731,'>')
+->where('enregistrementessais.date',$_POST['startFile'],'>=')
 ->where('enregistrementessais.id_eprouvette', null, '!=' )
 
 ->process($_POST)

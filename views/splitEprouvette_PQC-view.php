@@ -7,6 +7,7 @@
         <th><acronym title="Availability">A</acronym></th>
         <th>Prefixe</th>
         <th>ID</th>
+        <th class="<?= $classpriority ?>"><acronym title="Priority">P.</acronym></th>
         <th>Dwg</th>
         <th><acronym title="Order Comment">Com.</acronym></th>
         <th><acronym title="Order Check">Chk</acronym></th>
@@ -36,6 +37,7 @@
         <th><acronym title="Availability">A</acronym></th>
         <th>Prefixe</th>
         <th>ID</th>
+        <th class="<?= $classpriority ?>"><acronym title="Priority">P.</acronym></th>
         <th>Dwg</th>
         <th><acronym title="Order Comment">Com.</acronym></th>
         <th><acronym title="Order Check">Chk</acronym></th>
@@ -66,6 +68,7 @@
           <td class="dispo open-GestionEp selectable" data-id="<?= $ep[$k]['id_eprouvette'] ?>" data-dispo="<?= $ep[$k]['dispo'] ?>"><acronym title="<?= $ep[$k]['dispoText'] ?>"><?= $ep[$k]['dispo'] ?></acronym></td>
           <td><?= $ep[$k]['prefixe'] ?></td>
           <td><?= $ep[$k]['nom_eprouvette'] ?><sup><?= ($ep[$k]['retest']!=1)?$ep[$k]['retest']:'' ?></sup></td>
+          <td class="<?= $classpriority ?>"><?= $ep[$k]['priority'] ?></td>
           <td><?= $ep[$k]['dessin'] ?></td>
           <td class="popover-markup" data-placement="left"><?= ($ep[$k]['comm'].$ep[$k]['c_commentaire']=="")?"":substr($ep[$k]['comm'].$ep[$k]['c_commentaire'],0,5)." [...]" ?>
             <?php if ($ep[$k]['comm'].$ep[$k]['c_commentaire'] !=""):  ?>
@@ -111,7 +114,7 @@
           <td><?= $ep[$k]['val_7'] ?></td>
           <td><?= $ep[$k]['val_8'] ?></td>
           <td><?= $ep[$k]['val_9'] ?></td>
-          <td><?= $ep[$k]['val_10'] ?></td>      
+          <td><?= $ep[$k]['val_10'] ?></td>
 
           <td class="dCheckEp unselectable" data-dchecked="<?= max(0,$ep[$k]['d_checked']) ?>"  data-idepdchecked="<?= $ep[$k]['id_eprouvette'] ?>"><?= $ep[$k]['d_checked'] ?></td>
 
