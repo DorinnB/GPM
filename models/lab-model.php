@@ -148,19 +148,19 @@ class LabModel
         LEFT JOIN techniciens t2 ON t2.id_technicien=enregistrementessais.id_controleur
 
         WHERE d_checked<=0
-          AND (currentBlock_temp="Init"
-            OR currentBlock_temp="Menu"
-            OR currentBlock_temp="Parameters"
-            OR currentBlock_temp="Amb."
-            OR currentBlock_temp="Adv."
-            OR currentBlock_temp="Amb."
-            OR currentBlock_temp="ET"
-            OR currentBlock_temp="Ramp"
-            OR currentBlock_temp="Straightening"
-            OR currentBlock_temp="Analysis"
-            OR currentBlock_temp="Restart")
-          AND n_fichier>48150
-          AND n_essai !=1
+          AND (IF(currentBlock is null,currentBlock_temp, currentBlock) IS null
+            OR IF(currentBlock is null,currentBlock_temp, currentBlock)="Init"
+            OR IF(currentBlock is null,currentBlock_temp, currentBlock)="Menu"
+            OR IF(currentBlock is null,currentBlock_temp, currentBlock)="Parameters"
+            OR IF(currentBlock is null,currentBlock_temp, currentBlock)="Amb."
+            OR IF(currentBlock is null,currentBlock_temp, currentBlock)="Adv."
+            OR IF(currentBlock is null,currentBlock_temp, currentBlock)="Amb."
+            OR IF(currentBlock is null,currentBlock_temp, currentBlock)="ET"
+            OR IF(currentBlock is null,currentBlock_temp, currentBlock)="Ramp"
+            OR IF(currentBlock is null,currentBlock_temp, currentBlock)="Straightening"
+            OR IF(currentBlock is null,currentBlock_temp, currentBlock)="Analysis"
+            OR IF(currentBlock is null,currentBlock_temp, currentBlock)="Restart")
+
           AND etape<80
 
         order by machine';

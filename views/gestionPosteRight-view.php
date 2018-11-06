@@ -1,6 +1,19 @@
 
 
 
+<style>.poste:after  {  content: "POSTE";}</style>
+<div class="bs-example poste" id="posteMachine" data-example-id="basic-forms" style="display:none;">
+
+	<div class="form-group">
+		<label for="poste">Poste</label>
+		<select class="form-control" id="poste" name="poste">
+			<option value="">-</option>
+			<?php for ($i=0; $i <30; $i++):	?>
+				<option value="<?= $i ?>" <?=  ($poste['poste']== $i)?"selected":""  ?>><?= $i ?></option>
+			<?php endfor ?>
+		</select>
+	</div>
+</div>
 
 <style>.loadCell:after  {  content: "LOAD CELL";}</style>
 <div class="bs-example loadCell" id="loadCell" data-example-id="basic-forms" style="display:none;">
@@ -54,20 +67,60 @@
 	</div>
 </div>
 
-<style>.poste:after  {  content: "POSTE";}</style>
-<div class="bs-example poste" id="posteMachine" data-example-id="basic-forms" style="display:none;">
 
+<style>.servovalve:after  {  content: "SERVOVALVES";}</style>
+<div class="bs-example servovalve" id="servovalve" data-example-id="basic-forms" style="display:none;">
+<div style="width: 45%; display: inline-block;">
 	<div class="form-group">
-		<label for="poste">Poste</label>
-		<select class="form-control" id="poste" name="poste">
+		<label for="id_servovalve">Servovalve 1 S/N</label>
+		<select class="form-control" id="id_servovalve1" name="id_servovalve1">
 			<option value="">-</option>
-			<?php for ($i=0; $i <30; $i++):	?>
-				<option value="<?= $i ?>" <?=  ($poste['poste']== $i)?"selected":""  ?>><?= $i ?></option>
-			<?php endfor ?>
+			<?php foreach ($lstServovalve as $row): ?>
+				<option value="<?= $row['id_servovalve'] ?>" <?=  ($poste['id_servovalve1']== $row['id_servovalve'])?"selected":""  ?>><?= $row['servovalve'] ?></option>
+			<?php endforeach ?>
 		</select>
+	</div>
+	<div class="form-group">
+		<label for="servovalve1_model">Model</label>
+		<input class="form-control" id="servovalve1_model" value="" type="text" disabled>
+	</div>
+	<div class="form-group">
+		<label for="servovalve1_capacity">Capacity (l/mn)</label>
+		<input class="form-control" id="servovalve1_capacity" value="" type="text" disabled>
+	</div>
+	<div class="form-group">
+		<label for="fixing_type1">Fixing Type</label>
+		<input class="form-control" id="fixing_type1" value="" type="text" disabled>
 	</div>
 </div>
 
+<div style="width: 5%; display: inline-block;">
+</div>
+
+<div style="width: 45%; display: inline-block;">
+	<div class="form-group">
+		<label for="id_servovalve2">Servovalve 2 S/N</label>
+		<select class="form-control" id="id_servovalve2" name="id_servovalve2">
+			<option value="">-</option>
+			<?php foreach ($lstServovalve as $row): ?>
+				<option value="<?= $row['id_servovalve'] ?>" <?=  ($poste['id_servovalve2']== $row['id_servovalve'])?"selected":""  ?>><?= $row['servovalve'] ?></option>
+			<?php endforeach ?>
+		</select>
+	</div>
+	<div class="form-group">
+		<label for="servovalve2_model">Model</label>
+		<input class="form-control" id="servovalve2_model" value="" type="text" disabled>
+	</div>
+	<div class="form-group">
+		<label for="servovalve2_capacity">Capacity (l/mn)</label>
+		<input class="form-control" id="servovalve2_capacity" value="" type="text" disabled>
+	</div>
+	<div class="form-group">
+		<label for="fixing_type2">Fixing Type</label>
+		<input class="form-control" id="fixing_type2" value="" type="text" disabled>
+	</div>
+</div>
+</div>
 
 
 <script type="text/javascript" src="js/gestionPosteRight.js"></script>

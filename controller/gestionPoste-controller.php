@@ -33,16 +33,16 @@ $history=$oPoste->getAllPoste();
 
 // Rendre votre modèle accessible
 include 'models/lstCellLoad-model.php';
-// Création d'une instance
 $oLstCellLoad = new CellLoadModel($db);
 $lstCellLoad=$oLstCellLoad->getAllCellLoad();
 
-// Rendre votre modèle accessible
 include 'models/lstCellDisplacement-model.php';
-// Création d'une instance
 $oLstCellDisplacement = new CellDisplacementModel($db);
 $lstCellDisplacement=$oLstCellDisplacement->getAllCellDisplacement();
 
+include 'models/lstServovalve-model.php';
+$oLstServovalve = new ServovalveModel($db);
+$lstServovalve=$oLstServovalve->getAllServovalve();
 
 
 
