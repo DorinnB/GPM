@@ -60,6 +60,7 @@ Editor::inst( $db, 'servovalves' )
     WHERE machines.machine_actif=1
     GROUP BY machines.id_machine
     ORDER BY machines.machine ASC)', 'IN', false );
+  $q->or_where('servovalves.id_servovalve','servovalves.id_servovalve','!=');
 })
   ->process($_POST)
   ->json();

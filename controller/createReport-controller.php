@@ -1413,7 +1413,7 @@ ElseIf ($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="LoS" OR $s
     'F9'=> $split['po_number'],
 
     'C20'=> $split['info_jobs_instruction'],
-    'C21'=> $split['customer'].'-'.$split['job'],
+    'C22'=> $split['customer'].'-'.$split['job'],
 
     'C28'=> $split['ref_matiere'],
     'C29'=> $split['nbep'],
@@ -1586,13 +1586,16 @@ ElseIf ($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="LoS" OR $s
       $oEprouvette->niveaumaxmin(
         $value['c_1_type'],
         $value['c_2_type'],
-        $value['c_type_1_val']+(($value['c_1_type']==$value['steptype'])?($stepcaseDone+1)*$value['stepcase_val']:0),
-        $value['c_type_2_val']+(($value['c_2_type']==$value['steptype'])?($stepcaseDone+1)*$value['stepcase_val']:0)
+        $value['c_type_1_val']+(($value['c_1_type']==$value['steptype'])?($stepcaseDone)*$value['stepcase_val']:0),
+        $value['c_type_2_val']+(($value['c_2_type']==$value['steptype'])?($stepcaseDone)*$value['stepcase_val']:0)
       );
       $value['max']=$oEprouvette->MAX();
       $value['min']=$oEprouvette->MIN();
 
       //on réecrit les niveaux et nb cycle final du step final
+      $pvEssais->setCellValueByColumnAndRow($col, 14, $value['c_type_1_val']+(($value['c_1_type']==$value['steptype'])?$stepcaseDone*$value['stepcase_val']:0));
+      $pvEssais->setCellValueByColumnAndRow($col, 15, $value['c_type_2_val']+(($value['c_2_type']==$value['steptype'])?$stepcaseDone*$value['stepcase_val']:0));
+            
       $pvEssais->setCellValueByColumnAndRow($col, 27, $value['max']);
       $pvEssais->setCellValueByColumnAndRow($col, 28, ($value['max']+$value['min'])/2);
       $pvEssais->setCellValueByColumnAndRow($col, 29, ($value['max']-$value['min'])/2);
