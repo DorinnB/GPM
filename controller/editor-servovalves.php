@@ -18,6 +18,7 @@ DataTables\Editor\Validate;
 Editor::inst( $db, 'servovalves' )
 ->pkey( 'servovalves.id_servovalve' )
 ->fields(
+  Field::inst( 'servovalves.id_servovalve'),
   Field::inst( 'servovalves.servovalve')
     ->validator( 'Validate::notEmpty' ),
   Field::inst( 'servovalves.servovalve_model')

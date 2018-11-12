@@ -13,8 +13,13 @@ class ServovalveModel
         return $this->db->getAll($req);
     }
 
-    public function getServovalve($id_servovalve) {
-      $req='SELECT * FROM servovalves where id_servovalve = '.$id_servovalve.' AND servovalve_actif=1 ORDER BY id_servovalve DESC LIMIT 1;';
-        echo json_encode( $this->db->getOne($req));;
+    public function getLastSeen($id) {
+      $req='SELECT machine
+        FROM postes
+        LEFT JOIN machines ON machines.id_machine=postes.id_machine
+        WHERE id_servovalve1='.$this->db->quote($id).' OR id_servovalve2='.$this->db->quote($id).'
+        ORDER BY id_poste DESC
+        LIMIT 1;';
+      return $this->db->getOne($req);
     }
 }
