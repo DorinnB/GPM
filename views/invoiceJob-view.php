@@ -12,7 +12,7 @@
 					<?=	$split['customer'].'-'.$split['job']	?>
 					<br/>
 					<div style="font-size:initial">
-						<?=	$split['compagnie']	?>
+						<?=	$split['entreprise']	?>
 					</div>
 				</H1>
 				<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="Numbers">
@@ -37,6 +37,10 @@
 					<p class="title">
 						<span class="name">MRSAS Customer's Ref :</span>
 						<span class="value"><?= $split['MRSASRef']	?></span>
+					</p>
+					<p class="title">
+						<span class="name">MRSAS Customer's Ref :</span>
+						<span class="value"><?= $split['info_jobs_instruction']	?></span>
 					</p>
 				</div>
 				<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="Amount">

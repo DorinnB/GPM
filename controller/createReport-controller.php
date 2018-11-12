@@ -31,15 +31,15 @@ $split=$oSplit->getSplit();
 
 //adresse
 $i=0;
-if (isset($split['departement'])) {
+if (isset($split['departement']) AND $split['departement'] != "") {
   $adresse[$i]='departement';
   $i++;
 }
-if (isset($split['rue1'])) {
+if (isset($split['rue1']) AND $split['rue1'] != "") {
   $adresse[$i]='rue1';
   $i++;
 }
-if (isset($split['rue2'])) {
+if (isset($split['rue2']) AND $split['rue2'] != "") {
   $adresse[$i]='rue2';
   $i++;
 }
@@ -378,7 +378,7 @@ ElseIf ($version=="OLD" AND ($split['test_type_abbr']=="Loa" OR $split['test_typ
     'J5' => $jobcomplet,
     'J9'=> $split['po_number'],
     'C5'=> $split['prenom'].' '.$split['nom'],
-    'C6'=> $split['compagnie']."\n".$split['adresse'],
+    'C6'=> $split['entreprise']."\n".$split['adresse'],
     'J7'=> date("Y-m-d"),
 
     'E16'=> $split['ref_matiere'],
@@ -661,7 +661,7 @@ ElseIf ($version=="OLD" AND ($split['test_type_abbr']=="LoS" OR $split['test_typ
     'J5' => $jobcomplet,
     'J9'=> $split['po_number'],
     'C5'=> $split['prenom'].' '.$split['nom'],
-    'C6'=> $split['compagnie']."\n".$split['adresse'],
+    'C6'=> $split['entreprise']."\n".$split['adresse'],
     'J7'=> date("Y-m-d"),
 
     'E16'=> $split['ref_matiere'],
@@ -897,7 +897,7 @@ ElseIf ($version=="OLD" AND $split['test_type_abbr']=="Str")	{
     'J5' => $jobcomplet,
     'J9'=> $split['po_number'],
     'C5'=> $split['prenom'].' '.strtoupper($split['nom']),
-    'C6'=> $split['compagnie']."\n".$split['adresse'],
+    'C6'=> $split['entreprise']."\n".$split['adresse'],
     'J7'=> date("Y-m-d"),
     'E16'=> $split['ref_matiere'],
 
@@ -1399,7 +1399,7 @@ ElseIf ($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="LoS" OR $s
 
     'G1'=> $split['test_type_cust'],
 
-    'B5'=> $split['compagnie'],
+    'B5'=> $split['entreprise'],
     'B6'=> $split['prenom'].' '.$split['nom'],
     'B7'=> (isset($adresse[0])?$split[$adresse[0]]:''),
     'B8'=> (isset($adresse[1])?$split[$adresse[1]]:''),
@@ -1474,7 +1474,7 @@ ElseIf ($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="LoS" OR $s
 
   foreach ($ep as $key => $value) {
     //copy des styles des colonnes
-    for ($row = 5; $row <= 59; $row++) {
+    for ($row = 5; $row <= 61; $row++) {
       $style = $pvEssais->getStyleByColumnAndRow(3, $row);
       $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row);
       $pvEssais->duplicateStyle($style, $dstCell);
@@ -1595,7 +1595,7 @@ ElseIf ($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="LoS" OR $s
       //on réecrit les niveaux et nb cycle final du step final
       $pvEssais->setCellValueByColumnAndRow($col, 14, $value['c_type_1_val']+(($value['c_1_type']==$value['steptype'])?$stepcaseDone*$value['stepcase_val']:0));
       $pvEssais->setCellValueByColumnAndRow($col, 15, $value['c_type_2_val']+(($value['c_2_type']==$value['steptype'])?$stepcaseDone*$value['stepcase_val']:0));
-            
+
       $pvEssais->setCellValueByColumnAndRow($col, 27, $value['max']);
       $pvEssais->setCellValueByColumnAndRow($col, 28, ($value['max']+$value['min'])/2);
       $pvEssais->setCellValueByColumnAndRow($col, 29, ($value['max']-$value['min'])/2);
@@ -1709,7 +1709,7 @@ ElseIf ($split['test_type_abbr']=="Str")	{
 
     'G1'=> $split['test_type_cust'],
 
-    'B5'=> $split['compagnie'],
+    'B5'=> $split['entreprise'],
     'B6'=> $split['prenom'].' '.$split['nom'],
     'B7'=> (isset($adresse[0])?$split[$adresse[0]]:''),
     'B8'=> (isset($adresse[1])?$split[$adresse[1]]:''),
@@ -1790,7 +1790,7 @@ ElseIf ($split['test_type_abbr']=="Str")	{
 
   foreach ($ep as $key => $value) {
     //copy des styles des colonnes
-    for ($row = 5; $row <= 59; $row++) {
+    for ($row = 5; $row <= 61; $row++) {
       $style = $pvEssais->getStyleByColumnAndRow(3, $row);
       $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row);
       $pvEssais->duplicateStyle($style, $dstCell);
@@ -2086,7 +2086,7 @@ ElseIf ($split['test_type_abbr']=="PS")	{
 
     'G1'=> $split['test_type_cust'],
 
-    'B5'=> $split['compagnie'],
+    'B5'=> $split['entreprise'],
     'B6'=> $split['prenom'].' '.$split['nom'],
     'B7'=> (isset($adresse[0])?$split[$adresse[0]]:''),
     'B8'=> (isset($adresse[1])?$split[$adresse[1]]:''),
@@ -2156,7 +2156,7 @@ ElseIf ($split['test_type_abbr']=="PS")	{
 
   foreach ($ep as $key => $value) {
     //copy des styles des colonnes
-    for ($row = 5; $row <= 59; $row++) {
+    for ($row = 5; $row <= 61; $row++) {
       $style = $pvEssais->getStyleByColumnAndRow(3, $row);
       $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row);
       $pvEssais->duplicateStyle($style, $dstCell);
@@ -2515,7 +2515,7 @@ else {
 
       'G1'=> $split['test_type_cust'],
 
-      'B5'=> $split['compagnie'],
+      'B5'=> $split['entreprise'],
       'B6'=> $split['prenom'].' '.$split['nom'],
       'B7'=> (isset($adresse[0])?$split[$adresse[0]]:''),
       'B8'=> (isset($adresse[1])?$split[$adresse[1]]:''),

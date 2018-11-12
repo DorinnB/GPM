@@ -43,17 +43,6 @@ $(document).ready(function() {
       { data: "servovalves.fixing_type" },
       { data: "servovalves.manufacture_date" },
 
-
-
-      { data: null,
-        render: function ( data ) {
-          return (data.machines1.machine?data.machines1.machine:'') +' '+ (data.machines2.machine?data.machines2.machine:'');
-        },
-        defaultContent: ""
-      },
-
-
-
       { data: "servovalves.servovalve_actif" }
     ],
     scrollY: '65vh',

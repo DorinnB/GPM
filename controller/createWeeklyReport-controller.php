@@ -49,19 +49,28 @@ $style_interligne = array(
   'fill' => array(
     'type' => PHPExcel_Style_Fill::FILL_SOLID,
     'color' => array('rgb'=>'ddd9c4')
-  )
+  ),
+  'font'  => array(
+        'color' => array('rgb' => '2D4D6A')
+      )
 );
 $style_InProgress = array(
   'fill' => array(
     'type' => PHPExcel_Style_Fill::FILL_SOLID,
     'color' => array('rgb'=>'E2EFDA')
-  )
+  ),
+  'font'  => array(
+        'color' => array('rgb' => '2D4D6A')
+      )
 );
 $style_Completed = array(
   'fill' => array(
     'type' => PHPExcel_Style_Fill::FILL_SOLID,
     'color' => array('rgb'=>'e6e6e6')
-  )
+  ),
+  'font'  => array(
+        'color' => array('rgb' => '2D4D6A')
+      )
 );
 $style_AwaitingInstructions = array(
   'font'  => array(
@@ -73,6 +82,13 @@ $style_ReportEdition = array(
         'color' => array('rgb' => '008000')
       )
 );
+$style_Normal = array(
+  'font'  => array(
+        'color' => array('rgb' => '2D4D6A')
+      )
+);
+
+
 //nom du fichier excel d'UBR
 $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/WeeklyReport.xlsx");
 
@@ -136,6 +152,9 @@ $page->getStyle('D'.$row.':I'.$row)->applyFromArray( $style_AwaitingInstructions
 }
 elseif ($v['statut_client']=="Report Edition") {
 $page->getStyle('D'.$row.':I'.$row)->applyFromArray( $style_ReportEdition );
+}
+else {
+  $page->getStyle('D'.$row.':I'.$row)->applyFromArray( $style_Normal );
 }
 
     $row++;

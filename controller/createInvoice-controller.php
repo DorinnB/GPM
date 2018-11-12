@@ -95,7 +95,7 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
   $page=$objPHPExcel->getSheetByName($value);
 
 
-  $row = 14; // 1-based index
+  $row = 15; // 1-based index
   $nCode=1; //code "Others"
 
 
@@ -106,6 +106,7 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
     'D8' =>  $split['po_number'],
     'D9' =>  $split['MRSASRef'],
     'D10' => $split['customer'].'-'.$split['job'],
+    'D11' =>  $split['info_jobs_instruction'],
     'G9'=> date("Y-m-d"),
 
     'F1'=> (isset($adresse[0])?$split[$adresse[0]]:''),
@@ -127,7 +128,7 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
   $currencyDollar=($split['invoice_currency']==0)?'':' $';
   $currencyEuro=($split['invoice_currency']==0)?' €':'';
 
-  $page->getStyle("G14")->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);
+  $page->getStyle("G15")->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);
 
 
   //pour chaque split

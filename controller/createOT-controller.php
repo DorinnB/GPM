@@ -415,7 +415,7 @@ If ($split['final']=="1" && $split['test_type_abbr']!="PS")	{
       'O2' => 'OT - '.$split['job'].'-'.$split['split'],
 
       'A5' => $jobcomplet,
-      'I5'=> $split['po_number'],
+      'D5'=> $split['po_number'],
       'G5'=> $split['ref_matiere'],
       'I5'=> $split['dessin'],
       'K5'=> $split['nomCreateur'],

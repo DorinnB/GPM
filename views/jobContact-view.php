@@ -1,5 +1,5 @@
 <div class="row" style="height:100%">
-	<div class="col-md-12" id="compagnie" style="height:20%"><?= $split['compagnie'] ?></div>
+	<div class="col-md-12" id="compagnie" style="height:20%"><?= $split['entreprise'] ?></div>
 	<div class="col-md-12" style="height:20%">
 		<acronym title="Tel : <?=	$split['telephone']	?>"><?= $split['prenom'].' '.$split['nom'] ?></acronym>
 		<acronym title="Send Email to Customer(s)">

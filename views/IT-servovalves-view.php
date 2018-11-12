@@ -9,7 +9,6 @@
       <th><acronym title="Capacity (l/mn)">Capacity</acronym></th>
       <th><acronym title="Fixing Type">Fixing</acronym></th>
       <th><acronym title="Manufacture Date">Date</acronym></th>
-      <th><acronym title="Last Seen on Frame">Last Seen</acronym></th>
       <th>Actif</th>
     </tr>
   </thead>
@@ -21,7 +20,6 @@
       <th><acronym title="Capacity (l/mn)">Capacity</acronym></th>
       <th><acronym title="Fixing Type">Fixing</acronym></th>
       <th><acronym title="Manufacture Date">Date</acronym></th>
-      <th><acronym title="Last Seen on Frame">Last Seen</acronym></th>
       <th>Actif</th>
     </tr>
   </tfoot>

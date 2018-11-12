@@ -32,7 +32,7 @@ Editor::inst( $db, 'contacts' )
       ->options( Options::inst()
           ->table( 'entreprises' )
           ->value( 'id_entreprise' )
-          ->label( 'entreprise' )
+          ->label( 'id_entreprise' )
       ),
   Field::inst( 'entreprises.entreprise' ),
   Field::inst( 'entreprises.id_entreprise' ),

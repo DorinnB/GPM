@@ -19,6 +19,7 @@
       <th><acronym title="Date of Commissioning">Commis.</acronym></th>
       <th><acronym title="Date Out of Order">HS</acronym></th>
       <th><acronym title="Comments">Comments</acronym></th>
+      <th><acronym title="Last Seen">Last Seen</acronym></th>
       <th><acronym title="Active">Active</acronym></th>
 
     </tr>
@@ -41,6 +42,7 @@
       <th><acronym title="Date of Commissioning">Commis.</acronym></th>
       <th><acronym title="Date Out of Order">HS</acronym></th>
       <th><acronym title="Comments">Comments</acronym></th>
+      <th><acronym title="Last Seen">Last Seen</acronym></th>
       <th><acronym title="Active">Active</acronym></th>
 
     </tr>

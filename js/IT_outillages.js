@@ -85,6 +85,12 @@ $(document).ready(function() {
       { data: "outillages.dateService" },
       { data: "outillages.dateHS" },
       { data: "outillages.comments" },
+      { data: null,
+        render: function ( data ) {
+          return '<button class="popoverButton" data-id="'+data.outillages.id_outillage+'">Click</button>';
+        },
+        defaultContent: ""
+      },
       { data: "outillages.outillage_actif" }
 
     ],
@@ -92,7 +98,7 @@ $(document).ready(function() {
     scrollCollapse: true,
     paging: false,
     keys: {
-      columns: [11,12,14,15,16],
+      columns: [11,12,14,15,17],
       editor:  editor
     },
     select: {
@@ -101,18 +107,52 @@ $(document).ready(function() {
     },
     buttons: [
       { extend: "create", editor: editor }
-    ]
+    ],
+    drawCallback: function () {
+      $('.popoverButton').each( function() {
+                    $(this).popover({
+                        "html": true,
+                        trigger: 'manual',
+                        placement: 'left',
+                        "content": function () {
+                          $.ajax({
+                            type: "POST",
+                            url: 'controller/lastSeenOutillage.php',
+                            dataType: "json",
+                            data:  {
+                              id_outillage : $(this).attr('data-id')
+                            }
+                            ,
+                            success : function(data, statut){
+                              $("#text_popover").text(test=data.machine);
+                            },
+                            error : function(resultat, statut, erreur) {
+                              $("#text_popover").text("Unseen");
+                            }
+                          });
+                            return "<div id='text_popover'>Unknown</div>";
+                        }
+                    });
+                  })
+                }
   } );
 
 
   table
-  .column( '16' )
+  .column( '17' )
   .search( '1' )
   .draw();
+
+  $('table').on('click', function(e){
+          if($('.popoverButton').length>1)
+          $('.popoverButton').popover('hide');
+          $(e.target).popover('toggle');
+});
 
 
   $('#container').css('display', 'block');
   table.columns.adjust().draw();
+
 
   // Filter event handler
   $( table.table().container() ).on( 'keyup', 'tfoot input', function () {

@@ -18,6 +18,7 @@ DataTables\Editor\Validate;
 Editor::inst( $db, 'outillages' )
 ->pkey( 'outillages.id_outillage' )
 ->fields(
+  Field::inst( 'outillages.id_outillage'),
   Field::inst( 'outillages.outillage')    ->validator( 'Validate::notEmpty' ),
 
     Field::inst( 'outillages.dimA')     ->validator( 'Validate::numeric' )     ->setFormatter( 'Format::ifEmpty', null ),

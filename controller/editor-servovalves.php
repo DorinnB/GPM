@@ -36,32 +36,9 @@ Editor::inst( $db, 'servovalves' )
     ->getFormatter( 'Format::date_sql_to_format', Format::DATE_ISO_8601 )
     ->setFormatter( 'Format::date_format_to_sql', Format::DATE_ISO_8601 )
     ->setFormatter( 'Format::ifEmpty', null ),
-  Field::inst( 'machines1.machine'),
-  Field::inst( 'machines2.machine'),
   Field::inst( 'servovalves.servovalve_actif')
   )
 
-->leftJoin( 'postes as postes1', 'postes1.id_servovalve1', '=', 'servovalves.id_servovalve' )
-->leftJoin( 'postes as postes2', 'postes2.id_servovalve2', '=', 'servovalves.id_servovalve' )
-
-->leftJoin( 'machines as machines1', 'machines1.id_machine', '=', 'postes1.id_machine' )
-->leftJoin( 'machines as machines2', 'machines2.id_machine', '=', 'postes2.id_machine' )
-
-->where( function ( $q ) {
-  $q->where( 'postes1.id_poste', '(SELECT max(id_poste) as id_poste
-    FROM machines
-    LEFT JOIN postes p ON p.id_machine=machines.id_machine
-    WHERE machines.machine_actif=1
-    GROUP BY machines.id_machine
-    ORDER BY machines.machine ASC)', 'IN', false );
-  $q->or_where( 'postes2.id_poste', '(SELECT max(id_poste) as id_poste
-    FROM machines
-    LEFT JOIN postes p ON p.id_machine=machines.id_machine
-    WHERE machines.machine_actif=1
-    GROUP BY machines.id_machine
-    ORDER BY machines.machine ASC)', 'IN', false );
-  $q->or_where('servovalves.id_servovalve','servovalves.id_servovalve','!=');
-})
   ->process($_POST)
   ->json();
   ?>
