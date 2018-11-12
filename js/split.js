@@ -68,6 +68,33 @@ $("#planning").click(function(e) {
 });
 
 
+$("#email").click(function(e) {
+
+  $.ajax({
+    type: "POST",
+    url: 'controller/updateStatut.php',
+    dataType: "json",
+    data:  {
+      id_tbljob : $('#table_ep').attr('data-idJob'),
+      id_statut : "10"
+    }
+    ,
+    success : function(data, statut){
+      location.reload();
+    },
+    error : function(resultat, statut, erreur) {
+      console.log(Object.keys(resultat));
+      location.reload();  //updateStatut ne renvoi rien, donc sort en "erreur" ici
+      //alert('ERREUR lors de l insertion au planning. Veuillez prevenir au plus vite le responsable SI. \n Sauf si vous venez de valider une non modification.');
+    }
+  });
+
+});
+
+
+
+
+
 function createReport(lang='',version='') {
   window.location='controller/createReport-controller.php?id_tbljob='+$('#table_ep').attr('data-idJob')+'&language='+lang+'&version='+version;
 }

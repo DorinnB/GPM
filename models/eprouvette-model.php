@@ -813,8 +813,8 @@ LEFT JOIN outillages outillage_bots ON outillage_bots.id_outillage=postes.id_out
       $reqUpdate='SELECT GROUP_CONCAT(
         IF(d_commentaire ="", "",CONCAT("(",split, ")", d_commentaire))
         ORDER BY phase ASC) as comm,
-        SUM(IF(local = 1  AND d_checked = 0, 1, 0)) AS local,
-        SUM(IF(ST = 1  AND d_checked = 0, 1, 0)) AS ST,
+        SUM(IF(ST = 0  AND d_checked <= 0, 1, 0)) AS local,
+        SUM(IF(ST = 1  AND d_checked <= 0, 1, 0)) AS ST,
         GROUP_CONCAT(IF(test_type_abbr=".MA",refSubC,"") SEPARATOR ";") AS MArefSubC,
         GROUP_CONCAT(IF(test_type_abbr=".MA",specification,"") SEPARATOR ";") AS MAspecifs
 
