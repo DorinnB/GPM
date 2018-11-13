@@ -51,7 +51,7 @@ $("#myChart").click(function(e) {
     };
 
     if ($( "#chartIQCdim1" ).length == 0) {
-      $( "#chart" ).append( "<div class='item active'><div id='chartIQCdim1' class='chart'></div></div>" );
+      $( "#chart" ).append( "<div class='item'><div id='chartIQCdim1' class='chart'></div></div>" );
     }
 
     Plotly.newPlot('chartIQCdim1', dataIQCdim1, layoutIQCdim1);
@@ -131,7 +131,7 @@ $("#myChart").click(function(e) {
     };
 
     if ($( "#chartIQCdim3" ).length == 0) {
-      $( "#chart" ).append( "<div class='item active'><div id='chartIQCdim3' class='chart'></div></div>" );
+      $( "#chart" ).append( "<div class='item'><div id='chartIQCdim3' class='chart'></div></div>" );
     }
 
     Plotly.newPlot('chartIQCdim3', dataIQCdim3, layoutIQCdim3);
@@ -167,7 +167,7 @@ $("#myChart").click(function(e) {
     };
 
     if ($( "#chartCycle" ).length == 0) {
-      $( "#chart" ).append( "<div class='item active'><div id='chartCycle' class='chart'></div></div>" );
+      $( "#chart" ).append( "<div class='item'><div id='chartCycle' class='chart'></div></div>" );
     }
 
     Plotly.newPlot('chartCycle', dataCycle, layoutCycle);

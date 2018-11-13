@@ -1,9 +1,9 @@
 
 <style>
 .chart{
-max-width: 80%;
-margin: 0 10%;
-min-height: 400px;
+  max-width: 80%;
+  margin: 0 10%;
+  min-height: 400px;
 }
 .carousel-control {
   max-width: 10%;
@@ -17,7 +17,11 @@ min-height: 400px;
 
         <!-- Wrapper for slides -->
         <div id="chart" class="carousel-inner">
-
+          <div class='item active'>
+            <div class='chart'>
+              <img type="image" src="img/chart.png" style="max-width:100%; max-height:100%; padding:5px 0px;display: block; margin: auto;">
+            </div>
+          </div>
         </div>
 
         <!-- Controls -->
