@@ -88,7 +88,7 @@ $styleSplit = array(
 );
 
 //nom du fichier excel d'UBR
-$objPHPExcel = $objReader->load("../lib/PHPExcel/templates/Invoice.xlsx");
+$objPHPExcel = $objReader->load("../templates/Invoice.xlsx");
 
 
 foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
@@ -378,13 +378,13 @@ $objPHPExcel->setActiveSheetIndex(0);
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 //$objWriter->setIncludeCharts(TRUE);
-$objWriter->save('../lib/PHPExcel/files/Invoice-'.$split['job'].'-'.$date.'.xlsx');
+$objWriter->save('../temp/Invoice-'.$split['job'].'-'.$date.'.xlsx');
 
 
 //type de sortie en fonction d'un affichage browser ou copy ubr
 if (isset($_GET['UBR'])) {
   //Copy du fichier vers //SRVDC/DONNEES/ADMINISTRATION/UBR/
-  $srcfile='../lib/PHPExcel/files/Invoice-'.$split['job'].'-'.$date.'.xlsx';
+  $srcfile='../temp/Invoice-'.$split['job'].'-'.$date.'.xlsx';
   $dstfile = '//SRVDC/DONNEES/ADMINISTRATION/UBR/Invoice-'.$split['job'].'-'.$date.'.xlsx';
   copy($srcfile, $dstfile);
 

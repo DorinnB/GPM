@@ -21,6 +21,6 @@ else
   $jobcomplet= $split['customer'].'-'.$split['job'];
 
 
-copy('../lib/PHPExcel/files/DRAFT_Report_'.$jobcomplet.'.xlsx', '//Srvdc/donnees/JOB/'.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Rapports Finals/DRAFT_Report_'.$jobcomplet.'.xlsx');
+copy('../temp/DRAFT_Report_'.$jobcomplet.'.xlsx', '//Srvdc/donnees/JOB/'.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Rapports Finals/DRAFT_Report_'.$jobcomplet.'.xlsx');
 
 ?>

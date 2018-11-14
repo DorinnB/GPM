@@ -90,7 +90,7 @@ $style_Normal = array(
 
 
 //nom du fichier excel d'UBR
-$objPHPExcel = $objReader->load("../lib/PHPExcel/templates/WeeklyReport.xlsx");
+$objPHPExcel = $objReader->load("../templates/WeeklyReport.xlsx");
 
 $page=$objPHPExcel->getSheetByName('WeeklyReport');
 
@@ -208,7 +208,7 @@ for ($i=-$nbAvantNow; $i < $nbJourPlanning; $i++) {
 
 $colDate=3;
 foreach ($date2 as $key => $value) {
-  $availability->setCellValueByColumnAndRow($colDate, 47, date('Y-m-d', strtotime($value)));
+  $availability->setCellValueByColumnAndRow($colDate, 45, date('Y-m-d', strtotime($value)));
   $colDate++;
 }
 
@@ -238,10 +238,12 @@ foreach ($lstFrames as $frame)  {
 //		Data values
 //		Data Marker
 $dataSeriesLabels = array(
-	new PHPExcel_Chart_DataSeriesValues('String', 'FrameAvailability!$C$39', NULL, 1),	//	100 Strain
-	new PHPExcel_Chart_DataSeriesValues('String', 'FrameAvailability!$C$40', NULL, 1),	//	100 Load
-	new PHPExcel_Chart_DataSeriesValues('String', 'FrameAvailability!$C$41', NULL, 1),	//	250 Strain
-	new PHPExcel_Chart_DataSeriesValues('String', 'FrameAvailability!$C$42', NULL, 1),	//	250 Load
+  new PHPExcel_Chart_DataSeriesValues('String', 'FrameAvailability!$C$37', NULL, 1),	//	Strain RT
+	new PHPExcel_Chart_DataSeriesValues('String', 'FrameAvailability!$C$38', NULL, 1),	//	Strain Coil
+  new PHPExcel_Chart_DataSeriesValues('String', 'FrameAvailability!$C$39', NULL, 1),	//	Strain Four
+	new PHPExcel_Chart_DataSeriesValues('String', 'FrameAvailability!$C$40', NULL, 1),	//	Load RT
+	new PHPExcel_Chart_DataSeriesValues('String', 'FrameAvailability!$C$41', NULL, 1),	//	Load coil
+	new PHPExcel_Chart_DataSeriesValues('String', 'FrameAvailability!$C$42', NULL, 1),	//	Load Four
 );
 //	Set the X-Axis Labels
 //		Datatype
@@ -251,7 +253,7 @@ $dataSeriesLabels = array(
 //		Data values
 //		Data Marker
 $xAxisTickValues = array(
-	new PHPExcel_Chart_DataSeriesValues('String', 'FrameAvailability!$D$38:$O$38', NULL, 4),	//	Q1 to Q4
+	new PHPExcel_Chart_DataSeriesValues('String', 'FrameAvailability!$D$36:$aa$36', NULL, 4),	//	Q1 to Q4
 );
 //	Set the Data values for each data series we want to plot
 //		Datatype
@@ -261,16 +263,18 @@ $xAxisTickValues = array(
 //		Data values
 //		Data Marker
 $dataSeriesValues = array(
-	new PHPExcel_Chart_DataSeriesValues('Number', 'FrameAvailability!$D$39:$O$39', NULL, 4),
-	new PHPExcel_Chart_DataSeriesValues('Number', 'FrameAvailability!$D$40:$O$40', NULL, 4),
-	new PHPExcel_Chart_DataSeriesValues('Number', 'FrameAvailability!$D$41:$O$41', NULL, 4),
-	new PHPExcel_Chart_DataSeriesValues('Number', 'FrameAvailability!$D$42:$O$42', NULL, 4),
+  new PHPExcel_Chart_DataSeriesValues('Number', 'FrameAvailability!$D$37:$aa$37', NULL, 4),
+	new PHPExcel_Chart_DataSeriesValues('Number', 'FrameAvailability!$D$38:$aa$38', NULL, 4),
+	new PHPExcel_Chart_DataSeriesValues('Number', 'FrameAvailability!$D$39:$aa$39', NULL, 4),
+	new PHPExcel_Chart_DataSeriesValues('Number', 'FrameAvailability!$D$40:$aa$40', NULL, 4),
+	new PHPExcel_Chart_DataSeriesValues('Number', 'FrameAvailability!$D$41:$aa$41', NULL, 4),
+	new PHPExcel_Chart_DataSeriesValues('Number', 'FrameAvailability!$D$42:$aa$42', NULL, 4),
 );
 
 //	Build the dataseries
 $series = new PHPExcel_Chart_DataSeries(
 	PHPExcel_Chart_DataSeries::TYPE_BARCHART,		// plotType
-	PHPExcel_Chart_DataSeries::GROUPING_STANDARD,	// plotGrouping
+	PHPExcel_Chart_DataSeries::GROUPING_STACKED,	// plotGrouping
 	range(0, count($dataSeriesValues)-1),			// plotOrder
 	$dataSeriesLabels,								// plotLabel
 	$xAxisTickValues,								// plotCategory
@@ -325,7 +329,7 @@ $availability->addChart($chart);
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->setIncludeCharts(TRUE);
-$objWriter->save('../lib/PHPExcel/files/WeeklyReport-'.$date.'.xlsx');
+$objWriter->save('../temp/WeeklyReport-'.$date.'.xlsx');
 
 
 // Redirect output to a client’s web browser (Excel2007)

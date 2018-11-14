@@ -43,7 +43,7 @@ $objReader = PHPExcel_IOFactory::createReader('Excel2007');
 $objReader->setIncludeCharts(TRUE);
 
 //nom du fichier excel d'UBR
-$objPHPExcel = $objReader->load("../lib/PHPExcel/templates/UBR.xlsx");
+$objPHPExcel = $objReader->load("../templates/UBR.xlsx");
 
 $enTete=$objPHPExcel->getSheetByName('Summary');
 $template=$objPHPExcel->getSheetByName('Template');
@@ -153,10 +153,10 @@ $objPHPExcel->setActiveSheetIndex(0);
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 //$objWriter->setIncludeCharts(TRUE);
-$objWriter->save('../lib/PHPExcel/files/UBR-'.$date.'.xlsx');
+$objWriter->save('../temp/UBR-'.$date.'.xlsx');
 
 //Copy du fichier vers //SRVDC/DONNEES/ADMINISTRATION/UBR/
-$srcfile='../lib/PHPExcel/files/UBR-'.$date.'.xlsx';
+$srcfile='../temp/UBR-'.$date.'.xlsx';
 $dstfile = '//SRVDC/DONNEES/ADMINISTRATION/UBR/UBR-'.$date.'.xlsx';
 copy($srcfile, $dstfile);
 

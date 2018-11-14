@@ -94,7 +94,7 @@ If ($split['final']=="1" && $split['test_type_abbr']!="PS")	{
 
   If ($split['test_type_abbr']=="Loa")	{
 
-    $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_Loa.xlsx");
+    $objPHPExcel = $objReader->load("../templates/OT_Loa.xlsx");
 
     $page=$objPHPExcel->getSheetByName('OT Loa');
 
@@ -196,7 +196,7 @@ If ($split['final']=="1" && $split['test_type_abbr']!="PS")	{
   }
   ElseIf ($split['test_type_abbr']=="LoS" OR $split['test_type_abbr']=="Dwl")	{
 
-    $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_LoS.xlsx");
+    $objPHPExcel = $objReader->load("../templates/OT_LoS.xlsx");
 
     $page=$objPHPExcel->getSheetByName('OT LoS');
 
@@ -300,7 +300,7 @@ If ($split['final']=="1" && $split['test_type_abbr']!="PS")	{
   }
   ElseIf ($split['test_type_abbr']=="Str")	{
 
-    $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_Str.xlsx");
+    $objPHPExcel = $objReader->load("../templates/OT_Str.xlsx");
 
     $page=$objPHPExcel->getSheetByName('OT LCF');
 
@@ -404,7 +404,7 @@ If ($split['final']=="1" && $split['test_type_abbr']!="PS")	{
 
 
 // dé-commenter la ligne ci dessous et supprimer au dessus une fois validé le nouveau format d'OT
-//    $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_Default.xlsx");
+//    $objPHPExcel = $objReader->load("../templates/OT_Default.xlsx");
 
     $page=$objPHPExcel->getSheetByName('OT');
 
@@ -486,7 +486,7 @@ If ($split['final']=="1" && $split['test_type_abbr']!="PS")	{
 /*
 ElseIf ($split['test_type_abbr']=="Loa")	{
 
-$objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_Loa.xlsx");
+$objPHPExcel = $objReader->load("../templates/OT_Loa.xlsx");
 
 $page=$objPHPExcel->getActiveSheet();
 
@@ -588,7 +588,7 @@ $page->getPageSetup()->setPrintArea('A1:'.$colString.'51');
 }
 ElseIf ($split['test_type_abbr']=="LoS" OR $split['test_type_abbr']=="Dwl")	{
 
-$objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_LoS.xlsx");
+$objPHPExcel = $objReader->load("../templates/OT_LoS.xlsx");
 
 $page=$objPHPExcel->getActiveSheet();
 
@@ -692,7 +692,7 @@ $page->getPageSetup()->setPrintArea('A1:'.$colString.'51');
 }
 ElseIf ($split['test_type_abbr']=="Str")	{
 
-$objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_Str.xlsx");
+$objPHPExcel = $objReader->load("../templates/OT_Str.xlsx");
 
 $page=$objPHPExcel->getActiveSheet();
 
@@ -796,7 +796,7 @@ $page->getPageSetup()->setPrintArea('A1:'.$colString.'51');
 */
 ElseIf ($split['test_type_abbr']=="PS")	{
 
-  $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_PS.xlsx");
+  $objPHPExcel = $objReader->load("../templates/OT_PS.xlsx");
 
   $page=$objPHPExcel->getActiveSheet();
 
@@ -905,7 +905,7 @@ ElseIf ($split['test_type_abbr']=="PS")	{
 }
 ElseIf ($split['test_type_abbr']=="IQC")	{
 
-  $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_IQC.xlsx");
+  $objPHPExcel = $objReader->load("../templates/OT_IQC.xlsx");
 
   $page=$objPHPExcel->getSheetByName('Res Stress Req');
 
@@ -986,7 +986,7 @@ ElseIf ($split['test_type_abbr']=="IQC")	{
 }
 ElseIf ($split['test_type_abbr']==".Ma")	{
 
-  $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_.Ma.xlsx");
+  $objPHPExcel = $objReader->load("../templates/OT_.Ma.xlsx");
 
   $pageEN=$objPHPExcel->getSheetByName('SSTT EN');
   $pageFR=$objPHPExcel->getSheetByName('SSTT FR');
@@ -1069,7 +1069,7 @@ ElseIf ($split['test_type_abbr']==".Ma")	{
 }
 ElseIf ($split['ST']=="1")	{
 
-  $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT_.Default.xlsx");
+  $objPHPExcel = $objReader->load("../templates/OT_.Default.xlsx");
 
   $pageEN=$objPHPExcel->getSheetByName('SSTT EN');
   $pageFR=$objPHPExcel->getSheetByName('SSTT FR');
@@ -1137,7 +1137,7 @@ ElseIf ($split['ST']=="1")	{
 
 }
 else {
-  $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/OT INCONNU.xlsx");
+  $objPHPExcel = $objReader->load("../templates/OT INCONNU.xlsx");
 }
 
 
@@ -1148,7 +1148,7 @@ else {
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 //$objWriter->setIncludeCharts(TRUE);
-$objWriter->save('../lib/PHPExcel/files/OT-'.$split['job'].'-'.$split['split'].'-'.$split['test_type_abbr'].'.xlsx');
+$objWriter->save('../temp/OT-'.$split['job'].'-'.$split['split'].'-'.$split['test_type_abbr'].'.xlsx');
 
 // Redirect output to a client’s web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

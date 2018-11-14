@@ -224,7 +224,7 @@ If (isset($_GET['Cust']) AND $_GET['Cust']=="SAE" AND $split['test_type_abbr']==
     $objPHPExcel = $objReader->load($template);
   }
   else {
-    $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/SAE_Str3.xlsx");
+    $objPHPExcel = $objReader->load("../templates/SAE_Str3.xlsx");
   }
 
   $enTete=$objPHPExcel->getSheetByName('En-tête');
@@ -365,7 +365,7 @@ If (isset($_GET['Cust']) AND $_GET['Cust']=="SAE" AND $split['test_type_abbr']==
 //ancienne version. A supprimer après la transition
 ElseIf ($version=="OLD" AND ($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="Flx"))	{
 
-    $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/Report Loa".$language."_OLD.xlsx");
+    $objPHPExcel = $objReader->load("../templates/Report Loa".$language."_OLD.xlsx");
 
 
   $enTete=$objPHPExcel->getSheetByName('En-tête');
@@ -645,7 +645,7 @@ ElseIf ($version=="OLD" AND ($split['test_type_abbr']=="Loa" OR $split['test_typ
 }
 ElseIf ($version=="OLD" AND ($split['test_type_abbr']=="LoS" OR $split['test_type_abbr']=="Dwl"))	{
 
-    $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/Report LoS".$language."_OLD.xlsx");
+    $objPHPExcel = $objReader->load("../templates/Report LoS".$language."_OLD.xlsx");
 
 
 
@@ -883,7 +883,7 @@ ElseIf ($version=="OLD" AND ($split['test_type_abbr']=="LoS" OR $split['test_typ
 }
 ElseIf ($version=="OLD" AND $split['test_type_abbr']=="Str")	{
 
-    $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/Report Str".$language."_OLD.xlsx");
+    $objPHPExcel = $objReader->load("../templates/Report Str".$language."_OLD.xlsx");
 
 
   $enTete=$objPHPExcel->getSheetByName('En-tête');
@@ -1140,7 +1140,7 @@ ElseIf ($version=="OLD" AND $split['test_type_abbr']=="Str")	{
 }
 ElseIf ($version=="OLD" AND $split['test_type_abbr']=="PS")	{
 
-    $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/Report PS".$language."_OLD.xlsx");
+    $objPHPExcel = $objReader->load("../templates/Report PS".$language."_OLD.xlsx");
 
   $enTete=$objPHPExcel->getSheetByName('En-tête');
   $pvEssais=$objPHPExcel->getSheetByName('PV');
@@ -1387,7 +1387,7 @@ ElseIf ($version=="OLD" AND $split['test_type_abbr']=="PS")	{
 
 ElseIf ($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="LoS" OR $split['test_type_abbr']=="Dwl" OR $split['test_type_abbr']=="Flx")	{
 
-    $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/Report Loa".$version.$language.".xlsx");
+    $objPHPExcel = $objReader->load("../templates/Report Loa".$version.$language.".xlsx");
 
 
   $enTete=$objPHPExcel->getSheetByName('En-tête');
@@ -1702,7 +1702,7 @@ ElseIf ($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="LoS" OR $s
 }
 ElseIf ($split['test_type_abbr']=="Str")	{
 
-    $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/Report Str".$version.$language.".xlsx");
+    $objPHPExcel = $objReader->load("../templates/Report Str".$version.$language.".xlsx");
 
 
   $enTete=$objPHPExcel->getSheetByName('En-tête');
@@ -2079,7 +2079,7 @@ ElseIf ($split['test_type_abbr']=="Str")	{
 }
 ElseIf ($split['test_type_abbr']=="PS")	{
 
-    $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/Report PS".$version.$language.".xlsx");
+    $objPHPExcel = $objReader->load("../templates/Report PS".$version.$language.".xlsx");
 
 
   $enTete=$objPHPExcel->getSheetByName('En-tête');
@@ -2390,7 +2390,7 @@ ElseIf ($split['test_type_abbr']=="PS")	{
 }
 ElseIf ($split['test_type_abbr']=="Ovl")	{
 
-    $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/Report Ovl".$language.".xlsx");
+    $objPHPExcel = $objReader->load("../templates/Report Ovl".$language.".xlsx");
 
 
   $pvEssais=$objPHPExcel->getSheetByName('OVL');
@@ -2511,7 +2511,7 @@ ElseIf ($split['test_type_abbr']=="Ovl")	{
 
 else {
 
-    $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/Report Default".$version.$language.".xlsx");
+    $objPHPExcel = $objReader->load("../templates/Report Default".$version.$language.".xlsx");
 
 
     $enTete=$objPHPExcel->getSheetByName('En-tête');
@@ -2580,9 +2580,9 @@ else {
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->setIncludeCharts(TRUE);
-//$objWriter->save('../lib/PHPExcel/files/DRAFT_Report_'.$jobcomplet.'.xlsx');
+//$objWriter->save('../temp/DRAFT_Report_'.$jobcomplet.'.xlsx');
 
-//copy('../lib/PHPExcel/files/Report-'.$jobcomplet.'.xlsx', '//Srvdc/donnees/JOB/'.$ep[0]['customer'].'/'.$ep[0]['customer'].'-'.$ep[0]['job'].'/Rapports Finals/Report_'.$jobcomplet.'_'.gmdate('Y-m-d H-i-s').'.xlsx');
+//copy('../temp/Report-'.$jobcomplet.'.xlsx', '//Srvdc/donnees/JOB/'.$ep[0]['customer'].'/'.$ep[0]['customer'].'-'.$ep[0]['job'].'/Rapports Finals/Report_'.$jobcomplet.'_'.gmdate('Y-m-d H-i-s').'.xlsx');
 $objWriter->save('//Srvdc/donnees/JOB/'.$ep[0]['customer'].'/'.$ep[0]['customer'].'-'.$ep[0]['job'].'/Rapports Finals/'.$jobcomplet.'_'.gmdate('Y-m-d H-i-s').'.xlsx');
 
 

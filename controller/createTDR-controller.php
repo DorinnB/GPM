@@ -74,7 +74,7 @@ $style_gray = array(
 
 
 
-    $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/TDR.xlsx");
+    $objPHPExcel = $objReader->load("../templates/TDR.xlsx");
     $FT=$objPHPExcel->getSheetByName('TDR');
 
 
@@ -111,7 +111,7 @@ $style_gray = array(
 
 
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-    $objWriter->save('../lib/PHPExcel/files/TDR-'.$essai['n_fichier'].'-'.$TDRID.'.xlsx');
+    $objWriter->save('../temp/TDR-'.$essai['n_fichier'].'-'.$TDRID.'.xlsx');
 
     // Redirect output to a client’s web browser (Excel2007)
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

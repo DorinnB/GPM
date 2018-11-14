@@ -73,7 +73,7 @@ $style_gray = array(
 
 
 
-    $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/IRR.xlsx");
+    $objPHPExcel = $objReader->load("../templates/IRR.xlsx");
     $FT=$objPHPExcel->getSheetByName('Data Collection');
 
 
@@ -121,7 +121,7 @@ $style_gray = array(
 
 
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-    $objWriter->save('../lib/PHPExcel/files/IRR-'.$essai['n_fichier'].'.xlsx');
+    $objWriter->save('../temp/IRR-'.$essai['n_fichier'].'.xlsx');
 
     // Redirect output to a client’s web browser (Excel2007)
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

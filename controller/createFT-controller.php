@@ -216,7 +216,7 @@ $style_gray = array(
 
 
 
-    $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/FT.xlsx");
+    $objPHPExcel = $objReader->load("../templates/FT.xlsx");
     $FT=$objPHPExcel->getSheetByName('FT');
 
 
@@ -1273,7 +1273,7 @@ $style_gray = array(
 
 
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-    $objWriter->save('../lib/PHPExcel/files/FT-'.$essai['n_fichier'].'.xlsx');
+    $objWriter->save('../temp/FT-'.$essai['n_fichier'].'.xlsx');
 
     // Redirect output to a client’s web browser (Excel2007)
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');

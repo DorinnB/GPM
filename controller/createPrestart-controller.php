@@ -64,7 +64,7 @@ $style_gray = array(
 
 
 
-    $objPHPExcel = $objReader->load("../lib/PHPExcel/templates/Prestart.xlsx");
+    $objPHPExcel = $objReader->load("../templates/Prestart.xlsx");
 
       $dailyCheckOLD=$objPHPExcel->getSheetByName('DAILYCHECK OLD');
 
@@ -157,7 +157,7 @@ $dailyCheck->getProtection()->setPassword("metcut44");
       $objPHPExcel->setActiveSheetIndex(0);
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-$objWriter->save('../lib/PHPExcel/files/Prestart-'.$_GET['id_prestart'].'.xlsx');
+$objWriter->save('../temp/Prestart-'.$_GET['id_prestart'].'.xlsx');
 
 // Redirect output to a client’s web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
