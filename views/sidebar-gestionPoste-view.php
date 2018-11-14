@@ -5,7 +5,7 @@
 			MENU
 		</li>
 		<li>
-			<a href="index.php?page=ListeEssais&startFile=<?=	date("Y")	?>"">Test list</a>
+			<a href="index.php?page=ListeEssais&startFile=<?=	date("Y")	?>">Test list</a>
 		</li>
 		<li>
 			<a href="../ticket/">Issues Tracker</a>
