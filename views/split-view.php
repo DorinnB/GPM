@@ -14,7 +14,7 @@
 				</div>
 			</div>
 			<div class="col-md-10 " style="height:100%">
-				<div class="row" style="height:80%">
+				<div class="row">
 					<?php include $splitEp_ctrl; ?>
 				</div>
 				<?php include('views/splitBot-view.php'); ?>

@@ -1,7 +1,7 @@
 [class*="col-"], footer {
   background-color: dimgray;
   border: 1px solid black;
- /* border-radius: 6px;
+  /* border-radius: 6px;
   line-height: 40px;*/
   text-align: center;
 }
@@ -13,6 +13,11 @@
   color:white;
   background-color: rgb(31, 78, 121);
   text-align: left;
+}
+.splitBot {
+  position: absolute;
+  bottom: 0;
+  Width: 100%;
 }
 .splitBot div{
   color:white;
@@ -97,28 +102,28 @@
 }
 
 #save{
-cursor:pointer;
+  cursor:pointer;
 }
 
 
 
 #report-contextual-menu {
-display: none;
-z-index: 1000;
-position: absolute;
-overflow: hidden;
-border: 1px solid #CCC;
-white-space: nowrap;
-font-family: sans-serif;
-background: gray;
-color: #333;
-border-radius: 5px;
+  display: none;
+  z-index: 1000;
+  position: absolute;
+  overflow: hidden;
+  border: 1px solid #CCC;
+  white-space: nowrap;
+  font-family: sans-serif;
+  background: gray;
+  color: #333;
+  border-radius: 5px;
 }
 
 #report-contextual-menu li {
-cursor: pointer;
+  cursor: pointer;
 }
 
 #report-contextual-menu li:hover {
-background-color: #DEF;
+  background-color: #DEF;
 }

@@ -1,14 +1,11 @@
 html, body, .container-fluid {
-    height:100%;
+  height:100%;
 }
 #wrapper {
-    height:calc(100% - 65px);
+  height:calc(100% - 65px);
 }
-    #page-content-wrapper {
-        padding: 0px;
-    }
-	#page-content-wrapper {
-    padding-: 0 10px;
+#page-content-wrapper {
+  padding: 0px;
 }
 .navbar {
   margin-bottom: 0px;
