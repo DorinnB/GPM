@@ -6,14 +6,16 @@ ini_set('display_errors', '1');
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Database user / pass
- */
+* Database user / pass
+*/
+require '../config.php';
+
 $sql_details = array(
-	"type" => "Mysql",  // Database type: "Mysql", "Postgres", "Sqlserver", "Sqlite" or "Oracle"
-	"user" => "root",       // Database user name
-	"pass" => "",       // Database password
-	"host" => "localhost",       // Database host
-	"port" => "3306",       // Database connection port (can be left empty for default)
-	"db"   => "gpm",       // Database name
-	"dsn"  => "charset=utf8"        // PHP DSN extra information. Set as `charset=utf8` if you are using MySQL
+  "type" => "Mysql",  // Database type: "Mysql", "Postgres", "Sqlserver", "Sqlite" or "Oracle"
+  "user" => $DB_USER,            // Database user name
+  "pass" => $DB_PASS,            // Database password
+  "host" => $DB_HOST,            // Database host
+  "port" => $DB_PORT,    // Database connection port (can be left empty for default)
+  "db"   => $DB_NAME,            // Database name
+  "dsn"  => "charset=utf8"       // PHP DSN extra information. Set as `charset=utf8` if you are using MySQL
 );

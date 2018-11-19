@@ -1,4 +1,6 @@
 <?php
+require '../config.php';
+
 include_once('../models/db.class.php'); // call db.class.php
 $db = new db(); // create a new object, class db()
 
@@ -2572,12 +2574,12 @@ $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->setIncludeCharts(TRUE);
 
 //TEMPORAIRE le temps d'avoir tous les jobs crée avec rapport temp
-$dir_rapport_temp = '//Srvdc/donnees/JOB/'.$ep[0]['customer'].'/'.$ep[0]['customer'].'-'.$ep[0]['job'].'/Rapports Temp';
+$dir_rapport_temp = $PATH_JOB.$ep[0]['customer'].'/'.$ep[0]['customer'].'-'.$ep[0]['job'].'/Rapports Temp';
 if (!is_dir($dir_rapport_temp)) {
   mkdir($dir_rapport_temp, 0755);
 }
 
-$objWriter->save('//Srvdc/donnees/JOB/'.$ep[0]['customer'].'/'.$ep[0]['customer'].'-'.$ep[0]['job'].'/Rapports Temp/'.$jobcomplet.'_'.gmdate('Y-m-d H-i-s').'.xlsx');
+$objWriter->save($PATH_JOB.$ep[0]['customer'].'/'.$ep[0]['customer'].'-'.$ep[0]['job'].'/Rapports Temp/'.$jobcomplet.'_'.gmdate('Y-m-d H-i-s').'.xlsx');
 
 
 // Redirect output to a client’s web browser (Excel2007)

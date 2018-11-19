@@ -1,4 +1,5 @@
 <?php
+require '../config.php';
 
 $infoSplit = $oSplit->getInfoSplit();
 
@@ -8,11 +9,9 @@ include '../models/eprouvettes-model.php';
 $oEprouvettes = new LstEprouvettesModel($db,$_POST['id_tbljob']);
 
 
-/*$srcfile = '//Srvdc/donnees/JOB/'.$ep[0]['customer'].'/'.$ep[0]['customer'].'-'.$ep[0]['job'].'/OT/ConsigneList'.gmdate('Y-m-d H-i-s').'.txt';
-*/
 $init=0;
 foreach ($oEprouvettes->getAllEprouvettes() as $key => $value) {
-  $srcfile = '//Srvdc/donnees/JOB/'.$infoSplit['customer'].'/'.$infoSplit['customer'].'-'.$infoSplit['job'].'/OT/ConsigneList_'.$infoSplit['job'].'-'.$infoSplit['split'].'_'.gmdate('Y-m-d H-i-s').'.txt';
+  $srcfile = $PATH_JOB.$infoSplit['customer'].'/'.$infoSplit['customer'].'-'.$infoSplit['job'].'/OT/ConsigneList_'.$infoSplit['job'].'-'.$infoSplit['split'].'_'.gmdate('Y-m-d H-i-s').'.txt';
 
   if ($init==0) {
 

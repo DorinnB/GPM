@@ -1,4 +1,6 @@
 <?php
+require '../config.php';
+
 include_once('../models/db.class.php'); // call db.class.php
 $db = new db(); // create a new object, class db()
 
@@ -167,10 +169,7 @@ $xml_string = $xml_doc->saveXML();
 
 
 
-$fp = fopen('//SRVDC/DONNEES/labo/Computer/BDD/XMLforTS/'.$essai['n_fichier'].'.xml', 'w');
-fwrite($fp, $xml_string);
-fclose($fp);
-$fp = fopen('//SRVDC/DONNEES/labo/Computer/GPM/XMLforTS/'.$essai['n_fichier'].'.xml', 'w');
+$fp = fopen($PATH_XMLforTS.$essai['n_fichier'].'.xml', 'w');
 fwrite($fp, $xml_string);
 fclose($fp);
 ?>

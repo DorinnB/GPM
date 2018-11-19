@@ -1,4 +1,6 @@
 <?php
+require '../config.php';
+
 include_once('../models/db.class.php'); // call db.class.php
 $db = new db(); // create a new object, class db()
 
@@ -23,11 +25,11 @@ $split=$oSplit->getSplit();
 $cmdReport='';
 $cmdAnnexe='';
 
-$report = '//SRVDC/DONNEES/job/'.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Rapports Temp'.'/'.$split['customer'].'-'.$split['job'].'-'.$split['split'].'.pdf';
+$report = $PATH_JOB.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Rapports Temp'.'/'.$split['customer'].'-'.$split['job'].'-'.$split['split'].'.pdf';
 if (file_exists($report)) {
   $cmdReport='Report';
 }
-$Annexe = '//SRVDC/DONNEES/job/'.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Annexe PDF'.'/'.$split['customer'].'-'.$split['job'].'-'.$split['split'];
+$Annexe = $PATH_JOB.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Annexe PDF'.'/'.$split['customer'].'-'.$split['job'].'-'.$split['split'];
 if(is_dir($Annexe)){
   $cmdAnnexe='Annexe';
 }
@@ -36,7 +38,7 @@ if(is_dir($Annexe)){
 
 if ($cmdReport!='') { //si $cmd n'est pas vide, on execute le bon batch
 
-  $filename = '//SRVDC/DONNEES/job/'.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Rapports Finals'.'/'.$split['customer'].'-'.$split['job'].'-'.$split['split'].'.pdf';
+  $filename = $PATH_JOB.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Rapports Finals'.'/'.$split['customer'].'-'.$split['job'].'-'.$split['split'].'.pdf';
 
   if (file_exists($filename)) { unlink ($filename); }
 
@@ -64,7 +66,7 @@ if ($cmdReport!='') { //si $cmd n'est pas vide, on execute le bon batch
 }
 elseif ($cmdAnnexe!='') { //si $cmd n'est pas vide, on execute le bon batch
 
-  $filename = '//SRVDC/DONNEES/job/'.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Rapports Finals/Annexe_'.$split['customer'].'-'.$split['job'].'-'.$split['split'].'.pdf';
+  $filename = $PATH_JOB.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Rapports Finals/Annexe_'.$split['customer'].'-'.$split['job'].'-'.$split['split'].'.pdf';
 
   if (file_exists($filename)) { unlink ($filename); }
 

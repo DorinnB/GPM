@@ -20,33 +20,6 @@ $split=$oSplit->getSplit();
 
 
 
-/*
-$dir_source = '//SRVDC/DONNEES/job/'.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/'.'ANNEXE PDF/'.$split['customer'].'-'.$split['job'].'-'.$split['split'];
-$dir_dest='../temp/'.$split['customer'].'-'.$split['job'].'-'.$split['split'];
-
-//check si le repertoire source existe et on copie sur GPM les annexes
-if(is_dir($dir_source)){
-  //creation du repertoire client si inexistant
-  if (!is_dir($dir_dest)) {
-    mkdir($dir_dest, 0755);
-  }
-
-
-  $dir_iterator = new RecursiveDirectoryIterator($dir_source, RecursiveDirectoryIterator::SKIP_DOTS);
-  $iterator = new RecursiveIteratorIterator($dir_iterator, RecursiveIteratorIterator::SELF_FIRST);
-  //copie recursive du contenu source
-  foreach($iterator as $element){
-
-    if($element->isDir()){
-      mkdir($dir_dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
-    } else{
-      copy($element, $dir_dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
-    }
-  }
-}
-
-*/
-
 $cmd='C:/wamp/www/GPM/lib/AnnexePDF.bat '.$split['customer'].' '.$split['customer'].'-'.$split['job'].' '.$split['customer'].'-'.$split['job'].'-'.$split['split'];
 //echo $cmd.'</br>';
 pclose(popen("start /B ". $cmd, "r"));

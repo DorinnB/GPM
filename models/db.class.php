@@ -9,13 +9,21 @@ class db {
   private $Debug;
 
   function __construct($params=array()) {
+
+    if (file_exists('config.php')) {
+      require 'config.php';
+    }
+    elseif (file_exists('../config.php')) {
+      require '../config.php';
+    }
+    
     $this->conn = false;
-    $this->host = 'localhost'; //hostname
-    $this->user = 'root'; //username
-    $this->password = ''; //password
-    $this->baseName = 'gpm'; //name of your database
+    $this->host = $DB_HOST; //hostname
+    $this->user = $DB_USER; //username
+    $this->password = $DB_PASS; //password
+    $this->baseName = $DB_NAME; //name of your database
     //attention changer aussi dans le fichier de config d editor !!!!
-    $this->port = '3306';
+    $this->port = $DB_PORT;
     $this->debug = true;
     $this->connect();
   }
