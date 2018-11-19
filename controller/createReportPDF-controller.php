@@ -23,24 +23,26 @@ $split=$oSplit->getSplit();
 $cmdReport='';
 $cmdAnnexe='';
 
-$report = '//SRVDC/DONNEES/job/'.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Rapports Finals/Report_'.$split['customer'].'-'.$split['job'].'-'.$split['split'].'.xlsx';
+$report = '//SRVDC/DONNEES/job/'.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Rapports Temp'.'/'.$split['customer'].'-'.$split['job'].'-'.$split['split'].'.pdf';
 if (file_exists($report)) {
   $cmdReport='Report';
 }
-$Annexe = '//SRVDC/DONNEES/job/'.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Annexe PDF';
+$Annexe = '//SRVDC/DONNEES/job/'.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Annexe PDF'.'/'.$split['customer'].'-'.$split['job'].'-'.$split['split'];
 if(is_dir($Annexe)){
   $cmdAnnexe='Annexe';
 }
 
 
+
 if ($cmdReport!='') { //si $cmd n'est pas vide, on execute le bon batch
 
-  $filename = '//SRVDC/DONNEES/job/'.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Rapports Finals/Report_'.$split['customer'].'-'.$split['job'].'-'.$split['split'].'.pdf';
+  $filename = '//SRVDC/DONNEES/job/'.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Rapports Finals'.'/'.$split['customer'].'-'.$split['job'].'-'.$split['split'].'.pdf';
 
   if (file_exists($filename)) { unlink ($filename); }
 
   $cmd='C:/wamp/www/GPM/lib/'.$cmdReport.$cmdAnnexe.'PDF.bat '.$split['customer'].' '.$split['customer'].'-'.$split['job'].' '.$split['customer'].'-'.$split['job'].'-'.$split['split'];
   //echo $cmd.'</br>';
+
   pclose(popen("start /B ". $cmd, "r"));
 
   //system("cmd /k C:/wamp/www/GPM/temp/test.bat");
@@ -55,7 +57,7 @@ if ($cmdReport!='') { //si $cmd n'est pas vide, on execute le bon batch
 
   header("Content-type:application/pdf");
   // It will be called downloaded.pdf
-  header("Content-Disposition:attachment;filename=Report_".$split['customer']."-".$split['job']."-".$split['split'].".pdf");
+  header("Content-Disposition:attachment;filename=".$split['customer']."-".$split['job']."-".$split['split'].".pdf");
 
   // The PDF source is in original.pdf
   readfile($filename);
@@ -89,7 +91,7 @@ elseif ($cmdAnnexe!='') { //si $cmd n'est pas vide, on execute le bon batch
   readfile($filename);
 }
 else {  //aucun fichier à faire
-  echo 'no pdf';
+  echo $report.' was not found<br/>Please convert your xlsx report to pdf with the right filename';
 }
 
 

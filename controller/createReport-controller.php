@@ -365,7 +365,7 @@ If (isset($_GET['Cust']) AND $_GET['Cust']=="SAE" AND $split['test_type_abbr']==
 //ancienne version. A supprimer après la transition
 ElseIf ($version=="OLD" AND ($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="Flx"))	{
 
-    $objPHPExcel = $objReader->load("../templates/Report Loa".$language."_OLD.xlsx");
+  $objPHPExcel = $objReader->load("../templates/Report Loa".$language."_OLD.xlsx");
 
 
   $enTete=$objPHPExcel->getSheetByName('En-tête');
@@ -645,7 +645,7 @@ ElseIf ($version=="OLD" AND ($split['test_type_abbr']=="Loa" OR $split['test_typ
 }
 ElseIf ($version=="OLD" AND ($split['test_type_abbr']=="LoS" OR $split['test_type_abbr']=="Dwl"))	{
 
-    $objPHPExcel = $objReader->load("../templates/Report LoS".$language."_OLD.xlsx");
+  $objPHPExcel = $objReader->load("../templates/Report LoS".$language."_OLD.xlsx");
 
 
 
@@ -883,7 +883,7 @@ ElseIf ($version=="OLD" AND ($split['test_type_abbr']=="LoS" OR $split['test_typ
 }
 ElseIf ($version=="OLD" AND $split['test_type_abbr']=="Str")	{
 
-    $objPHPExcel = $objReader->load("../templates/Report Str".$language."_OLD.xlsx");
+  $objPHPExcel = $objReader->load("../templates/Report Str".$language."_OLD.xlsx");
 
 
   $enTete=$objPHPExcel->getSheetByName('En-tête');
@@ -1140,7 +1140,7 @@ ElseIf ($version=="OLD" AND $split['test_type_abbr']=="Str")	{
 }
 ElseIf ($version=="OLD" AND $split['test_type_abbr']=="PS")	{
 
-    $objPHPExcel = $objReader->load("../templates/Report PS".$language."_OLD.xlsx");
+  $objPHPExcel = $objReader->load("../templates/Report PS".$language."_OLD.xlsx");
 
   $enTete=$objPHPExcel->getSheetByName('En-tête');
   $pvEssais=$objPHPExcel->getSheetByName('PV');
@@ -1387,7 +1387,7 @@ ElseIf ($version=="OLD" AND $split['test_type_abbr']=="PS")	{
 
 ElseIf ($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="LoS" OR $split['test_type_abbr']=="Dwl" OR $split['test_type_abbr']=="Flx")	{
 
-    $objPHPExcel = $objReader->load("../templates/Report Loa".$version.$language.".xlsx");
+  $objPHPExcel = $objReader->load("../templates/Report Loa".$version.$language.".xlsx");
 
 
   $enTete=$objPHPExcel->getSheetByName('En-tête');
@@ -1397,7 +1397,7 @@ ElseIf ($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="LoS" OR $s
 
   $val2Xls = array(
 
-    'G1'=> $split['test_type_cust'],
+    'B3'=> $split['test_type_cust'],
 
     'B5'=> $split['entreprise'],
     'B6'=> $split['prenom'].' '.$split['nom'],
@@ -1609,21 +1609,11 @@ ElseIf ($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="LoS" OR $s
       $pvEssais->getRowDimension(29)->setVisible(TRUE);
       $pvEssais->getRowDimension(50)->setVisible(TRUE);
 
-      //$texte="Stepcase sur ".$value['steptype']." pas ".$value['stepcase_val']." ".$split['c_unite']." et runout à ".$value['runout']." cycles, niveau initial ".$stepcaseInitial.", final ".($stepcaseInitial+$value['stepcase_val']*($stepcaseDone)).". Cycle d'arrêt au niveau ".$nbCycleStepcase;
-      //$texte="Stepcase sur ".$value['steptype'].", pas ".enleverZero($value['stepcase_val'])." ".$split['c_unite'].", runout à ".number_format($value['runout'], 0, '.', ' ')." cycles et niveau initial ".enleverZero($stepcaseInitial)." ".$split['c_unite'].". Arrêt cycle ".number_format($value['Cycle_final'], 0, '.', ' ')." : ".($stepcaseDone+1)."ème pas.";
-/*
-      //commentaire test incrémental selon la langue
-      if ($language=='_USA') {
-        $texte="Incrémental test, initial step ".enleverZero($stepcaseInitial)." ".$split['c_unite']." (".$value['steptype']."), step ".enleverZero($value['stepcase_val'])." ".$split['c_unite']." every ".number_format($value['runout'], 0, '.', ' ')." cycles. Total ".number_format($value['Cycle_final'], 0, '.', ' ')." cycles : step ".($stepcaseDone+1).".";
-      }
-      else {
-        $texte="Test incrémental, niveau initial ".enleverZero($stepcaseInitial)." ".$split['c_unite']." (".$value['steptype']."), pas ".enleverZero($value['stepcase_val'])." ".$split['c_unite']." tous les ".number_format($value['runout'], 0, '.', ' ')." cycles. Total ".number_format($value['Cycle_final'], 0, '.', ' ')." cycles : pas ".($stepcaseDone+1).".";
-      }
 
-      $value['q_commentaire']=$texte.' '.$value['q_commentaire'];
-*/
     }
-
+    else {
+      $pvEssais->setCellValueByColumnAndRow($col, 50, $value['Cycle_final']);
+    }
 
     $col_q=floor(($col-3)/$nbPage)*$nbPage+3;
     //suppression commentaire precedent si 1er de la cellule, sinon recup des autres
@@ -1684,7 +1674,7 @@ ElseIf ($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="LoS" OR $s
   //zone d'impression
   //colstring = on augmente la zone d'impression, non pas a la derniere eprouvette mais a la serie de $nbpage d'apres.
   $colString = PHPExcel_Cell::stringFromColumnIndex((ceil(($col-3)/$nbPage)*$nbPage+3)-1);
-  $pvEssais->getPageSetup()->setPrintArea('A1:'.$colString.(60));
+  $pvEssais->getPageSetup()->setPrintArea('A1:'.$colString.(61));
 
   //separation impression par $nbPage eprouvettes
   for ($c=$nbPage+3; $c < ($col-1)*$nbPage ; $c+=$nbPage) {
@@ -1702,7 +1692,7 @@ ElseIf ($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="LoS" OR $s
 }
 ElseIf ($split['test_type_abbr']=="Str")	{
 
-    $objPHPExcel = $objReader->load("../templates/Report Str".$version.$language.".xlsx");
+  $objPHPExcel = $objReader->load("../templates/Report Str".$version.$language.".xlsx");
 
 
   $enTete=$objPHPExcel->getSheetByName('En-tête');
@@ -1712,7 +1702,7 @@ ElseIf ($split['test_type_abbr']=="Str")	{
 
   $val2Xls = array(
 
-    'G1'=> $split['test_type_cust'],
+    'B3'=> $split['test_type_cust'],
 
     'B5'=> $split['entreprise'],
     'B6'=> $split['prenom'].' '.$split['nom'],
@@ -1795,7 +1785,7 @@ ElseIf ($split['test_type_abbr']=="Str")	{
 
   foreach ($ep as $key => $value) {
     //copy des styles des colonnes
-    for ($row = 5; $row <= 59; $row++) {
+    for ($row = 5; $row <= 61; $row++) {
       $style = $pvEssais->getStyleByColumnAndRow(3, $row);
       $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row);
       $pvEssais->duplicateStyle($style, $dstCell);
@@ -2079,7 +2069,7 @@ ElseIf ($split['test_type_abbr']=="Str")	{
 }
 ElseIf ($split['test_type_abbr']=="PS")	{
 
-    $objPHPExcel = $objReader->load("../templates/Report PS".$version.$language.".xlsx");
+  $objPHPExcel = $objReader->load("../templates/Report PS".$version.$language.".xlsx");
 
 
   $enTete=$objPHPExcel->getSheetByName('En-tête');
@@ -2390,7 +2380,7 @@ ElseIf ($split['test_type_abbr']=="PS")	{
 }
 ElseIf ($split['test_type_abbr']=="Ovl")	{
 
-    $objPHPExcel = $objReader->load("../templates/Report Ovl".$language.".xlsx");
+  $objPHPExcel = $objReader->load("../templates/Report Ovl".$language.".xlsx");
 
 
   $pvEssais=$objPHPExcel->getSheetByName('OVL');
@@ -2511,63 +2501,63 @@ ElseIf ($split['test_type_abbr']=="Ovl")	{
 
 else {
 
-    $objPHPExcel = $objReader->load("../templates/Report Default".$version.$language.".xlsx");
+  $objPHPExcel = $objReader->load("../templates/Report Default".$version.$language.".xlsx");
 
 
-    $enTete=$objPHPExcel->getSheetByName('En-tête');
+  $enTete=$objPHPExcel->getSheetByName('En-tête');
 
-    $val2Xls = array(
+  $val2Xls = array(
 
-      'G1'=> $split['test_type_cust'],
+    'G1'=> $split['test_type_cust'],
 
-      'B5'=> $split['entreprise'],
-      'B6'=> $split['prenom'].' '.$split['nom'],
-      'B7'=> (isset($adresse[0])?$split[$adresse[0]]:''),
-      'B8'=> (isset($adresse[1])?$split[$adresse[1]]:''),
-      'B9'=> (isset($adresse[2])?$split[$adresse[2]]:''),
-      'B10'=> (isset($adresse[3])?$split[$adresse[3]]:''),
-      'B11'=> (isset($adresse[4])?$split[$adresse[4]]:''),
+    'B5'=> $split['entreprise'],
+    'B6'=> $split['prenom'].' '.$split['nom'],
+    'B7'=> (isset($adresse[0])?$split[$adresse[0]]:''),
+    'B8'=> (isset($adresse[1])?$split[$adresse[1]]:''),
+    'B9'=> (isset($adresse[2])?$split[$adresse[2]]:''),
+    'B10'=> (isset($adresse[3])?$split[$adresse[3]]:''),
+    'B11'=> (isset($adresse[4])?$split[$adresse[4]]:''),
 
-      'F5' => $jobcomplet,
-      'F6'=> (($split['report_rev']=='')?($split['report_rev']+1-1).' - DRAFT':$split['report_rev']),
-      'F7'=> date("Y-m-d"),
-      'F9'=> $split['po_number'],
+    'F5' => $jobcomplet,
+    'F6'=> (($split['report_rev']=='')?($split['report_rev']+1-1).' - DRAFT':$split['report_rev']),
+    'F7'=> date("Y-m-d"),
+    'F9'=> $split['po_number'],
 
-      'C20'=> $split['info_jobs_instruction'],
-      'C21'=> $split['customer'].'-'.$split['job'],
+    'C20'=> $split['info_jobs_instruction'],
+    'C21'=> $split['customer'].'-'.$split['job'],
 
-      'C28'=> $split['ref_matiere'],
-      'C29'=> $split['nbep'],
-      'C30'=> $split['nbtestdone'],
+    'C28'=> $split['ref_matiere'],
+    'C29'=> $split['nbep'],
+    'C30'=> $split['nbtestdone'],
 
-      //'C28' si .MA
-      'K32'=> ((isset($MArefSubC) AND $MArefSubC!="")?1:0),
-      'C33'=> $MArefSubC,
-      'C34'=> $MAspecifs,
-      'C35'=> $split['dessin'],
+    //'C28' si .MA
+    'K32'=> ((isset($MArefSubC) AND $MArefSubC!="")?1:0),
+    'C33'=> $MArefSubC,
+    'C34'=> $MAspecifs,
+    'C35'=> $split['dessin'],
 
-      'C39'=> $split['specification'],
+    'C39'=> $split['specification'],
 
-      'C42'=> $split['waveform'],
-      'K43'=> $split['cell_load_capacity'],
-      'C44'=> $split['ratio1'],
-      'K45'=> $split['four'],
-      'L45'=> $split['coil']
-    );
+    'C42'=> $split['waveform'],
+    'K43'=> $split['cell_load_capacity'],
+    'C44'=> $split['ratio1'],
+    'K45'=> $split['four'],
+    'L45'=> $split['coil']
+  );
 
-    //Pour chaque element du tableau associatif, on update les cellules Excel
-    foreach ($val2Xls as $key => $value) {
-      $enTete->setCellValue($key, $value);
-    }
+  //Pour chaque element du tableau associatif, on update les cellules Excel
+  foreach ($val2Xls as $key => $value) {
+    $enTete->setCellValue($key, $value);
+  }
 
-    //masquage des lignes d'adresse non utilisé
-    if (!isset($adresse[3])) {
-      $enTete->getRowDimension(10)->setVisible(false);
-      $enTete->getRowDimension(11)->setVisible(false);
-    }
-    if (!isset($adresse[4])) {
-      $enTete->getRowDimension(11)->setVisible(false);
-    }
+  //masquage des lignes d'adresse non utilisé
+  if (!isset($adresse[3])) {
+    $enTete->getRowDimension(10)->setVisible(false);
+    $enTete->getRowDimension(11)->setVisible(false);
+  }
+  if (!isset($adresse[4])) {
+    $enTete->getRowDimension(11)->setVisible(false);
+  }
 
 }
 
@@ -2580,10 +2570,14 @@ else {
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
 $objWriter->setIncludeCharts(TRUE);
-//$objWriter->save('../temp/DRAFT_Report_'.$jobcomplet.'.xlsx');
 
-//copy('../temp/Report-'.$jobcomplet.'.xlsx', '//Srvdc/donnees/JOB/'.$ep[0]['customer'].'/'.$ep[0]['customer'].'-'.$ep[0]['job'].'/Rapports Finals/Report_'.$jobcomplet.'_'.gmdate('Y-m-d H-i-s').'.xlsx');
-$objWriter->save('//Srvdc/donnees/JOB/'.$ep[0]['customer'].'/'.$ep[0]['customer'].'-'.$ep[0]['job'].'/Rapports Finals/'.$jobcomplet.'_'.gmdate('Y-m-d H-i-s').'.xlsx');
+//TEMPORAIRE le temps d'avoir tous les jobs crée avec rapport temp
+$dir_rapport_temp = '//Srvdc/donnees/JOB/'.$ep[0]['customer'].'/'.$ep[0]['customer'].'-'.$ep[0]['job'].'/Rapports Temp';
+if (!is_dir($dir_rapport_temp)) {
+  mkdir($dir_rapport_temp, 0755);
+}
+
+$objWriter->save('//Srvdc/donnees/JOB/'.$ep[0]['customer'].'/'.$ep[0]['customer'].'-'.$ep[0]['job'].'/Rapports Temp/'.$jobcomplet.'_'.gmdate('Y-m-d H-i-s').'.xlsx');
 
 
 // Redirect output to a client’s web browser (Excel2007)
