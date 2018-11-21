@@ -94,7 +94,7 @@ $style_gray = array(
 
 
 
-    $essai['nom_eprouvette']=($essai['retest']!=1)?$essai['nom_eprouvette'].'<sup>'.$essai['retest'].'</sup>':$essai['nom_eprouvette'];
+  //  $essai['nom_eprouvette']=($essai['retest']!=1)?$essai['nom_eprouvette'].'<sup>'.$essai['retest'].'</sup>':$essai['nom_eprouvette'];
 
     if (isset($essai['prefixe']))		//groupement du nom d eprouvette avec ou sans préfixe
     $identification2= $essai['prefixe'].'-'.$essai['nom_eprouvette'];
@@ -1029,7 +1029,7 @@ $style_gray = array(
 
       'A5' => $jobcomplet,
       'D5' => $essai['prefixe'],
-      'G5' => $wizard->toRichTextObject('<b>'.(($essai['retest']!=1)?$essai['nom_eprouvette'].'<sup>'.$essai['retest'].'</sup>':$essai['nom_eprouvette']).'</b>'),
+      'G5' => $identification,
       'J5' => $essai['n_fichier'],
       'M5' => $essai['n_essai'],
 
