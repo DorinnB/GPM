@@ -122,7 +122,7 @@ class StatutModel
           AND ep.eprouvette_actif=1
           ORDER BY phase asc
           LIMIT 1
-        ),0) =1 )  OR (eprouvette_inOut_A is not null or enregistrementessais.date is not null)) OR c_checked<=0
+        ),0) =1 )  OR (eprouvette_inOut_A is not null or enregistrementessais.date is not null)) OR (c_checked<=0 OR c_checked IS NULL)
         ,0,1)
       ) as nb_consigne_dispo  ,
 
