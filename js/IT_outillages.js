@@ -16,6 +16,7 @@ $(document).ready(function() {
       { label: "Dimensional Value A", name: "outillages.dimA"  },
       { label: "Dimensional Value B", name: "outillages.dimB"  },
       { label: "Dimensional Value C", name: "outillages.dimC"  },
+      { label: "Dimensional Value D", name: "outillages.dimD"  },
       { label: "Grip", name: "outillages.mors"  },
       { label: "Id", name: "outillages.ref"  },
       { label: "Material", name: "outillages.matiere"  },
@@ -74,6 +75,7 @@ $(document).ready(function() {
       { data: "outillages.dimA" },
       { data: "outillages.dimB" },
       { data: "outillages.dimC" },
+      { data: "outillages.dimD" },
       { data: "outillages.mors" },
       { data: "outillages.ref" },
       { data: "outillages.matiere" },
@@ -98,7 +100,7 @@ $(document).ready(function() {
     scrollCollapse: true,
     paging: false,
     keys: {
-      columns: [11,12,14,15,17],
+      columns: [12,13,15,16,18],
       editor:  editor
     },
     select: {
@@ -139,7 +141,7 @@ $(document).ready(function() {
 
 
   table
-  .column( '17' )
+  .column( '18' )
   .search( '1' )
   .draw();
 

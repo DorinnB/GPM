@@ -24,6 +24,7 @@ Editor::inst( $db, 'outillages' )
     Field::inst( 'outillages.dimA')     ->validator( 'Validate::numeric' )     ->setFormatter( 'Format::ifEmpty', null ),
     Field::inst( 'outillages.dimB')     ->validator( 'Validate::numeric' )     ->setFormatter( 'Format::ifEmpty', null ),
     Field::inst( 'outillages.dimC')     ->validator( 'Validate::numeric' )     ->setFormatter( 'Format::ifEmpty', null ),
+    Field::inst( 'outillages.dimD')     ->validator( 'Validate::numeric' )     ->setFormatter( 'Format::ifEmpty', null ),
     Field::inst( 'outillages.mors')          ->setFormatter( 'Format::ifEmpty', null ),
     Field::inst( 'outillages.ref')          ->setFormatter( 'Format::ifEmpty', null ),
     Field::inst( 'outillages.matiere')          ->setFormatter( 'Format::ifEmpty', null ),

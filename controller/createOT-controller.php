@@ -298,7 +298,7 @@ If ($split['final']=="1" && $split['test_type_abbr']!="PS")	{
 
 
   }
-  ElseIf ($split['test_type_abbr']=="Str")	{
+  ElseIf ($split['test_type_abbr']=="Str" OR $split['test_type_abbr']=="IRlx")	{
 
     $objPHPExcel = $objReader->load("../templates/OT_Str.xlsx");
 
@@ -403,77 +403,77 @@ If ($split['final']=="1" && $split['test_type_abbr']!="PS")	{
   }
 
 
-// dé-commenter la ligne ci dessous et supprimer au dessus une fois validé le nouveau format d'OT
-//    $objPHPExcel = $objReader->load("../templates/OT_Default.xlsx");
+  // dé-commenter la ligne ci dessous et supprimer au dessus une fois validé le nouveau format d'OT
+  //    $objPHPExcel = $objReader->load("../templates/OT_Default.xlsx");
 
-    $page=$objPHPExcel->getSheetByName('OT');
-
-
-    $val2Xls = array(
-
-      'C2'=> $split['test_type_abbr']." Fatigue Test",
-      'O2' => 'OT - '.$split['job'].'-'.$split['split'],
-
-      'A5' => $jobcomplet,
-      'D5'=> $split['po_number'],
-      'G5'=> $split['ref_matiere'],
-      'I5'=> $split['dessin'],
-      'K5'=> $split['nomCreateur'],
-      'M5'=> $split['comCheckeur'],
-      'A7'=> $split['info_jobs_instruction'],
-      'M7'=> date("Y-m-d"),
-
-      'A12'=> $split['waveform'],
-      'C12'=> $split['tbljob_frequence'],
-      'E12'=> $split['c_type_1'],
-      'G12'=> $split['c_type_2'],
-      'I12'=> $split['c_unite'],
-      'K12'=> $split['temperature'],
-      'M12'=> (($split['other_4']==0)?'-':$split['other_4']),
+  $page=$objPHPExcel->getSheetByName('OT');
 
 
-      'A14'=> $split['name'],
-      'C14'=> (($split['GE']==0)?'-':$split['GE']),
-      'E14'=> (($split['staircase']==0)?'-':$split['staircase']),
-      'G14'=> (($split['specific_protocol']==0)?'-':$split['specific_protocol']),
+  $val2Xls = array(
 
-      'J14'=> $split['special_instruction'],
+    'C2'=> $split['test_type_abbr']." Fatigue Test",
+    'O2' => 'OT - '.$split['job'].'-'.$split['split'],
 
-      'A18'=> $split['tbljob_instruction']
+    'A5' => $jobcomplet,
+    'D5'=> $split['po_number'],
+    'G5'=> $split['ref_matiere'],
+    'I5'=> $split['dessin'],
+    'K5'=> $split['nomCreateur'],
+    'M5'=> $split['comCheckeur'],
+    'A7'=> $split['info_jobs_instruction'],
+    'M7'=> date("Y-m-d"),
 
-    );
+    'A12'=> $split['waveform'],
+    'C12'=> $split['tbljob_frequence'],
+    'E12'=> $split['c_type_1'],
+    'G12'=> $split['c_type_2'],
+    'I12'=> $split['c_unite'],
+    'K12'=> $split['temperature'],
+    'M12'=> (($split['other_4']==0)?'-':$split['other_4']),
 
-    //Pour chaque element du tableau associatif, on update les cellules Excel
-    foreach ($val2Xls as $key => $value) {
-      $page->setCellValue($key, $value);
+
+    'A14'=> $split['name'],
+    'C14'=> (($split['GE']==0)?'-':$split['GE']),
+    'E14'=> (($split['staircase']==0)?'-':$split['staircase']),
+    'G14'=> (($split['specific_protocol']==0)?'-':$split['specific_protocol']),
+
+    'J14'=> $split['special_instruction'],
+
+    'A18'=> $split['tbljob_instruction']
+
+  );
+
+  //Pour chaque element du tableau associatif, on update les cellules Excel
+  foreach ($val2Xls as $key => $value) {
+    $page->setCellValue($key, $value);
+  }
+
+
+
+  $row = 28; // 1-based index
+  $col = 0;
+  foreach ($ep as $key => $value) {
+    //copy des styles des colonnes
+    for ($col = 0; $col <= 15; $col++) {
+      $style = $page->getStyleByColumnAndRow($col, 28);
+      $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row);
+      $page->duplicateStyle($style, $dstCell);
     }
 
+    $page->setCellValueByColumnAndRow(0, $row, $value['prefixe']);
+    $page->setCellValueByColumnAndRow(2, $row, $value['nom_eprouvette']);
 
+    $page->setCellValueByColumnAndRow(5, $row, ' '.$value['n_fichier']);
+    $page->setCellValueByColumnAndRow(8, $row, ' ');
+    $page->setCellValueByColumnAndRow(12, $row, ' ');
 
-    $row = 28; // 1-based index
-    $col = 0;
-    foreach ($ep as $key => $value) {
-      //copy des styles des colonnes
-      for ($col = 0; $col <= 15; $col++) {
-        $style = $page->getStyleByColumnAndRow($col, 28);
-        $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row);
-        $page->duplicateStyle($style, $dstCell);
-      }
-
-      $page->setCellValueByColumnAndRow(0, $row, $value['prefixe']);
-      $page->setCellValueByColumnAndRow(2, $row, $value['nom_eprouvette']);
-
-      $page->setCellValueByColumnAndRow(5, $row, ' '.$value['n_fichier']);
-      $page->setCellValueByColumnAndRow(8, $row, ' ');
-      $page->setCellValueByColumnAndRow(12, $row, ' ');
-
-      $row++;
-    }
+    $row++;
+  }
 
 
 
-    //zone d'impression
-    $page->getPageSetup()->setPrintArea('A1:P'.($row-1));
+  //zone d'impression
+  $page->getPageSetup()->setPrintArea('A1:P'.($row-1));
 
 
 

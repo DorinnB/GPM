@@ -8,6 +8,7 @@
       <th><acronym title="Dimensional Value A">dimA</acronym></th>
       <th><acronym title="Dimensional Value B">dimB</acronym></th>
       <th><acronym title="Dimensional Value C">dimC</acronym></th>
+      <th><acronym title="Dimensional Value D">dimD</acronym></th>
       <th><acronym title="Grip Size">Grip</acronym></th>
       <th><acronym title="ID of the tool">Id</acronym></th>
       <th><acronym title="Material">Mat.</acronym></th>
@@ -31,6 +32,7 @@
       <th><acronym title="Dimensional Value A">dimA</acronym></th>
       <th><acronym title="Dimensional Value B">dimB</acronym></th>
       <th><acronym title="Dimensional Value C">dimC</acronym></th>
+      <th><acronym title="Dimensional Value D">dimD</acronym></th>
       <th><acronym title="Grip Size">Grip</acronym></th>
       <th><acronym title="ID of the tool">Id</acronym></th>
       <th><acronym title="Material">Mat.</acronym></th>
