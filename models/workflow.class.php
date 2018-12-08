@@ -48,7 +48,7 @@ public function __construct($db,$id)
 
     $req = 'SELECT id_tbljob, test_type, test_type_abbr, test_type_cust, split, phase, sum(if(eprouvette_actif=1,1,0)) as nbep, ST, auxilaire,
         DyT_expected, DyT_SubC, DyT_Cust, refSubC, statut, statut_color, etape,
-        report_Q, report_TM, report_date, report_rev, report_rawdata, id_rawData, report_send,
+        report_Q, report_TM, report_date, report_rev, report_rawdata, id_rawData, report_send,  sum(if(rawdatasent>0,1,0)) as nbrawdatasent, rawdatatobesent,
         count(distinct master_eprouvettes.id_master_eprouvette) as expected,
         sum(if(master_eprouvettes.master_eprouvette_inOut_B is not null,1,0)) as shipped
 

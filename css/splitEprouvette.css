@@ -52,6 +52,28 @@ table td.dispo[data-dispo="6"] {
   font-size: 80%;
 }
 
+table td.rawdata {
+  color:darkgreen;
+  background-color:darkgreen;
+}
+
+table td.rawdata[data-rawdata*="-"]  {
+  color:chocolate;
+  background-color:chocolate;
+}
+table td.rawdata[data-rawdata*="0"]  {
+  color:chocolate;
+  background-color:chocolate;
+}
+table td.rawdata[data-testend="0"]  {
+  color:gray;
+  background-color:gray;
+}
+table td.rawdata[data-rawdata="0"][data-rawdatatobesent="0"]  {
+  color:black;
+  background-color:black;
+}
+
 table td.checkEp {
   color:darkgreen;
   background-color:darkgreen;

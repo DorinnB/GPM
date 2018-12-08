@@ -8,7 +8,7 @@
         <td>Q</td>
         <td>TM</td>
         <td>Date</td>
-        <td>RawData</td>
+        <td>RawData Sent</td>
         <td>Expected</td>
         <td>Shipped</td>
       </tr>
@@ -28,7 +28,7 @@
             <td class="report_Q <?=  ($splitJob['report_Q']>0)?'ok':'nok'  ?>" data-idtbljob="<?=	$splitJob['id_tbljob']	?>" data-report_Q="<?= $splitJob['report_Q']  ?>" role="button"><?= $splitJob['report_Q']  ?></td>
             <td class="report_TM <?=  ($splitJob['report_TM']>0)?'ok':'nok'  ?>" data-idtbljob="<?=	$splitJob['id_tbljob']	?>" data-report_TM="<?= $splitJob['report_TM']  ?>" role="button"><?= $splitJob['report_TM']  ?></td>
             <td class="report_send report_send<?=	(($splitJob['report_send']<0)?0:$splitJob['report_send'])	?>" data-report_send="<?=	$splitJob['report_send']	?>" data-idtbljob="<?=	$splitJob['id_tbljob']	?>" role="button"><acronym title='<?= $splitJob['report_send'] ?>'><?= ($splitJob['report_send']>0)?$splitJob['report_date']:''  ?></acronym></td>
-            <td class="report_rawdata <?=  ($splitJob['id_rawData']==0 AND $splitJob['report_rawdata']<=0)?'none':(($splitJob['report_rawdata']<=0)?'nok':'ok')  ?>" data-idtbljob="<?=	$splitJob['id_tbljob']	?>" data-report_rawdata="<?= $splitJob['report_rawdata']  ?>" role="button"><?= $splitJob['report_rawdata'].(($splitJob['id_rawData']==0 AND $splitJob['report_rawdata']>0)?'(?)':'')  ?></td>
+            <td class="<?=  (($splitJob['rawdatatobesent']==0)?'none':(($splitJob['nbrawdatasent']==$splitJob['expected'])?'ok':'nok')) ?>"><?= $splitJob['nbrawdatasent'] ?></td>
             <td><?= $splitJob['expected']  ?></td>
             <td class="<?=  ($splitJob['shipped']==$splitJob['expected'])?'ok':'nok'  ?>"><?= $splitJob['shipped']  ?></td>
           </tr>

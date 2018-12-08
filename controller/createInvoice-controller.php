@@ -66,28 +66,28 @@ date_default_timezone_set('Europe/Paris');
 if (PHP_SAPI == 'cli')
 die('This example should only be run from a Web Browser');
 
-/** Include PHPExcel */
-require_once '../lib/PHPExcel/PHPExcel.php';
+/** Include \PhpOffice\PhpSpreadsheet\Spreadsheet */
+require '../vendor/autoload.php';
 
 
-// Create new PHPExcel object
-$objPHPExcel = new PHPExcel();
-$objReader = PHPExcel_IOFactory::createReader('Excel2007');
+// Create new \PhpOffice\PhpSpreadsheet\Spreadsheet object
+$objPHPExcel = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
 $objReader->setIncludeCharts(TRUE);
 
 
-$styleBorder = array(
-  'borders' => array(
-    'outline' => array(
-      'style' => PHPExcel_Style_Border::BORDER_THICK
-    )
-  )
-);
-$styleSplit = array(
-  'font'  => array(
-       'bold'  => true
-   )
-);
+$styleBorder = [
+  'borders' => [
+    'outline' => [
+      'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THICK,
+    ]
+  ]
+];
+$styleSplit = [
+  'font'  => [
+    'bold'  => true
+  ]
+];
 
 //nom du fichier excel d'UBR
 $objPHPExcel = $objReader->load("../templates/Invoice.xlsx");
@@ -137,7 +137,7 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
   foreach ($splits as $key => $value) {
 
     //on ecrit l'intitulé du split
-    $page->setCellValueByColumnAndRow(1, $row, $value['split'].' - '.$value['test_type_cust']);
+    $page->setCellValueByColumnAndRow(1+1, $row, $value['split'].' - '.$value['test_type_cust']);
     $page->getStyle('B'.$row.':D'.$row)->applyFromArray($styleSplit);
 
     $intituleSplit=$row;
@@ -150,13 +150,13 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
       //s'ily a une une quantité
       if ($invoicelines['qteUser']>0 OR $invoicelines['qteGPM']>0) {
 
-        $page->setCellValueByColumnAndRow(0, $row, $nCode);
-        $page->setCellValueByColumnAndRow(1, $row, $invoicelines['pricingList']);
-        $page->setCellValueByColumnAndRow(4, $row, ($invoicelines['qteUser']=="")?$invoicelines['qteGPM']:$invoicelines['qteUser']);
-        $page->setCellValueByColumnAndRow(5, $row, $invoicelines['priceUnit']);
-        $page->setCellValueByColumnAndRow(6, $row, (($invoicelines['qteUser']=="")?$invoicelines['qteGPM']:$invoicelines['qteUser'])*$invoicelines['priceUnit']);
+        $page->setCellValueByColumnAndRow(1+0, $row, $nCode);
+        $page->setCellValueByColumnAndRow(1+1, $row, $invoicelines['pricingList']);
+        $page->setCellValueByColumnAndRow(1+4, $row, ($invoicelines['qteUser']=="")?$invoicelines['qteGPM']:$invoicelines['qteUser']);
+        $page->setCellValueByColumnAndRow(1+5, $row, $invoicelines['priceUnit']);
+        $page->setCellValueByColumnAndRow(1+6, $row, (($invoicelines['qteUser']=="")?$invoicelines['qteGPM']:$invoicelines['qteUser'])*$invoicelines['priceUnit']);
 
-        $page->setCellValueByColumnAndRow(10, $row, $invoicelines['qteGPM']);
+        $page->setCellValueByColumnAndRow(1+10, $row, $invoicelines['qteGPM']);
 
         $page->getStyle("F".$row)->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);
         $page->getStyle("G".$row)->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);
@@ -184,13 +184,13 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
     //s'ily a une une quantité ou si UBR
     if ($invoicelines['qteUser']>0 OR isset($_GET['UBR'])) {
 
-      $page->setCellValueByColumnAndRow(0, $row, $nCode);
-      $page->setCellValueByColumnAndRow(1, $row, $invoicelines['pricingList']);
-      $page->setCellValueByColumnAndRow(4, $row, ($invoicelines['qteUser']=="")?$invoicelines['qteGPM']:$invoicelines['qteUser']);
-      $page->setCellValueByColumnAndRow(5, $row, $invoicelines['priceUnit']);
-      $page->setCellValueByColumnAndRow(6, $row, (($invoicelines['qteUser']=="")?$invoicelines['qteGPM']:$invoicelines['qteUser'])*$invoicelines['priceUnit']);
+      $page->setCellValueByColumnAndRow(1+0, $row, $nCode);
+      $page->setCellValueByColumnAndRow(1+1, $row, $invoicelines['pricingList']);
+      $page->setCellValueByColumnAndRow(1+4, $row, ($invoicelines['qteUser']=="")?$invoicelines['qteGPM']:$invoicelines['qteUser']);
+      $page->setCellValueByColumnAndRow(1+5, $row, $invoicelines['priceUnit']);
+      $page->setCellValueByColumnAndRow(1+6, $row, (($invoicelines['qteUser']=="")?$invoicelines['qteGPM']:$invoicelines['qteUser'])*$invoicelines['priceUnit']);
 
-      $page->setCellValueByColumnAndRow(10, $row, $invoicelines['qteGPM']);
+      $page->setCellValueByColumnAndRow(1+10, $row, $invoicelines['qteGPM']);
 
       $page->getStyle("F".$row)->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);
       $page->getStyle("G".$row)->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);
@@ -208,90 +208,91 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
   //Bloc total
   if (substr($split['VAT'],0,2)=='FR') {  //si client francais=> TVA
 
-    $page->setCellValueByColumnAndRow(4, $row, $page->getCellByColumnAndRow(8, 4)->getValue());
-    $page->getStyleByColumnAndRow(4, $row)->getFont()->setBold( true );
-    $page->getStyleByColumnAndRow(4, $row)->getAlignment()
-    ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+    $page->setCellValueByColumnAndRow(1+4, $row, $page->getCellByColumnAndRow(1+8, 4)->getValue());
+    $page->getStyleByColumnAndRow(1+4, $row)->getFont()->setBold( true );
+    $page->getStyleByColumnAndRow(1+4, $row)->getAlignment()
+    ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
 
-    $page->setCellValueByColumnAndRow(6, $row,'=sum(G13:G'.($row-1).')');
+    $page->setCellValueByColumnAndRow(1+6, $row,'=sum(G13:G'.($row-1).')');
     $page->getStyle("G".$row)->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);
 
     $row++;
     $row++;
 
-    $page->setCellValueByColumnAndRow(4, $row, $page->getCellByColumnAndRow(8, 5)->getValue());
-    $page->getStyleByColumnAndRow(4, $row)->getFont()->setBold( true );
-    $page->getStyleByColumnAndRow(4, $row)->getAlignment()
-    ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
-    $page->setCellValueByColumnAndRow(6, $row,'=20%*G'.($row-2));
+    $page->setCellValueByColumnAndRow(1+4, $row, $page->getCellByColumnAndRow(1+8, 5)->getValue());
+    $page->getStyleByColumnAndRow(1+4, $row)->getFont()->setBold( true );
+    $page->getStyleByColumnAndRow(1+4, $row)->getAlignment()
+    ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+    $page->setCellValueByColumnAndRow(1+6, $row,'=20%*G'.($row-2));
     $page->getStyle("G".$row)->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);
+
     $row++;
     $row++;
 
-    $page->setCellValueByColumnAndRow(4, $row, $page->getCellByColumnAndRow(8, 6)->getValue());
-    $page->getStyleByColumnAndRow(4, $row)->getFont()->setBold( true );
-    $page->getStyleByColumnAndRow(4, $row)->getAlignment()
-    ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+    $page->setCellValueByColumnAndRow(1+4, $row, $page->getCellByColumnAndRow(1+8, 6)->getValue());
+    $page->getStyleByColumnAndRow(1+4, $row)->getFont()->setBold( true );
+    $page->getStyleByColumnAndRow(1+4, $row)->getAlignment()
+    ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
     $page->getStyle('E'.$row.':G'.$row)->applyFromArray($styleBorder);
-    $page->setCellValueByColumnAndRow(6, $row,'=G'.($row-2).'+G'.($row-4));
+    $page->setCellValueByColumnAndRow(1+6, $row,'=G'.($row-2).'+G'.($row-4));
     $page->getStyle("G".$row)->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);
     $row++;
     $row++;
 
-    $page->setCellValueByColumnAndRow(4, $row, $page->getCellByColumnAndRow(8, 7)->getValue());
-    $page->getStyleByColumnAndRow(4, $row)->getAlignment()
-    ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+    $page->setCellValueByColumnAndRow(1+4, $row, $page->getCellByColumnAndRow(1+8, 7)->getValue());
+    $page->getStyleByColumnAndRow(1+4, $row)->getAlignment()
+    ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
 
     $dt = date("Y-m-d");
-    $page->setCellValueByColumnAndRow(6, $row, date( "Y-m-d", strtotime( "$dt +45 day" ) ));
+    $page->setCellValueByColumnAndRow(1+6, $row, date( "Y-m-d", strtotime( "$dt +45 day" ) ));
     $row++;
   }
   else {    //pas de TVA
 
-    $page->setCellValueByColumnAndRow(4, $row, $page->getCellByColumnAndRow(9, 4)->getValue());
-    $page->getStyleByColumnAndRow(4, $row)->getFont()->setBold( true );
-    $page->getStyleByColumnAndRow(4, $row)->getAlignment()
-    ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+    $page->setCellValueByColumnAndRow(1+4, $row, $page->getCellByColumnAndRow(1+9, 4)->getValue());
+    $page->getStyleByColumnAndRow(1+4, $row)->getFont()->setBold( true );
+    $page->getStyleByColumnAndRow(1+4, $row)->getAlignment()
+    ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
 
-    $page->setCellValueByColumnAndRow(6, $row,'=sum(G13:G'.($row-1).')');
+    $page->setCellValueByColumnAndRow(1+6, $row,'=sum(G13:G'.($row-1).')');
     $page->getStyle("G".$row)->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);
 
     $row++;
     $row++;
 
 
-    $page->setCellValueByColumnAndRow(4, $row, $page->getCellByColumnAndRow(9, 6)->getValue());
-    $page->getStyleByColumnAndRow(4, $row)->getFont()->setBold( true );
-    $page->getStyleByColumnAndRow(4, $row)->getAlignment()
-    ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+    $page->setCellValueByColumnAndRow(1+4, $row, $page->getCellByColumnAndRow(1+9, 6)->getValue());
+    $page->getStyleByColumnAndRow(1+4, $row)->getFont()->setBold( true );
+    $page->getStyleByColumnAndRow(1+4, $row)->getAlignment()
+    ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
     $page->getStyle('E'.$row.':G'.$row)->applyFromArray($styleBorder);
-    $page->setCellValueByColumnAndRow(6, $row,'=G'.($row-2).'+G'.($row-4));
+    $page->setCellValueByColumnAndRow(1+6, $row,'=G'.($row-2).'+G'.($row-4));
     $page->getStyle("G".$row)->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);
     $row++;
     $row++;
 
-    $page->setCellValueByColumnAndRow(4, $row, $page->getCellByColumnAndRow(9, 7)->getValue());
-    $page->getStyleByColumnAndRow(4, $row)->getAlignment()
-    ->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+    $page->setCellValueByColumnAndRow(1+4, $row, $page->getCellByColumnAndRow(1+9, 7)->getValue());
+    $page->getStyleByColumnAndRow(1+4, $row)->getAlignment()
+    ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
 
     $dt = date("Y-m-d");
-    $page->setCellValueByColumnAndRow(6, $row, date( "Y-m-d", strtotime( "$dt +45 day" ) ));
+    $page->setCellValueByColumnAndRow(1+6, $row, date( "Y-m-d", strtotime( "$dt +45 day" ) ));
     $row++;
   }
 
   if ($split['invoice_currency']==0) {  //si euro
-    $page->setCellValueByColumnAndRow(0, $row, $page->getCellByColumnAndRow(8, 9)->getValue());
-    $page->getStyleByColumnAndRow(0, $row)->getFont()->setSize(8);
+    $page->setCellValueByColumnAndRow(1+0, $row, $page->getCellByColumnAndRow(1+8, 9)->getValue());
+    $page->getStyleByColumnAndRow(1+0, $row)->getFont()->setSize(8);
     $row++;
-    $page->setCellValueByColumnAndRow(0, $row, $page->getCellByColumnAndRow(8, 10)->getValue());
-    $page->getStyleByColumnAndRow(0, $row)->getFont()->setSize(8);
+    $page->setCellValueByColumnAndRow(1+0, $row, $page->getCellByColumnAndRow(1+8, 10)->getValue());
+    $page->getStyleByColumnAndRow(1+0, $row)->getFont()->setSize(8);
   }
   else {  //si dollar
-    $page->setCellValueByColumnAndRow(0, $row, $page->getCellByColumnAndRow(9, 9)->getValue());
-    $page->getStyleByColumnAndRow(0, $row)->getFont()->setSize(8);
+    $page->setCellValueByColumnAndRow(1+0, $row, $page->getCellByColumnAndRow(1+9, 9)->getValue());
+    $page->getStyleByColumnAndRow(1+0, $row)->getFont()->setSize(8);
     $row++;
-    $page->setCellValueByColumnAndRow(0, $row, $page->getCellByColumnAndRow(9, 10)->getValue());
-    $page->getStyleByColumnAndRow(0, $row)->getFont()->setSize(8);
+    $page->setCellValueByColumnAndRow(1+0, $row, $page->getCellByColumnAndRow(1+9, 10)->getValue());
+    $page->getStyleByColumnAndRow(1+0, $row)->getFont()->setSize(8);
   }
 
 
@@ -328,21 +329,21 @@ if (isset($_GET['UBR'])) {
     foreach ($ep as $key => $value) {
       //copy des styles des colonnes
       for ($row = 5; $row <= 17; $row++) {
-        $style = $newSheet->getStyleByColumnAndRow(3, $row);
-        $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row);
+        $style = $newSheet->getStyleByColumnAndRow(1+3, $row);
+        $dstCell = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($col) . (string)($row);
         $newSheet->duplicateStyle($style, $dstCell);
       }
 
-      $newSheet->setCellValueByColumnAndRow($col, 5, $value['prefixe']);
-      $newSheet->setCellValueByColumnAndRow($col, 6, $value['nom_eprouvette']);
-      $newSheet->setCellValueByColumnAndRow($col, 7, $value['n_essai']);
-      $newSheet->setCellValueByColumnAndRow($col, 8, $value['n_fichier']);
-      $newSheet->setCellValueByColumnAndRow($col, 9, $value['date']);
-      $newSheet->setCellValueByColumnAndRow($col, 10, $value['c_temperature']);
-      $newSheet->setCellValueByColumnAndRow($col, 11, $value['c_frequence']);
-      $newSheet->setCellValueByColumnAndRow($col, 12, ($value['Cycle_STL']==0)?"":$value['Cycle_STL']);
-      $newSheet->setCellValueByColumnAndRow($col, 13, $value['c_frequence_STL']);
-      $newSheet->setCellValueByColumnAndRow($col, 14, $value['Cycle_final']);
+      $newSheet->setCellValueByColumnAndRow(1+$col, 5, $value['prefixe']);
+      $newSheet->setCellValueByColumnAndRow(1+$col, 6, $value['nom_eprouvette']);
+      $newSheet->setCellValueByColumnAndRow(1+$col, 7, $value['n_essai']);
+      $newSheet->setCellValueByColumnAndRow(1+$col, 8, $value['n_fichier']);
+      $newSheet->setCellValueByColumnAndRow(1+$col, 9, $value['date']);
+      $newSheet->setCellValueByColumnAndRow(1+$col, 10, $value['c_temperature']);
+      $newSheet->setCellValueByColumnAndRow(1+$col, 11, $value['c_frequence']);
+      $newSheet->setCellValueByColumnAndRow(1+$col, 12, ($value['Cycle_STL']==0)?"":$value['Cycle_STL']);
+      $newSheet->setCellValueByColumnAndRow(1+$col, 13, $value['c_frequence_STL']);
+      $newSheet->setCellValueByColumnAndRow(1+$col, 14, $value['Cycle_final']);
 
       if ($value['c_frequence']>0 AND $value['Cycle_final']>0) {
         //calcul du temps d'essai
@@ -359,8 +360,8 @@ if (isset($_GET['UBR'])) {
         }
 
         $tpsSupSplit=($tpsEssai>24)?$tpsEssai-24:0;
-        $newSheet->setCellValueByColumnAndRow($col, 15, $tpsEssai);
-        $newSheet->setCellValueByColumnAndRow($col, 16, $tpsSupSplit);
+        $newSheet->setCellValueByColumnAndRow(1+$col, 15, $tpsEssai);
+        $newSheet->setCellValueByColumnAndRow(1+$col, 16, $tpsSupSplit);
         $tpsSup+=$tpsSupSplit;
       }
       $col++;
@@ -373,12 +374,12 @@ if (isset($_GET['UBR'])) {
 
 //on cache la fenetre template
 $objPHPExcel->getSheetByName('Template')
-->setSheetState(PHPExcel_Worksheet::SHEETSTATE_HIDDEN);
+->setSheetState(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_HIDDEN);
 
 $objPHPExcel->setActiveSheetIndex(0);
 
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($objPHPExcel, 'Xlsx');
 //$objWriter->setIncludeCharts(TRUE);
 $objWriter->save('../temp/Invoice-'.$split['job'].'-'.$date.'.xlsx');
 
@@ -411,8 +412,7 @@ else {
   header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
   header ('Pragma: public'); // HTTP/1.0
 
-  $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-  //$objWriter->setIncludeCharts(TRUE);
-  $objWriter->save('php://output');
+  readfile('../temp/Invoice-'.$split['job'].'-'.$date.'.xlsx');
+  
   exit;
 }

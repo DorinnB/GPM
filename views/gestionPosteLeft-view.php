@@ -140,7 +140,7 @@
 						<?php endforeach ?>
 					</select>
 				</div>
-				<label for="id_extensometre">Temp Rec. Top/Center/Bot</label>
+				<label for="id_ind_temp_top">Temp Rec. Top/Center/Bot</label>
 				<div class="form-inline">
 					<div class="form-group">
 						<select class="form-control input-sm" id="id_ind_temp_top" name="id_ind_temp_top">

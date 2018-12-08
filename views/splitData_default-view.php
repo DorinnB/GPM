@@ -32,6 +32,10 @@
       <span class="name">Raw Data :</span>
       <span class="value <?= ($split['id_rawData']==0)?'':'warning' ?>"><?= $tbljobHisto2['name'] ?> <?= $split['name'] ?></span>
     </p>
+    <p class="title <?= ($split['rawdatatobesent']==0)?'hide':'' ?>">
+      <span class="name">Send Raw Data :</span>
+      <span class="value <?= ($split['rawdatatobesent']==0)?'':'warning' ?>"><?= $tbljobHisto2['rawdatatobesent'] ?> <?= ($split['rawdatatobesent']==0)?"No":"Yes" ?></span>
+    </p>
     <p class="title <?= (($split['other_3']==0) AND ($tbljobHisto2['other_3']==""))?'hide':'' ?>">
   <span class="name">Specific Test :</span>
   <span class="value warning"><?= $tbljobHisto2['other_3'] ?>

@@ -42,12 +42,7 @@ $(document).ready(function() {
       { data: "servovalves.servovalve_capacity" },
       { data: "servovalves.fixing_type" },
       { data: "servovalves.manufacture_date" },
-      { data: null,
-        render: function ( data ) {
-          return '<button class="popoverButton" data-id="'+data.servovalves.id_servovalve+'">Click</button>';
-        },
-        defaultContent: ""
-      },
+      { data: "machines.machine" },
       { data: "servovalves.servovalve_actif" }
     ],
     scrollY: '65vh',
@@ -63,34 +58,7 @@ $(document).ready(function() {
     },
     buttons: [
       { extend: "create", editor: editor }
-    ],
-    drawCallback: function () {
-      $('.popoverButton').each( function() {
-                    $(this).popover({
-                        "html": true,
-                        trigger: 'manual',
-                        placement: 'left',
-                        "content": function () {
-                          $.ajax({
-                            type: "POST",
-                            url: 'controller/lastSeenServovalve.php',
-                            dataType: "json",
-                            data:  {
-                              id_servovalve : $(this).attr('data-id')
-                            }
-                            ,
-                            success : function(data, statut){
-                              $("#text_popover").text(test=data.machine);
-                            },
-                            error : function(resultat, statut, erreur) {
-                              $("#text_popover").text("Unseen");
-                            }
-                          });
-                            return "<div id='text_popover'>Unknown</div>";
-                        }
-                    });
-                  })
-                }
+    ]
   } );
 
 
@@ -98,12 +66,6 @@ $(document).ready(function() {
   .column( '9' )
   .search( '1' )
   .draw();
-
-  $('table').on('click', function(e){
-          if($('.popoverButton').length>1)
-          $('.popoverButton').popover('hide');
-          $(e.target).popover('toggle');
-        });
 
 
   $('#container').css('display', 'block');

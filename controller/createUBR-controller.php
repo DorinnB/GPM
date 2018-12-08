@@ -35,13 +35,13 @@ date_default_timezone_set('Europe/Paris');
 if (PHP_SAPI == 'cli')
 die('This example should only be run from a Web Browser');
 
-/** Include PHPExcel */
-require_once '../lib/PHPExcel/PHPExcel.php';
+/** Include \PhpOffice\PhpSpreadsheet\Spreadsheet */
+require '../vendor/autoload.php';
 
 
-// Create new PHPExcel object
-$objPHPExcel = new PHPExcel();
-$objReader = PHPExcel_IOFactory::createReader('Excel2007');
+// Create new \PhpOffice\PhpSpreadsheet\Spreadsheet object
+$objPHPExcel = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
 $objReader->setIncludeCharts(TRUE);
 
 //nom du fichier excel d'UBR
@@ -74,18 +74,18 @@ foreach ($oFollowup->getAllFollowup($filtreFollowup) as $row) {
 
     //on copie le style de l'entete pour chaque split
     for ($colEnTete = 0; $colEnTete <= 7; $colEnTete++) {
-      $style = $enTete->getStyleByColumnAndRow($colEnTete, 9);
-      $dstCell = PHPExcel_Cell::stringFromColumnIndex($colEnTete) . (string)($rowEnTete);
+      $style = $enTete->getStyleByColumnAndrow(1+$colEnTete, 9);
+      $dstCell = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colEnTete) . (string)($rowEnTete);
       $enTete->duplicateStyle($style, $dstCell);
     }
     //on ecrit les données par split
-    $enTete->setCellValueByColumnAndRow(0, $rowEnTete, $row['customer']);
-    $enTete->setCellValueByColumnAndRow(1, $rowEnTete, $row['job']);
-    $enTete->setCellValueByColumnAndRow(2, $rowEnTete, $row['split']);
-    $enTete->setCellValueByColumnAndRow(3, $rowEnTete, $row['test_type_abbr']);
-    $enTete->setCellValueByColumnAndRow(4, $rowEnTete, $row['temperature']);
-    $enTete->setCellValueByColumnAndRow(5, $rowEnTete, $row['nbtest']);
-    $enTete->setCellValueByColumnAndRow(6, $rowEnTete, $row['nbRetest']);
+    $enTete->setCellValueByColumnAndRow(1+0, $rowEnTete, $row['customer']);
+    $enTete->setCellValueByColumnAndRow(1+1, $rowEnTete, $row['job']);
+    $enTete->setCellValueByColumnAndRow(1+2, $rowEnTete, $row['split']);
+    $enTete->setCellValueByColumnAndRow(1+3, $rowEnTete, $row['test_type_abbr']);
+    $enTete->setCellValueByColumnAndRow(1+4, $rowEnTete, $row['temperature']);
+    $enTete->setCellValueByColumnAndRow(1+5, $rowEnTete, $row['nbtest']);
+    $enTete->setCellValueByColumnAndRow(1+6, $rowEnTete, $row['nbRetest']);
 
     $tpsSup=0;  //heure sup a 0 et on incrementera au fur et a mesure des eprouvettes
 
@@ -103,20 +103,20 @@ foreach ($oFollowup->getAllFollowup($filtreFollowup) as $row) {
       //copy des styles des colonnes
       for ($row = 5; $row <= 17; $row++) {
         $style = $newSheet->getStyleByColumnAndRow(3, $row);
-        $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row);
+        $dstCell = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($col) . (string)($row);
         $newSheet->duplicateStyle($style, $dstCell);
       }
 
-      $newSheet->setCellValueByColumnAndRow($col, 5, $value['prefixe']);
-      $newSheet->setCellValueByColumnAndRow($col, 6, $value['nom_eprouvette']);
-      $newSheet->setCellValueByColumnAndRow($col, 7, $value['n_essai']);
-      $newSheet->setCellValueByColumnAndRow($col, 8, $value['n_fichier']);
-      $newSheet->setCellValueByColumnAndRow($col, 9, $value['date']);
-      $newSheet->setCellValueByColumnAndRow($col, 10, $value['c_temperature']);
-      $newSheet->setCellValueByColumnAndRow($col, 11, $value['c_frequence']);
-      $newSheet->setCellValueByColumnAndRow($col, 12, ($value['Cycle_STL']==0)?"":$value['Cycle_STL']);
-      $newSheet->setCellValueByColumnAndRow($col, 13, $value['c_frequence_STL']);
-      $newSheet->setCellValueByColumnAndRow($col, 14, $value['Cycle_final']);
+      $newSheet->setCellValueByColumnAndRow(1+$col, 5, $value['prefixe']);
+      $newSheet->setCellValueByColumnAndRow(1+$col, 6, $value['nom_eprouvette']);
+      $newSheet->setCellValueByColumnAndRow(1+$col, 7, $value['n_essai']);
+      $newSheet->setCellValueByColumnAndRow(1+$col, 8, $value['n_fichier']);
+      $newSheet->setCellValueByColumnAndRow(1+$col, 9, $value['date']);
+      $newSheet->setCellValueByColumnAndRow(1+$col, 10, $value['c_temperature']);
+      $newSheet->setCellValueByColumnAndRow(1+$col, 11, $value['c_frequence']);
+      $newSheet->setCellValueByColumnAndRow(1+$col, 12, ($value['Cycle_STL']==0)?"":$value['Cycle_STL']);
+      $newSheet->setCellValueByColumnAndRow(1+$col, 13, $value['c_frequence_STL']);
+      $newSheet->setCellValueByColumnAndRow(1+$col, 14, $value['Cycle_final']);
 
       if ($value['c_frequence']>0 AND $value['Cycle_final']>0) {
         //calcul du temps d'essai
@@ -133,15 +133,15 @@ foreach ($oFollowup->getAllFollowup($filtreFollowup) as $row) {
         }
 
         $tpsSupSplit=($tpsEssai>24)?$tpsEssai-24:0;
-        $newSheet->setCellValueByColumnAndRow($col, 15, $tpsEssai);
-        $newSheet->setCellValueByColumnAndRow($col, 16, $tpsSupSplit);
+        $newSheet->setCellValueByColumnAndRow(1+$col, 15, $tpsEssai);
+        $newSheet->setCellValueByColumnAndRow(1+$col, 16, $tpsSupSplit);
         $tpsSup+=$tpsSupSplit;
       }
       $col++;
     }
 
     //on ecrit le temps total sur la page d'entete
-    $enTete->setCellValueByColumnAndRow(7, $rowEnTete, $tpsSup);
+    $enTete->setCellValueByColumnAndRow(1+7, $rowEnTete, $tpsSup);
 
     $rowEnTete+=1;
 
@@ -153,7 +153,7 @@ $enTete->setCellValue("B4", $date);
 $objPHPExcel->setActiveSheetIndex(0);
 
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($objPHPExcel, 'Xlsx');
 //$objWriter->setIncludeCharts(TRUE);
 $objWriter->save('../temp/UBR-'.$date.'.xlsx');
 
@@ -176,7 +176,6 @@ header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
 header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
 header ('Pragma: public'); // HTTP/1.0
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-//$objWriter->setIncludeCharts(TRUE);
-$objWriter->save('php://output');
+readfile($srcfile);
+
 exit;

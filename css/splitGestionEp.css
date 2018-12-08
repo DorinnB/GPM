@@ -12,7 +12,7 @@
   border: 0px;
 }
 .tabLeft  {
-  height:20%;
+  height:17%;
 }
 .tabLeft > a {
   line-height:7vh;
@@ -188,4 +188,9 @@ div.TDR dd {
   float: left;
   width: 65%;
   margin: 0;
+}
+
+caption {
+  color: white;
+  text-align: center;
 }

@@ -37,8 +37,32 @@ Editor::inst( $db, 'servovalves' )
     ->getFormatter( 'Format::date_sql_to_format', Format::DATE_ISO_8601 )
     ->setFormatter( 'Format::date_format_to_sql', Format::DATE_ISO_8601 )
     ->setFormatter( 'Format::ifEmpty', null ),
-  Field::inst( 'servovalves.servovalve_actif')
+  Field::inst( 'servovalves.servovalve_actif'),
+  Field::inst( 'machines.machine' )
   )
+
+  ->leftJoin('postes', 'postes.id_servovalve1','=','servovalves.id_servovalve OR postes.id_servovalve2 = servovalves.id_servovalve')
+  ->leftJoin( 'machines', 'machines.id_machine', '=', 'postes.id_machine' )
+
+  ->where( function($q) {
+    $q->where ('id_poste', '(SELECT max(p1.id_poste) FROM postes p1 WHERE p1.id_servovalve1 = servovalves.id_servovalve OR p1.id_servovalve2 = servovalves.id_servovalve)', 'IN', false);
+  })
+  ->on( 'postCreate', function ( $editor, $id, $values ) {    //On crée un poste avec cet element
+
+    include_once('../models/db.class.php'); // call db.class.php
+    $db = new db(); // create a new object, class db()
+    // Rendre votre modèle accessible
+    include '../models/poste-model.php';
+    // Création d'une instance
+    $oPoste = new PosteModel($db, 0);
+
+    $oPoste->itemValue=$id;
+    $oPoste->id_machine=29;
+    $oPoste->id_operateur=$_COOKIE['id_user'];
+
+    $oPoste->newPosteOther("id_servovalve1");
+
+  } )
 
   ->process($_POST)
   ->json();

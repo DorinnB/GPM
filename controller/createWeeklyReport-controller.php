@@ -35,62 +35,74 @@ date_default_timezone_set('Europe/Paris');
 if (PHP_SAPI == 'cli')
 die('This example should only be run from a Web Browser');
 
-/** Include PHPExcel */
-require_once '../lib/PHPExcel/PHPExcel.php';
+/** Include \PhpOffice\PhpSpreadsheet\Spreadsheet */
+require '../vendor/autoload.php';
 
 
-// Create new PHPExcel object
-$objPHPExcel = new PHPExcel();
-$objReader = PHPExcel_IOFactory::createReader('Excel2007');
+// Create new \PhpOffice\PhpSpreadsheet\Spreadsheet object
+$objPHPExcel = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
 $objReader->setIncludeCharts(TRUE);
 
 
 $style_interligne = array(
   'fill' => array(
-    'type' => PHPExcel_Style_Fill::FILL_SOLID,
+    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
     'color' => array('rgb'=>'ddd9c4')
   ),
   'font'  => array(
-        'color' => array('rgb' => '2D4D6A')
-      )
+    'color' => array('rgb' => '2D4D6A')
+  )
 );
 $style_InProgress = array(
   'fill' => array(
-    'type' => PHPExcel_Style_Fill::FILL_SOLID,
+    'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
     'color' => array('rgb'=>'E2EFDA')
   ),
   'font'  => array(
-        'color' => array('rgb' => '2D4D6A')
-      )
+    'color' => array('rgb' => '2D4D6A')
+  )
 );
 $style_Completed = array(
   'fill' => array(
-    'type' => PHPExcel_Style_Fill::FILL_SOLID,
+    'fillType' => PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
     'color' => array('rgb'=>'e6e6e6')
   ),
   'font'  => array(
-        'color' => array('rgb' => '2D4D6A')
-      )
+    'color' => array('rgb' => '2D4D6A')
+  )
 );
 $style_AwaitingInstructions = array(
+  'fill' => array(
+    'fillType' => PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+    'color' => array('rgb'=>'E2EFDA')
+  ),
   'font'  => array(
-        'color' => array('rgb' => '800000')
-      )
+    'color' => array('rgb' => 'C00000')
+  )
 );
 $style_ReportEdition = array(
+  'fill' => array(
+    'fillType' => PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+    'color' => array('rgb'=>'E2EFDA')
+  ),
   'font'  => array(
-        'color' => array('rgb' => '008000')
-      )
+    'color' => array('rgb' => '008000')
+  )
 );
 $style_Normal = array(
+  'fill' => array(
+    'fillType' => PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+    'color' => array('rgb'=>'FFFFFF')
+  ),
   'font'  => array(
-        'color' => array('rgb' => '2D4D6A')
-      )
+    'color' => array('rgb' => '2D4D6A')
+  )
 );
 
 
 //nom du fichier excel d'UBR
-$objPHPExcel = $objReader->load("../templates/WeeklyReport.xlsx");
+$objPHPExcel = $objReader->load("../templates/WeeklyReport.xlsm");
 
 $page=$objPHPExcel->getSheetByName('WeeklyReport');
 
@@ -103,23 +115,23 @@ foreach ($lstJobCust as $key => $value) {
 
   //on copie le style de pour chaque job
   for ($colEnTete = 0; $colEnTete <= 10; $colEnTete++) {
-    $style = $page->getStyleByColumnAndRow($colEnTete, 3);
-    $dstCell = PHPExcel_Cell::stringFromColumnIndex($colEnTete) . (string)($row);
+    $style = $page->getStyleByColumnAndrow(1+$colEnTete, 3);
+    $dstCell = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(1+$colEnTete) . (string)($row);
     $page->duplicateStyle($style, $dstCell);
   }
   $firstLine=$row;
   //on ecrit les données par split
-  $page->setCellValueByColumnAndRow(0, $row, $value['po_number']."\n".$value['instruction']);
-  $page->setCellValueByColumnAndRow(1, $row, $value['ref_matiere']);
-  $page->setCellValueByColumnAndRow(2, $row, $value['job']);
-  $page->setCellValueByColumnAndRow(3, $row, 0);
-  $page->setCellValueByColumnAndRow(4, $row, 'Réception Matière');
-  $page->setCellValueByColumnAndRow(5, $row, $value['nbreceived']);
-  $page->setCellValueByColumnAndRow(6, $row, $value['nbep']);
-  $page->setCellValueByColumnAndRow(7, $row, (isset($value['firstReceived'])?'Receipt '.$value['firstReceived']:' Not Received'));
-  $page->setCellValueByColumnAndRow(8, $row, $value['available_expected']);
-  $page->setCellValueByColumnAndRow(9, $row, $value['weeklyComment']);
-  $page->setCellValueByColumnAndRow(10, $row, $value['contactsXLS']);
+  $page->setCellValueByColumnAndRow(1+0, $row, $value['po_number']."\n".$value['instruction']);
+  $page->setCellValueByColumnAndRow(1+1, $row, $value['ref_matiere']);
+  $page->setCellValueByColumnAndRow(1+2, $row, $value['job']);
+  $page->setCellValueByColumnAndRow(1+3, $row, 0);
+  $page->setCellValueByColumnAndRow(1+4, $row, 'Réception Matière');
+  $page->setCellValueByColumnAndRow(1+5, $row, $value['nbreceived']);
+  $page->setCellValueByColumnAndRow(1+6, $row, $value['nbep']);
+  $page->setCellValueByColumnAndRow(1+7, $row, (isset($value['firstReceived'])?'Receipt '.$value['firstReceived']:' Not Received'));
+  $page->setCellValueByColumnAndRow(1+8, $row, $value['available_expected']);
+  $page->setCellValueByColumnAndRow(1+9, $row, $value['weeklyComment']);
+  $page->setCellValueByColumnAndRow(1+10, $row, $value['contactsXLS']);
   $page->getStyleByColumnAndRow(10,$row)->getAlignment()->setWrapText(true);
 
   $row++;
@@ -128,34 +140,34 @@ foreach ($lstJobCust as $key => $value) {
 
     //on copie le style de pour chaque split
     for ($colEnTete = 1; $colEnTete <= 10; $colEnTete++) {
-      $style = $page->getStyleByColumnAndRow($colEnTete, 4);
-      $dstCell = PHPExcel_Cell::stringFromColumnIndex($colEnTete) . (string)($row);
+      $style = $page->getStyleByColumnAndrow(1+$colEnTete, 4);
+      $dstCell = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(1+$colEnTete) . (string)($row);
       $page->duplicateStyle($style, $dstCell);
     }
 
-    $page->setCellValueByColumnAndRow(3, $row, $v['split']);
-    $page->setCellValueByColumnAndRow(4, $row, $v['test_type_cust']);
-    $page->setCellValueByColumnAndRow(5, $row, $v['nbtest']);
-    $page->setCellValueByColumnAndRow(6, $row, $v['nbtestplanned']);
-    $page->setCellValueByColumnAndRow(7, $row, $v['statut_client']);
-    $page->setCellValueByColumnAndRow(8, $row, $v['DyT_Cust']);
+    $page->setCellValueByColumnAndRow(1+3, $row, $v['split']);
+    $page->setCellValueByColumnAndRow(1+4, $row, $v['test_type_cust']);
+    $page->setCellValueByColumnAndRow(1+5, $row, $v['nbtest']);
+    $page->setCellValueByColumnAndRow(1+6, $row, $v['nbtestplanned']);
+    $page->setCellValueByColumnAndRow(1+7, $row, $v['statut_client']);
+    $page->setCellValueByColumnAndRow(1+8, $row, $v['DyT_Cust']);
 
 
-if ($v['statut_client']=="In Progress") {
-$page->getStyle('D'.$row.':I'.$row)->applyFromArray( $style_InProgress );
-}
-elseif ($v['statut_client']=="Completed") {
-$page->getStyle('D'.$row.':I'.$row)->applyFromArray( $style_Completed );
-}
-elseif ($v['statut_client']=="Awaiting Instructions") {
-$page->getStyle('D'.$row.':I'.$row)->applyFromArray( $style_AwaitingInstructions );
-}
-elseif ($v['statut_client']=="Report Edition") {
-$page->getStyle('D'.$row.':I'.$row)->applyFromArray( $style_ReportEdition );
-}
-else {
-  $page->getStyle('D'.$row.':I'.$row)->applyFromArray( $style_Normal );
-}
+    if ($v['statut_client']=="In Progress") {
+      $page->getStyle('D'.$row.':I'.$row)->applyFromArray( $style_InProgress );
+    }
+    elseif ($v['statut_client']=="Completed") {
+      $page->getStyle('D'.$row.':I'.$row)->applyFromArray( $style_Completed );
+    }
+    elseif ($v['statut_client']=="Awaiting Instructions") {
+      $page->getStyle('D'.$row.':I'.$row)->applyFromArray( $style_AwaitingInstructions );
+    }
+    elseif ($v['statut_client']=="Report Edition") {
+      $page->getStyle('D'.$row.':I'.$row)->applyFromArray( $style_ReportEdition );
+    }
+    else {
+      $page->getStyle('D'.$row.':I'.$row)->applyFromArray( $style_Normal );
+    }
 
     $row++;
   }
@@ -208,18 +220,18 @@ for ($i=-$nbAvantNow; $i < $nbJourPlanning; $i++) {
 
 $colDate=3;
 foreach ($date2 as $key => $value) {
-  $availability->setCellValueByColumnAndRow($colDate, 45, date('Y-m-d', strtotime($value)));
+  $availability->setCellValueByColumnAndRow(1+$colDate, 45, date('Y-m-d', strtotime($value)));
   $colDate++;
 }
 
 $row2=53;
 
 foreach ($lstFrames as $frame)  {
-  $availability->setCellValueByColumnAndRow(0, $row2, $frame['machine']);
+  $availability->setCellValueByColumnAndRow(1+0, $row2, $frame['machine']);
 
   $colDate=3;
   foreach ($date2 as $key => $value) {
-    $availability->setCellValueByColumnAndRow($colDate, $row2, ((isset($planningFrame[$frame['id_machine']][$value]))?1:0));
+    $availability->setCellValueByColumnAndRow(1+$colDate, $row2, ((isset($planningFrame[$frame['id_machine']][$value]))?1:0));
     $colDate++;
   }
   $row2++;
@@ -238,12 +250,12 @@ foreach ($lstFrames as $frame)  {
 //		Data values
 //		Data Marker
 $dataSeriesLabels = array(
-  new PHPExcel_Chart_DataSeriesValues('String', 'FrameAvailability!$C$37', NULL, 1),	//	Strain RT
-	new PHPExcel_Chart_DataSeriesValues('String', 'FrameAvailability!$C$38', NULL, 1),	//	Strain Coil
-  new PHPExcel_Chart_DataSeriesValues('String', 'FrameAvailability!$C$39', NULL, 1),	//	Strain Four
-	new PHPExcel_Chart_DataSeriesValues('String', 'FrameAvailability!$C$40', NULL, 1),	//	Load RT
-	new PHPExcel_Chart_DataSeriesValues('String', 'FrameAvailability!$C$41', NULL, 1),	//	Load coil
-	new PHPExcel_Chart_DataSeriesValues('String', 'FrameAvailability!$C$42', NULL, 1),	//	Load Four
+  new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'FrameAvailability!$C$37', NULL, 1),	//	Strain RT
+  new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'FrameAvailability!$C$38', NULL, 1),	//	Strain Coil
+  new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'FrameAvailability!$C$39', NULL, 1),	//	Strain Four
+  new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'FrameAvailability!$C$40', NULL, 1),	//	Load RT
+  new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'FrameAvailability!$C$41', NULL, 1),	//	Load coil
+  new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'FrameAvailability!$C$42', NULL, 1),	//	Load Four
 );
 //	Set the X-Axis Labels
 //		Datatype
@@ -253,7 +265,7 @@ $dataSeriesLabels = array(
 //		Data values
 //		Data Marker
 $xAxisTickValues = array(
-	new PHPExcel_Chart_DataSeriesValues('String', 'FrameAvailability!$D$36:$aa$36', NULL, 4),	//	Q1 to Q4
+  new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'FrameAvailability!$D$36:$aa$36', NULL, 4),	//	Q1 to Q4
 );
 //	Set the Data values for each data series we want to plot
 //		Datatype
@@ -263,46 +275,46 @@ $xAxisTickValues = array(
 //		Data values
 //		Data Marker
 $dataSeriesValues = array(
-  new PHPExcel_Chart_DataSeriesValues('Number', 'FrameAvailability!$D$37:$aa$37', NULL, 4),
-	new PHPExcel_Chart_DataSeriesValues('Number', 'FrameAvailability!$D$38:$aa$38', NULL, 4),
-	new PHPExcel_Chart_DataSeriesValues('Number', 'FrameAvailability!$D$39:$aa$39', NULL, 4),
-	new PHPExcel_Chart_DataSeriesValues('Number', 'FrameAvailability!$D$40:$aa$40', NULL, 4),
-	new PHPExcel_Chart_DataSeriesValues('Number', 'FrameAvailability!$D$41:$aa$41', NULL, 4),
-	new PHPExcel_Chart_DataSeriesValues('Number', 'FrameAvailability!$D$42:$aa$42', NULL, 4),
+  new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('Number', 'FrameAvailability!$D$37:$aa$37', NULL, 4),
+  new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('Number', 'FrameAvailability!$D$38:$aa$38', NULL, 4),
+  new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('Number', 'FrameAvailability!$D$39:$aa$39', NULL, 4),
+  new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('Number', 'FrameAvailability!$D$40:$aa$40', NULL, 4),
+  new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('Number', 'FrameAvailability!$D$41:$aa$41', NULL, 4),
+  new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('Number', 'FrameAvailability!$D$42:$aa$42', NULL, 4),
 );
 
 //	Build the dataseries
-$series = new PHPExcel_Chart_DataSeries(
-	PHPExcel_Chart_DataSeries::TYPE_BARCHART,		// plotType
-	PHPExcel_Chart_DataSeries::GROUPING_STACKED,	// plotGrouping
-	range(0, count($dataSeriesValues)-1),			// plotOrder
-	$dataSeriesLabels,								// plotLabel
-	$xAxisTickValues,								// plotCategory
-	$dataSeriesValues								// plotValues
+$series = new \PhpOffice\PhpSpreadsheet\Chart\DataSeries(
+  \PhpOffice\PhpSpreadsheet\Chart\DataSeries::TYPE_BARCHART,		// plotType
+  \PhpOffice\PhpSpreadsheet\Chart\DataSeries::GROUPING_STACKED,	// plotGrouping
+  range(0, count($dataSeriesValues)-1),			// plotOrder
+  $dataSeriesLabels,								// plotLabel
+  $xAxisTickValues,								// plotCategory
+  $dataSeriesValues								// plotValues
 );
 //	Set additional dataseries parameters
 //		Make it a vertical column rather than a horizontal bar graph
-$series->setPlotDirection(PHPExcel_Chart_DataSeries::DIRECTION_COL);
+$series->setPlotDirection(\PhpOffice\PhpSpreadsheet\Chart\DataSeries::DIRECTION_COL);
 
 //	Set the series in the plot area
-$plotArea = new PHPExcel_Chart_PlotArea(NULL, array($series));
+$plotArea = new \PhpOffice\PhpSpreadsheet\Chart\PlotArea(NULL, array($series));
 //	Set the chart legend
-$legend = new PHPExcel_Chart_Legend(PHPExcel_Chart_Legend::POSITION_BOTTOM, NULL, false);
+$legend = new \PhpOffice\PhpSpreadsheet\Chart\Legend(\PhpOffice\PhpSpreadsheet\Chart\Legend::POSITION_BOTTOM, NULL, false);
 
-$title = new PHPExcel_Chart_Title('Disponibilité Machines Metcut France');
-$xAxisLabel = new PHPExcel_Chart_Title('Semaine');
+$title = new \PhpOffice\PhpSpreadsheet\Chart\Title('Disponibilité Machines Metcut France');
+$xAxisLabel = new \PhpOffice\PhpSpreadsheet\Chart\Title('Semaine');
 
 
 //	Create the chart
-$chart = new PHPExcel_Chart(
-	'chart1',		// name
-	$title,			// title
-	$legend,		// legend
-	$plotArea,		// plotArea
-	true,			// plotVisibleOnly
-	0,				// displayBlanksAs
-	$xAxisLabel,			// xAxisLabel
-	NULL		// yAxisLabel
+$chart = new \PhpOffice\PhpSpreadsheet\Chart\Chart(
+  'chart1',		// name
+  $title,			// title
+  $legend,		// legend
+  $plotArea,		// plotArea
+  true,			// plotVisibleOnly
+  0,				// displayBlanksAs
+  $xAxisLabel,			// xAxisLabel
+  NULL		// yAxisLabel
 );
 
 //	Set the position where the chart should appear in the FrameAvailability
@@ -310,7 +322,7 @@ $chart->setTopLeftPosition('A1');
 $chart->setBottomRightPosition('P26');
 
 //	Add the chart to the FrameAvailability
-$availability->addChart($chart);
+//$availability->addChart($chart);
 
 
 
@@ -324,17 +336,19 @@ $availability->addChart($chart);
 
 
 //$page->setCellValue('K'.($row+2), $date);
+//exit;
 
 
-
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($objPHPExcel, 'Xlsx');
 $objWriter->setIncludeCharts(TRUE);
-$objWriter->save('../temp/WeeklyReport-'.$date.'.xlsx');
+
+$file='../temp/WeeklyReport-'.$date.'.xlsm';
+$objWriter->save($file);
 
 
 // Redirect output to a client’s web browser (Excel2007)
-header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment;filename="WeeklyReport-'.$date.'.xlsx"');
+    header('Content-Type: application/vnd.ms-excel.sheet.macroEnabled.12');
+header('Content-Disposition: attachment;filename="WeeklyReport-'.$date.'.xlsm"');
 header('Cache-Control: max-age=0');
 // If you're serving to IE 9, then the following may be needed
 header('Cache-Control: max-age=1');
@@ -345,7 +359,6 @@ header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
 header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
 header ('Pragma: public'); // HTTP/1.0
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-$objWriter->setIncludeCharts(TRUE);
-$objWriter->save('php://output');
+readfile($file);
+
 exit;

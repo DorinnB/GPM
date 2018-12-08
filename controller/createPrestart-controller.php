@@ -40,23 +40,23 @@ date_default_timezone_set('Europe/Paris');
 if (PHP_SAPI == 'cli')
 die('This example should only be run from a Web Browser');
 
-/** Include PHPExcel */
-require_once '../lib/PHPExcel/PHPExcel.php';
+/** Include \PhpOffice\PhpSpreadsheet\Spreadsheet */
+require '../vendor/autoload.php';
 
 
-// Create new PHPExcel object
-$objPHPExcel = new PHPExcel();
-$objReader = PHPExcel_IOFactory::createReader('Excel2007');
+// Create new \PhpOffice\PhpSpreadsheet\Spreadsheet object
+$objPHPExcel = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
 
 
 $style_gray = array(
   'fill' => array(
-    'type' => PHPExcel_Style_Fill::FILL_SOLID,
+    'type' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
     'color' => array('rgb'=>'C0C0C0'))
   );
   $style_white = array(
     'fill' => array(
-      'type' => PHPExcel_Style_Fill::FILL_SOLID,
+      'type' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
       'color' => array('rgb'=>'000000'))
     );
 
@@ -136,7 +136,7 @@ $dailyCheckOLD->getProtection()->setPassword("metcut44");
       'G7' => (($prestart['valid_alignement']==1)?'x':'o'),
       'I7' => (($prestart['tune']==1)?'Dummy':(($prestart['tune']==2)?'Same Param.':' ')),
       'K7' => (($prestart['signal_true']==1)?'x':'o'),
-      'M7' => $eprouvette['c_waveform'],      
+      'M7' => $eprouvette['c_waveform'],
       'O7' => (($prestart['signal_tapered']==1)?'x':'o'),
     );
 
@@ -156,8 +156,10 @@ $dailyCheck->getProtection()->setPassword("metcut44");
 
       $objPHPExcel->setActiveSheetIndex(0);
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-$objWriter->save('../temp/Prestart-'.$_GET['id_prestart'].'.xlsx');
+$objWriter = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($objPHPExcel, 'Xlsx');
+
+$file='../temp/Prestart-'.$_GET['id_prestart'].'.xlsx';
+$objWriter->save($file);
 
 // Redirect output to a client’s web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -172,8 +174,8 @@ header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
 header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
 header ('Pragma: public'); // HTTP/1.0
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-$objWriter->save('php://output');
+readfile($file);
+
 exit;
 
 ?>

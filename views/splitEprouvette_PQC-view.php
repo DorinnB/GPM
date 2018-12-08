@@ -12,6 +12,7 @@
         <th><acronym title="Order Comment">Com.</acronym></th>
         <th><acronym title="Order Check">Chk</acronym></th>
         <th><acronym title="Lab Observation">L. Obs.</acronym></th>
+        <th><acronym title="Number of TDR (Test Deviation Report)">TDR</acronym></th>
         <th><acronym title="Quality Review">Q.</acronym></th>
         <th><acronym title="Quality Observation">Q. Obs</acronym></th>
         <?php  foreach ($dimDenomination as $dimTexte): ?>
@@ -42,6 +43,7 @@
         <th><acronym title="Order Comment">Com.</acronym></th>
         <th><acronym title="Order Check">Chk</acronym></th>
         <th><acronym title="Lab Observation">L. Obs.</acronym></th>
+        <th><acronym title="Number of TDR (Test Deviation Report)">TDR</acronym></th>
         <th><acronym title="Quality Review">Q.</acronym></th>
         <th><acronym title="Quality Observation">Q. Obs</acronym></th>
         <?php  foreach ($dimDenomination as $dimTexte): ?>
@@ -91,6 +93,7 @@
               </div>
             <?php endif ?>
           </td>
+          <td class="TDRCount" data-TDRCount="<?= $ep[$k]['TDRCount'] ?>"><?= $ep[$k]['TDRCount'] ?></td>
           <td class="flag_qualite selectable" data-flagQualite="<?= $ep[$k]['flag_qualite'] ?>"  data-idepflagqualite="<?= $ep[$k]['id_eprouvette'] ?>"><?= $ep[$k]['flag_qualite'] ?></td>
           <td class="popover-markup" data-placement="left"><?= ($ep[$k]['q_commentaire']=="")?"":substr($ep[$k]['q_commentaire'],0,5)." [...]" ?>
             <?php if ($ep[$k]['q_commentaire'] !=""):  ?>

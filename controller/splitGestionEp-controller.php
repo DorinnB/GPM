@@ -89,6 +89,8 @@ if (!isset($_COOKIE['id_user'])) {
   document.getElementById("1a").style.display = "none";
 
   document.getElementById("1e").style.display = "none";
+    document.getElementById("evalTS").style.display = "none";
+    document.getElementById("TDR").style.display = "none";
   document.getElementById("eval").style.display = "none";
 
   document.getElementById("logon").style.display = "block";

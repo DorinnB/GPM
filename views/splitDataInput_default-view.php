@@ -73,6 +73,13 @@
           </select>
         </div>
         <div class="form-group">
+          <label for="rawdatatobesent">Send Raw Data&nbsp;:</label>
+          <select class="form-control" name="rawdatatobesent">
+            <option value="0" <?=  ($split['rawdatatobesent']==0)?'selected':''    ?>>No</option>
+            <option value="1" <?=  ($split['rawdatatobesent']==1)?'selected':''    ?>>Yes</option>
+            </select>
+        </div>
+        <div class="form-group">
           <label for="GE">GE&nbsp;:</label>
           <select class="form-control" name="GE">
             <option value="0" <?=  ($split['GE']==0)?'selected':''    ?>>No</option>
@@ -87,7 +94,7 @@
           </select>
         </div>
         <div class="form-group">
-          <label for="specific_protocol">Specific Protocol&nbsp;:</label>
+          <label for="specific_protocol">Specific&nbsp;Protocol&nbsp;:</label>
           <select class="form-control" name="specific_protocol">
             <option value="0" <?=  ($split['specific_protocol']==0)?'selected':''    ?>>No</option>
             <option value="1" <?=  ($split['specific_protocol']==1)?'selected':''    ?>>Yes</option>

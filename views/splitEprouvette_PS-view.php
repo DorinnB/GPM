@@ -22,6 +22,7 @@
         <th><acronym title="Order Comment">Com.</acronym></th>
         <th><acronym title="Order Check">Chk</acronym></th>
         <th><acronym title="Lab Observation">L. Obs.</acronym></th>
+        <th><acronym title="Number of TDR (Test Deviation Report)">TDR</acronym></th>
         <th><acronym title="Quality Review">Q.</acronym></th>
         <th><acronym title="Quality Observation">Q. Obs</acronym></th>
         <th><acronym title="Current Block">State</acronym></th>
@@ -51,6 +52,7 @@
         <th class="rotation"><acronym title="2<sup>nd</sup> Rotation Residual Load">Res.L</acronym></th>
         <th class="rotation"><acronym title="2<sup>nd</sup> Rotation Straightning (mm)">Straight.</acronym></th>
         <th><acronym title="APS Done">APS</acronym></th>
+        <th><acronym title="Raw Data Sent">Raw</acronym></th>
         <th><acronym title="Rupture Check">R.</acronym></th>
         <th><acronym title="Data Check">D.</acronym></th>
       </tr>
@@ -77,6 +79,7 @@
         <th><acronym title="Order Comment">Com.</acronym></th>
         <th><acronym title="Order Check">Chk</acronym></th>
         <th><acronym title="Lab Observation">L. Obs.</acronym></th>
+        <th><acronym title="Number of TDR (Test Deviation Report)">TDR</acronym></th>
         <th><acronym title="Quality Review">Q.</acronym></th>
         <th><acronym title="Quality Observation">Q. Obs</acronym></th>
         <th><acronym title="Current Block">State</acronym></th>
@@ -106,6 +109,7 @@
         <th class="rotation"><acronym title="2<sup>nd</sup> Rotation Residual Load">Res.L</acronym></th>
         <th class="rotation"><acronym title="2<sup>nd</sup> Rotation Straightning (mm)">Straight.</acronym></th>
         <th><acronym title="APS Done">APS</acronym></th>
+        <th><acronym title="Raw Data Sent">Raw</acronym></th>
         <th><acronym title="Rupture Check">R.</acronym></th>
         <th><acronym title="Data Check">D.</acronym></th>
       </tr>
@@ -151,6 +155,7 @@
               </div>
             <?php endif ?>
           </td>
+          <td class="TDRCount" data-TDRCount="<?= $ep[$k]['TDRCount'] ?>"><?= $ep[$k]['TDRCount'] ?></td>
           <td class="flag_qualite selectable" data-flagQualite="<?= $ep[$k]['flag_qualite'] ?>"  data-idepflagqualite="<?= $ep[$k]['id_eprouvette'] ?>"><?= $ep[$k]['flag_qualite'] ?></td>
           <td class="popover-markup" data-placement="left"><?= ($ep[$k]['q_commentaire']=="")?"":substr($ep[$k]['q_commentaire'],0,5)." [...]" ?>
             <?php if ($ep[$k]['q_commentaire'] !=""):  ?>
@@ -189,6 +194,7 @@
           <td class="decimal2"<?= $epHisto2[$k]['val_2'] ?>><?= $ep[$k]['val_2'] ?></td>
           <td class="decimal2"<?= $epHisto2[$k]['val_4'] ?>><?= $ep[$k]['val_4'] ?></td>
           <td class="decimal2" <?= $epHisto2[$k]['val_5'] ?>><?= $ep[$k]['val_5'] ?></td>
+          <td class="rawdata selectable" data-rawdatatobesent="<?= $split['rawdatatobesent'] ?>" data-testend="<?= max(0,$ep[$k]['d_checked']) ?>" data-rawdata="<?= ($split['rawdatatobesent']==0)?max(0,$ep[$k]['rawdatasent']):$ep[$k]['rawdatasent'] ?>"  data-ideprawdata="<?= $ep[$k]['id_eprouvette'] ?>" <?= $epHisto2[$k]['rawdatasent'] ?>><?= $ep[$k]['rawdatasent'] ?></td>
           <td class="dCheckEp" data-dchecked="<?= max(0,$ep[$k]['check_rupture']) ?>" <?= $epHisto2[$k]['check_rupture'] ?>><?= $ep[$k]['check_rupture'] ?></td>
           <td class="dCheckEp selectable" data-dchecked="<?= max(0,$ep[$k]['d_checked']) ?>"  data-idepdchecked="<?= $ep[$k]['id_eprouvette'] ?>" <?= $epHisto2[$k]['d_checked'] ?>><?= $ep[$k]['d_checked'] ?></td>
 

@@ -21,7 +21,9 @@ $oSplit->c_type_2=isset($_POST['c_type_2'])?$_POST['c_type_2']:"";
 $oSplit->c_unite=isset($_POST['c_unite'])?$_POST['c_unite']:"";
 $oSplit->tbljob_frequence=isset($_POST['tbljob_frequence'])?$_POST['tbljob_frequence']:"";
 $oSplit->waveform=isset($_POST['waveform'])?$_POST['waveform']:"";
-$oSplit->id_rawData=isset($_POST['id_rawData'])?$_POST['id_rawData']:"";$oSplit->tbljob_instruction=isset($_POST['tbljob_instruction'])?$_POST['tbljob_instruction']:"";
+$oSplit->id_rawData=isset($_POST['id_rawData'])?$_POST['id_rawData']:"";
+$oSplit->rawdatatobesent=isset($_POST['rawdatatobesent'])?$_POST['rawdatatobesent']:"";
+$oSplit->tbljob_instruction=isset($_POST['tbljob_instruction'])?$_POST['tbljob_instruction']:"";
 $oSplit->comments=isset($_POST['comments'])?$_POST['comments']:"";
 
 

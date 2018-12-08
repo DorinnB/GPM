@@ -72,7 +72,6 @@ private $id;
         `devis` = '.$this->devis.',
         `instruction` = '.$this->instruction.',
         `commentaire` = '.$this->commentaire.',
-        `available_expected` = '.$this->available_expected.',
         `info_job_actif` = '.$this->info_job_actif.'
        WHERE id_info_job = '.$this->getInfoJob()['id_info_job'].';';
 //echo $reqUpdate;

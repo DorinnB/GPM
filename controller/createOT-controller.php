@@ -75,13 +75,13 @@ date_default_timezone_set('Europe/Paris');
 if (PHP_SAPI == 'cli')
 die('This example should only be run from a Web Browser');
 
-/** Include PHPExcel */
-require_once '../lib/PHPExcel/PHPExcel.php';
+/** Include \PhpOffice\PhpSpreadsheet\Spreadsheet */
+require '../vendor/autoload.php';
 
 
-// Create new PHPExcel object
-$objPHPExcel = new PHPExcel();
-$objReader = PHPExcel_IOFactory::createReader('Excel2007');
+// Create new \PhpOffice\PhpSpreadsheet\Spreadsheet object
+$objPHPExcel = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
 $objReader->setIncludeCharts(TRUE);
 
 
@@ -122,10 +122,10 @@ If ($split['final']=="1" && $split['test_type_abbr']!="PS")	{
     }
 
     //titre des lignes PV
-    $page->setCellValueByColumnAndRow(1, 22, $split['c_type_1']);
-    $page->setCellValueByColumnAndRow(2, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
-    $page->setCellValueByColumnAndRow(1, 23, $split['c_type_2']);
-    $page->setCellValueByColumnAndRow(2, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
+    $page->setCellValueByColumnAndRow(1+1, 22, $split['c_type_1']);
+    $page->setCellValueByColumnAndRow(1+2, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
+    $page->setCellValueByColumnAndRow(1+1, 23, $split['c_type_2']);
+    $page->setCellValueByColumnAndRow(1+2, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
 
 
 
@@ -133,53 +133,53 @@ If ($split['final']=="1" && $split['test_type_abbr']!="PS")	{
     $col = 3;
     foreach ($ep as $key => $value) {
 
-      $page->setCellValueByColumnAndRow($col, 8, $value['prefixe']);
-      $page->setCellValueByColumnAndRow($col, 9, $value['nom_eprouvette']);
+      $page->setCellValueByColumnAndRow(1+$col, 8, $value['prefixe']);
+      $page->setCellValueByColumnAndRow(1+$col, 9, $value['nom_eprouvette']);
 
-      $page->setCellValueByColumnAndRow($col, 10, $value['n_essai']);
-      $page->setCellValueByColumnAndRow($col, 11, $value['n_fichier']);
-      $page->setCellValueByColumnAndRow($col, 12, $value['operateur']);
-      $page->setCellValueByColumnAndRow($col, 13, $value['machine']);
-      $page->setCellValueByColumnAndRow($col, 14, $value['date']);
-      $page->setCellValueByColumnAndRow($col, 15, $value['c_temperature']);
-      $page->setCellValueByColumnAndRow($col, 16, $value['c_frequence']);
-      $page->setCellValueByColumnAndRow($col, 17, $value['c_cycle_STL']);
-      $page->setCellValueByColumnAndRow($col, 18, $value['c_frequence_STL']);
+      $page->setCellValueByColumnAndRow(1+$col, 10, $value['n_essai']);
+      $page->setCellValueByColumnAndRow(1+$col, 11, $value['n_fichier']);
+      $page->setCellValueByColumnAndRow(1+$col, 12, $value['operateur']);
+      $page->setCellValueByColumnAndRow(1+$col, 13, $value['machine']);
+      $page->setCellValueByColumnAndRow(1+$col, 14, $value['date']);
+      $page->setCellValueByColumnAndRow(1+$col, 15, $value['c_temperature']);
+      $page->setCellValueByColumnAndRow(1+$col, 16, $value['c_frequence']);
+      $page->setCellValueByColumnAndRow(1+$col, 17, $value['c_cycle_STL']);
+      $page->setCellValueByColumnAndRow(1+$col, 18, $value['c_frequence_STL']);
 
       if (isset($value['denomination']['denomination_1'])) {
-        $page->setCellValueByColumnAndRow($col, 19, $value['dim1']);
-        $page->setCellValueByColumnAndRow(0, 19, $value['denomination']['denomination_1']);
+        $page->setCellValueByColumnAndRow(1+$col, 19, $value['dim1']);
+        $page->setCellValueByColumnAndRow(1+0, 19, $value['denomination']['denomination_1']);
       }
       else {
         $page->getRowDimension(19)->setVisible(FALSE);
       }
       if (isset($value['denomination']['denomination_2'])) {
-        $page->setCellValueByColumnAndRow($col, 20, $value['dim2']);
-        $page->setCellValueByColumnAndRow(0, 20, $value['denomination']['denomination_2']);
+        $page->setCellValueByColumnAndRow(1+$col, 20, $value['dim2']);
+        $page->setCellValueByColumnAndRow(1+0, 20, $value['denomination']['denomination_2']);
       }
       else {
         $page->getRowDimension(20)->setVisible(FALSE);
       }
       if (isset($value['denomination']['denomination_3'])) {
-        $page->setCellValueByColumnAndRow($col, 21, $value['dim3']);
-        $page->setCellValueByColumnAndRow(0, 21, $value['denomination']['denomination_3']);
+        $page->setCellValueByColumnAndRow(1+$col, 21, $value['dim3']);
+        $page->setCellValueByColumnAndRow(1+0, 21, $value['denomination']['denomination_3']);
       }
       else {
         $page->getRowDimension(21)->setVisible(FALSE);
       }
 
-      $page->setCellValueByColumnAndRow($col, 22, $value['c_type_1_val']);
-      $page->setCellValueByColumnAndRow($col, 23, $value['c_type_2_val']);
+      $page->setCellValueByColumnAndRow(1+$col, 22, $value['c_type_1_val']);
+      $page->setCellValueByColumnAndRow(1+$col, 23, $value['c_type_2_val']);
 
       $oEprouvette->niveaumaxmin($split['c_type_1'], $split['c_type_2'], $value['c_type_1_val'], $value['c_type_2_val']);
-      $page->setCellValueByColumnAndRow($col, 24, $oEprouvette->MAX());
-      $page->setCellValueByColumnAndRow($col, 25, $oEprouvette->MIN());
+      $page->setCellValueByColumnAndRow(1+$col, 24, $oEprouvette->MAX());
+      $page->setCellValueByColumnAndRow(1+$col, 25, $oEprouvette->MIN());
 
 
-      $page->setCellValueByColumnAndRow($col, 26, $value['Cycle_min']);
-      $page->setCellValueByColumnAndRow($col, 27, $value['runout']);
+      $page->setCellValueByColumnAndRow(1+$col, 26, $value['Cycle_min']);
+      $page->setCellValueByColumnAndRow(1+$col, 27, $value['runout']);
 
-      $page->setCellValueByColumnAndRow($col, 35, $value['cycle_estime']);
+      $page->setCellValueByColumnAndRow(1+$col, 35, $value['cycle_estime']);
 
 
       $col++;
@@ -187,7 +187,7 @@ If ($split['final']=="1" && $split['test_type_abbr']!="PS")	{
 
     $colImprimable=ceil(count($ep)/10)*10+3;
     //zone d'impression
-    $colString = PHPExcel_Cell::stringFromColumnIndex($colImprimable-1);
+    $colString = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colImprimable-1);
     $page->getPageSetup()->setPrintArea('A1:'.$colString.'51');
 
 
@@ -224,10 +224,10 @@ If ($split['final']=="1" && $split['test_type_abbr']!="PS")	{
     }
 
     //titre des lignes PV
-    $page->setCellValueByColumnAndRow(1, 22, $split['c_type_1']);
-    $page->setCellValueByColumnAndRow(2, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
-    $page->setCellValueByColumnAndRow(1, 23, $split['c_type_2']);
-    $page->setCellValueByColumnAndRow(2, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
+    $page->setCellValueByColumnAndRow(1+1, 22, $split['c_type_1']);
+    $page->setCellValueByColumnAndRow(1+2, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
+    $page->setCellValueByColumnAndRow(1+1, 23, $split['c_type_2']);
+    $page->setCellValueByColumnAndRow(1+2, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
 
 
 
@@ -235,53 +235,53 @@ If ($split['final']=="1" && $split['test_type_abbr']!="PS")	{
     $col = 3;
     foreach ($ep as $key => $value) {
 
-      $page->setCellValueByColumnAndRow($col, 8, $value['prefixe']);
-      $page->setCellValueByColumnAndRow($col, 9, $value['nom_eprouvette']);
+      $page->setCellValueByColumnAndRow(1+$col, 8, $value['prefixe']);
+      $page->setCellValueByColumnAndRow(1+$col, 9, $value['nom_eprouvette']);
 
-      $page->setCellValueByColumnAndRow($col, 10, $value['n_essai']);
-      $page->setCellValueByColumnAndRow($col, 11, $value['n_fichier']);
-      $page->setCellValueByColumnAndRow($col, 12, $value['operateur']);
-      $page->setCellValueByColumnAndRow($col, 13, $value['machine']);
-      $page->setCellValueByColumnAndRow($col, 14, $value['date']);
-      $page->setCellValueByColumnAndRow($col, 15, $value['c_temperature']);
-      $page->setCellValueByColumnAndRow($col, 16, $value['c_frequence']);
-      $page->setCellValueByColumnAndRow($col, 17, $value['c_cycle_STL']);
-      $page->setCellValueByColumnAndRow($col, 18, $value['c_frequence_STL']);
+      $page->setCellValueByColumnAndRow(1+$col, 10, $value['n_essai']);
+      $page->setCellValueByColumnAndRow(1+$col, 11, $value['n_fichier']);
+      $page->setCellValueByColumnAndRow(1+$col, 12, $value['operateur']);
+      $page->setCellValueByColumnAndRow(1+$col, 13, $value['machine']);
+      $page->setCellValueByColumnAndRow(1+$col, 14, $value['date']);
+      $page->setCellValueByColumnAndRow(1+$col, 15, $value['c_temperature']);
+      $page->setCellValueByColumnAndRow(1+$col, 16, $value['c_frequence']);
+      $page->setCellValueByColumnAndRow(1+$col, 17, $value['c_cycle_STL']);
+      $page->setCellValueByColumnAndRow(1+$col, 18, $value['c_frequence_STL']);
 
       if (isset($value['denomination']['denomination_1'])) {
-        $page->setCellValueByColumnAndRow($col, 19, $value['dim1']);
-        $page->setCellValueByColumnAndRow(0, 19, $value['denomination']['denomination_1']);
+        $page->setCellValueByColumnAndRow(1+$col, 19, $value['dim1']);
+        $page->setCellValueByColumnAndRow(1+0, 19, $value['denomination']['denomination_1']);
       }
       else {
         $page->getRowDimension(19)->setVisible(FALSE);
       }
       if (isset($value['denomination']['denomination_2'])) {
-        $page->setCellValueByColumnAndRow($col, 20, $value['dim2']);
-        $page->setCellValueByColumnAndRow(0, 20, $value['denomination']['denomination_2']);
+        $page->setCellValueByColumnAndRow(1+$col, 20, $value['dim2']);
+        $page->setCellValueByColumnAndRow(1+0, 20, $value['denomination']['denomination_2']);
       }
       else {
         $page->getRowDimension(20)->setVisible(FALSE);
       }
       if (isset($value['denomination']['denomination_3'])) {
-        $page->setCellValueByColumnAndRow($col, 21, $value['dim3']);
-        $page->setCellValueByColumnAndRow(0, 21, $value['denomination']['denomination_3']);
+        $page->setCellValueByColumnAndRow(1+$col, 21, $value['dim3']);
+        $page->setCellValueByColumnAndRow(1+0, 21, $value['denomination']['denomination_3']);
       }
       else {
         $page->getRowDimension(21)->setVisible(FALSE);
       }
 
-      $page->setCellValueByColumnAndRow($col, 22, $value['c_type_1_val']);
-      $page->setCellValueByColumnAndRow($col, 23, $value['c_type_2_val']);
+      $page->setCellValueByColumnAndRow(1+$col, 22, $value['c_type_1_val']);
+      $page->setCellValueByColumnAndRow(1+$col, 23, $value['c_type_2_val']);
 
       $oEprouvette->niveaumaxmin($split['c_type_1'], $split['c_type_2'], $value['c_type_1_val'], $value['c_type_2_val']);
-      $page->setCellValueByColumnAndRow($col, 24, $oEprouvette->MAX());
-      $page->setCellValueByColumnAndRow($col, 25, $oEprouvette->MIN());
+      $page->setCellValueByColumnAndRow(1+$col, 24, $oEprouvette->MAX());
+      $page->setCellValueByColumnAndRow(1+$col, 25, $oEprouvette->MIN());
 
 
-      $page->setCellValueByColumnAndRow($col, 26, $value['Cycle_min']);
-      $page->setCellValueByColumnAndRow($col, 27, $value['runout']);
+      $page->setCellValueByColumnAndRow(1+$col, 26, $value['Cycle_min']);
+      $page->setCellValueByColumnAndRow(1+$col, 27, $value['runout']);
 
-      $page->setCellValueByColumnAndRow($col, 35, $value['cycle_estime']);
+      $page->setCellValueByColumnAndRow(1+$col, 35, $value['cycle_estime']);
 
 
       $col++;
@@ -289,7 +289,7 @@ If ($split['final']=="1" && $split['test_type_abbr']!="PS")	{
 
     $colImprimable=ceil(count($ep)/10)*10+3;
     //zone d'impression
-    $colString = PHPExcel_Cell::stringFromColumnIndex($colImprimable-1);
+    $colString = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colImprimable-1);
     $page->getPageSetup()->setPrintArea('A1:'.$colString.'51');
 
 
@@ -328,10 +328,10 @@ If ($split['final']=="1" && $split['test_type_abbr']!="PS")	{
     }
 
     //titre des lignes PV
-    $page->setCellValueByColumnAndRow(1, 22, $split['c_type_1']);
-    $page->setCellValueByColumnAndRow(2, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
-    $page->setCellValueByColumnAndRow(1, 23, $split['c_type_2']);
-    $page->setCellValueByColumnAndRow(2, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
+    $page->setCellValueByColumnAndRow(1+1, 22, $split['c_type_1']);
+    $page->setCellValueByColumnAndRow(1+2, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
+    $page->setCellValueByColumnAndRow(1+1, 23, $split['c_type_2']);
+    $page->setCellValueByColumnAndRow(1+2, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
 
 
 
@@ -339,53 +339,53 @@ If ($split['final']=="1" && $split['test_type_abbr']!="PS")	{
     $col = 3;
     foreach ($ep as $key => $value) {
       //copy des styles des colonnes
-      $page->setCellValueByColumnAndRow($col, 8, $value['prefixe']);
-      $page->setCellValueByColumnAndRow($col, 9, $value['nom_eprouvette']);
+      $page->setCellValueByColumnAndRow(1+$col, 8, $value['prefixe']);
+      $page->setCellValueByColumnAndRow(1+$col, 9, $value['nom_eprouvette']);
 
-      $page->setCellValueByColumnAndRow($col, 10, $value['n_essai']);
-      $page->setCellValueByColumnAndRow($col, 11, $value['n_fichier']);
-      $page->setCellValueByColumnAndRow($col, 12, $value['operateur']);
-      $page->setCellValueByColumnAndRow($col, 13, $value['machine']);
-      $page->setCellValueByColumnAndRow($col, 14, $value['date']);
-      $page->setCellValueByColumnAndRow($col, 15, $value['c_temperature']);
-      $page->setCellValueByColumnAndRow($col, 16, $value['c_frequence']);
-      $page->setCellValueByColumnAndRow($col, 17, $value['c_cycle_STL']);
-      $page->setCellValueByColumnAndRow($col, 18, $value['c_frequence_STL']);
+      $page->setCellValueByColumnAndRow(1+$col, 10, $value['n_essai']);
+      $page->setCellValueByColumnAndRow(1+$col, 11, $value['n_fichier']);
+      $page->setCellValueByColumnAndRow(1+$col, 12, $value['operateur']);
+      $page->setCellValueByColumnAndRow(1+$col, 13, $value['machine']);
+      $page->setCellValueByColumnAndRow(1+$col, 14, $value['date']);
+      $page->setCellValueByColumnAndRow(1+$col, 15, $value['c_temperature']);
+      $page->setCellValueByColumnAndRow(1+$col, 16, $value['c_frequence']);
+      $page->setCellValueByColumnAndRow(1+$col, 17, $value['c_cycle_STL']);
+      $page->setCellValueByColumnAndRow(1+$col, 18, $value['c_frequence_STL']);
 
       if (isset($value['denomination']['denomination_1'])) {
-        $page->setCellValueByColumnAndRow($col, 19, $value['dim1']);
-        $page->setCellValueByColumnAndRow(0, 19, $value['denomination']['denomination_1']);
+        $page->setCellValueByColumnAndRow(1+$col, 19, $value['dim1']);
+        $page->setCellValueByColumnAndRow(1+0, 19, $value['denomination']['denomination_1']);
       }
       else {
         $page->getRowDimension(19)->setVisible(FALSE);
       }
       if (isset($value['denomination']['denomination_2'])) {
-        $page->setCellValueByColumnAndRow($col, 20, $value['dim2']);
-        $page->setCellValueByColumnAndRow(0, 20, $value['denomination']['denomination_2']);
+        $page->setCellValueByColumnAndRow(1+$col, 20, $value['dim2']);
+        $page->setCellValueByColumnAndRow(1+0, 20, $value['denomination']['denomination_2']);
       }
       else {
         $page->getRowDimension(20)->setVisible(FALSE);
       }
       if (isset($value['denomination']['denomination_3'])) {
-        $page->setCellValueByColumnAndRow($col, 21, $value['dim3']);
-        $page->setCellValueByColumnAndRow(0, 21, $value['denomination']['denomination_3']);
+        $page->setCellValueByColumnAndRow(1+$col, 21, $value['dim3']);
+        $page->setCellValueByColumnAndRow(1+0, 21, $value['denomination']['denomination_3']);
       }
       else {
         $page->getRowDimension(21)->setVisible(FALSE);
       }
 
-      $page->setCellValueByColumnAndRow($col, 22, $value['c_type_1_val']);
-      $page->setCellValueByColumnAndRow($col, 23, $value['c_type_2_val']);
+      $page->setCellValueByColumnAndRow(1+$col, 22, $value['c_type_1_val']);
+      $page->setCellValueByColumnAndRow(1+$col, 23, $value['c_type_2_val']);
 
       $oEprouvette->niveaumaxmin($split['c_type_1'], $split['c_type_2'], $value['c_type_1_val'], $value['c_type_2_val']);
-      $page->setCellValueByColumnAndRow($col, 24, $oEprouvette->MAX());
-      $page->setCellValueByColumnAndRow($col, 25, $oEprouvette->MIN());
+      $page->setCellValueByColumnAndRow(1+$col, 24, $oEprouvette->MAX());
+      $page->setCellValueByColumnAndRow(1+$col, 25, $oEprouvette->MIN());
 
 
-      $page->setCellValueByColumnAndRow($col, 26, $value['Cycle_min']);
-      $page->setCellValueByColumnAndRow($col, 27, $value['runout']);
+      $page->setCellValueByColumnAndRow(1+$col, 26, $value['Cycle_min']);
+      $page->setCellValueByColumnAndRow(1+$col, 27, $value['runout']);
 
-      $page->setCellValueByColumnAndRow($col, 35, $value['cycle_estime']);
+      $page->setCellValueByColumnAndRow(1+$col, 35, $value['cycle_estime']);
 
 
       $col++;
@@ -393,7 +393,7 @@ If ($split['final']=="1" && $split['test_type_abbr']!="PS")	{
 
     $colImprimable=ceil(count($ep)/10)*10+3;
     //zone d'impression
-    $colString = PHPExcel_Cell::stringFromColumnIndex($colImprimable-1);
+    $colString = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colImprimable-1);
     $page->getPageSetup()->setPrintArea('A1:'.$colString.'51');
 
 
@@ -403,7 +403,14 @@ If ($split['final']=="1" && $split['test_type_abbr']!="PS")	{
   }
 
 
-  // dé-commenter la ligne ci dessous et supprimer au dessus une fois validé le nouveau format d'OT
+
+
+
+
+
+
+
+  // dé-commenter la ligne ci dessous et supprimer ce qu'il y a au dessus une fois validé le nouveau format d'OT
   //    $objPHPExcel = $objReader->load("../templates/OT_Default.xlsx");
 
   $page=$objPHPExcel->getSheetByName('OT');
@@ -414,32 +421,32 @@ If ($split['final']=="1" && $split['test_type_abbr']!="PS")	{
     'C2'=> $split['test_type_abbr']." Fatigue Test",
     'O2' => 'OT - '.$split['job'].'-'.$split['split'],
 
-    'A5' => $jobcomplet,
-    'D5'=> $split['po_number'],
-    'G5'=> $split['ref_matiere'],
-    'I5'=> $split['dessin'],
-    'K5'=> $split['nomCreateur'],
-    'M5'=> $split['comCheckeur'],
-    'A7'=> $split['info_jobs_instruction'],
-    'M7'=> date("Y-m-d"),
+    'A5' => $jobcomplet.' ',
+    'D5'=> $split['po_number'].' ',
+    'G5'=> $split['ref_matiere'].' ',
+    'I5'=> $split['dessin'].' ',
+    'K5'=> $split['nomCreateur'].' ',
+    'M5'=> $split['comCheckeur'].' ',
+    'A7'=> $split['info_jobs_instruction'].' ',
+    'M7'=> date("Y-m-d").' ',
 
-    'A12'=> $split['waveform'],
-    'C12'=> $split['tbljob_frequence'],
-    'E12'=> $split['c_type_1'],
-    'G12'=> $split['c_type_2'],
-    'I12'=> $split['c_unite'],
-    'K12'=> $split['temperature'],
-    'M12'=> (($split['other_4']==0)?'-':$split['other_4']),
+    'A12'=> $split['waveform'].' ',
+    'C12'=> $split['tbljob_frequence'].' ',
+    'E12'=> $split['c_type_1'].' ',
+    'G12'=> $split['c_type_2'].' ',
+    'I12'=> $split['c_unite'].' ',
+    'K12'=> $split['temperature'].' ',
+    'M12'=> (($split['other_4']==0)?'-':$split['other_4']).' ',
 
 
-    'A14'=> $split['name'],
+    'A14'=> $split['name'].' ',
     'C14'=> (($split['GE']==0)?'-':$split['GE']),
     'E14'=> (($split['staircase']==0)?'-':$split['staircase']),
     'G14'=> (($split['specific_protocol']==0)?'-':$split['specific_protocol']),
 
-    'J14'=> $split['special_instruction'],
+    'J14'=> $split['special_instruction'].' ',
 
-    'A18'=> $split['tbljob_instruction']
+    'A18'=> $split['tbljob_instruction'].' '
 
   );
 
@@ -455,17 +462,17 @@ If ($split['final']=="1" && $split['test_type_abbr']!="PS")	{
   foreach ($ep as $key => $value) {
     //copy des styles des colonnes
     for ($col = 0; $col <= 15; $col++) {
-      $style = $page->getStyleByColumnAndRow($col, 28);
-      $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row);
+      $style = $page->getStyleByColumnAndrow(1+$col, 28);
+      $dstCell = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($col) . (string)($row);
       $page->duplicateStyle($style, $dstCell);
     }
 
-    $page->setCellValueByColumnAndRow(0, $row, $value['prefixe']);
-    $page->setCellValueByColumnAndRow(2, $row, $value['nom_eprouvette']);
+    $page->setCellValueByColumnAndRow(1+0, $row, $value['prefixe']);
+    $page->setCellValueByColumnAndRow(1+2, $row, $value['nom_eprouvette']);
 
-    $page->setCellValueByColumnAndRow(5, $row, ' '.$value['n_fichier']);
-    $page->setCellValueByColumnAndRow(8, $row, ' ');
-    $page->setCellValueByColumnAndRow(12, $row, ' ');
+    $page->setCellValueByColumnAndRow(1+5, $row, ' '.$value['n_fichier']);
+    $page->setCellValueByColumnAndRow(1+8, $row, ' ');
+    $page->setCellValueByColumnAndRow(1+12, $row, ' ');
 
     $row++;
   }
@@ -514,10 +521,10 @@ $page->setCellValue($key, $value);
 }
 
 //titre des lignes PV
-$page->setCellValueByColumnAndRow(1, 22, $split['c_type_1']);
-$page->setCellValueByColumnAndRow(2, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
-$page->setCellValueByColumnAndRow(1, 23, $split['c_type_2']);
-$page->setCellValueByColumnAndRow(2, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
+$page->setCellValueByColumnAndRow(1+1, 22, $split['c_type_1']);
+$page->setCellValueByColumnAndRow(1+2, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
+$page->setCellValueByColumnAndRow(1+1, 23, $split['c_type_2']);
+$page->setCellValueByColumnAndRow(1+2, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
 
 
 
@@ -525,53 +532,53 @@ $row = 0; // 1-based index
 $col = 3;
 foreach ($ep as $key => $value) {
 
-$page->setCellValueByColumnAndRow($col, 8, $value['prefixe']);
-$page->setCellValueByColumnAndRow($col, 9, $value['nom_eprouvette']);
+$page->setCellValueByColumnAndRow(1+$col, 8, $value['prefixe']);
+$page->setCellValueByColumnAndRow(1+$col, 9, $value['nom_eprouvette']);
 
-$page->setCellValueByColumnAndRow($col, 10, $value['n_essai']);
-$page->setCellValueByColumnAndRow($col, 11, $value['n_fichier']);
-$page->setCellValueByColumnAndRow($col, 12, $value['operateur']);
-$page->setCellValueByColumnAndRow($col, 13, $value['machine']);
-$page->setCellValueByColumnAndRow($col, 14, $value['date']);
-$page->setCellValueByColumnAndRow($col, 15, $value['c_temperature']);
-$page->setCellValueByColumnAndRow($col, 16, $value['c_frequence']);
-$page->setCellValueByColumnAndRow($col, 17, $value['c_cycle_STL']);
-$page->setCellValueByColumnAndRow($col, 18, $value['c_frequence_STL']);
+$page->setCellValueByColumnAndRow(1+$col, 10, $value['n_essai']);
+$page->setCellValueByColumnAndRow(1+$col, 11, $value['n_fichier']);
+$page->setCellValueByColumnAndRow(1+$col, 12, $value['operateur']);
+$page->setCellValueByColumnAndRow(1+$col, 13, $value['machine']);
+$page->setCellValueByColumnAndRow(1+$col, 14, $value['date']);
+$page->setCellValueByColumnAndRow(1+$col, 15, $value['c_temperature']);
+$page->setCellValueByColumnAndRow(1+$col, 16, $value['c_frequence']);
+$page->setCellValueByColumnAndRow(1+$col, 17, $value['c_cycle_STL']);
+$page->setCellValueByColumnAndRow(1+$col, 18, $value['c_frequence_STL']);
 
 if (isset($value['denomination']['denomination_1'])) {
-$page->setCellValueByColumnAndRow($col, 19, $value['dim1']);
-$page->setCellValueByColumnAndRow(0, 19, $value['denomination']['denomination_1']);
+$page->setCellValueByColumnAndRow(1+$col, 19, $value['dim1']);
+$page->setCellValueByColumnAndRow(1+0, 19, $value['denomination']['denomination_1']);
 }
 else {
 $page->getRowDimension(19)->setVisible(FALSE);
 }
 if (isset($value['denomination']['denomination_2'])) {
-$page->setCellValueByColumnAndRow($col, 20, $value['dim2']);
-$page->setCellValueByColumnAndRow(0, 20, $value['denomination']['denomination_2']);
+$page->setCellValueByColumnAndRow(1+$col, 20, $value['dim2']);
+$page->setCellValueByColumnAndRow(1+0, 20, $value['denomination']['denomination_2']);
 }
 else {
 $page->getRowDimension(20)->setVisible(FALSE);
 }
 if (isset($value['denomination']['denomination_3'])) {
-$page->setCellValueByColumnAndRow($col, 21, $value['dim3']);
-$page->setCellValueByColumnAndRow(0, 21, $value['denomination']['denomination_3']);
+$page->setCellValueByColumnAndRow(1+$col, 21, $value['dim3']);
+$page->setCellValueByColumnAndRow(1+0, 21, $value['denomination']['denomination_3']);
 }
 else {
 $page->getRowDimension(21)->setVisible(FALSE);
 }
 
-$page->setCellValueByColumnAndRow($col, 22, $value['c_type_1_val']);
-$page->setCellValueByColumnAndRow($col, 23, $value['c_type_2_val']);
+$page->setCellValueByColumnAndRow(1+$col, 22, $value['c_type_1_val']);
+$page->setCellValueByColumnAndRow(1+$col, 23, $value['c_type_2_val']);
 
 $oEprouvette->niveaumaxmin($split['c_type_1'], $split['c_type_2'], $value['c_type_1_val'], $value['c_type_2_val']);
-$page->setCellValueByColumnAndRow($col, 24, $oEprouvette->MAX());
-$page->setCellValueByColumnAndRow($col, 25, $oEprouvette->MIN());
+$page->setCellValueByColumnAndRow(1+$col, 24, $oEprouvette->MAX());
+$page->setCellValueByColumnAndRow(1+$col, 25, $oEprouvette->MIN());
 
 
-$page->setCellValueByColumnAndRow($col, 26, $value['Cycle_min']);
-$page->setCellValueByColumnAndRow($col, 27, $value['runout']);
+$page->setCellValueByColumnAndRow(1+$col, 26, $value['Cycle_min']);
+$page->setCellValueByColumnAndRow(1+$col, 27, $value['runout']);
 
-$page->setCellValueByColumnAndRow($col, 35, $value['cycle_estime']);
+$page->setCellValueByColumnAndRow(1+$col, 35, $value['cycle_estime']);
 
 
 $col++;
@@ -579,7 +586,7 @@ $col++;
 
 $colImprimable=ceil(count($ep)/10)*10+3;
 //zone d'impression
-$colString = PHPExcel_Cell::stringFromColumnIndex($colImprimable-1);
+$colString = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colImprimable-1);
 $page->getPageSetup()->setPrintArea('A1:'.$colString.'51');
 
 
@@ -616,10 +623,10 @@ $page->setCellValue($key, $value);
 }
 
 //titre des lignes PV
-$page->setCellValueByColumnAndRow(1, 22, $split['c_type_1']);
-$page->setCellValueByColumnAndRow(2, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
-$page->setCellValueByColumnAndRow(1, 23, $split['c_type_2']);
-$page->setCellValueByColumnAndRow(2, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
+$page->setCellValueByColumnAndRow(1+1, 22, $split['c_type_1']);
+$page->setCellValueByColumnAndRow(1+2, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
+$page->setCellValueByColumnAndRow(1+1, 23, $split['c_type_2']);
+$page->setCellValueByColumnAndRow(1+2, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
 
 
 
@@ -627,53 +634,53 @@ $row = 0; // 1-based index
 $col = 3;
 foreach ($ep as $key => $value) {
 
-$page->setCellValueByColumnAndRow($col, 8, $value['prefixe']);
-$page->setCellValueByColumnAndRow($col, 9, $value['nom_eprouvette']);
+$page->setCellValueByColumnAndRow(1+$col, 8, $value['prefixe']);
+$page->setCellValueByColumnAndRow(1+$col, 9, $value['nom_eprouvette']);
 
-$page->setCellValueByColumnAndRow($col, 10, $value['n_essai']);
-$page->setCellValueByColumnAndRow($col, 11, $value['n_fichier']);
-$page->setCellValueByColumnAndRow($col, 12, $value['operateur']);
-$page->setCellValueByColumnAndRow($col, 13, $value['machine']);
-$page->setCellValueByColumnAndRow($col, 14, $value['date']);
-$page->setCellValueByColumnAndRow($col, 15, $value['c_temperature']);
-$page->setCellValueByColumnAndRow($col, 16, $value['c_frequence']);
-$page->setCellValueByColumnAndRow($col, 17, $value['c_cycle_STL']);
-$page->setCellValueByColumnAndRow($col, 18, $value['c_frequence_STL']);
+$page->setCellValueByColumnAndRow(1+$col, 10, $value['n_essai']);
+$page->setCellValueByColumnAndRow(1+$col, 11, $value['n_fichier']);
+$page->setCellValueByColumnAndRow(1+$col, 12, $value['operateur']);
+$page->setCellValueByColumnAndRow(1+$col, 13, $value['machine']);
+$page->setCellValueByColumnAndRow(1+$col, 14, $value['date']);
+$page->setCellValueByColumnAndRow(1+$col, 15, $value['c_temperature']);
+$page->setCellValueByColumnAndRow(1+$col, 16, $value['c_frequence']);
+$page->setCellValueByColumnAndRow(1+$col, 17, $value['c_cycle_STL']);
+$page->setCellValueByColumnAndRow(1+$col, 18, $value['c_frequence_STL']);
 
 if (isset($value['denomination']['denomination_1'])) {
-$page->setCellValueByColumnAndRow($col, 19, $value['dim1']);
-$page->setCellValueByColumnAndRow(0, 19, $value['denomination']['denomination_1']);
+$page->setCellValueByColumnAndRow(1+$col, 19, $value['dim1']);
+$page->setCellValueByColumnAndRow(1+0, 19, $value['denomination']['denomination_1']);
 }
 else {
 $page->getRowDimension(19)->setVisible(FALSE);
 }
 if (isset($value['denomination']['denomination_2'])) {
-$page->setCellValueByColumnAndRow($col, 20, $value['dim2']);
-$page->setCellValueByColumnAndRow(0, 20, $value['denomination']['denomination_2']);
+$page->setCellValueByColumnAndRow(1+$col, 20, $value['dim2']);
+$page->setCellValueByColumnAndRow(1+0, 20, $value['denomination']['denomination_2']);
 }
 else {
 $page->getRowDimension(20)->setVisible(FALSE);
 }
 if (isset($value['denomination']['denomination_3'])) {
-$page->setCellValueByColumnAndRow($col, 21, $value['dim3']);
-$page->setCellValueByColumnAndRow(0, 21, $value['denomination']['denomination_3']);
+$page->setCellValueByColumnAndRow(1+$col, 21, $value['dim3']);
+$page->setCellValueByColumnAndRow(1+0, 21, $value['denomination']['denomination_3']);
 }
 else {
 $page->getRowDimension(21)->setVisible(FALSE);
 }
 
-$page->setCellValueByColumnAndRow($col, 22, $value['c_type_1_val']);
-$page->setCellValueByColumnAndRow($col, 23, $value['c_type_2_val']);
+$page->setCellValueByColumnAndRow(1+$col, 22, $value['c_type_1_val']);
+$page->setCellValueByColumnAndRow(1+$col, 23, $value['c_type_2_val']);
 
 $oEprouvette->niveaumaxmin($split['c_type_1'], $split['c_type_2'], $value['c_type_1_val'], $value['c_type_2_val']);
-$page->setCellValueByColumnAndRow($col, 24, $oEprouvette->MAX());
-$page->setCellValueByColumnAndRow($col, 25, $oEprouvette->MIN());
+$page->setCellValueByColumnAndRow(1+$col, 24, $oEprouvette->MAX());
+$page->setCellValueByColumnAndRow(1+$col, 25, $oEprouvette->MIN());
 
 
-$page->setCellValueByColumnAndRow($col, 26, $value['Cycle_min']);
-$page->setCellValueByColumnAndRow($col, 27, $value['runout']);
+$page->setCellValueByColumnAndRow(1+$col, 26, $value['Cycle_min']);
+$page->setCellValueByColumnAndRow(1+$col, 27, $value['runout']);
 
-$page->setCellValueByColumnAndRow($col, 35, $value['cycle_estime']);
+$page->setCellValueByColumnAndRow(1+$col, 35, $value['cycle_estime']);
 
 
 $col++;
@@ -681,7 +688,7 @@ $col++;
 
 $colImprimable=ceil(count($ep)/10)*10+3;
 //zone d'impression
-$colString = PHPExcel_Cell::stringFromColumnIndex($colImprimable-1);
+$colString = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colImprimable-1);
 $page->getPageSetup()->setPrintArea('A1:'.$colString.'51');
 
 
@@ -720,10 +727,10 @@ $page->setCellValue($key, $value);
 }
 
 //titre des lignes PV
-$page->setCellValueByColumnAndRow(1, 22, $split['c_type_1']);
-$page->setCellValueByColumnAndRow(2, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
-$page->setCellValueByColumnAndRow(1, 23, $split['c_type_2']);
-$page->setCellValueByColumnAndRow(2, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
+$page->setCellValueByColumnAndRow(1+1, 22, $split['c_type_1']);
+$page->setCellValueByColumnAndRow(1+2, 22, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
+$page->setCellValueByColumnAndRow(1+1, 23, $split['c_type_2']);
+$page->setCellValueByColumnAndRow(1+2, 23, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
 
 
 
@@ -731,53 +738,53 @@ $row = 0; // 1-based index
 $col = 3;
 foreach ($ep as $key => $value) {
 //copy des styles des colonnes
-$page->setCellValueByColumnAndRow($col, 8, $value['prefixe']);
-$page->setCellValueByColumnAndRow($col, 9, $value['nom_eprouvette']);
+$page->setCellValueByColumnAndRow(1+$col, 8, $value['prefixe']);
+$page->setCellValueByColumnAndRow(1+$col, 9, $value['nom_eprouvette']);
 
-$page->setCellValueByColumnAndRow($col, 10, $value['n_essai']);
-$page->setCellValueByColumnAndRow($col, 11, $value['n_fichier']);
-$page->setCellValueByColumnAndRow($col, 12, $value['operateur']);
-$page->setCellValueByColumnAndRow($col, 13, $value['machine']);
-$page->setCellValueByColumnAndRow($col, 14, $value['date']);
-$page->setCellValueByColumnAndRow($col, 15, $value['c_temperature']);
-$page->setCellValueByColumnAndRow($col, 16, $value['c_frequence']);
-$page->setCellValueByColumnAndRow($col, 17, $value['c_cycle_STL']);
-$page->setCellValueByColumnAndRow($col, 18, $value['c_frequence_STL']);
+$page->setCellValueByColumnAndRow(1+$col, 10, $value['n_essai']);
+$page->setCellValueByColumnAndRow(1+$col, 11, $value['n_fichier']);
+$page->setCellValueByColumnAndRow(1+$col, 12, $value['operateur']);
+$page->setCellValueByColumnAndRow(1+$col, 13, $value['machine']);
+$page->setCellValueByColumnAndRow(1+$col, 14, $value['date']);
+$page->setCellValueByColumnAndRow(1+$col, 15, $value['c_temperature']);
+$page->setCellValueByColumnAndRow(1+$col, 16, $value['c_frequence']);
+$page->setCellValueByColumnAndRow(1+$col, 17, $value['c_cycle_STL']);
+$page->setCellValueByColumnAndRow(1+$col, 18, $value['c_frequence_STL']);
 
 if (isset($value['denomination']['denomination_1'])) {
-$page->setCellValueByColumnAndRow($col, 19, $value['dim1']);
-$page->setCellValueByColumnAndRow(0, 19, $value['denomination']['denomination_1']);
+$page->setCellValueByColumnAndRow(1+$col, 19, $value['dim1']);
+$page->setCellValueByColumnAndRow(1+0, 19, $value['denomination']['denomination_1']);
 }
 else {
 $page->getRowDimension(19)->setVisible(FALSE);
 }
 if (isset($value['denomination']['denomination_2'])) {
-$page->setCellValueByColumnAndRow($col, 20, $value['dim2']);
-$page->setCellValueByColumnAndRow(0, 20, $value['denomination']['denomination_2']);
+$page->setCellValueByColumnAndRow(1+$col, 20, $value['dim2']);
+$page->setCellValueByColumnAndRow(1+0, 20, $value['denomination']['denomination_2']);
 }
 else {
 $page->getRowDimension(20)->setVisible(FALSE);
 }
 if (isset($value['denomination']['denomination_3'])) {
-$page->setCellValueByColumnAndRow($col, 21, $value['dim3']);
-$page->setCellValueByColumnAndRow(0, 21, $value['denomination']['denomination_3']);
+$page->setCellValueByColumnAndRow(1+$col, 21, $value['dim3']);
+$page->setCellValueByColumnAndRow(1+0, 21, $value['denomination']['denomination_3']);
 }
 else {
 $page->getRowDimension(21)->setVisible(FALSE);
 }
 
-$page->setCellValueByColumnAndRow($col, 22, $value['c_type_1_val']);
-$page->setCellValueByColumnAndRow($col, 23, $value['c_type_2_val']);
+$page->setCellValueByColumnAndRow(1+$col, 22, $value['c_type_1_val']);
+$page->setCellValueByColumnAndRow(1+$col, 23, $value['c_type_2_val']);
 
 $oEprouvette->niveaumaxmin($split['c_type_1'], $split['c_type_2'], $value['c_type_1_val'], $value['c_type_2_val']);
-$page->setCellValueByColumnAndRow($col, 24, $oEprouvette->MAX());
-$page->setCellValueByColumnAndRow($col, 25, $oEprouvette->MIN());
+$page->setCellValueByColumnAndRow(1+$col, 24, $oEprouvette->MAX());
+$page->setCellValueByColumnAndRow(1+$col, 25, $oEprouvette->MIN());
 
 
-$page->setCellValueByColumnAndRow($col, 26, $value['Cycle_min']);
-$page->setCellValueByColumnAndRow($col, 27, $value['runout']);
+$page->setCellValueByColumnAndRow(1+$col, 26, $value['Cycle_min']);
+$page->setCellValueByColumnAndRow(1+$col, 27, $value['runout']);
 
-$page->setCellValueByColumnAndRow($col, 35, $value['cycle_estime']);
+$page->setCellValueByColumnAndRow(1+$col, 35, $value['cycle_estime']);
 
 
 $col++;
@@ -785,7 +792,7 @@ $col++;
 
 $colImprimable=ceil(count($ep)/10)*10+3;
 //zone d'impression
-$colString = PHPExcel_Cell::stringFromColumnIndex($colImprimable-1);
+$colString = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colImprimable-1);
 $page->getPageSetup()->setPrintArea('A1:'.$colString.'51');
 
 
@@ -827,10 +834,10 @@ ElseIf ($split['test_type_abbr']=="PS")	{
   }
 
   //titre des lignes PV
-  $page->setCellValueByColumnAndRow(1, 26, $split['c_type_1']);
-  $page->setCellValueByColumnAndRow(2, 26, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
-  $page->setCellValueByColumnAndRow(1, 27, $split['c_type_2']);
-  $page->setCellValueByColumnAndRow(2, 27, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
+  $page->setCellValueByColumnAndRow(1+1, 26, $split['c_type_1']);
+  $page->setCellValueByColumnAndRow(1+2, 26, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
+  $page->setCellValueByColumnAndRow(1+1, 27, $split['c_type_2']);
+  $page->setCellValueByColumnAndRow(1+2, 27, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
 
 
 
@@ -838,51 +845,51 @@ ElseIf ($split['test_type_abbr']=="PS")	{
   $col = 3;
   foreach ($ep as $key => $value) {
 
-    $page->setCellValueByColumnAndRow($col, 12, $value['prefixe']);
-    $page->setCellValueByColumnAndRow($col, 13, $value['nom_eprouvette']);
+    $page->setCellValueByColumnAndRow(1+$col, 12, $value['prefixe']);
+    $page->setCellValueByColumnAndRow(1+$col, 13, $value['nom_eprouvette']);
 
-    $page->setCellValueByColumnAndRow($col, 14, $value['n_essai']);
-    $page->setCellValueByColumnAndRow($col, 15, $value['n_fichier']);
-    $page->setCellValueByColumnAndRow($col, 16, $value['operateur']);
-    $page->setCellValueByColumnAndRow($col, 17, $value['machine']);
-    $page->setCellValueByColumnAndRow($col, 18, $value['date']);
-    $page->setCellValueByColumnAndRow($col, 19, $value['c_temperature']);
-    $page->setCellValueByColumnAndRow($col, 20, $value['c_frequence']);
-    $page->setCellValueByColumnAndRow($col, 21, $value['c_cycle_STL']);
-    $page->setCellValueByColumnAndRow($col, 22, $value['c_frequence_STL']);
+    $page->setCellValueByColumnAndRow(1+$col, 14, $value['n_essai']);
+    $page->setCellValueByColumnAndRow(1+$col, 15, $value['n_fichier']);
+    $page->setCellValueByColumnAndRow(1+$col, 16, $value['operateur']);
+    $page->setCellValueByColumnAndRow(1+$col, 17, $value['machine']);
+    $page->setCellValueByColumnAndRow(1+$col, 18, $value['date']);
+    $page->setCellValueByColumnAndRow(1+$col, 19, $value['c_temperature']);
+    $page->setCellValueByColumnAndRow(1+$col, 20, $value['c_frequence']);
+    $page->setCellValueByColumnAndRow(1+$col, 21, $value['c_cycle_STL']);
+    $page->setCellValueByColumnAndRow(1+$col, 22, $value['c_frequence_STL']);
 
     if (isset($value['denomination']['denomination_1'])) {
-      $page->setCellValueByColumnAndRow($col, 23, $value['dim1']);
-      $page->setCellValueByColumnAndRow(0, 23, $value['denomination']['denomination_1']);
+      $page->setCellValueByColumnAndRow(1+$col, 23, $value['dim1']);
+      $page->setCellValueByColumnAndRow(1+0, 23, $value['denomination']['denomination_1']);
     }
     else {
       $page->getRowDimension(23)->setVisible(FALSE);
     }
     if (isset($value['denomination']['denomination_2'])) {
-      $page->setCellValueByColumnAndRow($col, 24, $value['dim2']);
-      $page->setCellValueByColumnAndRow(0, 24, $value['denomination']['denomination_2']);
+      $page->setCellValueByColumnAndRow(1+$col, 24, $value['dim2']);
+      $page->setCellValueByColumnAndRow(1+0, 24, $value['denomination']['denomination_2']);
     }
     else {
       $page->getRowDimension(24)->setVisible(FALSE);
     }
     if (isset($value['denomination']['denomination_3'])) {
-      $page->setCellValueByColumnAndRow($col, 25, $value['dim3']);
-      $page->setCellValueByColumnAndRow(0, 25, $value['denomination']['denomination_3']);
+      $page->setCellValueByColumnAndRow(1+$col, 25, $value['dim3']);
+      $page->setCellValueByColumnAndRow(1+0, 25, $value['denomination']['denomination_3']);
     }
     else {
       $page->getRowDimension(25)->setVisible(FALSE);
     }
 
-    $page->setCellValueByColumnAndRow($col, 26, $value['c_type_1_val']);
-    $page->setCellValueByColumnAndRow($col, 27, $value['c_type_2_val']);
+    $page->setCellValueByColumnAndRow(1+$col, 26, $value['c_type_1_val']);
+    $page->setCellValueByColumnAndRow(1+$col, 27, $value['c_type_2_val']);
 
     $oEprouvette->niveaumaxmin($split['c_type_1'], $split['c_type_2'], $value['c_type_1_val'], $value['c_type_2_val']);
-    $page->setCellValueByColumnAndRow($col, 28, $oEprouvette->MAX());
-    $page->setCellValueByColumnAndRow($col, 29, $oEprouvette->MIN());
+    $page->setCellValueByColumnAndRow(1+$col, 28, $oEprouvette->MAX());
+    $page->setCellValueByColumnAndRow(1+$col, 29, $oEprouvette->MIN());
 
 
-    $page->setCellValueByColumnAndRow($col, 30, $value['other_2']);
-    $page->setCellValueByColumnAndRow($col, 31, $value['runout']);
+    $page->setCellValueByColumnAndRow(1+$col, 30, $value['other_2']);
+    $page->setCellValueByColumnAndRow(1+$col, 31, $value['runout']);
 
     $col++;
   }
@@ -896,7 +903,7 @@ ElseIf ($split['test_type_abbr']=="PS")	{
 
   $colImprimable=ceil(count($ep)/10)*10+3;
   //zone d'impression
-  $colString = PHPExcel_Cell::stringFromColumnIndex($colImprimable-1);
+  $colString = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colImprimable-1);
   $page->getPageSetup()->setPrintArea('A1:'.$colString.'56');
 
 
@@ -952,27 +959,27 @@ ElseIf ($split['test_type_abbr']=="IQC")	{
   $newEntry=$objPHPExcel->getSheetByName('New Entry');
 
   foreach ($epIQC as $key => $value) {
-    $oldData->setCellValueByColumnAndRow(0, $row, $value['id_eprouvette']);
+    $oldData->setCellValueByColumnAndRow(1+0, $row, $value['id_eprouvette']);
 
-    $oldData->setCellValueByColumnAndRow(1, $row, '*'.$value['prefixe']);
-    $oldData->setCellValueByColumnAndRow(2, $row, '*'.$value['nom_eprouvette']);
+    $oldData->setCellValueByColumnAndRow(1+1, $row, '*'.$value['prefixe']);
+    $oldData->setCellValueByColumnAndRow(1+2, $row, '*'.$value['nom_eprouvette']);
 
 
-    $oldData->setCellValueByColumnAndRow(3, $row, $value['dim1']);
-    $oldData->setCellValueByColumnAndRow(4, $row, $value['dim2']);
-    $oldData->setCellValueByColumnAndRow(5, $row, $value['dim3']);
+    $oldData->setCellValueByColumnAndRow(1+3, $row, $value['dim1']);
+    $oldData->setCellValueByColumnAndRow(1+4, $row, $value['dim2']);
+    $oldData->setCellValueByColumnAndRow(1+5, $row, $value['dim3']);
 
-    $oldData->setCellValueByColumnAndRow(7, $row, $value['marquage']);
-    $oldData->setCellValueByColumnAndRow(8, $row, $value['surface']);
-    $oldData->setCellValueByColumnAndRow(9, $row, $value['grenaillage']);
-    $oldData->setCellValueByColumnAndRow(10, $row, $value['revetement']);
-    $oldData->setCellValueByColumnAndRow(11, $row, $value['protection']);
-    $oldData->setCellValueByColumnAndRow(12, $row, $value['autre']);
+    $oldData->setCellValueByColumnAndRow(1+7, $row, $value['marquage']);
+    $oldData->setCellValueByColumnAndRow(1+8, $row, $value['surface']);
+    $oldData->setCellValueByColumnAndRow(1+9, $row, $value['grenaillage']);
+    $oldData->setCellValueByColumnAndRow(1+10, $row, $value['revetement']);
+    $oldData->setCellValueByColumnAndRow(1+11, $row, $value['protection']);
+    $oldData->setCellValueByColumnAndRow(1+12, $row, $value['autre']);
 
-    $oldData->setCellValueByColumnAndRow(13, $row, $value['d_commentaire']);
-    $oldData->setCellValueByColumnAndRow(14, $row, $value['date_IQC']);
+    $oldData->setCellValueByColumnAndRow(1+13, $row, $value['d_commentaire']);
+    $oldData->setCellValueByColumnAndRow(1+14, $row, $value['date_IQC']);
 
-    $oldData->setCellValueByColumnAndRow(15, $row, $value['technicien']);
+    $oldData->setCellValueByColumnAndRow(1+15, $row, $value['technicien']);
 
     $row++;
   }
@@ -1037,32 +1044,32 @@ ElseIf ($split['test_type_abbr']==".Ma")	{
   foreach ($ep as $key => $value) {
     //copy des styles des colonnes
     for ($col = 0; $col < 8; $col++) {
-      $style = $pageEN->getStyleByColumnAndRow($col, $row);
-      $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row+1);
+      $style = $pageEN->getStyleByColumnAndrow(1+$col, $row);
+      $dstCell = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($col) . (string)($row+1);
       $pageEN->duplicateStyle($style, $dstCell);
 
-      $style = $pageFR->getStyleByColumnAndRow($col, $row);
-      $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row+1);
+      $style = $pageFR->getStyleByColumnAndrow(1+$col, $row);
+      $dstCell = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($col) . (string)($row+1);
       $pageFR->duplicateStyle($style, $dstCell);
     }
 
     $pageEN->mergeCells('A'.$row.':C'.$row);
     $pageEN->mergeCells('E'.$row.':H'.$row);
-    $pageEN->setCellValueByColumnAndRow(0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
-    $pageEN->setCellValueByColumnAndRow(3, $row, $value['dessin']);
-    $pageEN->setCellValueByColumnAndRow(4, $row, $value['c_commentaire']);
+    $pageEN->setCellValueByColumnAndRow(1+0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
+    $pageEN->setCellValueByColumnAndRow(1+3, $row, $value['dessin']);
+    $pageEN->setCellValueByColumnAndRow(1+4, $row, $value['c_commentaire']);
 
     $pageFR->mergeCells('A'.$row.':C'.$row);
     $pageFR->mergeCells('E'.$row.':H'.$row);
-    $pageFR->setCellValueByColumnAndRow(0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
-    $pageFR->setCellValueByColumnAndRow(3, $row, $value['dessin']);
-    $pageFR->setCellValueByColumnAndRow(4, $row, (($value['c_type_1_val']>0)?'Inertial Welding - ':'').$value['c_commentaire']);
+    $pageFR->setCellValueByColumnAndRow(1+0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
+    $pageFR->setCellValueByColumnAndRow(1+3, $row, $value['dessin']);
+    $pageFR->setCellValueByColumnAndRow(1+4, $row, (($value['c_type_1_val']>0)?'Inertial Welding - ':'').$value['c_commentaire']);
 
     $row++;
   }
 
   //zone d'impression
-  $colString = PHPExcel_Cell::stringFromColumnIndex($col-1);
+  $colString = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($col-1);
   $pageEN->getPageSetup()->setPrintArea('A1:'.$colString.($row-1));
   $pageFR->getPageSetup()->setPrintArea('A1:'.$colString.($row-1));
 
@@ -1106,32 +1113,32 @@ ElseIf ($split['ST']=="1")	{
   foreach ($ep as $key => $value) {
     //copy des styles des colonnes
     for ($col = 0; $col < 8; $col++) {
-      $style = $pageEN->getStyleByColumnAndRow($col, $row);
-      $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row+1);
+      $style = $pageEN->getStyleByColumnAndrow(1+$col, $row);
+      $dstCell = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($col) . (string)($row+1);
       $pageEN->duplicateStyle($style, $dstCell);
 
-      $style = $pageFR->getStyleByColumnAndRow($col, $row);
-      $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row+1);
+      $style = $pageFR->getStyleByColumnAndrow(1+$col, $row);
+      $dstCell = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($col) . (string)($row+1);
       $pageFR->duplicateStyle($style, $dstCell);
     }
 
     $pageEN->mergeCells('A'.$row.':C'.$row);
     $pageEN->mergeCells('E'.$row.':H'.$row);
-    $pageEN->setCellValueByColumnAndRow(0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
-    $pageEN->setCellValueByColumnAndRow(3, $row, $value['dessin']);
-    $pageEN->setCellValueByColumnAndRow(4, $row, $value['c_commentaire']);
+    $pageEN->setCellValueByColumnAndRow(1+0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
+    $pageEN->setCellValueByColumnAndRow(1+3, $row, $value['dessin']);
+    $pageEN->setCellValueByColumnAndRow(1+4, $row, $value['c_commentaire']);
 
     $pageFR->mergeCells('A'.$row.':C'.$row);
     $pageFR->mergeCells('E'.$row.':H'.$row);
-    $pageFR->setCellValueByColumnAndRow(0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
-    $pageFR->setCellValueByColumnAndRow(3, $row, $value['dessin']);
-    $pageFR->setCellValueByColumnAndRow(4, $row, $value['c_commentaire']);
+    $pageFR->setCellValueByColumnAndRow(1+0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
+    $pageFR->setCellValueByColumnAndRow(1+3, $row, $value['dessin']);
+    $pageFR->setCellValueByColumnAndRow(1+4, $row, $value['c_commentaire']);
 
     $row++;
   }
 
   //zone d'impression
-  $colString = PHPExcel_Cell::stringFromColumnIndex($col-1);
+  $colString = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($col-1);
   $pageEN->getPageSetup()->setPrintArea('A1:'.$colString.($row-1));
   $pageFR->getPageSetup()->setPrintArea('A1:'.$colString.($row-1));
 
@@ -1146,9 +1153,11 @@ else {
 //exit;
 
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($objPHPExcel, 'Xlsx');
 //$objWriter->setIncludeCharts(TRUE);
-$objWriter->save('../temp/OT-'.$split['job'].'-'.$split['split'].'-'.$split['test_type_abbr'].'.xlsx');
+
+$file='../temp/OT-'.$split['job'].'-'.$split['split'].'-'.$split['test_type_abbr'].'.xlsx';
+$objWriter->save($file);
 
 // Redirect output to a client’s web browser (Excel2007)
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -1163,9 +1172,7 @@ header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
 header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
 header ('Pragma: public'); // HTTP/1.0
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-//$objWriter->setIncludeCharts(TRUE);
-$objWriter->save('php://output');
+readfile($file);
 exit;
 
 ?>

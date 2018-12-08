@@ -49,6 +49,7 @@ $classpriority="hidden";  //priority
 for($k=0;$k < count($ep);$k++)	{
   $oEp = new EprouvetteModel($db,$ep[$k]['id_eprouvette']);
   $ep[$k]=$oEp->getTest();
+  $ep[$k]['TDRCount']=$oEp->getTDRCount()['TDRCount'];
   $workflow=$oEp->getWorkflow();
 
   $tempCorrected=$oEp->getTempCorrected();

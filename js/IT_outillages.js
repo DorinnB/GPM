@@ -87,12 +87,7 @@ $(document).ready(function() {
       { data: "outillages.dateService" },
       { data: "outillages.dateHS" },
       { data: "outillages.comments" },
-      { data: null,
-        render: function ( data ) {
-          return '<button class="popoverButton" data-id="'+data.outillages.id_outillage+'">Click</button>';
-        },
-        defaultContent: ""
-      },
+      { data: "machines.machine" },
       { data: "outillages.outillage_actif" }
 
     ],
@@ -109,34 +104,7 @@ $(document).ready(function() {
     },
     buttons: [
       { extend: "create", editor: editor }
-    ],
-    drawCallback: function () {
-      $('.popoverButton').each( function() {
-                    $(this).popover({
-                        "html": true,
-                        trigger: 'manual',
-                        placement: 'left',
-                        "content": function () {
-                          $.ajax({
-                            type: "POST",
-                            url: 'controller/lastSeenOutillage.php',
-                            dataType: "json",
-                            data:  {
-                              id_outillage : $(this).attr('data-id')
-                            }
-                            ,
-                            success : function(data, statut){
-                              $("#text_popover").text(test=data.machine);
-                            },
-                            error : function(resultat, statut, erreur) {
-                              $("#text_popover").text("Unseen");
-                            }
-                          });
-                            return "<div id='text_popover'>Unknown</div>";
-                        }
-                    });
-                  })
-                }
+    ]
   } );
 
 
@@ -145,11 +113,6 @@ $(document).ready(function() {
   .search( '1' )
   .draw();
 
-  $('table').on('click', function(e){
-          if($('.popoverButton').length>1)
-          $('.popoverButton').popover('hide');
-          $(e.target).popover('toggle');
-});
 
 
   $('#container').css('display', 'block');

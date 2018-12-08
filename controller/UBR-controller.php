@@ -65,13 +65,13 @@ date_default_timezone_set('Europe/Paris');
 if (PHP_SAPI == 'cli')
 die('This example should only be run from a Web Browser');
 
-/** Include PHPExcel */
-require_once '../lib/PHPExcel/PHPExcel.php';
+/** Include \PhpOffice\PhpSpreadsheet\Spreadsheet */
+require '../vendor/autoload.php';
 
 
-// Create new PHPExcel object
-$objPHPExcel = new PHPExcel();
-$objReader = PHPExcel_IOFactory::createReader('Excel2007');
+// Create new \PhpOffice\PhpSpreadsheet\Spreadsheet object
+$objPHPExcel = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+$objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
 $objReader->setIncludeCharts(TRUE);
 
 //nom du fichier excel d'UBR
@@ -105,7 +105,7 @@ foreach ($oFollowup->getAllFollowup($filtreFollowup) as $row) {
     //on copie le style de l'entete pour chaque split
     for ($colEnTete = 0; $colEnTete <= 7; $colEnTete++) {
       $style = $enTete->getStyleByColumnAndRow($colEnTete, 9);
-      $dstCell = PHPExcel_Cell::stringFromColumnIndex($colEnTete) . (string)($rowEnTete);
+      $dstCell = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($colEnTete) . (string)($rowEnTete);
       $enTete->duplicateStyle($style, $dstCell);
     }
     //on ecrit les données par split
@@ -133,7 +133,7 @@ foreach ($oFollowup->getAllFollowup($filtreFollowup) as $row) {
       //copy des styles des colonnes
       for ($row = 5; $row <= 17; $row++) {
         $style = $newSheet->getStyleByColumnAndRow(3, $row);
-        $dstCell = PHPExcel_Cell::stringFromColumnIndex($col) . (string)($row);
+        $dstCell = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($col) . (string)($row);
         $newSheet->duplicateStyle($style, $dstCell);
       }
 
@@ -183,7 +183,7 @@ $enTete->setCellValue("B4", $date);
 $objPHPExcel->setActiveSheetIndex(0);
 
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($objPHPExcel, 'Xlsx');
 //$objWriter->setIncludeCharts(TRUE);
 $objWriter->save('../temp/UBR-'.$date.'.xlsx');
 
@@ -206,7 +206,7 @@ header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
 header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
 header ('Pragma: public'); // HTTP/1.0
 
-$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+$objWriter = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($objPHPExcel, 'Xlsx');
 //$objWriter->setIncludeCharts(TRUE);
 $objWriter->save('php://output');
 exit;

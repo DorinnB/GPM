@@ -23,12 +23,12 @@ if (isset($_FILES['fileToUpload']['tmp_name']) AND $_FILES['fileToUpload']['tmp_
 
 
 
-  //  Include PHPExcel_IOFactory
-  require_once '../lib/PHPExcel/PHPExcel.php';
+  //  Include \PhpOffice\PhpSpreadsheet\IOFactory
+  require '../vendor/autoload.php';
 
-  // Create new PHPExcel object
-  $objPHPExcel = new PHPExcel();
-  $objReader = PHPExcel_IOFactory::createReader('Excel2007');
+  // Create new \PhpOffice\PhpSpreadsheet\Spreadsheet object
+  $objPHPExcel = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+  $objReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
 
 
   $inputFileName = $fichierIQC;

@@ -50,12 +50,13 @@ class PosteModel
 
     $req = 'SELECT postes.id_poste, poste,
           GROUP_CONCAT(DISTINCT job SEPARATOR " ") as job,
+          GROUP_CONCAT(distinct(if(signal_tapered=1,"Tapered", "w/o")) SEPARATOR " & ") as signal_tapered,
           GROUP_CONCAT(DISTINCT dessin SEPARATOR " ") as dessin,
           GROUP_CONCAT(DISTINCT ref_matiere SEPARATOR " ") as matiere,
 
           cell_displacement_serial, cell_load_serial,
           cartouche_stroke, cartouche_load, cartouche_strain, enregistreur, extensometre, o1.outillage as outillage_top, o2.outillage as outillage_bot, chauffage, i1.ind_temp as ind_temp_top, i2.ind_temp as ind_temp_strap, i3.ind_temp as ind_temp_bot,
-          IF( compresseur = 1,  "&#10004;",  "" ) as compresseur, postes.date,
+          IF( compresseur = 1,  '.'"&#10004;"'.',  "" ) as compresseur, postes.date,
           Disp_P,	Disp_i,	Disp_D,	Disp_Conv,	Disp_Sens,	Load_P,	Load_i,	Load_D,	Load_Conv,	Load_Sens,	Strain_P,	Strain_i,	Strain_D,	Strain_Conv,	Strain_Sens,
           poste_commentaire, poste_reason, id_operateur
 				FROM postes
@@ -161,4 +162,21 @@ class PosteModel
       $this->db->execute($reqInsert);
     }
 
+    public function newPosteOther($item){ //$item en direct parce que quote ajoutait ' ' et ne permet plus de lire l'element dans mysql
+      $reqInsert='INSERT INTO postes
+      (
+        '.$item.',
+        id_operateur,
+        id_machine
+      )
+
+      VALUES (
+        '.$this->itemValue.',
+        '.$this->id_operateur.',
+        '.$this->id_machine.'
+      );';
+
+        //echo $reqInsert;
+        $this->db->execute($reqInsert);
+      }
   }

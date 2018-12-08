@@ -36,8 +36,8 @@ class LstSplitModel
     tbljob_commentaire, tbljob_instruction, tbljob_commentaire_qualite, planning, tbljob_frequence,
     GE, specific_protocol, special_instruction, staircase,
     createur, t1.technicien as nomCreateur, t2.technicien as comCheckeur,
-    statuts.id_statut, statut, etape, statut_color, test_type, test_type_abbr, test_type_cust, ST,final, auxilaire, tbljobs.id_rawData, rawData.name, report_rev,
-    invoice_type, invoice_date, invoice_commentaire, invoice_lang, invoice_currency,
+    statuts.id_statut, statut, etape, statut_color, test_type, test_type_abbr, test_type_cust, ST,final, auxilaire, tbljobs.id_rawData, rawData.name, rawdatatobesent,
+    report_rev, invoice_type, invoice_date, invoice_commentaire, invoice_lang, invoice_currency,
     specification, ref_matiere, matiere, tbljobs.waveform, GROUP_CONCAT(DISTINCT dessin SEPARATOR " ") as dessin, GROUP_CONCAT(DISTINCT master_eprouvettes.id_dwg SEPARATOR " ") as id_dessin,
     other_1, other_2, other_3, other_4, other_5,
     GROUP_CONCAT( DISTINCT round(c_temperature,0) ORDER BY c_temperature DESC SEPARATOR " / ") as temperature,
@@ -68,53 +68,63 @@ class LstSplitModel
     sum(ceil(if(temps_essais is null,null,if(temps_essais>24, temps_essais-24,0)))) as hrsup,
     sum(ceil(
       if(temps_essais is null,
-        if(IF(Cycle_final is null,Cycle_final_temp, cycle_final) >0 AND c_frequence is not null and c_frequence !=0,
+        if(
+          IF(Cycle_final is null,Cycle_final_temp, cycle_final) >0 AND c_frequence is not null and c_frequence !=0,
           if(Cycle_STL is null and c_cycle_STL is null,
             IF(Cycle_final is null,Cycle_final_temp, cycle_final)/eprouvettes.c_frequence/3600,
             if(Cycle_STL is null,
-              if(IF(Cycle_final is null,Cycle_final_temp, cycle_final)>c_cycle_STL,(c_cycle_STL/c_frequence+(IF(Cycle_final is null,Cycle_final_temp, cycle_final)-c_cycle_STL)/c_frequence_STL)/3600,
-              (IF(Cycle_final is null,Cycle_final_temp, cycle_final)/c_frequence)/3600
-            )
-            ,if(IF(Cycle_final is null,Cycle_final_temp, cycle_final)>cycle_STL,
-              (cycle_STL/c_frequence+(IF(Cycle_final is null,Cycle_final_temp, cycle_final)-cycle_STL)/c_frequence_STL)/3600,
-              (IF(Cycle_final is null,Cycle_final_temp, cycle_final)/c_frequence)/3600
-            )
-          )
-        ),
-        0)
-        ,temps_essais
-      )
-    )) as tpscalc,
-
-    sum(ceil(
-      if(
-        if(temps_essais is null,
-          if(IF(Cycle_final is null,Cycle_final_temp, cycle_final) >0 AND c_frequence is not null and c_frequence !=0,
-            if(Cycle_STL is null and c_cycle_STL is null,
-              IF(Cycle_final is null,Cycle_final_temp, cycle_final)/eprouvettes.c_frequence/3600,
-              if(Cycle_STL is null,
-                if(IF(Cycle_final is null,Cycle_final_temp, cycle_final)>c_cycle_STL,(c_cycle_STL/c_frequence+(IF(Cycle_final is null,Cycle_final_temp, cycle_final)-c_cycle_STL)/c_frequence_STL)/3600,
+              if(
+                IF(Cycle_final is null,Cycle_final_temp, cycle_final)>c_cycle_STL,(c_cycle_STL/c_frequence+(IF(Cycle_final is null,Cycle_final_temp, cycle_final)-c_cycle_STL)/c_frequence_STL)/3600,
                 (IF(Cycle_final is null,Cycle_final_temp, cycle_final)/c_frequence)/3600
               )
-              ,if(IF(Cycle_final is null,Cycle_final_temp, cycle_final)>cycle_STL,
+              ,if(
+                IF(Cycle_final is null,Cycle_final_temp, cycle_final)>cycle_STL,
                 (cycle_STL/c_frequence+(IF(Cycle_final is null,Cycle_final_temp, cycle_final)-cycle_STL)/c_frequence_STL)/3600,
                 (IF(Cycle_final is null,Cycle_final_temp, cycle_final)/c_frequence)/3600
               )
             )
           ),
-          "")
+          0)
           ,temps_essais
-        )>24,
-        if(temps_essais is null,
-          if(IF(Cycle_final is null,Cycle_final_temp, cycle_final) >0 AND c_frequence is not null and c_frequence !=0,
-            if(Cycle_STL is null and c_cycle_STL is null,
-              IF(Cycle_final is null,Cycle_final_temp, cycle_final)/eprouvettes.c_frequence/3600,
-              if(Cycle_STL is null,
-                if(IF(Cycle_final is null,Cycle_final_temp, cycle_final)>c_cycle_STL,
-                  (c_cycle_STL/c_frequence+(IF(Cycle_final is null,Cycle_final_temp, cycle_final)-c_cycle_STL)/c_frequence_STL)/3600,
-                  (IF(Cycle_final is null,Cycle_final_temp, cycle_final)/c_frequence)/3600
-                )
-                ,if(IF(Cycle_final is null,Cycle_final_temp, cycle_final)>cycle_STL,
+        )
+      )) as tpscalc,
+
+      sum(ceil(
+        if(
+          if(temps_essais is null,
+            if(
+              IF(Cycle_final is null,Cycle_final_temp, cycle_final) >0 AND c_frequence is not null and c_frequence !=0,
+              if(
+                Cycle_STL is null and c_cycle_STL is null,
+                IF(
+                  Cycle_final is null,Cycle_final_temp, cycle_final)/eprouvettes.c_frequence/3600,
+                  if(
+                    Cycle_STL is null,
+                    if(
+                      IF(Cycle_final is null,Cycle_final_temp, cycle_final)>c_cycle_STL,
+                      (c_cycle_STL/c_frequence+(IF(Cycle_final is null,Cycle_final_temp, cycle_final)-c_cycle_STL)/c_frequence_STL)/3600,
+                      (IF(Cycle_final is null,Cycle_final_temp, cycle_final)/c_frequence)/3600
+                    )
+                    ,if(
+                      IF(Cycle_final is null,Cycle_final_temp, cycle_final)>cycle_STL,
+                      (cycle_STL/c_frequence+(IF(Cycle_final is null,Cycle_final_temp, cycle_final)-cycle_STL)/c_frequence_STL)/3600,
+                      (IF(Cycle_final is null,Cycle_final_temp, cycle_final)/c_frequence)/3600
+                    )
+                  )
+                ),
+                "")
+                ,temps_essais
+              )>24,
+              if(temps_essais is null,
+                if(IF(Cycle_final is null,Cycle_final_temp, cycle_final) >0 AND c_frequence is not null and c_frequence !=0,
+                if(Cycle_STL is null and c_cycle_STL is null,
+                  IF(Cycle_final is null,Cycle_final_temp, cycle_final)/eprouvettes.c_frequence/3600,
+                  if(Cycle_STL is null,
+                    if(IF(Cycle_final is null,Cycle_final_temp, cycle_final)>c_cycle_STL,
+                    (c_cycle_STL/c_frequence+(IF(Cycle_final is null,Cycle_final_temp, cycle_final)-c_cycle_STL)/c_frequence_STL)/3600,
+                    (IF(Cycle_final is null,Cycle_final_temp, cycle_final)/c_frequence)/3600
+                  )
+                  ,if(IF(Cycle_final is null,Cycle_final_temp, cycle_final)>cycle_STL,
                   (cycle_STL/c_frequence+(IF(Cycle_final is null,Cycle_final_temp, cycle_final)-cycle_STL)/c_frequence_STL)/3600,
                   (IF(Cycle_final is null,Cycle_final_temp, cycle_final)/c_frequence)/3600
                 )
@@ -203,6 +213,7 @@ class LstSplitModel
     `specification` = '.$this->specification.',
     `waveform` = '.$this->waveform.',
     `id_rawData` = '.$this->id_rawData.',
+    `rawdatatobesent` = '.$this->rawdatatobesent.',
     `c_1` = '.$this->c_type_1.',
     `c_2` = '.$this->c_type_2.',
     `c_unite` = '.$this->c_unite.',
@@ -420,137 +431,4 @@ class LstSplitModel
     echo json_encode($maReponse);
   }
 
-  public function findStatut(){
-    $req='SELECT
-    sum(if(master_eprouvette_inOut_A is null,0,1)) as nbInOut_A,
-    if(checked>0,1,0) as checked,
-
-    count(distinct master_eprouvettes.id_master_eprouvette) as nbMasterEp,
-    count(master_eprouvettes.id_master_eprouvette) as nbEp,
-    count(eprouvettes.id_eprouvette) as nbTestPlanned,
-
-    count(eprouvettes.id_eprouvette) - if(count(n_fichier)=0, sum(if(d_checked > 0,1,0)),count(n_fichier)) as nbTestLeft,
-
-    sum(if(c_type_1_val is null OR c_type_2_val is null OR n_fichier is not null,0,1)) as nbConsLeft,
-    sum(if(c_type_1_val is null OR c_type_2_val is null OR n_fichier is not null OR master_eprouvette_inOut_A is null,0,1)) as nbConsLeftAndInOut_A,
-
-    sum(if(c_checked>0 AND d_checked <=0,1,0)) as nbConsLeftAux,
-    sum(if(c_checked>0 AND d_checked <=0 AND master_eprouvette_inOut_A is not null,1,0)) as nbConsLeftAndInOut_AAux,
-
-    sum(if(master_eprouvette_inOut_A is not null AND
-      (SELECT ST FROM eprouvettes ep
-        LEFT JOIN tbljobs ON tbljobs.id_tbljob=ep.id_job
-        LEFT JOIN test_type on test_type.id_test_type=tbljobs.id_type_essai
-        WHERE ep.id_master_eprouvette= (SELECT id_master_eprouvette FROM eprouvettes epp WHERE epp.id_eprouvette=eprouvettes.id_eprouvette)
-        AND ep.eprouvette_inOut_B is null
-        AND ep.eprouvette_actif=1
-        ORDER BY phase asc
-        LIMIT 1)=1,1,0)) as nbSubC,
-        sum(
-          if(master_eprouvette_inOut_A is not null AND
-            (SELECT local
-              FROM eprouvettes ep
-              LEFT JOIN tbljobs tbljoblocal ON tbljoblocal.id_tbljob=ep.id_job
-              LEFT JOIN test_type on test_type.id_test_type=tbljoblocal.id_type_essai
-              WHERE ep.id_master_eprouvette= (SELECT id_master_eprouvette FROM eprouvettes epp WHERE epp.id_eprouvette=eprouvettes.id_eprouvette)
-              AND ep.eprouvette_inOut_B is null
-              AND ep.eprouvette_actif=1
-              AND tbljoblocal.phase<tbljobs.phase
-              ORDER BY tbljoblocal.phase asc
-              LIMIT 1
-            )=1
-            ,1,0
-          )
-        ) as nbLocal,
-
-
-        sum(if(n_fichier is not null and check_rupture <=0,1,0)) as running,
-        sum(if(c_type_1_val is null OR c_type_2_val is null,0,1)) as nbCons,
-        if(count(n_fichier)=0, sum(if(d_checked > 0,1,0)),count(n_fichier)) as nbtest,
-        sum(if(d_checked>0,0,1)) as nbUnDChecked
-
-        FROM eprouvettes
-        LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
-        LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
-        LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
-        LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
-        LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
-
-        WHERE tbljobs.id_tbljob= '. $this->id.'
-        AND master_eprouvette_actif=1
-        AND eprouvette_actif=1
-        GROUP BY tbljobs.id_tbljob
-        ';
-
-        //echo $req;
-
-        $state = $this->db->getOne($req);
-
-
-        $statut='';
-        $id_statut=0;
-
-        if ($state['nbInOut_A']<$state['nbMasterEp']) {
-          $statut='awaiting specimen';
-          $id_statut=120;
-        }
-
-        if ($state['nbLocal'] > 0) {
-          $statut='awaiting InHouse';
-          $id_statut=130;
-        }
-        elseif ($state['nbSubC'] > 0) {
-          $statut='awaiting SubC';
-          $id_statut=122;
-        }
-        elseif ($state['checked']==1 AND $state['nbConsLeftAndInOut_A']>1 AND $state['nbTestLeft']>0) {
-          $statut='ready to test';
-          $id_statut=140;
-        }
-        elseif ($state['nbConsLeft']==0 AND $state['nbTestLeft']>0 AND $state['nbInOut_A']>=$state['nbMasterEp']) {
-          $statut='inHouse but need condition';
-          $id_statut=152;
-        }
-
-
-        if ($state['nbConsLeftAux']>0 AND $state['nbTestLeft']>0 AND $state['nbInOut_A']>=$state['nbTestLeft']) {
-          $statut='Ready to test Aux';
-          $id_statut=140;
-        }
-        elseif ($state['nbConsLeft']==0 AND $state['nbTestLeft']>0 AND $state['nbConsLeftAndInOut_A']>0) {
-          $statut='Testing on Hold Condition';
-          $id_statut=152;
-        }
-
-
-        if ($state['running']>=1) {
-          if ($state['nbTestLeft']==0) {
-            $statut='running last spec';
-            $id_statut=154;
-          }
-          elseif ($state['nbConsLeft']==0) {
-            $statut='running last cond';
-            $id_statut=151;
-          }
-          else {
-            $statut='running';
-            $id_statut=150;
-          }
-        }
-        else {
-          if ($state['nbUnDChecked']==0 AND $state['nbTestLeft']==0) {
-            $statut='Emission rapport';
-            $id_statut=180;
-          }
-          elseif ($state['nbUnDChecked']>0 AND $state['nbTestLeft']==0) {
-            $statut='Emission rapport mais check ep demandé';
-            $id_statut=180;
-          }
-        }
-
-        $this->updateStatut($id_statut);
-
-      }
-
-
-    }
+}

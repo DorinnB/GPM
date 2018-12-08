@@ -71,6 +71,7 @@ class EprouvetteModel
     val_1,val_2,val_3,val_4,val_5,val_6,val_7,val_8,val_9,val_10,
     other_1, other_2, other_3, other_4, other_5,
     comments,
+    OVST_strain_max, OVST_strain_min, UDST_strain_max, UDST_strain_min, OVST_load_max, OVST_load_min, UDST_load_max, UDST_load_min,
 
     IF(Cycle_STL is null,Cycle_STL_temp, Cycle_STL) as Cycle_STL,
     IF(Cycle_final is null,Cycle_final_temp, cycle_final) as Cycle_final,
@@ -417,6 +418,16 @@ class EprouvetteModel
       echo json_encode($maReponse);
     }
 
+    public function updateRawDataSent($oldValue){
+      $reqUpdate='UPDATE `eprouvettes` SET
+      `rawdatasent` = '.(($oldValue>0)?-$_COOKIE['id_user']:$_COOKIE['id_user']).'
+      WHERE `eprouvettes`.`id_eprouvette` = '.$this->id.';';
+      //echo $reqUpdate;
+      $result = $this->db->query($reqUpdate);
+
+      $maReponse = array('result' => 'ok', 'req'=> $reqUpdate, 'id_eprouvette' => $this->id, 'id_user' => (($oldValue>0)?-$_COOKIE['id_user']:$_COOKIE['id_user']));
+      echo json_encode($maReponse);
+    }
 
     public function update_Rupture()  {
 
@@ -501,7 +512,7 @@ class EprouvetteModel
       IF(Cycle_final is null,Cycle_final_temp, cycle_final) as Cycle_final, IF(Cycle_final is null,0, 1) as Cycle_final_valid,
       Rupture, Fracture, other_1, other_2, other_3, other_4, other_5,
       info_jobs.job, info_jobs.customer, split, test_type.id_test_type, test_type, test_type_abbr, eprouvettes.id_master_eprouvette, id_job,
-      signal_true, signal_tapered, young, flag_qualite, check_rupture,
+      signal_true, signal_tapered, young, flag_qualite, check_rupture, rawdatasent,
       d_commentaire, special_instruction, tbljob_instruction,
 
       IF(currentBlock is null,currentBlock_temp, currentBlock) as currentBlock,
@@ -554,8 +565,8 @@ class EprouvetteModel
       LEFT JOIN ind_temps as ind_temps_top ON ind_temps_top.id_ind_temp=postes.id_ind_temp_top
       LEFT JOIN ind_temps as ind_temps_strap ON ind_temps_strap.id_ind_temp=postes.id_ind_temp_strap
       LEFT JOIN ind_temps as ind_temps_bot ON ind_temps_bot.id_ind_temp=postes.id_ind_temp_bot
-LEFT JOIN outillages outillage_tops ON outillage_tops.id_outillage=postes.id_outillage_top
-LEFT JOIN outillages outillage_bots ON outillage_bots.id_outillage=postes.id_outillage_bot
+      LEFT JOIN outillages outillage_tops ON outillage_tops.id_outillage=postes.id_outillage_top
+      LEFT JOIN outillages outillage_bots ON outillage_bots.id_outillage=postes.id_outillage_bot
 
       LEFT JOIN techniciens t1 ON t1.id_technicien=enregistrementessais.id_operateur
       LEFT JOIN techniciens t2 ON t2.id_technicien=enregistrementessais.id_controleur
@@ -882,9 +893,9 @@ LEFT JOIN outillages outillage_bots ON outillage_bots.id_outillage=postes.id_out
       }
 
       public function getTDRCount(){
-        $req='SELECT COUNT(*) as TDRCount FROM TDRs
+        $req='SELECT COUNT(*) as TDRCount, id_eprouvette FROM TDRs
           WHERE id_eprouvette='.$this->id.';';
-          //echo $reqUpdate.'<br/>';
+          //echo $req.'<br/>';
 
           return $this->db->getOne($req);
         }

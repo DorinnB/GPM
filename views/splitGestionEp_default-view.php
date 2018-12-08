@@ -3,7 +3,7 @@
 <link href="lib/dropdown-with-search-using-jquery/select2.min.css" rel="stylesheet" />
 <script src="lib/dropdown-with-search-using-jquery/select2.min.js"></script>
 
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
 
 <div class="modal-dialog">
 
@@ -34,6 +34,9 @@
               <li class="tabLeft" id="TDR">
                 <a href="#1f" data-toggle="tab"><acronym title="Test Deviation Report">TDR</acronym></a>
               </li>
+              <li class="tabLeft" id="evalTS">
+                <a href="#1g" data-toggle="tab"><p>EVAL TS</p></a>
+              </li>
               <li class="tabLeft" id="eval">
                 <a href="#1e" data-toggle="tab"><p>EVAL</p></a>
               </li>
@@ -53,7 +56,7 @@
           </div>
 
 
-          <div class="col-sm-8 carre" style="height:100%;">
+          <div class="col-sm-8 carre splitCenter" style="height:100%;">
             <div class="tab-content clearfix" style="height:100%;overflow-y:auto;">
 
               <div class="tab-pane" id="1a" style="height:100%;">
@@ -133,6 +136,7 @@
                   <button type="submit" class="btn btn-default" id="submit_newTestCheck" <?= ($eprouvette ['id_operateur']==$_COOKIE['id_user'])?"disabled":"" ?>>Check Test</button>
                 </form>
               </div>
+
               <div class="tab-pane" id="1e" style="height:100%;">
                 <div class="row" style="padding:0px 10px;">
                   <button type="button" id="flecheUp2" style="width:45%;background-color:dimgray; float:left;" title="Previous Test Number">
@@ -349,8 +353,121 @@
 
               <div class="tab-pane" id="1f" style="height:100%;">
                 <button class="create">New</button>
+              </div>
 
+              <div class="tab-pane" id="1g" style="height:100%;">
+                <div class="row">
+                  <div class="col-md-6">
+                    <p>Strain Control</p>
+                    <table class="table-striped table-bordered .table-condensed" style="width:90%">
+                      <caption>Control Tolerance (cycle)</caption>
+                      <tr>
+                        <td>OVST Max</td>
+                        <td><?= $eprouvette['OVST_strain_max']  ?></td>
+                      </tr>
+                      <tr>
+                        <td>OVST Max</td>
+                        <td><?= $eprouvette['UDST_strain_max']  ?></td>
+                      </tr>
+                      <tr>
+                        <td>OVST Max</td>
+                        <td><?= $eprouvette['UDST_strain_min']  ?></td>
+                      </tr>
+                      <tr>
+                        <td>OVST Max</td>
+                        <td><?= $eprouvette['OVST_strain_min']  ?></td>
+                      </tr>
+                    </table>
 
+                    <table class="table-striped table-bordered .table-condensed" style="width:90%">
+                      <caption>MinMax (%)</caption>
+                      <tr>
+                        <td>Peak</td>
+                        <td><i style="font-size:smaller;">???</i></td>
+                      </tr>
+                      <tr>
+                        <td>Valley</td>
+                        <td><i style="font-size:smaller;">???</i></td>
+                      </tr>
+                    </table>
+
+                    <table class="table-striped table-bordered .table-condensed" style="width:90%">
+                      <caption>T (°C)</caption>
+                      <tr>
+                        <td>OVST T°</td>
+                        <td><i style="font-size:smaller;">???</i></td>
+                      </tr>
+                      <tr>
+                        <td>UDST T°</td>
+                        <td><i style="font-size:smaller;">???</i></td>
+                      </tr>
+                      <tr>
+                        <td>Peak</td>
+                        <td><i style="font-size:smaller;">???</i></td>
+                      </tr>
+                      <tr>
+                        <td>Valley</td>
+                        <td><i style="font-size:smaller;">???</i></td>
+                      </tr>
+                    </table>
+
+                  </div>
+                  <div class="col-md-6">
+                    <p>Load Control</p>
+                    <table class="table-striped table-bordered .table-condensed" style="width:90%">
+                      <caption>Control Tolerance (cycle)</caption>
+                      <tr>
+                        <td>OVST Max</td>
+                        <td><?= $eprouvette['OVST_load_max']  ?></td>
+                      </tr>
+                      <tr>
+                        <td>OVST Max</td>
+                        <td><?= $eprouvette['UDST_load_max']  ?></td>
+                      </tr>
+                      <tr>
+                        <td>OVST Max</td>
+                        <td><?= $eprouvette['UDST_load_min']  ?></td>
+                      </tr>
+                      <tr>
+                        <td>OVST Max</td>
+                        <td><?= $eprouvette['OVST_load_min']  ?></td>
+                      </tr>
+                    </table>
+
+                    <table class="table-striped table-bordered .table-condensed" style="width:90%">
+                      <caption>Min/Max (kN)</caption>
+                      <tr>
+                        <td>Peak</td>
+                        <td><i style="font-size:smaller;">???</i></td>
+                      </tr>
+                      <tr>
+                        <td>Valley</td>
+                        <td><i style="font-size:smaller;">???</i></td>
+                      </tr>
+                    </table>
+
+                    <table class="table-striped table-bordered .table-condensed" style="width:90%">
+                      <caption>T (°C)</caption>
+                      <tr>
+                        <td>OVST T°</td>
+                        <td><i style="font-size:smaller;">???</i></td>
+                      </tr>
+                      <tr>
+                        <td>UDST T°</td>
+                        <td><i style="font-size:smaller;">???</i></td>
+                      </tr>
+                      <tr>
+                        <td>Peak</td>
+                        <td><i style="font-size:smaller;">???</i></td>
+                      </tr>
+                      <tr>
+                        <td>Valley</td>
+                        <td><i style="font-size:smaller;">???</i></td>
+                      </tr>
+                    </table>
+
+                  </div>
+                </div>
               </div>
 
 

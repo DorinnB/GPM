@@ -1,0 +1,7 @@
+{
+    "require": {
+        "phpoffice/phpspreadsheet": "^1.5",
+        "plotly/plotly.js": "^1.42",
+        "harvesthq/chosen": "^1.8"
+    }
+}

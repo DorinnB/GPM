@@ -45,7 +45,6 @@ $db = new db(); // create a new object, class db()
 	$oJob->devis=$_POST['devis'];
 	$oJob->instruction=$_POST['instruction'];
 	$oJob->commentaire=$_POST['commentaire'];
-	$oJob->available_expected=$_POST['available_expected'];
 	$oJob->info_job_actif=1;
 
 

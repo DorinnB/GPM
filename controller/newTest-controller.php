@@ -25,10 +25,11 @@ $eprouvette=$oEprouvette->newTest();
 include 'createTestList-controller.php';
 
 
-
 //Update du statut du job
 include '../models/statut-model.php';
 $oStatut = new StatutModel($db);
 $oStatut->id_tbljob=$oStatut->getJobFromEp($_POST['idEp'])['id_job'];
+$oStatut->removeNewCondition();
+
 $state=$oStatut->findStatut();
 ?>

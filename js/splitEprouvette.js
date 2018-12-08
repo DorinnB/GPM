@@ -22,6 +22,9 @@ $('#table_ep').selectable ({
     else if ($(ui.selected).attr('data-flagQualite')) {
       flagQualite($(ui.selected));
     }
+    else if ($(ui.selected).attr('data-rawdata')) {
+      rawdata($(ui.selected));
+    }
   }
 
 });
@@ -32,7 +35,7 @@ $('#table_ep').selectable ({
 $(document).ready(function() {
 
   //activation des tooltip
- $('[data-toggle="tooltip"]').tooltip();
+  $('[data-toggle="tooltip"]').tooltip();
 
 
   // Setup - add a text input to each footer cell
@@ -63,7 +66,7 @@ $(document).ready(function() {
     //              ]
   } );
 
-//pour le prestraining, on masque la mi-vie/1cycle de la 2eme rotation s'il n'y a pas de rotation
+  //pour le prestraining, on masque la mi-vie/1cycle de la 2eme rotation s'il n'y a pas de rotation
   if ($("#rotation").html()=='No') {
     table.columns( '.rotation' ).visible( false );
     //table.columns( [ 45,46,47,48,49 ] ).visible( false, false );
@@ -230,11 +233,61 @@ function flagQualite(e) {
         alert('ERREUR lors de la modification du flag qualité de l\'eprouvette. Veuillez prevenir au plus vite le responsable SI.');
       }
     });
-
   }
+}
 
 
+// Rawdata
+function rawdata(e) {
+  if (e.attr('data-rawdata')>0) {
 
+    var confirmation = confirm('Are you sure you want to Cancel ?');
+    if (confirmation) {
+      $.ajax({
+        type: "POST",
+        url: 'controller/updateRawData',
+        dataType: "json",
+        data:  {
+          idEp : e.attr('data-ideprawdata'),
+          rawdata : e.attr('data-rawdata')
+        },
+        success : function(data, statut){
+            $( "tr" ).find("[data-ideprawdata='" + data['id_eprouvette'] + "']").css("background-color","darkred");
+            $( "tr" ).find("[data-ideprawdata='" + data['id_eprouvette'] + "']").css("color","darkred");
+            $( "tr" ).find("[data-ideprawdata='" + data['id_eprouvette'] + "']").html("0");
+            $( "tr" ).find("[data-ideprawdata='" + data['id_eprouvette'] + "']").attr("data-rawdata","0");
+        },
+        error : function(resultat, statut, erreur) {
+          console.log(Object.keys(resultat));
+          alert('ERREUR lors de la modification de l\'envoi des raw data. Veuillez prevenir au plus vite le responsable SI.');
+        }
+      });
+    }
+  }
+  else {  //send raw data
+    var confirmation = confirm('Did you send the Raw Data ?');
+    if (confirmation) {
+      $.ajax({
+        type: "POST",
+        url: 'controller/updateRawData',
+        dataType: "json",
+        data:  {
+          idEp : e.attr('data-ideprawdata'),
+          rawdata : e.attr('data-rawdata')
+        },
+        success : function(data, statut){
+          $( "tr" ).find("[data-ideprawdata='" + data['id_eprouvette'] + "']").css("background-color","darkgreen");
+          $( "tr" ).find("[data-ideprawdata='" + data['id_eprouvette'] + "']").css("color","darkgreen");
+          $( "tr" ).find("[data-ideprawdata='" + data['id_eprouvette'] + "']").html(data['id_user']);
+          $( "tr" ).find("[data-ideprawdata='" + data['id_eprouvette'] + "']").attr("data-rawdata",data['id_user']);
+        },
+        error : function(resultat, statut, erreur) {
+          console.log(Object.keys(resultat));
+          alert('ERREUR lors de la modification de l\'envoi des raw data. Veuillez prevenir au plus vite le responsable SI.');
+        }
+      });
+    }
+  }
 }
 
 //affichage et disparition automatique du popover en mouse hover
@@ -393,46 +446,46 @@ function checkValueC2Stress() {
 
 
 function addCommas(nStr)  { //fonction espace millier
-	nStr += '';
-	x = nStr.split('.');
-	x1 = x[0];
-	x2 = x.length > 1 ? '.' + x[1] : '';
-	var rgx = /(\d+)(\d{3})/;
-	while (rgx.test(x1)) {
-		x1 = x1.replace(rgx, '$1' + ' ' + '$2');
-	}
-	return x1 + x2;
+  nStr += '';
+  x = nStr.split('.');
+  x1 = x[0];
+  x2 = x.length > 1 ? '.' + x[1] : '';
+  var rgx = /(\d+)(\d{3})/;
+  while (rgx.test(x1)) {
+    x1 = x1.replace(rgx, '$1' + ' ' + '$2');
+  }
+  return x1 + x2;
 }
 
 $('.decimal0').each( function (i) { //ajouter 2 digit sur le nombre
   var num = parseFloat($(this).text());
   if (!isNaN(num)) {
-  deci=num.toFixed(0)
-  val=addCommas(deci);
-  $(this).html(val);
-}
+    deci=num.toFixed(0)
+    val=addCommas(deci);
+    $(this).html(val);
+  }
 });
 $('.decimal1').each( function (i) { //ajouter 2 digit sur le nombre
   var num = parseFloat($(this).text());
-    if (!isNaN(num)) {
-  deci=num.toFixed(1)
-  val=addCommas(deci);
-  $(this).html(val);
-}
+  if (!isNaN(num)) {
+    deci=num.toFixed(1)
+    val=addCommas(deci);
+    $(this).html(val);
+  }
 });
 $('.decimal2').each( function (i) { //ajouter 2 digit sur le nombre
   var num = parseFloat($(this).text());
-    if (!isNaN(num)) {
-  deci=num.toFixed(2)
-  val=addCommas(deci);
-  $(this).html(val);
-}
+  if (!isNaN(num)) {
+    deci=num.toFixed(2)
+    val=addCommas(deci);
+    $(this).html(val);
+  }
 });
 $('.decimal3').each( function (i) { //ajouter 2 digit sur le nombre
   var num = parseFloat($(this).text());
-    if (!isNaN(num)) {
-  deci=num.toFixed(3)
-  val=addCommas(deci);
-  $(this).html(val);
-}
+  if (!isNaN(num)) {
+    deci=num.toFixed(3)
+    val=addCommas(deci);
+    $(this).html(val);
+  }
 });

@@ -12,7 +12,9 @@ color:black;
 border-radius: 10px;
 }
 
-
+.list-group-item {
+margin:3px;
+}
 
 
 .form-group {
