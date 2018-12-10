@@ -1055,13 +1055,13 @@ ElseIf ($split['test_type_abbr']==".Ma")	{
 
     $pageEN->mergeCells('A'.$row.':C'.$row);
     $pageEN->mergeCells('E'.$row.':H'.$row);
-    $pageEN->setCellValueByColumnAndRow(1+0, $row, (isset($value['prefixe'].' '))?$identification= $value['prefixe'].' '.'-'.$value['nom_eprouvette'].' ':$identification= $value['nom_eprouvette'].' ');
+    $pageEN->setCellValueByColumnAndRow(1+0, $row, (isset($value['prefixe']))?$value['prefixe'].'-'.$value['nom_eprouvette'].' ':$value['nom_eprouvette'].' ');
     $pageEN->setCellValueByColumnAndRow(1+3, $row, $value['dessin']);
     $pageEN->setCellValueByColumnAndRow(1+4, $row, $value['c_commentaire']);
 
     $pageFR->mergeCells('A'.$row.':C'.$row);
     $pageFR->mergeCells('E'.$row.':H'.$row);
-    $pageFR->setCellValueByColumnAndRow(1+0, $row, (isset($value['prefixe'].' '))?$identification= $value['prefixe'].' '.'-'.$value['nom_eprouvette'].' ':$identification= $value['nom_eprouvette'].' ');
+    $pageFR->setCellValueByColumnAndRow(1+0, $row, (isset($value['prefixe']))?$value['prefixe'].' '.'-'.$value['nom_eprouvette'].' ':$value['nom_eprouvette'].' ');
     $pageFR->setCellValueByColumnAndRow(1+3, $row, $value['dessin']);
     $pageFR->setCellValueByColumnAndRow(1+4, $row, (($value['c_type_1_val']>0)?'Inertial Welding - ':'').$value['c_commentaire']);
 
@@ -1124,13 +1124,13 @@ ElseIf ($split['ST']=="1")	{
 
     $pageEN->mergeCells('A'.$row.':C'.$row);
     $pageEN->mergeCells('E'.$row.':H'.$row);
-    $pageEN->setCellValueByColumnAndRow(1+0, $row, (isset($value['prefixe'].' '))?$identification= $value['prefixe'].' '.'-'.$value['nom_eprouvette'].' ':$identification= $value['nom_eprouvette'].' ');
+    $pageEN->setCellValueByColumnAndRow(1+0, $row, (isset($value['prefixe']))?$value['prefixe'].' '.'-'.$value['nom_eprouvette'].' ':$value['nom_eprouvette'].' ');
     $pageEN->setCellValueByColumnAndRow(1+3, $row, $value['dessin']);
     $pageEN->setCellValueByColumnAndRow(1+4, $row, $value['c_commentaire']);
 
     $pageFR->mergeCells('A'.$row.':C'.$row);
     $pageFR->mergeCells('E'.$row.':H'.$row);
-    $pageFR->setCellValueByColumnAndRow(1+0, $row, (isset($value['prefixe'].' '))?$identification= $value['prefixe'].' '.'-'.$value['nom_eprouvette'].' ':$identification= $value['nom_eprouvette'].' ');
+    $pageFR->setCellValueByColumnAndRow(1+0, $row, (isset($value['prefixe']))?$value['prefixe'].' '.'-'.$value['nom_eprouvette'].' ':$value['nom_eprouvette'].' ');
     $pageFR->setCellValueByColumnAndRow(1+3, $row, $value['dessin']);
     $pageFR->setCellValueByColumnAndRow(1+4, $row, $value['c_commentaire']);
 

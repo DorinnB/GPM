@@ -268,7 +268,7 @@ If (isset($_GET['Cust']) AND $_GET['Cust']=="SAE" AND $split['test_type_abbr']==
       $pvEssais->duplicateStyle($style, $dstCell);
     }
 
-    $pvEssais->setCellValueByColumnAndRow(1+$col, 6, (isset($value['prefixe'].' ')?$value['prefixe'].'-'.$value['nom_eprouvette'].' ':$value['nom_eprouvette'].' '));
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 6, (isset($value['prefixe'])?$value['prefixe'].'-'.$value['nom_eprouvette'].' ':$value['nom_eprouvette'].' '));
     $pvEssais->setCellValueByColumnAndRow(1+$col, 7, $value['n_fichier']);
 
     $pvEssais->setCellValueByColumnAndRow(1+$col, 10, $value['date']);
