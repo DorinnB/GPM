@@ -181,16 +181,15 @@ foreach (array('InvoiceFR', 'InvoiceUSA') as &$value) {
   //pour le job
   //pour chaque invoiceLine du split
   foreach ($oInvoices->getInvoiceListJob($_GET['id_tbljob']) as $invoicelines) {
+
     //s'ily a une une quantité ou si UBR
-    if ($invoicelines['qteUser']>0 OR isset($_GET['UBR'])) {
+    if ($invoicelines['qteUser']>0) {
 
       $page->setCellValueByColumnAndRow(1+0, $row, $nCode);
       $page->setCellValueByColumnAndRow(1+1, $row, $invoicelines['pricingList']);
-      $page->setCellValueByColumnAndRow(1+4, $row, ($invoicelines['qteUser']=="")?$invoicelines['qteGPM']:$invoicelines['qteUser']);
+      $page->setCellValueByColumnAndRow(1+4, $row, $invoicelines['qteUser']);
       $page->setCellValueByColumnAndRow(1+5, $row, $invoicelines['priceUnit']);
-      $page->setCellValueByColumnAndRow(1+6, $row, (($invoicelines['qteUser']=="")?$invoicelines['qteGPM']:$invoicelines['qteUser'])*$invoicelines['priceUnit']);
-
-      $page->setCellValueByColumnAndRow(1+10, $row, $invoicelines['qteGPM']);
+      $page->setCellValueByColumnAndRow(1+6, $row, $invoicelines['qteUser']*$invoicelines['priceUnit']);
 
       $page->getStyle("F".$row)->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);
       $page->getStyle("G".$row)->getNumberFormat()->setFormatCode($currencyDollar.'### ##0.00'.$currencyEuro);
@@ -371,7 +370,6 @@ if (isset($_GET['UBR'])) {
 
 
 
-
 //on cache la fenetre template
 $objPHPExcel->getSheetByName('Template')
 ->setSheetState(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_HIDDEN);
@@ -381,7 +379,8 @@ $objPHPExcel->setActiveSheetIndex(0);
 
 $objWriter = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($objPHPExcel, 'Xlsx');
 //$objWriter->setIncludeCharts(TRUE);
-$objWriter->save('../temp/Invoice-'.$split['job'].'-'.$date.'.xlsx');
+$file='../temp/Invoice-'.$split['job'].'-'.$date.'.xlsx';
+$objWriter->save($file);
 
 
 //type de sortie en fonction d'un affichage browser ou copy ubr
@@ -412,7 +411,7 @@ else {
   header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
   header ('Pragma: public'); // HTTP/1.0
 
-  readfile('../temp/Invoice-'.$split['job'].'-'.$date.'.xlsx');
-  
+  readfile($file);
+
   exit;
 }
