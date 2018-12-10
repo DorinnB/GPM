@@ -133,8 +133,8 @@ If ($split['final']=="1" && $split['test_type_abbr']!="PS")	{
     $col = 3;
     foreach ($ep as $key => $value) {
 
-      $page->setCellValueByColumnAndRow(1+$col, 8, $value['prefixe']);
-      $page->setCellValueByColumnAndRow(1+$col, 9, $value['nom_eprouvette']);
+      $page->setCellValueByColumnAndRow(1+$col, 8, $value['prefixe'].' ');
+      $page->setCellValueByColumnAndRow(1+$col, 9, $value['nom_eprouvette'].' ');
 
       $page->setCellValueByColumnAndRow(1+$col, 10, $value['n_essai']);
       $page->setCellValueByColumnAndRow(1+$col, 11, $value['n_fichier']);
@@ -235,8 +235,8 @@ If ($split['final']=="1" && $split['test_type_abbr']!="PS")	{
     $col = 3;
     foreach ($ep as $key => $value) {
 
-      $page->setCellValueByColumnAndRow(1+$col, 8, $value['prefixe']);
-      $page->setCellValueByColumnAndRow(1+$col, 9, $value['nom_eprouvette']);
+      $page->setCellValueByColumnAndRow(1+$col, 8, $value['prefixe'].' ');
+      $page->setCellValueByColumnAndRow(1+$col, 9, $value['nom_eprouvette'].' ');
 
       $page->setCellValueByColumnAndRow(1+$col, 10, $value['n_essai']);
       $page->setCellValueByColumnAndRow(1+$col, 11, $value['n_fichier']);
@@ -339,8 +339,8 @@ If ($split['final']=="1" && $split['test_type_abbr']!="PS")	{
     $col = 3;
     foreach ($ep as $key => $value) {
       //copy des styles des colonnes
-      $page->setCellValueByColumnAndRow(1+$col, 8, $value['prefixe']);
-      $page->setCellValueByColumnAndRow(1+$col, 9, $value['nom_eprouvette']);
+      $page->setCellValueByColumnAndRow(1+$col, 8, $value['prefixe'].' ');
+      $page->setCellValueByColumnAndRow(1+$col, 9, $value['nom_eprouvette'].' ');
 
       $page->setCellValueByColumnAndRow(1+$col, 10, $value['n_essai']);
       $page->setCellValueByColumnAndRow(1+$col, 11, $value['n_fichier']);
@@ -467,8 +467,8 @@ If ($split['final']=="1" && $split['test_type_abbr']!="PS")	{
       $page->duplicateStyle($style, $dstCell);
     }
 
-    $page->setCellValueByColumnAndRow(1+0, $row, $value['prefixe']);
-    $page->setCellValueByColumnAndRow(1+2, $row, $value['nom_eprouvette']);
+    $page->setCellValueByColumnAndRow(1+0, $row, $value['prefixe'].' ');
+    $page->setCellValueByColumnAndRow(1+2, $row, $value['nom_eprouvette'].' ');
 
     $page->setCellValueByColumnAndRow(1+5, $row, ' '.$value['n_fichier']);
     $page->setCellValueByColumnAndRow(1+8, $row, ' ');
@@ -532,8 +532,8 @@ $row = 0; // 1-based index
 $col = 3;
 foreach ($ep as $key => $value) {
 
-$page->setCellValueByColumnAndRow(1+$col, 8, $value['prefixe']);
-$page->setCellValueByColumnAndRow(1+$col, 9, $value['nom_eprouvette']);
+$page->setCellValueByColumnAndRow(1+$col, 8, $value['prefixe'].' ');
+$page->setCellValueByColumnAndRow(1+$col, 9, $value['nom_eprouvette'].' ');
 
 $page->setCellValueByColumnAndRow(1+$col, 10, $value['n_essai']);
 $page->setCellValueByColumnAndRow(1+$col, 11, $value['n_fichier']);
@@ -634,8 +634,8 @@ $row = 0; // 1-based index
 $col = 3;
 foreach ($ep as $key => $value) {
 
-$page->setCellValueByColumnAndRow(1+$col, 8, $value['prefixe']);
-$page->setCellValueByColumnAndRow(1+$col, 9, $value['nom_eprouvette']);
+$page->setCellValueByColumnAndRow(1+$col, 8, $value['prefixe'].' ');
+$page->setCellValueByColumnAndRow(1+$col, 9, $value['nom_eprouvette'].' ');
 
 $page->setCellValueByColumnAndRow(1+$col, 10, $value['n_essai']);
 $page->setCellValueByColumnAndRow(1+$col, 11, $value['n_fichier']);
@@ -738,8 +738,8 @@ $row = 0; // 1-based index
 $col = 3;
 foreach ($ep as $key => $value) {
 //copy des styles des colonnes
-$page->setCellValueByColumnAndRow(1+$col, 8, $value['prefixe']);
-$page->setCellValueByColumnAndRow(1+$col, 9, $value['nom_eprouvette']);
+$page->setCellValueByColumnAndRow(1+$col, 8, $value['prefixe'].' ');
+$page->setCellValueByColumnAndRow(1+$col, 9, $value['nom_eprouvette'].' ');
 
 $page->setCellValueByColumnAndRow(1+$col, 10, $value['n_essai']);
 $page->setCellValueByColumnAndRow(1+$col, 11, $value['n_fichier']);
@@ -845,8 +845,8 @@ ElseIf ($split['test_type_abbr']=="PS")	{
   $col = 3;
   foreach ($ep as $key => $value) {
 
-    $page->setCellValueByColumnAndRow(1+$col, 12, $value['prefixe']);
-    $page->setCellValueByColumnAndRow(1+$col, 13, $value['nom_eprouvette']);
+    $page->setCellValueByColumnAndRow(1+$col, 12, $value['prefixe'].' ');
+    $page->setCellValueByColumnAndRow(1+$col, 13, $value['nom_eprouvette'].' ');
 
     $page->setCellValueByColumnAndRow(1+$col, 14, $value['n_essai']);
     $page->setCellValueByColumnAndRow(1+$col, 15, $value['n_fichier']);
@@ -961,8 +961,8 @@ ElseIf ($split['test_type_abbr']=="IQC")	{
   foreach ($epIQC as $key => $value) {
     $oldData->setCellValueByColumnAndRow(1+0, $row, $value['id_eprouvette']);
 
-    $oldData->setCellValueByColumnAndRow(1+1, $row, '*'.$value['prefixe']);
-    $oldData->setCellValueByColumnAndRow(1+2, $row, '*'.$value['nom_eprouvette']);
+    $oldData->setCellValueByColumnAndRow(1+1, $row, '*'.$value['prefixe'].' ');
+    $oldData->setCellValueByColumnAndRow(1+2, $row, '*'.$value['nom_eprouvette'].' ');
 
 
     $oldData->setCellValueByColumnAndRow(1+3, $row, $value['dim1']);
@@ -1055,13 +1055,13 @@ ElseIf ($split['test_type_abbr']==".Ma")	{
 
     $pageEN->mergeCells('A'.$row.':C'.$row);
     $pageEN->mergeCells('E'.$row.':H'.$row);
-    $pageEN->setCellValueByColumnAndRow(1+0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
+    $pageEN->setCellValueByColumnAndRow(1+0, $row, (isset($value['prefixe'].' '))?$identification= $value['prefixe'].' '.'-'.$value['nom_eprouvette'].' ':$identification= $value['nom_eprouvette'].' ');
     $pageEN->setCellValueByColumnAndRow(1+3, $row, $value['dessin']);
     $pageEN->setCellValueByColumnAndRow(1+4, $row, $value['c_commentaire']);
 
     $pageFR->mergeCells('A'.$row.':C'.$row);
     $pageFR->mergeCells('E'.$row.':H'.$row);
-    $pageFR->setCellValueByColumnAndRow(1+0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
+    $pageFR->setCellValueByColumnAndRow(1+0, $row, (isset($value['prefixe'].' '))?$identification= $value['prefixe'].' '.'-'.$value['nom_eprouvette'].' ':$identification= $value['nom_eprouvette'].' ');
     $pageFR->setCellValueByColumnAndRow(1+3, $row, $value['dessin']);
     $pageFR->setCellValueByColumnAndRow(1+4, $row, (($value['c_type_1_val']>0)?'Inertial Welding - ':'').$value['c_commentaire']);
 
@@ -1124,13 +1124,13 @@ ElseIf ($split['ST']=="1")	{
 
     $pageEN->mergeCells('A'.$row.':C'.$row);
     $pageEN->mergeCells('E'.$row.':H'.$row);
-    $pageEN->setCellValueByColumnAndRow(1+0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
+    $pageEN->setCellValueByColumnAndRow(1+0, $row, (isset($value['prefixe'].' '))?$identification= $value['prefixe'].' '.'-'.$value['nom_eprouvette'].' ':$identification= $value['nom_eprouvette'].' ');
     $pageEN->setCellValueByColumnAndRow(1+3, $row, $value['dessin']);
     $pageEN->setCellValueByColumnAndRow(1+4, $row, $value['c_commentaire']);
 
     $pageFR->mergeCells('A'.$row.':C'.$row);
     $pageFR->mergeCells('E'.$row.':H'.$row);
-    $pageFR->setCellValueByColumnAndRow(1+0, $row, (isset($value['prefixe']))?$identification= $value['prefixe'].'-'.$value['nom_eprouvette']:$identification= $value['nom_eprouvette']);
+    $pageFR->setCellValueByColumnAndRow(1+0, $row, (isset($value['prefixe'].' '))?$identification= $value['prefixe'].' '.'-'.$value['nom_eprouvette'].' ':$identification= $value['nom_eprouvette'].' ');
     $pageFR->setCellValueByColumnAndRow(1+3, $row, $value['dessin']);
     $pageFR->setCellValueByColumnAndRow(1+4, $row, $value['c_commentaire']);
 

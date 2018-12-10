@@ -268,7 +268,7 @@ If (isset($_GET['Cust']) AND $_GET['Cust']=="SAE" AND $split['test_type_abbr']==
       $pvEssais->duplicateStyle($style, $dstCell);
     }
 
-    $pvEssais->setCellValueByColumnAndRow(1+$col, 6, (isset($value['prefixe'])?$value['prefixe'].'-'.$value['nom_eprouvette']:$value['nom_eprouvette']));
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 6, (isset($value['prefixe'].' ')?$value['prefixe'].'-'.$value['nom_eprouvette'].' ':$value['nom_eprouvette'].' '));
     $pvEssais->setCellValueByColumnAndRow(1+$col, 7, $value['n_fichier']);
 
     $pvEssais->setCellValueByColumnAndRow(1+$col, 10, $value['date']);
@@ -433,8 +433,8 @@ ElseIf ($version=="OLD" AND ($split['test_type_abbr']=="Loa" OR $split['test_typ
       $pvEssais->duplicateStyle($style, $dstCell);
     }
 
-    $pvEssais->setCellValueByColumnAndRow(1+$col, 5, $value['prefixe']);
-    $pvEssais->setCellValueByColumnAndRow(1+$col, 6, $value['nom_eprouvette']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 5, $value['prefixe'].' ');
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 6, $value['nom_eprouvette'].' ');
 
     $pvEssais->setCellValueByColumnAndRow(1+$col, 7, $value['n_essai']);
     $pvEssais->setCellValueByColumnAndRow(1+$col, 8, $value['n_fichier']);
@@ -716,8 +716,8 @@ ElseIf ($version=="OLD" AND ($split['test_type_abbr']=="LoS" OR $split['test_typ
       $pvEssais->duplicateStyle($style, $dstCell);
     }
 
-    $pvEssais->setCellValueByColumnAndRow(1+$col, 5, $value['prefixe']);
-    $pvEssais->setCellValueByColumnAndRow(1+$col, 6, $value['nom_eprouvette']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 5, $value['prefixe'].' ');
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 6, $value['nom_eprouvette'].' ');
 
     $pvEssais->setCellValueByColumnAndRow(1+$col, 7, $value['n_essai']);
     $pvEssais->setCellValueByColumnAndRow(1+$col, 8, $value['n_fichier']);
@@ -948,8 +948,8 @@ ElseIf ($version=="OLD" AND $split['test_type_abbr']=="Str")	{
       $pvEssais->duplicateStyle($style, $dstCell);
     }
 
-    $pvEssais->setCellValueByColumnAndRow(1+$col, 5, $value['prefixe']);
-    $pvEssais->setCellValueByColumnAndRow(1+$col, 6, $value['nom_eprouvette']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 5, $value['prefixe'].' ');
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 6, $value['nom_eprouvette'].' ');
 
     $pvEssais->setCellValueByColumnAndRow(1+$col, 7, $value['n_essai']);
     $pvEssais->setCellValueByColumnAndRow(1+$col, 8, $value['n_fichier']);
@@ -1208,8 +1208,8 @@ ElseIf ($version=="OLD" AND $split['test_type_abbr']=="PS")	{
       $pvEssais->duplicateStyle($style, $dstCell);
     }
 
-    $pvEssais->setCellValueByColumnAndRow(1+$col, 5, $value['prefixe']);
-    $pvEssais->setCellValueByColumnAndRow(1+$col, 6, $value['nom_eprouvette']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 5, $value['prefixe'].' ');
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 6, $value['nom_eprouvette'].' ');
 
     $pvEssais->setCellValueByColumnAndRow(1+$col, 7, $value['n_essai']);
     $pvEssais->setCellValueByColumnAndRow(1+$col, 8, $value['n_fichier']);
@@ -1482,8 +1482,8 @@ ElseIf ($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="LoS" OR $s
       $pvEssais->duplicateStyle($style, $dstCell);
     }
 
-    $pvEssais->setCellValueByColumnAndRow(1+$col, 5, $value['prefixe']);
-    $pvEssais->setCellValueByColumnAndRow(1+$col, 6, $value['nom_eprouvette']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 5, $value['prefixe'].' ');
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 6, $value['nom_eprouvette'].' ');
 
     $pvEssais->setCellValueByColumnAndRow(1+$col, 7, $value['n_essai']);
     $pvEssais->setCellValueByColumnAndRow(1+$col, 8, $value['n_fichier']);
@@ -1793,8 +1793,8 @@ ElseIf ($split['test_type_abbr']=="Str")	{
       $pvEssais->duplicateStyle($style, $dstCell);
     }
 
-    $pvEssais->setCellValueByColumnAndRow(1+$col, 5, $value['prefixe']);
-    $pvEssais->setCellValueByColumnAndRow(1+$col, 6, $value['nom_eprouvette']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 5, $value['prefixe'].' ');
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 6, $value['nom_eprouvette'].' ');
 
     $pvEssais->setCellValueByColumnAndRow(1+$col, 7, $value['n_essai']);
     $pvEssais->setCellValueByColumnAndRow(1+$col, 8, $value['n_fichier']);
@@ -2159,8 +2159,8 @@ ElseIf ($split['test_type_abbr']=="PS")	{
       $pvEssais->duplicateStyle($style, $dstCell);
     }
 
-    $pvEssais->setCellValueByColumnAndRow(1+$col, 5, $value['prefixe']);
-    $pvEssais->setCellValueByColumnAndRow(1+$col, 6, $value['nom_eprouvette']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 5, $value['prefixe'].' ');
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 6, $value['nom_eprouvette'].' ');
 
     $pvEssais->setCellValueByColumnAndRow(1+$col, 7, $value['n_essai']);
     $pvEssais->setCellValueByColumnAndRow(1+$col, 8, $value['n_fichier']);
@@ -2422,8 +2422,8 @@ ElseIf ($split['test_type_abbr']=="Ovl")	{
       $pvEssais->duplicateStyle($style, $dstCell);
     }
 
-    $pvEssais->setCellValueByColumnAndRow(1+$col, 12, $value['prefixe']);
-    $pvEssais->setCellValueByColumnAndRow(1+$col, 13, $value['nom_eprouvette']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 12, $value['prefixe'].' ');
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 13, $value['nom_eprouvette'].' ');
 
     $pvEssais->setCellValueByColumnAndRow(1+$col, 14, $value['val_1']);
     $pvEssais->setCellValueByColumnAndRow(1+$col, 15, $value['val_2']);
