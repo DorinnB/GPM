@@ -18,6 +18,7 @@ $oSplit->updateCheck();
 include '../models/statut-model.php';
 $oStatut = new StatutModel($db);
 $oStatut->id_tbljob=$_POST['id_tbljob'];
+$state=$oStatut->updateStatut2(10);
 $state=$oStatut->findStatut();
 
 ?>
