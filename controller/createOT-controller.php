@@ -406,10 +406,6 @@ If ($split['final']=="1" && $split['test_type_abbr']!="PS")	{
 
 
 
-
-
-
-
   // dé-commenter la ligne ci dessous et supprimer ce qu'il y a au dessus une fois validé le nouveau format d'OT
   //    $objPHPExcel = $objReader->load("../templates/OT_Default.xlsx");
 
@@ -914,8 +910,6 @@ ElseIf ($split['test_type_abbr']=="IQC")	{
 
   $objPHPExcel = $objReader->load("../templates/OT_IQC.xlsx");
 
-  $page=$objPHPExcel->getSheetByName('Res Stress Req');
-
   // Rendre votre modèle accessible
   include '../models/annexe_IQC-model.php';
 
@@ -961,8 +955,8 @@ ElseIf ($split['test_type_abbr']=="IQC")	{
   foreach ($epIQC as $key => $value) {
     $oldData->setCellValueByColumnAndRow(1+0, $row, $value['id_eprouvette']);
 
-    $oldData->setCellValueByColumnAndRow(1+1, $row, '*'.$value['prefixe'].' ');
-    $oldData->setCellValueByColumnAndRow(1+2, $row, '*'.$value['nom_eprouvette'].' ');
+    $oldData->setCellValueByColumnAndRow(1+1, $row, '*'.$value['prefixe']);
+    $oldData->setCellValueByColumnAndRow(1+2, $row, '*'.$value['nom_eprouvette']);
 
 
     $oldData->setCellValueByColumnAndRow(1+3, $row, $value['dim1']);
@@ -1157,6 +1151,7 @@ $objWriter = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($objPHPExcel, 'Xl
 //$objWriter->setIncludeCharts(TRUE);
 
 $file='../temp/OT-'.$split['job'].'-'.$split['split'].'-'.$split['test_type_abbr'].'.xlsx';
+$objWriter->setPreCalculateFormulas(false);
 $objWriter->save($file);
 
 // Redirect output to a client’s web browser (Excel2007)
