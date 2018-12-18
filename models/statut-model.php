@@ -113,7 +113,7 @@ class StatutModel
       WHERE ep.id_master_eprouvette=eprouvettes.id_master_eprouvette
       AND tbl.phase<tbljobs.phase
       AND ep.eprouvette_actif=1
-      ORDER BY phase asc
+      ORDER BY phase desc
       LIMIT 1),
       0)
     ) as nb_awaiting_previous_split,
@@ -128,7 +128,7 @@ class StatutModel
             WHERE ep.id_master_eprouvette=eprouvettes.id_master_eprouvette
             AND tbl.phase<tbljobs.phase
             AND ep.eprouvette_actif=1
-            ORDER BY phase asc
+            ORDER BY phase desc
             LIMIT 1),
             0
           ) = 1
@@ -147,7 +147,7 @@ class StatutModel
           WHERE ep.id_master_eprouvette=eprouvettes.id_master_eprouvette
           AND tbl.phase<tbljobs.phase
           AND ep.eprouvette_actif=1
-          ORDER BY phase asc
+          ORDER BY phase desc
           LIMIT 1),
           0
         ) = 1
@@ -165,7 +165,7 @@ class StatutModel
           WHERE ep.id_master_eprouvette=eprouvettes.id_master_eprouvette
           AND tbl.phase<tbljobs.phase
           AND ep.eprouvette_actif=1
-          ORDER BY phase asc
+          ORDER BY phase desc
           LIMIT 1
         ),
         0) = 1
@@ -256,7 +256,6 @@ class StatutModel
           }
           else {
             if ($state['nb_ep_dispo_sans_consigne']>0) {  //plus de consigne
-
               if ($state['specific_protocol']>0) {  //si on sait quoi faire apres
                 $id_statut=40;
                 $statut='Ready to Start';
@@ -265,7 +264,6 @@ class StatutModel
                 $id_statut=30;
                 $statut='Awaiting Consigne';
               }
-
             }
             elseif ($state['nb_awaiting_specimen']>0) { //attente specimen
               $id_statut=20;

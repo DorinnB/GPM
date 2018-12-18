@@ -4,9 +4,9 @@
     <thead>
       <tr>
         <th rowspan=2>Groupe</th>
-        <th rowspan=2 class="selectableTitle" data-id="<?=  $split['available_expected'] ?>" data-IO="available_expected" data-value="<?= $split['available_expected']   ?>" data-oldValue="<?= $split['available_expected']   ?>">Available Expected</th>
+        <th rowspan=2 class="selectableTitle" data-id="<?=  $split['id_info_job'] ?>" data-IO="available_expected" data-value="<?= $split['available_expected']   ?>" data-oldValue="<?= $split['available_expected']   ?>">Available Expected</th>
         <?php  foreach ($splits as $splitJob): ?>
-        <?php if (substr( $splitJob['test_type_abbr'], 0, 1 ) === ".") :  ?>
+          <?php if (substr( $splitJob['test_type_abbr'], 0, 1 ) === ".") :  ?>
             <th colspan=3><?= $splitJob['split'].' - '.$splitJob['test_type_abbr'].' ('.$splitJob['nbep'].' ep)'   ?></th>
           <?php else: ?>
             <th colspan=2><?= $splitJob['split'].' - '.$splitJob['test_type_abbr'].' ('.$splitJob['nbep'].' ep)'   ?></th>
@@ -15,7 +15,7 @@
       </tr>
       <tr>
         <?php  foreach ($splits as $splitJob): ?>
-    <?php if (substr( $splitJob['test_type_abbr'], 0, 1 ) === ".") :  ?>
+          <?php if (substr( $splitJob['test_type_abbr'], 0, 1 ) === ".") :  ?>
             <th class="selectableTitle" data-idJob="<?=  $splitJob['id_tbljob'] ?>" data-IO="DyT_SubC"  data-value="<?= $splitJob['DyT_SubC']   ?>"data-oldValue="<?= $splitJob['DyT_SubC']   ?>">DyT SubC</th>
             <th class="selectableTitle" data-idJob="<?=  $splitJob['id_tbljob'] ?>" data-IO="DyT_Cust"  data-value="<?= $splitJob['DyT_Cust']   ?>"data-oldValue="<?= $splitJob['DyT_Cust']   ?>">DyT Cust</th>
             <th class="selectableTitle" data-idJob="<?=  $splitJob['id_tbljob'] ?>" data-IO="DyT_expected"  data-value="<?= $splitJob['DyT_expected']   ?>"data-oldValue="<?= $splitJob['DyT_expected']   ?>">Expected</th>
@@ -48,7 +48,7 @@
       <?php foreach ($groupes as $key => $line): ?>
         <tr>
           <td>Group <?= $key+1 ?></td>
-          <td class="selectable" data-id="<?=  (($split['available_expected']=="")?" ":$split['available_expected']) ?>" data-IO="available_expected" data-oldValue="<?= $split['available_expected']   ?>"><?= $split['available_expected'] ?></td>
+          <td class="selectable" data-id="<?=  $split['id_info_job'] ?>" data-IO="available_expected" data-oldValue="<?= $split['available_expected']   ?>"><?= $split['available_expected'] ?></td>
 
           <?php  foreach ($splits as $splitJob): ?>
             <?php if (isset($groupes[$key]['split'][$splitJob['id_tbljob']])) : ?>
