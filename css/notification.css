@@ -1,0 +1,85 @@
+#notification .modal-dialog {
+  margin-top: 10%;
+}
+#notification .modal-header {
+  color:black;
+}
+#notification .modal-content {
+  height:600px;
+  color:white;
+  background-color : darkgray !important;
+  border: 0px;
+}
+
+
+.labelTitle {
+  display:block;
+  font-weight:bold;
+}
+.labelValue {
+  font-weight:normal;
+}
+
+
+.from {
+  float:left;
+}
+.datetime {
+  float:right;
+}
+.subject {
+  margin:0px;
+}
+
+
+#exTab2 {
+  padding : 0px;
+}
+#exTab2 .tab-content {
+  color : white;
+  padding : 5px 15px;
+  background-color : #44546A;
+}
+#exTab2 .nav > li > a {
+  height:100%;
+}
+#exTab2 .nav-stacked > li + li  {
+  margin-top:0px;
+}
+#exTab2 li > a {
+  background-color: dimgray;
+  color: white;
+  border-width: 1px;
+  border-style: solid;
+  border-color : black;
+  border-radius: 0px;
+}
+#exTab2 .nav-pills > li.active > a  {
+  background-color : #44546A;
+}
+#exTab2 .nav-pills > li > a:hover  {
+  background-color : gray;
+  color: black;
+}
+#exTab2 .tab-content a  {
+  color:white;
+}
+#exTab2 .tab-content a:hover {
+  color: lightgrey;
+}
+
+#exTab2 .tab-content .select2-selection {
+  color : black;
+}
+#exTab2 .tab-content textarea:disabled {
+  background-color: inherit;
+  border : 0px;
+}
+.boxed {
+  background-color:dimgray;
+  color: white;  
+  border-width: 1px;
+  border-style: solid;
+  border-color : black;
+  border-radius: 0px;
+}

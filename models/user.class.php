@@ -16,7 +16,10 @@ class USER
 
   public function login($iduser,$mdp,$rememberme)
   {
-    $req='SELECT * FROM techniciens WHERE id_technicien='.$iduser;
+    $req='SELECT *
+    FROM techniciens
+    WHERE id_technicien='.$iduser.'
+    GROUP BY id_technicien';
 
     $userRow = $this->db->getOne($req);
 
@@ -50,10 +53,11 @@ class USER
   }
 
   public function shortlogin($iduser,$mdp)
-
-
   {
-    $req='SELECT * FROM techniciens WHERE id_technicien='.$iduser;
+    $req='SELECT *
+    FROM techniciens
+    WHERE id_technicien='.$iduser.'
+    GROUP BY id_technicien';
 
     $userRow = $this->db->getOne($req);
 

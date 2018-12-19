@@ -27,7 +27,7 @@ $(document).ready(function() {
     }));
     var formScheduleSplit = $.param($('th').map(function() {
       if ($(this).attr('data-idjob')){
-        if ($(this).attr('data-value')!= $(this).attr('data-oldvalue')) {
+if ($(this).attr('data-value')!= $(this).attr('data-oldvalue')) {
           return {
             name: $(this).attr('data-idJob') + '-' + $(this).attr('data-io'),
             value: $(this).attr('data-value')
@@ -52,7 +52,7 @@ $(document).ready(function() {
       },
       success : function(data, statut){
         //alert('yes');
-      //  location.reload();
+        location.reload();
       },
       error : function(resultat, statut, erreur) {
         console.log(Object.keys(resultat));

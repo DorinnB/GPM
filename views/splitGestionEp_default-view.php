@@ -366,15 +366,15 @@
                         <td><?= $eprouvette['OVST_strain_max']  ?></td>
                       </tr>
                       <tr>
-                        <td>OVST Max</td>
+                        <td>UDST Min</td>
                         <td><?= $eprouvette['UDST_strain_max']  ?></td>
                       </tr>
                       <tr>
-                        <td>OVST Max</td>
+                        <td>UDST Min</td>
                         <td><?= $eprouvette['UDST_strain_min']  ?></td>
                       </tr>
                       <tr>
-                        <td>OVST Max</td>
+                        <td>OVST Min</td>
                         <td><?= $eprouvette['OVST_strain_min']  ?></td>
                       </tr>
                     </table>
@@ -421,15 +421,15 @@
                         <td><?= $eprouvette['OVST_load_max']  ?></td>
                       </tr>
                       <tr>
-                        <td>OVST Max</td>
+                        <td>UDST Max</td>
                         <td><?= $eprouvette['UDST_load_max']  ?></td>
                       </tr>
                       <tr>
-                        <td>OVST Max</td>
+                        <td>UDST Min</td>
                         <td><?= $eprouvette['UDST_load_min']  ?></td>
                       </tr>
                       <tr>
-                        <td>OVST Max</td>
+                        <td>OVST Min</td>
                         <td><?= $eprouvette['OVST_load_min']  ?></td>
                       </tr>
                     </table>

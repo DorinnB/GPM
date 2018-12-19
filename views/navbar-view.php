@@ -32,9 +32,21 @@
 			</li>
 			<!--<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>-->
 
-			<li><a href="#" id="login"><span class="glyphicon glyphicon-log-in"></span> <span id="user">Login</span></a><div id="iduser" style="display:none;"><?= (isset($_COOKIE['id_user'])?$_COOKIE['id_user'].'<script>iduser='.$_COOKIE['id_user'].';</script>':0)	?></div></li>
-			<li><div class="timer" style="margin-right:50px;"></div></li>
+			<li>
+				<a href="#" id="login">
+					<span class="glyphicon glyphicon-log-in"></span>
+					<span id="user">Login</span></a>
+					<div id="iduser" style="display:none;">
+						<?= (isset($_COOKIE['id_user'])?$_COOKIE['id_user'].'<script>iduser='.$_COOKIE['id_user'].';</script>':0)	?>
+					</div>
+				</li>
+				<li>
+					<a href="#" data-toggle="modal" data-target="#notification" style="padding-left:0px; padding-right:5px;">
+						<span class="glyphicon glyphicon-envelope"><span id="countNotification" class="badge"></span></span>
+					</a>
+				</li>
+				<li><div class="timer" style="width:auto;margin-right:50px;"></div></li>
 
-		</ul>
-	</div>
-</nav>
+			</ul>
+		</div>
+	</nav>

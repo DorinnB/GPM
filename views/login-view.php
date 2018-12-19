@@ -101,3 +101,5 @@
     </div>
   </div>
 </div>
+
+<?php require('views/notificationBlank-view.php'); ?>
