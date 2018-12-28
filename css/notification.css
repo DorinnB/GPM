@@ -77,9 +77,13 @@
 }
 .boxed {
   background-color:dimgray;
-  color: white;  
+  color: white;
   border-width: 1px;
   border-style: solid;
   border-color : black;
   border-radius: 0px;
+}
+
+#new [data-toggle="toggle"] {
+  width:100% !important;
 }
