@@ -15,13 +15,13 @@ class InvoiceModel
   public function getAllInvoiceList($id_tbljob="null") {
 
     if ($id_tbljob=="null") {
-/*
+      /*
       $req='SELECT pricinglists.id_pricingList, pricingList, pricingListFR, pricingListUS, prodCode, OpnCode, USD, EURO, pricingList_actif, id_test_type
       FROM `pricinglists`
       INNER JOIN test_type_pricinglists ON test_type_pricinglists.id_pricinglist=pricinglists.id_pricinglist
       WHERE id_test_type=0
       ORDER BY pricinglists.id_pricingList';
-  */
+      */
       $req='SELECT pricinglists.id_pricingList, pricingList, pricingListFR, pricingListUS, prodCode, OpnCode, USD, EURO, pricingList_actif
       FROM `pricinglists`
 
@@ -52,21 +52,28 @@ class InvoiceModel
     OpnCode,
     invoicelines.pricingList,
     qteUser,
-    if(type=1,
+    if(
+      type=1,
       SUM(IF((d_checked > 0) OR (n_fichier is not null),1,0)),
-      if(type=2,
+      if(
+        type=2,
         sum(
           ceil(
             if(
-              if(temps_essais is null,
-                if(IF(Cycle_final is null,Cycle_final_temp, cycle_final) >0 AND c_frequence is not null and c_frequence !=0,
-                  if(Cycle_STL is null and c_cycle_STL is null,
+              if(
+                temps_essais is null,
+                if(
+                  IF(Cycle_final is null,Cycle_final_temp, cycle_final) >0 AND c_frequence is not null and c_frequence !=0,
+                  if(
+                    Cycle_STL is null and c_cycle_STL is null,
                     IF(Cycle_final is null,Cycle_final_temp, cycle_final)/eprouvettes.c_frequence/3600,
-                    if(Cycle_STL is null,
+                    if(
+                      Cycle_STL is null,
                       if(IF(Cycle_final is null,Cycle_final_temp, cycle_final)>c_cycle_STL,(c_cycle_STL/c_frequence+(IF(Cycle_final is null,Cycle_final_temp, cycle_final)-c_cycle_STL)/c_frequence_STL)/3600,
                       (IF(Cycle_final is null,Cycle_final_temp, cycle_final)/c_frequence)/3600
                     )
-                    ,if(IF(Cycle_final is null,Cycle_final_temp, cycle_final)>cycle_STL,
+                    ,if(
+                      IF(Cycle_final is null,Cycle_final_temp, cycle_final)>cycle_STL,
                       (cycle_STL/c_frequence+(IF(Cycle_final is null,Cycle_final_temp, cycle_final)-cycle_STL)/c_frequence_STL)/3600,
                       (IF(Cycle_final is null,Cycle_final_temp, cycle_final)/c_frequence)/3600
                     )
@@ -77,16 +84,22 @@ class InvoiceModel
               )
               ,temps_essais
             )>24,
-            if(temps_essais is null,
-              if(IF(Cycle_final is null,Cycle_final_temp, cycle_final) >0 AND c_frequence is not null and c_frequence !=0,
-                if(Cycle_STL is null and c_cycle_STL is null,
+            if(
+              temps_essais is null,
+              if(
+                IF(Cycle_final is null,Cycle_final_temp, cycle_final) >0 AND c_frequence is not null and c_frequence !=0,
+                if(
+                  Cycle_STL is null and c_cycle_STL is null,
                   IF(Cycle_final is null,Cycle_final_temp, cycle_final)/eprouvettes.c_frequence/3600,
-                  if(Cycle_STL is null,
-                    if(IF(Cycle_final is null,Cycle_final_temp, cycle_final)>c_cycle_STL,
+                  if(
+                    Cycle_STL is null,
+                    if(
+                      IF(Cycle_final is null,Cycle_final_temp, cycle_final)>c_cycle_STL,
                       (c_cycle_STL/c_frequence+(IF(Cycle_final is null,Cycle_final_temp, cycle_final)-c_cycle_STL)/c_frequence_STL)/3600,
                       (IF(Cycle_final is null,Cycle_final_temp, cycle_final)/c_frequence)/3600
-                    )
-                    ,if(IF(Cycle_final is null,Cycle_final_temp, cycle_final)>cycle_STL,
+                    ),
+                    if(
+                      IF(Cycle_final is null,Cycle_final_temp, cycle_final)>cycle_STL,
                       (cycle_STL/c_frequence+(IF(Cycle_final is null,Cycle_final_temp, cycle_final)-cycle_STL)/c_frequence_STL)/3600,
                       (IF(Cycle_final is null,Cycle_final_temp, cycle_final)/c_frequence)/3600
                     )
@@ -109,7 +122,7 @@ class InvoiceModel
     FROM `invoicelines`
     LEFT JOIN pricinglists ON pricinglists.id_pricingList=invoicelines.id_pricinglist
     LEFT JOIN eprouvettes on eprouvettes.id_job=invoicelines.id_tbljob
-LEFT JOIN eprouvettes_temp ON eprouvettes_temp.id_eprouvettes_temp=eprouvettes.id_eprouvette
+    LEFT JOIN eprouvettes_temp ON eprouvettes_temp.id_eprouvettes_temp=eprouvettes.id_eprouvette
     LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
     WHERE id_tbljob='.$id_tbljob.'
     AND eprouvette_actif=1
