@@ -41,7 +41,7 @@ class NotificationModel
     WHERE '.$req_user.'
     '.$notification_state.'
     AND notification_date > DATE_SUB(NOW(),INTERVAL 1 YEAR)
-    ORDER BY id_notification;';
+    ORDER BY id_notification DESC;';
 
     //echo $req;
     return $this->db->getAll($req);
@@ -78,7 +78,7 @@ class NotificationModel
     WHERE ('.$req_user.' OR '.$req_frame.')
     '.$notification_state.'
         AND notification_date > DATE_SUB(NOW(),INTERVAL 1 YEAR)
-    ORDER BY id_notification;';
+    ORDER BY id_notification DESC;';
 
     //    echo $req;
     return $this->db->getAll($req);
