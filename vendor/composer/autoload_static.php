@@ -56,6 +56,7 @@ class ComposerStaticInit5f8ce4a39829d3eb6525256b32896763
         array (
             'Psr\\SimpleCache\\' => 16,
             'PhpOffice\\PhpSpreadsheet\\' => 25,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
         'C' => 
         array (
@@ -71,6 +72,10 @@ class ComposerStaticInit5f8ce4a39829d3eb6525256b32896763
         'PhpOffice\\PhpSpreadsheet\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'Complex\\' => 
         array (
