@@ -1,16 +1,19 @@
 <?php
 
+phpinfo();
+exit;
+
 ini_set("SMTP", "smtp.office365.com");
 ini_set("smtp_port", "587");// sachant que le port ressemblera sûrement à quelquechose comme 8025
-ini_set("sendmail_from", "pgonnet@metcutfrance.com");
+ini_set("sendmail_from", "pgonnet@entreprisefrance.com");
 
-ini_set("username", "pgonnet@metcutfrance.com");
-ini_set("password", "850pgo+15");
+ini_set("username", "pgonnet@entreprisefrance.com");
+ini_set("password", "+15");
 ini_set("encryption", "starttls");
 phpinfo();
 
 exit;
-$mail = 'pgonnet@metcutfrance.com'; // Déclaration de l'adresse de destination.
+$mail = 'pgonnet@entreprisefrance.com'; // Déclaration de l'adresse de destination.
 if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $mail)) // On filtre les serveurs qui rencontrent des bogues.
 {
 	$passage_ligne = "\r\n";
@@ -68,14 +71,14 @@ mail($mail,$sujet,$message,$header);
 
 exit;
 
-    $to = 'pgonnet@metcutfrance.com,bobafett@arturito.net';
+    $to = 'pgonnet@entreprisefrance.com,bobafett@arturito.net';
     $subject = "Millennium Falcon";
 
     $organizer          = 'Darth Vader';
     $organizer_email    = 'darthvader@arturito.net';
 
     $participant_name_1 = 'Pierrick';
-    $participant_email_1= 'pgonnet@metcutfrance.com';
+    $participant_email_1= 'pgonnet@entreprisefrance.com';
 
     $participant_name_2 = 'Boba Fett';
     $participant_email_2= 'bobafett@arturito.net';
