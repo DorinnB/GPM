@@ -142,34 +142,92 @@
                 <div class="row">
                   <div class="form-group col-md-4 boxed">
                     <label class="labelTitle">From</label>
-                  <label class="labelValue"><?= $value['transmitter'] ?></label>
+                    <label class="labelValue transmitter" data-id_transmitter="<?= $value['id_transmitter'] ?>"><?= $value['transmitter'] ?></label>
                   </div>
                   <div class="form-group col-md-4 boxed">
-                  <label class="labelTitle">To</label>
-                  <label class="labelValue"><?= (!empty($value['receiver_user']))?$value['receiver_user']:$value['receiver_frame'] ?></label>
+                    <label class="labelTitle">To</label>
+                    <label class="labelValue"><?= (!empty($value['receiver_user']))?$value['receiver_user']:$value['receiver_frame'] ?></label>
                   </div>
                   <div class="form-group col-md-4 boxed">
-                  <label class="labelTitle">Date</label>
-                  <label class="labelValue"><?= date("Y-m-d", strtotime($value['notification_date'])) ?></label>
+                    <label class="labelTitle">Date</label>
+                    <label class="labelValue"><?= date("Y-m-d", strtotime($value['notification_date'])) ?></label>
                   </div>
                 </div>
                 <div class="form-group">
                   <label class="labelTitle">Subject</label>
-                  <label class="labelValue"><?= $value['subject'] ?></label>
+                  <label class="labelValue subject"><?= $value['subject'] ?></label>
                 </div>
                 <div class="form-group">
-                  <textarea style="height:100%; width:100%;" rows="13" disabled><?= $value['notification'] ?></textarea>
+                  <textarea class="text" style="height:100%; width:100%;" rows="13" disabled><?= $value['notification'] ?></textarea>
                 </div>
               </div>
-            <div style="height:10%">
-              <div class="col-md-2 col-md-offset-8 notificate boxed" data-id_notification="<?= $value['id_notification'] ?>" style="height:100%;">
-                <acronym title="Toggle Notification">
-                  <a href="#" role="button" >
-                    <img type="image" src="img/notification.png" style="max-width:100%; max-height:100%; padding:5px 0px;" />
-                  </a>
-                </acronym>
+              <div style="height:10%">
+                <div class="col-md-2 col-md-offset-6 reply boxed" data-id_notification="<?= $value['id_notification'] ?>" style="height:100%;">
+                  <acronym title="Reply Notification">
+                    <a href="#" role="button" >
+                      <img type="image" src="img/reply.png" style="max-width:100%; max-height:100%; padding:5px 0px;" />
+                    </a>
+                  </acronym>
+                </div>
+                <div class="col-md-2 notificate boxed" data-id_notification="<?= $value['id_notification'] ?>" style="height:100%;">
+                  <acronym title="Toggle Notification">
+                    <a href="#" role="button" >
+                      <img type="image" src="img/notification.png" style="max-width:100%; max-height:100%; padding:5px 0px;" />
+                    </a>
+                  </acronym>
+                </div>
+                <?php if ($value['notification_state']!=0) : ?>
+                  <div class="col-md-2 deleteNotification boxed" data-id_notification="<?= $value['id_notification'] ?>" style="height:100%;">
+                    <acronym title="Delete">
+                      <a href="#" role="button">
+                        <img type="image" src="img/cross.png" style="max-width:100%; max-height:100%; padding:5px 0px;" />
+                      </a>
+                    </acronym>
+                  </div>
+                <?php endif ?>
               </div>
-              <?php if ($value['notification_state']!=0) : ?>
+            </div>
+          <?php endforeach  ?>
+          <?php foreach ($oNotification->getAllNotificationFrom("history") as $key => $value) :  ?>
+            <div id="received_<?= $value['id_notification'] ?>" class="tab-pane fade" style="height:100%;">
+              <div style="height:90%; overflow-y:auto; overflow-x:hidden;">
+                <div class="row">
+                  <div class="form-group col-md-4 boxed">
+                    <label class="labelTitle">From</label>
+                    <label class="labelValue transmitter" data-id_transmitter="<?= $value['id_transmitter'] ?>"><?= $value['transmitter'] ?></label>
+                  </div>
+                  <div class="form-group col-md-4 boxed">
+                    <label class="labelTitle">To</label>
+                    <label class="labelValue"><?= (!empty($value['receiver_user']))?$value['receiver_user']:$value['receiver_frame'] ?></label>
+                  </div>
+                  <div class="form-group col-md-4 boxed">
+                    <label class="labelTitle">Date</label>
+                    <label class="labelValue"><?= date("Y-m-d", strtotime($value['notification_date'])) ?></label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="labelTitle">Subject</label>
+                  <label class="labelValue subject"><?= $value['subject'] ?></label>
+                </div>
+                <div class="form-group">
+                  <textarea class="text" style="height:100%; width:100%;" rows="13" disabled><?= $value['notification'] ?></textarea>
+                </div>
+              </div>
+              <div style="height:10%">
+                <div class="col-md-2 col-md-offset-6 reply boxed" data-id_notification="<?= $value['id_notification'] ?>" style="height:100%;">
+                  <acronym title="Reply Notification">
+                    <a href="#" role="button" >
+                      <img type="image" src="img/reply.png" style="max-width:100%; max-height:100%; padding:5px 0px;" />
+                    </a>
+                  </acronym>
+                </div>
+                <div class="col-md-2 notificate boxed" data-id_notification="<?= $value['id_notification'] ?>" style="height:100%;">
+                  <acronym title="Toggle Notification">
+                    <a href="#" role="button" >
+                      <img type="image" src="img/notification.png" style="max-width:100%; max-height:100%; padding:5px 0px;" />
+                    </a>
+                  </acronym>
+                </div>
                 <div class="col-md-2 deleteNotification boxed" data-id_notification="<?= $value['id_notification'] ?>" style="height:100%;">
                   <acronym title="Delete">
                     <a href="#" role="button">
@@ -177,57 +235,13 @@
                     </a>
                   </acronym>
                 </div>
-              <?php endif ?>
-            </div>
-          </div>
-        <?php endforeach  ?>
-        <?php foreach ($oNotification->getAllNotificationFrom("history") as $key => $value) :  ?>
-          <div id="received_<?= $value['id_notification'] ?>" class="tab-pane fade" style="height:100%;">
-            <div style="height:90%; overflow-y:auto; overflow-x:hidden;">
-              <div class="row">
-                <div class="form-group col-md-4 boxed">
-                  <label class="labelTitle">From</label>
-                <label class="labelValue"><?= $value['transmitter'] ?></label>
-                </div>
-                <div class="form-group col-md-4 boxed">
-                <label class="labelTitle">To</label>
-                <label class="labelValue"><?= (!empty($value['receiver_user']))?$value['receiver_user']:$value['receiver_frame'] ?></label>
-                </div>
-                <div class="form-group col-md-4 boxed">
-                <label class="labelTitle">Date</label>
-                <label class="labelValue"><?= date("Y-m-d", strtotime($value['notification_date'])) ?></label>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="labelTitle">Subject</label>
-                <label class="labelValue"><?= $value['subject'] ?></label>
-              </div>
-              <div class="form-group">
-                <textarea style="height:100%; width:100%;" rows="13" disabled><?= $value['notification'] ?></textarea>
               </div>
             </div>
-            <div style="height:10%">
-              <div class="col-md-2 col-md-offset-8 notificate boxed" data-notificate="<?= $value['id_notification'] ?>" style="height:100%;">
-                <acronym title="Toggle Notification">
-                  <a href="#" role="button">
-                    <img type="image" src="img/notification.png" style="max-width:100%; max-height:100%; padding:5px 0px;" />
-                  </a>
-                </acronym>
-              </div>
-              <div class="col-md-2 deleteNotification boxed" data-id_notification="<?= $value['id_notification'] ?>" style="height:100%;">
-                <acronym title="Delete">
-                  <a href="#" role="button">
-                    <img type="image" src="img/cross.png" style="max-width:100%; max-height:100%; padding:5px 0px;" />
-                  </a>
-                </acronym>
-              </div>
-            </div>
-          </div>
-        <?php endforeach  ?>
+          <?php endforeach  ?>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </div>
 <script type="text/javascript" src="js/notification.js"></script>
 

@@ -1,5 +1,14 @@
 $(document).ready(function(){
 
+  $(".reply").click(function(e) {
+    $('.nav-pills a[href="#new"]').tab('show'); //affichage "new"
+    $('#subject').val( 'TR :'+ $('#received_' + $(this).attr('data-id_notification')).find('.subject').text()); //modification subject
+    $('#text').text('----------\n' + $('#received_' + $(this).attr('data-id_notification')).find('.text').text() + '----------\n'); //modification textarea
+
+    $('#id_receiver_user').val($('#received_' + $(this).attr('data-id_notification')).find('.transmitter').attr('data-id_transmitter')); // Select the option with a value of '1'
+    $('#id_receiver_user').trigger('change'); // Notify any JS components that the value changed
+  });
+
   $(".notificate").click(function(e) {
     $.ajax({
       type: "POST",

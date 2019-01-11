@@ -33,7 +33,7 @@ class NotificationModel
       $notification_state="";
     }
 
-    $req='SELECT id_notification, subject, notification, notification_date, notification_state, t1.technicien as transmitter, t2.technicien as receiver_user, machine as receiver_frame
+    $req='SELECT id_notification, subject, notification, notification_date, notification_state, id_transmitter, t1.technicien as transmitter, t2.technicien as receiver_user, machine as receiver_frame
     FROM notifications
     LEFT JOIN techniciens t1 ON t1.id_technicien=notifications.id_transmitter
     LEFT JOIN techniciens t2 ON t2.id_technicien=notifications.id_receiver_user
@@ -70,7 +70,7 @@ class NotificationModel
       $notification_state="";
     }
 
-    $req='SELECT id_notification, subject, notification, notification_date, notification_state, t1.technicien as transmitter, t2.technicien as receiver_user, machine as receiver_frame
+    $req='SELECT id_notification, subject, notification, notification_date, notification_state, id_transmitter, t1.technicien as transmitter, t2.technicien as receiver_user, machine as receiver_frame
     FROM notifications
     LEFT JOIN techniciens t1 ON t1.id_technicien=notifications.id_transmitter
     LEFT JOIN techniciens t2 ON t2.id_technicien=notifications.id_receiver_user
