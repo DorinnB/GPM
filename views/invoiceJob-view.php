@@ -1,7 +1,5 @@
 
 <link href="css/invoiceJob.css" rel="stylesheet">
-<link href="lib/bootstrap-toggle-master/css/bootstrap-toggle.min.css" rel="stylesheet">
-<script src="lib/bootstrap-toggle-master/js/bootstrap-toggle.min.js"></script>
 
 <!-- Page Content -->
 <div id="page-content-wrapper" style="height:100%">
