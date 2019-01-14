@@ -14,13 +14,13 @@
       <img src="img/FlagUSA.png" style="width: auto;max-height: 30px;">
     </a>
   </li>
-
+  <!--
   <li class="list-group-item">
-    <a href="#" onclick="createReport('USA','V2');">
+    <a href="#" onclick="createReport('','V2');">
       <img src="img/nextJob.png" style="width: auto;max-height: 30px;">
     </a>
   </li>
-
+-->
   <li class="list-group-item">
     <a href="#" onclick="createReport('','OLD');">
       <img src="img/old.png" style="width: auto;max-height: 30px;">
