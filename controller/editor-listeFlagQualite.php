@@ -20,6 +20,7 @@ Editor::inst( $db, 'eprouvettes' )
 ->fields(
   Field::inst( 'eprouvettes.id_eprouvette'),
   Field::inst( 'enregistrementessais.n_fichier'),
+  Field::inst( 'enregistrementessais.date'),
   Field::inst( 'eprouvettes.n_essai'),
   Field::inst( 'info_jobs.customer'),
   Field::inst( 'info_jobs.job'),

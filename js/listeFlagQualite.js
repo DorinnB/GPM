@@ -63,6 +63,7 @@ $(document).ready(function() {
           return '<a href="#" class="open-GestionEp" data-toggle="modal" data-target="#gestionEp" data-id="'+data.eprouvettes.id_eprouvette+'" onclick="gestionEp('+data.eprouvettes.id_eprouvette+');">'+data.enregistrementessais.n_fichier+'</a>';
         }},
       { data: "machines.machine" },
+      { data: "enregistrementessais.date" },
       { data: "eprouvettes.d_commentaire", width: "40%" },
       { data: "eprouvettes.flag_qualite" },
       { data: "eprouvettes.q_commentaire", width: "30%" },

@@ -15,6 +15,7 @@
 						<th><acronym title="split">Split</acronym></th>
 						<th><acronym title="n_fichier">File</acronym></th>
 						<th><acronym title="">Machine</acronym></th>
+						<th><acronym title="Date of the Test">Date</acronym></th>
 						<th><acronym title="">Lab Comm</acronym></th>
 						<th><acronym title="">Tech</acronym></th>
 						<th><acronym title="">Comm Qualite</acronym></th>
@@ -31,6 +32,7 @@
 						<th><acronym title="split">Split</acronym></th>
 						<th><acronym title="n_fichier">File</acronym></th>
 						<th><acronym title="">Machine</acronym></th>
+						<th><acronym title="Date of the Test">Date</acronym></th>
 						<th><acronym title="">Lab Comm</acronym></th>
 						<th><acronym title="">Tech</acronym></th>
 						<th><acronym title="">Comm Qualite</acronym></th>
