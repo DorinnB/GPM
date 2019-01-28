@@ -17,7 +17,7 @@ else {
   $language='';
 }
 if (isset($_GET['version']) && $_GET['version']!='')	{
-  $version=$_GET['version'];
+  $version='_'.$_GET['version'];
 }
 else {
   $version='';
@@ -374,6 +374,381 @@ If (isset($_GET['Cust']) AND $_GET['Cust']=="SAE" AND $split['test_type_abbr']==
 
     $col++;
   }
+
+
+
+}
+
+ElseIf ($split['test_type_abbr']=="Str" AND $_GET['version']=="V2")	{
+
+  $objPHPExcel = $objReader->load("../templates/Report Str".$version.$language.".xlsx");
+
+
+  $enTete=$objPHPExcel->getSheetByName('En-tête');
+  $pvEssais=$objPHPExcel->getSheetByName('PV');
+  $courbes=$objPHPExcel->getSheetByName('Courbes');
+
+
+  $val2Xls = array(
+
+    'B3'=> $split['test_type_cust'],
+
+    'B5'=> $split['entreprise'],
+    'B6'=> $split['prenom'].' '.$split['nom'],
+    'B7'=> (isset($adresse[0])?$split[$adresse[0]]:''),
+    'B8'=> (isset($adresse[1])?$split[$adresse[1]]:''),
+    'B9'=> (isset($adresse[2])?$split[$adresse[2]]:''),
+    'B10'=> (isset($adresse[3])?$split[$adresse[3]]:''),
+    'B11'=> (isset($adresse[4])?$split[$adresse[4]]:''),
+
+    'F5' => $jobcomplet,
+    'F6'=> (($split['report_rev']=='')?($split['report_rev']+1-1).' - DRAFT':$split['report_rev']),
+    'F7'=> date("Y-m-d"),
+    'F9'=> $split['po_number'],
+
+    'C20'=> $split['info_jobs_instruction'],
+    'C22'=> $split['customer'].'-'.$split['job'],
+
+    'C28'=> $split['ref_matiere'],
+    'C29'=> $split['nbep'],
+    'C30'=> $split['nbtestdone'],
+
+    //'C28' si .MA
+    'K32'=> ((isset($MArefSubC) AND $MArefSubC!="")?1:0),
+    'C33'=> $MArefSubC,
+    'C34'=> $MAspecifs,
+    'C35'=> $split['dessin'],
+
+    'C39'=> $split['specification'],
+
+    'C42'=> $split['waveform'],
+    'K43'=> $split['cell_load_capacity'],
+    'C44'=> $split['ratio1'],
+    'K45'=> $split['four'],
+    'L45'=> $split['coil']
+  );
+
+  //Pour chaque element du tableau associatif, on update les cellules Excel
+  foreach ($val2Xls as $key => $value) {
+    $enTete->setCellValue($key, $value);
+  }
+
+  //masquage des lignes d'adresse non utilisé
+  if (!isset($adresse[3])) {
+    $enTete->getRowDimension(10)->setVisible(false);
+    $enTete->getRowDimension(11)->setVisible(false);
+  }
+  if (!isset($adresse[4])) {
+    $enTete->getRowDimension(11)->setVisible(false);
+  }
+
+  //titre des lignes PV
+  $pvEssais->setCellValueByColumnAndRow(1+0, 14, $split['c_type_1']);
+  $pvEssais->setCellValueByColumnAndRow(1+2, 14, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
+  $pvEssais->setCellValueByColumnAndRow(1+0, 15, $split['c_type_2']);
+  $pvEssais->setCellValueByColumnAndRow(1+2, 15, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
+
+  $pvEssais->setCellValueByColumnAndRow(1+0, 41, $split['c_type_1']);
+  $pvEssais->setCellValueByColumnAndRow(1+2, 41, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
+  $pvEssais->setCellValueByColumnAndRow(1+0, 42, $split['c_type_2']);
+  $pvEssais->setCellValueByColumnAndRow(1+2, 42, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
+
+
+  $pvEssais->setCellValueByColumnAndRow(1+2, 27, $split['c_unite']);
+  $pvEssais->setCellValueByColumnAndRow(1+2, 28, $split['c_unite']);
+  $pvEssais->setCellValueByColumnAndRow(1+2, 29, $split['c_unite']);
+  $pvEssais->setCellValueByColumnAndRow(1+2, 30, $split['c_unite']);
+
+
+  $row = 0; // 1-based index
+  $col = 3;
+
+  $row_q=0;
+  $col_q=0;
+  $nb_q=0;
+  $max_row_q=0;
+  $nbPage=10;
+  $maxheight=0;
+
+
+
+  foreach ($ep as $key => $value) {
+    //copy des styles des colonnes
+    for ($row = 5; $row <= 61; $row++) {
+      $style = $pvEssais->getStyleByColumnAndrow(1+3, $row);
+      $dstCell = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(1+$col) . (string)($row);
+      $pvEssais->duplicateStyle($style, $dstCell);
+    }
+
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 5, $value['prefixe'].' ');
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 6, $value['nom_eprouvette'].' ');
+
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 7, $value['n_essai']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 8, $value['n_fichier']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 9, $value['machine']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 10, $value['date']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 11, $value['c_temperature']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 12, $value['c_frequence']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 13, $value['c_frequence_STL']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 14, $value['c_type_1_val']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 15, $value['c_type_2_val']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 16, str_replace(array("True","Tapered"), "", strtoupper($value['c_waveform'])));
+
+    if (isset($value['denomination']['denomination_1'])) {
+      $pvEssais->setCellValueByColumnAndRow(1+$col, 17, $value['dim1']);
+      $pvEssais->setCellValueByColumnAndRow(1+1, 17, $value['denomination']['denomination_1']);
+      if ($value['dilatation']>1) {
+        $pvEssais->setCellValueByColumnAndRow(1+$col, 21, $value['dim1']*$value['dilatation']);
+        $pvEssais->setCellValueByColumnAndRow(1+1, 21, $value['denomination']['denomination_1']);
+      }
+      else {
+        $pvEssais->getRowDimension(21)->setVisible(FALSE);
+      }
+    }
+    else {
+      $pvEssais->getRowDimension(17)->setVisible(FALSE);
+      $pvEssais->getRowDimension(21)->setVisible(FALSE);
+    }
+    if (isset($value['denomination']['denomination_2'])) {
+      $pvEssais->setCellValueByColumnAndRow(1+$col, 18, $value['dim2']);
+      $pvEssais->setCellValueByColumnAndRow(1+1, 18, $value['denomination']['denomination_2']);
+      if ($value['dilatation']>1) {
+        $pvEssais->setCellValueByColumnAndRow(1+$col, 22, $value['dim2']*$value['dilatation']);
+        $pvEssais->setCellValueByColumnAndRow(1+1, 22, $value['denomination']['denomination_2']);
+      }
+      else {
+        $pvEssais->getRowDimension(22)->setVisible(FALSE);
+      }
+
+    }
+    else {
+      $pvEssais->getRowDimension(18)->setVisible(FALSE);
+      $pvEssais->getRowDimension(22)->setVisible(FALSE);
+    }
+    if (isset($value['denomination']['denomination_3'])) {
+      $pvEssais->setCellValueByColumnAndRow(1+$col, 19, $value['dim3']);
+      $pvEssais->setCellValueByColumnAndRow(1+1, 19, $value['denomination']['denomination_3']);
+      if ($value['dilatation']>1) {
+        $pvEssais->setCellValueByColumnAndRow(1+$col, 23, $value['dim3']*$value['dilatation']);
+        $pvEssais->setCellValueByColumnAndRow(1+1, 23, $value['denomination']['denomination_3']);
+      }
+      else {
+        $pvEssais->getRowDimension(23)->setVisible(FALSE);
+      }
+    }
+    else {
+      $pvEssais->getRowDimension(19)->setVisible(FALSE);
+      $pvEssais->getRowDimension(23)->setVisible(FALSE);
+    }
+
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 20, $value['E_RT']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 24, (isset($value['dilatation'])?$value['area']*$value['dilatation']*$value['dilatation']:''));
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 25, (isset($value['dilatation'])?$value['Lo']*$value['dilatation']:''));
+
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 26, $value['c1_E_montant']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 27, $value['c1_max_strain']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 28, $value['c1_min_strain']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 29, $value['c1_max_stress']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 30, $value['c1_min_stress']);
+
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 31, $value['c2_cycle']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 32, $value['c2_E_montant']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 33, $value['c2_max_strain']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 34, $value['c2_min_strain']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 35, (isset($value['c2_max_strain'])?$value['c2_max_strain']-$value['c2_min_strain']-$value['c2_calc_inelastic_strain']:''));
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 36, $value['c2_calc_inelastic_strain']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 37, $value['c2_max_stress']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 38, $value['c2_min_stress']);
+
+
+    if (strlen($value['c2_max_strain']==0)) {
+      $mivie_val_1="";
+      $mivie_val_2="";
+    }
+    else {
+      if ($split['c_type_1']=="Max") {
+        $mivie_val_1=$value['c2_max_strain'];
+      }
+      elseif ($split['c_type_1']=="Min") {
+        $mivie_val_1=$value['c2_min_strain'];
+      }
+      elseif ($split['c_type_1']=="Mean") {
+        $mivie_val_1=($value['c2_max_strain']+$value['c2_min_strain'])/2;
+      }
+      elseif ($split['c_type_1']=="Alt") {
+        $mivie_val_1=($value['c2_max_strain']-$value['c2_min_strain'])/2;
+      }
+      elseif ($split['c_type_1']=="Range") {
+        $mivie_val_1=$value['c2_max_strain']-$value['c2_min_strain'];
+      }
+      elseif ($split['c_type_1']=="R") {
+        if ($value['c2_max_strain']==0) {
+          $mivie_val_1="infini";
+        }
+        else {
+          $mivie_val_1=$value['c2_min_strain']/$value['c2_max_strain'];
+        }
+      }
+      elseif ($split['c_type_1']=="A") {
+        if ((($value['c2_max_strain']+$value['c2_min_strain'])/2)==0) {
+          $mivie_val_1="infini";
+        }
+        else {
+          $mivie_val_1=(($value['c2_max_strain']-$value['c2_min_strain'])/2)/(($value['c2_max_strain']+$value['c2_min_strain'])/2);
+        }
+      }
+
+
+      if ($split['c_type_2']=="Max") {
+        $mivie_val_2=$value['c2_max_strain'];
+      }
+      elseif ($split['c_type_2']=="Min") {
+        $mivie_val_2=$value['c2_min_strain'];
+      }
+      elseif ($split['c_type_2']=="Mean") {
+        $mivie_val_2=($value['c2_max_strain']+$value['c2_min_strain'])/2;
+      }
+      elseif ($split['c_type_2']=="Alt") {
+        $mivie_val_2=($value['c2_max_strain']-$value['c2_min_strain'])/2;
+      }
+      elseif ($split['c_type_2']=="Range") {
+        $mivie_val_2=$value['c2_max_strain']-$value['c2_min_strain'];
+      }
+      elseif ($split['c_type_2']=="R") {
+        if ($value['c2_max_strain']==0) {
+          $mivie_val_2="infini";
+        }
+        else {
+          $mivie_val_2=$value['c2_min_strain']/$value['c2_max_strain'];
+        }
+      }
+      elseif ($split['c_type_2']=="A") {
+        if ((($value['c2_max_strain']+$value['c2_min_strain'])/2)==0) {
+          $mivie_val_2="infini";
+        }
+        else {
+          $mivie_val_2=(($value['c2_max_strain']-$value['c2_min_strain'])/2)/(($value['c2_max_strain']+$value['c2_min_strain'])/2);
+        }
+      }
+    }
+
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 41, $mivie_val_1);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 42, $mivie_val_2);
+
+
+
+
+
+
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 45, ($value['Cycle_STL']==0)?"NA":$value['Cycle_STL']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 46, $value['runout']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 47, $value['Cycle_min']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 48, $value['Cycle_final']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 49, (($value['Ni']=="")?"NA":$value['Ni']));
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 50, (($value['Nf75']=="")?"NA":$value['Nf75']));
+
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 51, $value['Rupture']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 52, $value['Fracture']);
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 53, ceil(($value['temps_essais']>0)?$value['temps_essais']:$value['temps_essais_calcule']));
+
+    if ($value['Cycle_final_valid']==0 AND isset($value['Cycle_final'])) {
+      $pvEssais->getStyle(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(1+$col).'4:'.\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(1+$col).'58')->applyFromArray( $style_checked ); //default style
+      $pvEssais->getStyle(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(1+$col).'46:'.\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(1+$col).'58')->applyFromArray( $style_running );
+      $pvEssais->getStyle(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(1+$col).'4:'.\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(1+$col).'4')->applyFromArray( $style_running );
+      $pvEssais->setCellValueByColumnAndRow(1+$col, 4, "RUNNING");
+    }
+    elseif ($value['d_checked']<=0 AND $value['n_fichier']>0) {
+      $pvEssais->getStyle(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(1+$col).'4:'.\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(1+$col).'58')->applyFromArray( $style_unchecked );
+      $pvEssais->setCellValueByColumnAndRow(1+$col, 4, "Unchecked");
+    }
+    elseif ($value['valid']==0) {
+      $pvEssais->getStyle(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(1+$col).'5:'.\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(1+$col).'58')->applyFromArray( $style_void );
+      $pvEssais->setCellValueByColumnAndRow(1+$col, 4, "VOID");
+    }
+    else {
+      $pvEssais->getStyle(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(1+$col).'4:'.\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(1+$col).'58')->applyFromArray( $style_checked );
+      $pvEssais->setCellValueByColumnAndRow(1+$col, 4, "");
+    }
+
+    //s'il y a un mini, on affiche la lignes
+    if ($value['Cycle_min']>0) {
+      $pvEssais->getRowDimension(47)->setVisible(TRUE);
+    }
+
+
+
+
+    $col_q=floor(($col-3)/$nbPage)*$nbPage+3;
+    //suppression commentaire precedent si 1er de la cellule, sinon recup des autres
+    if ($col_q==$col) {
+      $pvEssais->setCellValueByColumnAndRow(1+$col_q, 60, '');
+      $prev_value='';
+    }
+    else {
+      $prev_value = $pvEssais->getCellByColumnAndRow(1+$col_q, 60)->getValue();
+    }
+
+
+    if ($value['q_commentaire']!="") {
+
+      $nb_q+=1; //on incremente le nombre de commentaire
+
+      $pvEssais->setCellValueByColumnAndRow(1+$col, 59, '('.($nb_q).')');
+      $pvEssais->setCellValueByColumnAndRow(1+$col_q, 60, $prev_value.' ('.($nb_q).') Test '.$value['n_fichier'].': '.$value['q_commentaire']."\n");
+      $pvEssais->mergeCells(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(1+$col_q).'60:'.\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(1+$col_q+($nbPage-1)).'60');
+      $pvEssais->getRowDimension(60)->setRowHeight(-1);
+
+
+      //calcul de la hauteur max de la cellule de commentaire Qualité
+      $rc = 0;
+      $width=80;  //valeur empirique lié à la largeur des colonnes
+      $line = explode("\n", $prev_value);
+      foreach($line as $source) {
+        $rc += intval((strlen($source) / $width) +1);
+      }
+      $maxheight=max($maxheight,$rc);
+      $pvEssais->getRowDimension(60)->setRowHeight($maxheight * 12.75 + 13.25);
+
+
+    }
+    if ($split['tbljob_commentaire_qualite']!="") {
+
+      $pvEssais->setCellValueByColumnAndRow(1+$col_q, 61, $split['tbljob_commentaire_qualite']);
+      $pvEssais->mergeCells(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(1+$col_q).'61:'.\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(1+$col_q+($nbPage-1)).'61');
+      $pvEssais->getRowDimension(61)->setRowHeight(-1);
+
+
+      //calcul de la hauteur max de la cellule de commentaire Qualité
+      $rc = 0;
+      $width=80;  //valeur empirique lié à la largeur des colonnes
+      $line = explode("\n", $pvEssais->getCellByColumnAndRow(1+$col_q, 61)->getValue());
+      foreach($line as $source) {
+        $rc += intval((strlen($source) / $width) +1);
+      }
+      $maxheight=max($maxheight,$rc);
+      $pvEssais->getRowDimension(61)->setRowHeight($maxheight * 12.75 + 13.25);
+
+
+    }
+
+    $col++;
+  }
+
+  //zone d'impression
+  //colstring = on augmente la zone d'impression, non pas a la derniere eprouvette mais a la serie de $nbpage d'apres.
+  $colString = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(1+(ceil(($col-3)/$nbPage)*$nbPage+3)-1);
+  $pvEssais->getPageSetup()->setPrintArea('A1:'.$colString.(61));
+
+  //separation impression par $nbPage eprouvettes
+  for ($c=$nbPage+3; $c < ($col-1)*$nbPage ; $c+=$nbPage) {
+    $pvEssais->setBreak( \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(1+$c).(1) , \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_COLUMN );
+    $pvEssais->setCellValueByColumnAndRow(1+$c-1, 1, $jobcomplet);
+    $pvEssais->setCellValueByColumnAndRow(1+$c-3, 1,$pvEssais->getCellByColumnAndRow(1+$nbPage, 1)->getValue());
+    $pvEssais->getStyle(\PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(1+$c-3).(1))->getFont()->setBold(true);
+  }
+
+
+
 
 
 
