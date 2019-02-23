@@ -132,10 +132,9 @@
           <?php endif ?>
         </td>
 
-<td class="report_Q <?=  ($infoJob['info_job_report_Q']>0)?'ok':'nok'  ?>" data-idJob="<?=	$split['id_tbljob']	?>" data-report_Q="<?= $infoJob['info_job_report_Q']  ?>" role="button"><?= $infoJob['info_job_report_Q']  ?></td>
+        <td class="report_Q <?=  ($infoJob['info_job_report_Q']>0)?'ok':'nok'  ?>" data-idJob="<?=	$split['id_tbljob']	?>" data-report_Q="<?= $infoJob['info_job_report_Q']  ?>" role="button"><?= $infoJob['info_job_report_Q']  ?></td>
         <td class="report_TM <?=  ($infoJob['info_job_report_TM']>0)?'ok':'nok'  ?>" data-idJob="<?=	$split['id_tbljob']	?>" data-report_TM="<?= $infoJob['info_job_report_TM']  ?>" role="button"><?= $infoJob['info_job_report_TM']  ?></td>
       </tr>
     </tbody>
   </table>
 </div>
-ALTER TABLE `info_jobs` ADD `info_job_report_Q` TINYINT NOT NULL DEFAULT '0' AFTER `info_job_rev`, ADD `info_job_report_TM` TINYINT NOT NULL DEFAULT '0' AFTER `info_job_report_Q`;
