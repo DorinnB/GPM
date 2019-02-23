@@ -10,20 +10,20 @@ class db {
 
   function __construct($params=array()) {
 
-    if (file_exists('config.php')) {
-      require 'config.php';
+    if (file_exists('var/config.ini')) {
+      $ini = parse_ini_file('var/config.ini');
     }
-    elseif (file_exists('../config.php')) {
-      require '../config.php';
+    elseif (file_exists('../var/config.ini')) {
+      $ini = parse_ini_file('../var/config.ini');
     }
-    
+
     $this->conn = false;
-    $this->host = $DB_HOST; //hostname
-    $this->user = $DB_USER; //username
-    $this->password = $DB_PASS; //password
-    $this->baseName = $DB_NAME; //name of your database
+    $this->host = $ini['DB_HOST']; //hostname
+    $this->user = $ini['DB_USER']; //username
+    $this->password = $ini['DB_PASS']; //password
+    $this->baseName = $ini['DB_NAME']; //name of your database
     //attention changer aussi dans le fichier de config d editor !!!!
-    $this->port = $DB_PORT;
+    $this->port = $ini['DB_PORT'];
     $this->debug = true;
     $this->connect();
   }

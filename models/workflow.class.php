@@ -34,7 +34,7 @@ public function __construct($db,$id)
 
     public function getAllGroupes() {
 
-		$req = 'SELECT DISTINCT GROUP_CONCAT(DISTINCT id_job ORDER BY phase,"") AS ordre
+		$req = 'SELECT DISTINCT GROUP_CONCAT(DISTINCT id_job ORDER BY phase,"") AS ordre, count(id_master_eprouvette) as nb
             FROM eprouvettes
             LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
             WHERE id_info_job=(SELECT id_info_job FROM tbljobs WHERE id_tbljob='.$this->id.')

@@ -1,5 +1,5 @@
 <?php
-require '../config.php';
+$ini = parse_ini_file('../var/config.ini');
 
 include_once('../models/db.class.php'); // call db.class.php
 $db = new db(); // create a new object, class db()
@@ -25,11 +25,11 @@ $split=$oSplit->getSplit();
 $cmdReport='';
 $cmdAnnexe='';
 
-$report = $PATH_JOB.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Rapports Temp'.'/'.$split['customer'].'-'.$split['job'].'-'.$split['split'].'.pdf';
+$report = $ini['PATH_JOB'].$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Rapports Temp'.'/'.$split['customer'].'-'.$split['job'].'-'.$split['split'].'.pdf';
 if (file_exists($report)) {
   $cmdReport='Report';
 }
-$Annexe = $PATH_JOB.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Annexe PDF'.'/'.$split['customer'].'-'.$split['job'].'-'.$split['split'];
+$Annexe = $ini['PATH_JOB'].$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Annexe PDF'.'/'.$split['customer'].'-'.$split['job'].'-'.$split['split'];
 if(is_dir($Annexe)){
   $cmdAnnexe='Annexe';
 }
@@ -38,11 +38,16 @@ if(is_dir($Annexe)){
 
 if ($cmdReport!='') { //si $cmd n'est pas vide, on execute le bon batch
 
-  $filename = $PATH_JOB.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Rapports Finals'.'/'.$split['customer'].'-'.$split['job'].'-'.$split['split'].'.pdf';
+  $filename = $ini['PATH_JOB'].$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Rapports Finals'.'/'.$split['customer'].'-'.$split['job'].'-'.$split['split'].'.pdf';
 
   if (file_exists($filename)) { unlink ($filename); }
 
-  $cmd='C:/wamp/www/GPM/lib/'.$cmdReport.$cmdAnnexe.'PDF.bat '.$split['customer'].' '.$split['customer'].'-'.$split['job'].' '.$split['customer'].'-'.$split['job'].'-'.$split['split'];
+  //Copy de l'excel vers rapport final
+  $srcfile = $ini['PATH_JOB'].$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Rapports Temp'.'/'.$split['customer'].'-'.$split['job'].'-'.$split['split'].'.xlsx';
+  $dstfile = $ini['PATH_JOB'].$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Rapports Finals'.'/'.$split['customer'].'-'.$split['job'].'-'.$split['split'].'.xlsx';
+  copy($srcfile, $dstfile);
+
+  $cmd=$ini['PATH_GPMlocal'].'lib/'.$cmdReport.$cmdAnnexe.'PDF.bat '.$split['customer'].' '.$split['customer'].'-'.$split['job'].' '.$split['customer'].'-'.$split['job'].'-'.$split['split'];
   //echo $cmd.'</br>';
 
   pclose(popen("start /B ". $cmd, "r"));
@@ -66,12 +71,12 @@ if ($cmdReport!='') { //si $cmd n'est pas vide, on execute le bon batch
 }
 elseif ($cmdAnnexe!='') { //si $cmd n'est pas vide, on execute le bon batch
 
-  $filename = $PATH_JOB.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Rapports Finals/Annexe_'.$split['customer'].'-'.$split['job'].'-'.$split['split'].'.pdf';
+  $filename = $ini['PATH_JOB'].$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Rapports Finals/Annexe_'.$split['customer'].'-'.$split['job'].'-'.$split['split'].'.pdf';
 
   if (file_exists($filename)) { unlink ($filename); }
 
 
-  $cmd='C:/wamp/www/GPM/lib/'.$cmdAnnexe.'PDF.bat '.$split['customer'].' '.$split['customer'].'-'.$split['job'].' '.$split['customer'].'-'.$split['job'].'-'.$split['split'];
+  $cmd=$ini['PATH_GPMlocal'].'lib/'.$cmdAnnexe.'PDF.bat '.$split['customer'].' '.$split['customer'].'-'.$split['job'].' '.$split['customer'].'-'.$split['job'].'-'.$split['split'];
   //echo $cmd.'</br>';
   pclose(popen("start /B ". $cmd, "r"));
 

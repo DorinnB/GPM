@@ -1,5 +1,5 @@
 <?php
-require '../config.php';
+$ini = parse_ini_file('../var/config.ini');
 
 include_once('../models/db.class.php'); // call db.class.php
 $db = new db(); // create a new object, class db()
@@ -15,7 +15,7 @@ $oDocument = new DocumentModel($db);
 
 
 
-$uploads_dir = $PATH_IT.'Document/'.$_POST['type'];
+$uploads_dir = $ini['PATH_IT'].'Document/'.$_POST['type'];
 
 $tmp_name = $_FILES["file-input"]["tmp_name"];
 $name = $_FILES["file-input"]["name"];

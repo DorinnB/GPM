@@ -8,14 +8,14 @@ ini_set('display_errors', '1');
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 * Database user / pass
 */
-require '../config.php';
+$ini = parse_ini_file('../var/config.ini');
 
 $sql_details = array(
   "type" => "Mysql",  // Database type: "Mysql", "Postgres", "Sqlserver", "Sqlite" or "Oracle"
-  "user" => $DB_USER,            // Database user name
-  "pass" => $DB_PASS,            // Database password
-  "host" => $DB_HOST,            // Database host
-  "port" => $DB_PORT,    // Database connection port (can be left empty for default)
-  "db"   => $DB_NAME,            // Database name
+  "user" => $ini['DB_USER'],            // Database user name
+  "pass" => $ini['DB_PASS'],            // Database password
+  "host" => $ini['DB_HOST'],            // Database host
+  "port" => $ini['DB_PORT'],    // Database connection port (can be left empty for default)
+  "db"   => $ini['DB_NAME'],            // Database name
   "dsn"  => "charset=utf8"       // PHP DSN extra information. Set as `charset=utf8` if you are using MySQL
 );

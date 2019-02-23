@@ -32,6 +32,15 @@
   width:100%;
   resize: none;
 }
+.jobTop .commentaire3{
+  color: inherit;
+  background-color: inherit;
+  text-align: left;
+  border: 0px;
+  width:100%;
+  resize: none;
+  margin-bottom: 5px;
+}
 .splitBot .commentaire, .jobTop .commentaire{
   color: inherit;
   background-color: inherit;
@@ -116,14 +125,20 @@
   white-space: nowrap;
   font-family: sans-serif;
   background: gray;
-  color: #333;
+  color: white;
   border-radius: 5px;
 }
 
-#report-contextual-menu li {
-  cursor: pointer;
-}
 
 #report-contextual-menu li:hover {
   background-color: #DEF;
+}
+
+#report-contextual-menu .found {
+  cursor:pointer;
+}
+#report-contextual-menu .notfound {
+  cursor:not-allowed;
+  opacity: 0.5;
+  background: #CCC;
 }

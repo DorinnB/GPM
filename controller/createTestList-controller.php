@@ -1,5 +1,5 @@
 <?php
-require '../config.php';
+$ini = parse_ini_file('../var/config.ini');
 
 $essai=$oEprouvette->getTest();
 
@@ -29,7 +29,7 @@ foreach ($element as $value) {
 }
 
 
-$srcfile = $PATH_IT.'TestList.txt';
+$srcfile = $ini['PATH_IT'].'TestList.txt';
 
 $myfile = file_put_contents($srcfile, $txt.PHP_EOL , FILE_APPEND | LOCK_EX);
 

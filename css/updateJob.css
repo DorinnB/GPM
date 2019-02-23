@@ -20,6 +20,15 @@ width:100%;
 padding: 6px 12px;
 }
 
+#updatejob .select2 {
+  width:100% !important;
+}
+#updatejob .select2-selection {
+  height: 34px;
+  border-radius:10px;
+  color:inherit;
+}
+
 #updatejob [class*="col-"] {
   padding-left: 0px;
   padding-right: 0px;
@@ -44,9 +53,10 @@ padding: 6px 12px;
   font-weight:normal;
 }
 
+
 .bs-example {
   position: relative;
-  padding: 15px 15px 15px;
+  padding: 5px 15px 5px;
   border-color: #e5e5e5 #eee #eee;
   border-radius: 10px;
   border-style: solid;
@@ -84,6 +94,9 @@ padding: 6px 12px;
 }
 .contact:before  {
   content: "CONTACT";
+}
+.activity:before  {
+  content: "ACTIVITY";
 }
 .comm:before  {
   content: "COMMENTS";

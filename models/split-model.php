@@ -23,12 +23,58 @@ class LstSplitModel
   }
 
 
+  public function getShortSplit() {
+    //ADD AFFICHAGE DESSIN en concat
+    $req = 'SELECT  tbljobs.id_tbljob, tbljobs.id_info_job,
+    customer, job, split, po_number, devis, info_jobs.instruction as info_jobs_instruction, info_jobs.commentaire as info_jobs_commentaire, inOut_recommendation,schedule_recommendation,
+    activity_type, specific_test,
+    contacts.genre, contacts.prenom, contacts.nom, contacts.email as email, contacts.telephone as telephone, contacts.prenom, contacts.nom, contacts.departement, contacts.rue1, contacts.rue2, contacts.ville, contacts.pays,
+    contacts2.genre as genre2, contacts2.prenom as prenom2, contacts2.nom as nom2, contacts2.email as email2, contacts2.telephone as telephone2,
+    contacts3.genre as genre3, contacts3.prenom as prenom3, contacts3.nom as nom3, contacts3.email as email3, contacts3.telephone as telephone3,
+    contacts4.genre as genre4, contacts4.prenom as prenom4, contacts4.nom as nom4, contacts4.email as email4, contacts4.telephone as telephone4,
+    tbljob_commentaire, tbljob_instruction, tbljob_commentaire_qualite, planning, tbljob_frequence,
+    GE, specific_protocol, special_instruction, staircase,
+    createur, t1.technicien as nomCreateur, t2.technicien as comCheckeur,
+    test_type, test_type_abbr, test_type_cust, ST,final, auxilaire, tbljobs.id_rawData,
+    report_rev, invoice_type, invoice_date, invoice_commentaire, invoice_lang, invoice_currency,
+    specification, ref_matiere, matiere, tbljobs.waveform,
+    other_1, other_2, other_3, other_4, other_5,
+    type1.consigne_type as c_type_1, type2.consigne_type as c_type_2, c_unite,
+    type1.id_consigne_type as id_c_type_1, type2.id_consigne_type as id_c_type_2,
+    DyT_SubC, DyT_expected, DyT_Cust, available_expected, report_send,
+    checked, comments, contacts.adresse,
+    contactST.id_contact as id_contactST, contactST.genre as genreST, contactST.prenom as prenomST, contactST.nom as nomST,entrepriseST.id_entreprise as id_entrepriseST, entrepriseST.entreprise as entrepriseST, entrepriseST.entreprise_abbr as entreprise_abbrST, refSubC,
 
+    entreprises.entreprise, entreprises.VAT, entreprises.MRSASRef, entreprises.billing_rue1, entreprises.billing_rue2, entreprises.billing_ville, entreprises.billing_pays
+
+
+    FROM tbljobs
+    LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
+    LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
+    LEFT JOIN contacts ON contacts.id_contact=info_jobs.id_contact
+    LEFT JOIN contacts  contacts2 ON contacts2.id_contact=info_jobs.id_contact2
+    LEFT JOIN contacts  contacts3 ON contacts3.id_contact=info_jobs.id_contact3
+    LEFT JOIN contacts  contacts4 ON contacts4.id_contact=info_jobs.id_contact4
+    LEFT JOIN contacts contactST ON contactST.id_contact=tbljobs.id_contactST
+    LEFT JOIN entreprises entrepriseST ON entrepriseST.id_entreprise=contactST.ref_customer
+    LEFT JOIN entreprises ON entreprises.id_entreprise=info_jobs.customer
+    LEFT JOIN matieres ON matieres.id_matiere=info_jobs.id_matiere_std
+    LEFT JOIN consigne_types as type1 ON type1.id_consigne_type=tbljobs.c_1
+    LEFT JOIN consigne_types as type2 ON type2.id_consigne_type=tbljobs.c_2
+    LEFT JOIN techniciens as t1 on t1.id_technicien=tbljobs.modif
+    LEFT JOIN techniciens as t2 on t2.id_technicien=tbljobs.checked
+
+
+    WHERE tbljobs.id_tbljob='.$this->id.';';
+    //echo $req;
+    return $this->db->getOne($req);
+  }
 
   public function getSplit() {
     //ADD AFFICHAGE DESSIN en concat
     $req = 'SELECT  tbljobs.id_tbljob, tbljobs.id_info_job,
     customer, job, split, po_number, devis, info_jobs.instruction as info_jobs_instruction, info_jobs.commentaire as info_jobs_commentaire, inOut_recommendation,schedule_recommendation,
+    activity_type, specific_test,
     contacts.genre, contacts.prenom, contacts.nom, contacts.email as email, contacts.telephone as telephone, contacts.prenom, contacts.nom, contacts.departement, contacts.rue1, contacts.rue2, contacts.ville, contacts.pays,
     contacts2.genre as genre2, contacts2.prenom as prenom2, contacts2.nom as nom2, contacts2.email as email2, contacts2.telephone as telephone2,
     contacts3.genre as genre3, contacts3.prenom as prenom3, contacts3.nom as nom3, contacts3.email as email3, contacts3.telephone as telephone3,
@@ -176,6 +222,7 @@ class LstSplitModel
     //echo $req;
     return $this->db->getOne($req);
   }
+
 
   public function getEprouvettes() {
 
@@ -372,11 +419,10 @@ class LstSplitModel
 
   public function updateCheckQ(){
     //on inverse le signe de l'opérateur (sauf si 0 on fait positif)
-    $reqUpdate='
-    UPDATE `tbljobs`
+    $reqUpdate='UPDATE `tbljobs`
     LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
     SET `report_Q` = if(report_Q=0,'.$_COOKIE['id_user'].',sign(report_Q)*-'.$_COOKIE['id_user'].'),
-    id_statut_temp=70,
+    id_statut_temp=71,
     report_rev = if(report_rev is null,0,report_rev)
     WHERE `tbljobs`.`id_tbljob` = '.$this->id.';';
     //echo $reqUpdate;
@@ -388,11 +434,10 @@ class LstSplitModel
 
   public function updateCheckTM(){
     //on inverse le signe de l'opérateur (sauf si 0 on fait positif)
-    $reqUpdate='
-    UPDATE `tbljobs`
+    $reqUpdate='UPDATE `tbljobs`
     LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
     SET `report_TM` = if(report_TM=0,'.$_COOKIE['id_user'].',sign(report_TM)*-'.$_COOKIE['id_user'].')
-    , id_statut_temp=70
+    , id_statut_temp=80
     WHERE `tbljobs`.`id_tbljob` = '.$this->id.';';
     //echo $reqUpdate;
     $result = $this->db->query($reqUpdate);

@@ -7,15 +7,17 @@ include 'models/split-model.php';
 $oSplit = new LstSplitModel($db,$_GET['id_tbljob']);
 $split=$oSplit->getSplit();
 
+// Rendre votre modèle accessible
+include 'models/infojob-model.php';
+$oInfoJob = new InfoJob($db,$_GET['id_tbljob']);
+$infoJob=$oInfoJob->getInfoJob();
+$countInfojob=$oInfoJob->getCountInfoJob();
 
 // Rendre votre modèle accessible
 include 'models/workflow.class.php';
-// Création d'une instance
 $oWorkflow = new WORKFLOW($db,$_GET['id_tbljob']);
 $splits=$oWorkflow->getAllSplit();
 $groupes=$oWorkflow->getAllGroupes();
-//$eprouvettes=$oWorkflow->getAllGroupes();
-
 
 //on recupere un string des id_tbljobs dans l'ordre des groupes et on en fait un array
 foreach ($groupes as $key=>$val)  {

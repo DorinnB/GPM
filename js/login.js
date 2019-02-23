@@ -17,6 +17,8 @@ $(document).ready(function(){
 });
 
 
+
+
 function loginScript(){
   var $lg_username=$('#login_username').val();
   var $lg_password=$('#login_password').val();
@@ -71,6 +73,8 @@ function loginScript(){
             end: function(){
               document.getElementById('user').innerHTML = 'Disconnected';
               document.getElementById('iduser').innerHTML = '0';
+              //Effacage du modal notification
+              $('#notification').load('views/notificationBlank-view.php');
             }
           });
         }

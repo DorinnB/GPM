@@ -1,5 +1,6 @@
 <input type="hidden" id="id_tbljob" value="<?=	$split['id_tbljob']	?>">
 <input type="hidden" id="id_info_job" value="<?=	$split['id_info_job']	?>">
+<input type="hidden" id="test_type_abbr" value="<?=	$split['test_type_abbr']	?>">
 
 <div class="row" style="height:100%">
 	<div class="col-md-12" id="job" style="height:25%"><a href="index.php?page=split&id_tbljob=<?= $split['id_tbljob'] ?>"><?= $split['customer'].'&nbsp;-&nbsp;'.$split['job'] ?></a>

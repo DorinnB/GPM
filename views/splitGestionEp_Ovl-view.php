@@ -6,7 +6,7 @@
     <div class="modal-header" style="height:15%;">
       <h2 class="modal-title" style="text-align: center;">
         Specimen :&nbsp;<?= (($eprouvette['prefixe']=="")?"": $eprouvette['prefixe'].' - ').$eprouvette['nom_eprouvette']  ?><sup><?= ($eprouvette['retest']!=1)?$eprouvette['retest']:'' ?></sup>
-        <button class="btn" data-toggle="modal" data-target="#login-modal" style="float:right;">
+        <button class="btn" data-toggle="modal" data-target="#login-modal" style="float:right;" onclick="$('#login_password').val('');">
           <span class="glyphicon glyphicon-log-in"></span>
         </button>
       </h2>

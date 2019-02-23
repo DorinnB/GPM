@@ -9,6 +9,10 @@ table td[data-io]  {
   cursor: pointer;
 }
 
+caption {
+  color:white;
+  font-size:x-large;
+}
 
 .ok  {
   background-color:darkgreen;

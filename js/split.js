@@ -95,8 +95,8 @@ $("#email").click(function(e) {
 
 
 
-function createReport(lang='',version='') {
-  window.location='controller/createReport-controller.php?id_tbljob='+$('#table_ep').attr('data-idJob')+'&language='+lang+'&version='+version;
+function createReport(type='Annexe',language='FR',specific='Std') {
+  window.location='controller/createReport-controller.php?id_tbljob='+$('#table_ep').attr('data-idJob')+'&type='+type+'&language='+language+'&specific='+specific;
 }
 
 $("#report").click(function(e) {
@@ -114,10 +114,10 @@ $("#report").contextmenu(function (event) {
 
     // In the right position (the mouse)
     css({
-        top: (event.pageY - 260) + "px",
-        left: (event.pageX -150)+ "px"
+        bottom: " 0px",
+        right: "150px"
     });
-        $('#report-contextual-menu').load('views/report-icone-view.php?id_tbljob='+$('#id_tbljob').val());
+        $('#report-contextual-menu').load('controller/report-icone-controller.php?id_tbljob='+$('#id_tbljob').val());
 });
 
 $("#flecheUpJob").click(function(e) {

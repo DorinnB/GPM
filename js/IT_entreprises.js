@@ -1,4 +1,3 @@
-
 var editor; // use a global for the submit and return data rendering in the examples
 
 $(document).ready(function() {
@@ -12,7 +11,11 @@ $(document).ready(function() {
     fields: [
       { label: "Companie", name: "entreprises.entreprise"  },
       { label: "Abbreviation", name: "entreprises.entreprise_abbr"  },
-      { label: "Activity", name: "entreprises.activity_area"  },
+      { label: "Activity", name: "entreprises.activity_area", type: "select",
+      options: [
+        "A",
+        "B"
+      ] },
       { label: "VAT", name: "entreprises.VAT"  },
       { label: "MRSASRef", name: "entreprises.MRSASRef"  },
       { label: "Street 1", name: "entreprises.billing_rue1"  },
@@ -23,7 +26,6 @@ $(document).ready(function() {
       { label: "Actif", name: "entreprises.entreprise_actif", def: "1" },
     ]
   } );
-//{ label: "entreprises", name: "entreprises.ref_customer", type: "select" },
 
 
 
@@ -59,7 +61,7 @@ $(document).ready(function() {
     scrollCollapse: true,
     paging: false,
     keys: {
-      columns: [4,5,6,7,8,9,10],
+      columns: [2,3,4,5,6,7,8,9,10],
       editor:  editor
     },
     select: {

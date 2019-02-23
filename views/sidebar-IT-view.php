@@ -14,6 +14,9 @@
 			<a href="index.php?page=IT&tool=contacts">Contacts</a>
 		</li>
 		<li>
+			<a href="index.php?page=IT&tool=entreprises">Companies</a>
+		</li>
+		<li>
 			<a href="index.php?page=IT&tool=test_type">Test Types</a>
 		</li>
 		<li>

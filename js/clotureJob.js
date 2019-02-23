@@ -7,8 +7,8 @@ $(document).ready(function() {
     scrollX:        true,
     scrollCollapse: true,
     paging:         false,
-    filter:false,
-    info: false,
+    filter:         false,
+    info:           false,
 
     order: [ 0, "asc" ]
   } );
@@ -18,11 +18,12 @@ $(document).ready(function() {
     scrollX:        true,
     scrollCollapse: true,
     paging:         false,
-    filter:false,
-    info: false,
+    filter:         false,
+    info:           false,
 
     order: [ 0, "asc" ]
   } );
+
 
   $( "#invoice_date" ).datepicker({
     showWeek: true,
@@ -97,6 +98,7 @@ $(".report_rev").click(function(e) {
           dataType: "json",
           data:  {
             idtbljob : $this.attr('data-idtbljob'),
+            idJob : $this.attr('data-idJob'),
             role : 'revAdd'
           }
           ,
@@ -119,6 +121,7 @@ $(".report_rev").click(function(e) {
           dataType: "json",
           data:  {
             idtbljob : $this.attr('data-idtbljob'),
+            idJob : $this.attr('data-idJob'),
             role : 'revReset'
           }
           ,
@@ -143,10 +146,10 @@ $(".report_rev").click(function(e) {
 $(".report_Q").click(function(e) {
   if ($(this).attr('data-report_Q')>0) {
 
-    var confirmation = confirm('UnCheck this Report ? Only Quality Manager should do this');
+    var confirmation = confirm('UnCheck this Report ?\nOnly Quality Manager should do this');
   }
   else {
-    var confirmation = confirm('Have you signed the Final Report  ? Only Quality Manager should do this');
+    var confirmation = confirm('Have you signed the Final Report ?\nOnly Quality Manager should do this');
   }
 
   if (confirmation) {
@@ -157,6 +160,7 @@ $(".report_Q").click(function(e) {
       dataType: "json",
       data:  {
         idtbljob : $(this).attr('data-idtbljob'),
+        idJob : $(this).attr('data-idJob'),
         role : 'Q'
       }
       ,
@@ -175,10 +179,10 @@ $(".report_Q").click(function(e) {
 $(".report_TM").click(function(e) {
   if ($(this).attr('data-report_TM')>0) {
 
-    var confirmation = confirm('UnCheck this Report ? Only Technical Manager should do this');
+    var confirmation = confirm('UnCheck this Report ?\nOnly Technical Manager should do this');
   }
   else {
-    var confirmation = confirm('Have you signed the Final Report ?  ? Only Technical Manager  should do this');
+    var confirmation = confirm('Have you signed the Final Report ?\nOnly Technical Manager should do this');
   }
 
   if (confirmation) {
@@ -189,6 +193,7 @@ $(".report_TM").click(function(e) {
       dataType: "json",
       data:  {
         idtbljob : $(this).attr('data-idtbljob'),
+        idJob : $(this).attr('data-idJob'),
         role : 'TM'
       }
       ,
@@ -233,6 +238,7 @@ $(".report_send").click(function(e) {
           dataType: "json",
           data:  {
             idtbljob : $this.attr('data-idtbljob'),
+            idJob : $this.attr('data-idJob'),
             report_date : $('#report_date').val(),
             role : 'reportDateSet'
           }
@@ -256,6 +262,7 @@ $(".report_send").click(function(e) {
           dataType: "json",
           data:  {
             idtbljob : $this.attr('data-idtbljob'),
+            idJob : $this.attr('data-idJob'),
             role : 'reportDateReset'
           }
           ,
@@ -292,6 +299,7 @@ $(".report_rawdata").click(function(e) {
       dataType: "json",
       data:  {
         idtbljob : $(this).attr('data-idtbljob'),
+        idJob : $(this).attr('data-idJob'),
         role : 'RawData'
       }
       ,

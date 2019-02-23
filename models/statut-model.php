@@ -35,6 +35,12 @@ class StatutModel
     return $this->db->getAll($req);
   }
 
+  public function getJobFromidTblJob($idtbljob){
+    $req='SELECT id_tbljob FROM tbljobs WHERE id_info_job=(SELECT t2.id_info_job FROM tbljobs t2 WHERE t2.id_tbljob='. $this->db->quote($idtbljob).');';
+
+    return $this->db->getAll($req);
+  }
+
   public function removeNewCondition(){
     $req='SELECT id_statut_temp
     FROM tbljobs

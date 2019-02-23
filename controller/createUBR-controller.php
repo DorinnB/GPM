@@ -1,5 +1,5 @@
 <?php
-require '../config.php';
+$ini = parse_ini_file('../var/config.ini');
 
 include_once('../models/db.class.php'); // call db.class.php
 $db = new db(); // create a new object, class db()
@@ -159,7 +159,7 @@ $objWriter->save('../temp/UBR-'.$date.'.xlsx');
 
 //Copy du fichier vers server
 $srcfile='../temp/UBR-'.$date.'.xlsx';
-$dstfile = $PATH_UBR.'UBR-'.$date.'.xlsx';
+$dstfile = $ini['PATH_UBR'].'UBR-'.$date.'.xlsx';
 copy($srcfile, $dstfile);
 
 

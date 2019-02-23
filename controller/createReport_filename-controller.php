@@ -1,5 +1,5 @@
 <?php
-require '../config.php';
+$ini = parse_ini_file('../var/config.ini');
 
 include_once('../models/db.class.php'); // call db.class.php
 $db = new db(); // create a new object, class db()
@@ -23,6 +23,6 @@ else
   $jobcomplet= $split['customer'].'-'.$split['job'];
 
 
-copy('../temp/DRAFT_Report_'.$jobcomplet.'.xlsx', $PATH_JOB.$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Rapports Finals/DRAFT_Report_'.$jobcomplet.'.xlsx');
+copy('../temp/DRAFT_Report_'.$jobcomplet.'.xlsx', $ini['PATH_JOB'].$split['customer'].'/'.$split['customer'].'-'.$split['job'].'/Rapports Finals/DRAFT_Report_'.$jobcomplet.'.xlsx');
 
 ?>

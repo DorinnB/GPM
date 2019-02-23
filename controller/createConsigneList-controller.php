@@ -1,5 +1,5 @@
 <?php
-require '../config.php';
+$ini = parse_ini_file('../var/config.ini');
 
 $infoSplit = $oSplit->getInfoSplit();
 
@@ -11,7 +11,7 @@ $oEprouvettes = new LstEprouvettesModel($db,$_POST['id_tbljob']);
 
 $init=0;
 foreach ($oEprouvettes->getAllEprouvettes() as $key => $value) {
-  $srcfile = $PATH_JOB.$infoSplit['customer'].'/'.$infoSplit['customer'].'-'.$infoSplit['job'].'/OT/ConsigneList_'.$infoSplit['job'].'-'.$infoSplit['split'].'_'.gmdate('Y-m-d H-i-s').'.txt';
+  $srcfile = $ini['PATH_JOB'].$infoSplit['customer'].'/'.$infoSplit['customer'].'-'.$infoSplit['job'].'/OT/ConsigneList_'.$infoSplit['job'].'-'.$infoSplit['split'].'_'.gmdate('Y-m-d H-i-s').'.txt';
 
   if ($init==0) {
 

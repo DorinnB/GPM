@@ -74,7 +74,7 @@ Require("connection.php");
 		$page=htmlentities($page, ENT_QUOTES);
 
 		//Si on a des répertoires que l'on ne veut pas accéder, un les liste ici :
-		$repProteger=array('include', 'libs', 'admin');
+		$repProteger=array('include', 'libs', 'admin', 'var');
 		$temp=@split('/',$page);
 		if(in_array($temp[0],$repProteger)){ $page=$page_defaut; }
 

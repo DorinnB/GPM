@@ -1,4 +1,5 @@
 <?php
+$ini = parse_ini_file('var/config.ini');
 
 // Rendre votre modèle accessible
 include 'models/infojob-model.php';

@@ -1,5 +1,5 @@
 <?php
-require '../config.php';
+$ini = parse_ini_file('../var/config.ini');
 
 include_once('../models/db.class.php'); // call db.class.php
 $db = new db(); // create a new object, class db()
@@ -169,7 +169,7 @@ $xml_string = $xml_doc->saveXML();
 
 
 
-$fp = fopen($PATH_XMLforTS.$essai['n_fichier'].'.xml', 'w');
+$fp = fopen($ini['PATH_XMLforTS'].$essai['n_fichier'].'.xml', 'w');
 fwrite($fp, $xml_string);
 fclose($fp);
 ?>
