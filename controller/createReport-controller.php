@@ -1515,7 +1515,7 @@ ElseIf (($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="LoS" OR $
 
 
 }
-ElseIf (($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="LoS" OR $split['test_type_abbr']=="Dwl" OR $split['test_type_abbr']=="Flx") AND $type=="Report")	{
+ElseIf (($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="LoS" OR $split['test_type_abbr']=="Dwl" OR $split['test_type_abbr']=="Flx" OR $split['test_type_abbr']=="IRlx") AND $type=="Report")	{
 
   $objPHPExcel = $objReader->load("../templates/Report ".$split['test_type_abbr'].$language.$specific.".xlsm");
 
