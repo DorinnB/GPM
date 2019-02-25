@@ -99,8 +99,10 @@ function createReport(type='Annexe',language='FR',specific='Std') {
   window.location='controller/createReport-controller.php?id_tbljob='+$('#table_ep').attr('data-idJob')+'&type='+type+'&language='+language+'&specific='+specific;
 }
 
+
 $("#report").click(function(e) {
-  createReport();
+  alert('merci de faire un click droit');
+  //createReport();
 });
 
 //menu contextuel pour la langue du rapport

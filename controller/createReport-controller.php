@@ -407,10 +407,10 @@ If ($split['test_type_abbr']=="Str" AND $type=="Report")	{
   $pvEssais->setCellValueByColumnAndRow(1+0, 20, $split['c_type_2']);
   $pvEssais->setCellValueByColumnAndRow(1+2, 20, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
 
-  $pvEssais->setCellValueByColumnAndRow(1+0, 44, $split['c_type_1']);
-  $pvEssais->setCellValueByColumnAndRow(1+2, 44, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
-  $pvEssais->setCellValueByColumnAndRow(1+0, 45, $split['c_type_2']);
-  $pvEssais->setCellValueByColumnAndRow(1+2, 45, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
+  $pvEssais->setCellValueByColumnAndRow(1+0, 46, $split['c_type_1']);
+  $pvEssais->setCellValueByColumnAndRow(1+2, 46, ($split['c_type_1']!='R' & $split['c_type_1']!='A')?$split['c_unite']:"");
+  $pvEssais->setCellValueByColumnAndRow(1+0, 47, $split['c_type_2']);
+  $pvEssais->setCellValueByColumnAndRow(1+2, 47, ($split['c_type_2']!='R' & $split['c_type_2']!='A')?$split['c_unite']:"");
 
 
   $row = 0; // 1-based index
