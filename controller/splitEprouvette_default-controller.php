@@ -250,7 +250,7 @@ for($k=0;$k < count($ep);$k++)	{
   $ep[$k]['dilatation']=!empty($ep[$k]['dilatation'])?($ep[$k]['dilatation']-1)*100:'';
 
   $ep[$k]['temps_essaisCSS']=(!empty($ep[$k]['temps_essais'] AND is_numeric($ep[$k]['temps_essais'])))?'':'estimated';
-  $ep[$k]['temps_essais']=(!empty($ep[$k]['temps_essais'] AND is_numeric($ep[$k]['temps_essais'])))?number_format($ep[$k]['temps_essais'], 1,'.', ' '):$ep[$k]['temps_essais'];
+  $ep[$k]['temps_essais']=(!empty($ep[$k]['temps_essais'] AND is_numeric($ep[$k]['temps_essais'])))?$ep[$k]['temps_essais']:$ep[$k]['temps_essais'];
 
   $ep[$k]['CheckValue_Fracture']=(strpos($ep[$k]['Fracture'], 'OX') !==false OR strpos($ep[$k]['Fracture'], 'IX') !==false OR strpos(strtolower($ep[$k]['Fracture']), 'gage') !==false OR strpos(strtoupper($ep[$k]['Fracture']), 'NR') !==false)?'':'checkValue_actif';
 
