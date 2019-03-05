@@ -282,7 +282,7 @@ foreach ($splits as $key => $value) {
       $page->setCellValueByColumnAndRow(1+1, $row, $invoicelines['pricingList']);
       $page->setCellValueByColumnAndRow(1+4, $row, ($invoicelines['qteUser']=="")?$invoicelines['qteGPM']:$invoicelines['qteUser']);
       $page->setCellValueByColumnAndRow(1+5, $row, $invoicelines['priceUnit']);
-      $page->setCellValueByColumnAndRow(1+6, $row, '=sum(E'.$row.':F'.$row.')');
+      $page->setCellValueByColumnAndRow(1+6, $row, '=E'.$row.'*F'.$row);
 
       $page->setCellValueByColumnAndRow(9, $row, $invoicelines['qteGPM']);
 
@@ -319,7 +319,7 @@ foreach ($oInvoices->getInvoiceListJob($_GET['id_tbljob']) as $invoicelines) {
     $page->setCellValueByColumnAndRow(1+1, $row, $invoicelines['pricingList']);
     $page->setCellValueByColumnAndRow(1+4, $row, $invoicelines['qteUser']);
     $page->setCellValueByColumnAndRow(1+5, $row, $invoicelines['priceUnit']);
-    $page->setCellValueByColumnAndRow(1+6, $row, '=sum(E'.$row.':F'.$row.')');
+    $page->setCellValueByColumnAndRow(1+6, $row, '=E'.$row.'*F'.$row);
 
     /*   $page->getStyle("F".$row)->getNumberFormat()->setFormatCode($currencyFormat);
     $page->getStyle("G".$row)->getNumberFormat()->setFormatCode($currencyFormat);
