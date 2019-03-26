@@ -466,11 +466,11 @@ If ($split['test_type_abbr']=="Str" AND $type=="Report")	{
       $pvEssais->setCellValueByColumnAndRow(1+$col, 23, $value['dim2']);
       $pvEssais->setCellValueByColumnAndRow(1+1, 23, $value['denomination']['denomination_2']);
       if ($value['dilatation']>1) {
-        $pvEssais->setCellValueByColumnAndRow(1+$col, 26, $value['dim2']*$value['dilatation']);
-        $pvEssais->setCellValueByColumnAndRow(1+1, 26, $value['denomination']['denomination_2']);
+        $pvEssais->setCellValueByColumnAndRow(1+$col, 27, $value['dim2']*$value['dilatation']);
+        $pvEssais->setCellValueByColumnAndRow(1+1, 27, $value['denomination']['denomination_2']);
       }
       else {
-        $pvEssais->getRowDimension(26)->setVisible(FALSE);
+        $pvEssais->getRowDimension(27)->setVisible(FALSE);
       }
 
     }

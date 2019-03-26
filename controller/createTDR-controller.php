@@ -82,6 +82,7 @@ $FT=$objPHPExcel->getSheetByName('TDR');
 
 
 $val2Xls = array(
+  'O2' => 'TDR - '.$essai['n_fichier'],
   'A5' => $jobcomplet,
   'C5' => ' '.$essai['prefixe'],
   'F5' => $essai['nom_eprouvette'],
