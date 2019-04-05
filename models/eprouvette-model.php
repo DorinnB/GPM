@@ -776,7 +776,7 @@ class EprouvetteModel
             }
             else {
               $this->_R = "Infini";
-              $this->_A=$this->_ALT/$this->_MEAN;
+              $this->_A=($this->_MEAN!=0)?$this->_ALT/$this->_MEAN:"NULL";
             }
 
           }

@@ -476,7 +476,7 @@ If ($split['test_type_abbr']=="Str" AND $type=="Report")	{
     }
     else {
       $pvEssais->getRowDimension(23)->setVisible(FALSE);
-      $pvEssais->getRowDimension(26)->setVisible(FALSE);
+      $pvEssais->getRowDimension(27)->setVisible(FALSE);
     }
     if (isset($value['denomination']['denomination_3'])) {
       $pvEssais->setCellValueByColumnAndRow(1+$col, 24, $value['dim3']);
