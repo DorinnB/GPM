@@ -8,7 +8,7 @@
 		<div class="col-md-12 carre" id="carre" style="height:100%; display:block; background-color:#44546A;">
 			<div class="row" style="height:50%;">
 				<div class="col-md-6" style="height:100%; overflow: auto;"><?php include 'controller/lab-small-controller.php'; ?></div>
-				<div class="col-md-6" style="height:100%; overflow: auto;"><link rel="stylesheet" href="css/planningLab<?= (isset($_GET['color']))?$_GET['color']:''	?>.css"><?php include('controller/planningLab-controller.php'); include('views/planningLab-view.php'); ?><script type="text/javascript" src="js/planningLab.js"></script></div>
+				<div class="col-md-6" style="height:100%; overflow: auto;"><link rel="stylesheet" href="css/planningLab<?= (isset($_GET['color']))?$_GET['color']:''	?>.css"><?php //include('controller/planningLab-controller.php'); //include('views/planningLab-view.php'); ?><script type="text/javascript" src="js/planningLab.js"></script></div>
 			</div>
 			<div class="row" style="height:50%;">
 				<div class="col-md-6" style="height:100%; overflow: auto;"><?php include 'controller/checkList-controller.php'; ?></div>

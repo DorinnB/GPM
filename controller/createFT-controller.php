@@ -560,7 +560,7 @@ if ($essai['stepcase_val']!='') {
   $FT->setCellValue('N38', 'Max (kN)');
   $FT->setCellValue('O38', 'Min (kN)');
   $FT->setCellValue('P38', 'Runout');
-  for ($i=0; $i <5 ; $i++) {
+  for ($i=0; $i <10 ; $i++) {
     $oEprouvette->niveaumaxmin(
       $essai['c_1_type'],
       $essai['c_2_type'],

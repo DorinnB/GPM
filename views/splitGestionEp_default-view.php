@@ -316,12 +316,12 @@
                     <figcaption>Prestart</figcaption>
                   </figure>
                 </a>
-
-                <figure style="display:inline-block;" class="document" data-type="Restart">
+<!--
+                <figure style="display:inline-block;" class="document" data-type="TDR">
                   <img  src="img/excel-Restart.png" height="90" width="60"  alt="" />
-                  <figcaption>Restart (<?= $oDocument->nbDocuments('eprouvettes',$eprouvette['id_eprouvette'],'Restart'); ?>)</figcaption>
+                  <figcaption>TDR (<?= $oDocument->nbDocuments('eprouvettes',$eprouvette['id_eprouvette'],'TDR'); ?>)</figcaption>
                 </figure>
-
+-->
 
                 <figure style="display:inline-block;" id="IRR" class="document" data-type="IRR">
                   <img  src="img/excel-IRR.png" height="90" width="60"  alt="" />

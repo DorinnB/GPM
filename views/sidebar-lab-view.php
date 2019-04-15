@@ -8,6 +8,9 @@
 			<a href="index.php?page=forecast">Forecast</a>
 		</li>
 		<li>
+			<a href="index.php?page=PlanningLab&nbDayPlanned=93&nbDayBefore=5&color=customer">Planning Lab</a>
+		</li>
+		<li>
 			<a href="index.php?page=gestionPoste">Frame Management</a>
 		</li>
 		<li>
