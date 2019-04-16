@@ -30,7 +30,7 @@
 				</a>
 				<ul class="dropdown-menu dropdownhover">
 					<li><a href="index.php?page=WeeklyReport">Weekly Report</a></li>
-					<li><a href="index.php?page=WeeklyReportSubC">Weekly Report SubC</a></li>
+					<li><a href="index.php?page=WeeklyReportSubC&customer=1001">Weekly Report SubC</a></li>
 				</ul>
 			</li>
 			<li class="divider-vertical"><a href="index.php?page=IT"><acronym title="IT Managment">IT</acronym></a></li>

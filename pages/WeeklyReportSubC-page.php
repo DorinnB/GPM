@@ -35,51 +35,56 @@ include('controller/weeklyReportSubC-controller.php');
 							<td>Done</td>
 							<td>Planned</td>
 							<td>Status</td>
-							<td>DyT Req</td>
-							<td>DyT MRI</td>
+							<td>DyT Cust MRSAS</td>
+							<td>DyT SubC</td>
+							<td>DyT Expected</td>
 							<td style="min-width:30%;">Comments</td>
 						</tr>
 					</thead>
 					<tbody>
 						<?php foreach ($lstJobSubC as $key => $value) :?>
-							<tr style="height:100%;">
+							<?php if ($value['nbuncompleted']!=0) :?>
+								<tr style="height:100%;">
 
-								<td rowspan="<?=	count($infoJobs[$value['id_info_job']])+1	?>"><?=	$value['job']	?></td>
-								<td rowspan="<?=	count($infoJobs[$value['id_info_job']])+1	?>"><?=	$value['customer']	?></td>
-								<td rowspan="<?=	count($infoJobs[$value['id_info_job']])+1	?>"><?=	$value['po_number']	?><br/><?=	$value['instruction']	?></td>
-								<td rowspan="<?=	count($infoJobs[$value['id_info_job']])+1	?>"><?=	$value['ref_matiere']	?></td>
+									<td rowspan="<?=	count($infoJobs[$value['id_info_job']])+1	?>"><?=	$value['job']	?></td>
+									<td rowspan="<?=	count($infoJobs[$value['id_info_job']])+1	?>"><?=	$value['customer']	?></td>
+									<td rowspan="<?=	count($infoJobs[$value['id_info_job']])+1	?>"><?=	$value['po_number']	?><br/><?=	$value['instruction']	?></td>
+									<td rowspan="<?=	count($infoJobs[$value['id_info_job']])+1	?>"><?=	$value['ref_matiere']	?></td>
 
-								<td></td>
-								<td>0</td>
-								<td>Reception Matière</td>
-								<td><?=	$value['nbreceived']	?></td>
-								<td><?=	$value['nbep']	?></td>
-								<td><?=	(isset($value['firstSent'])?'Sent '.$value['firstSent']:'')	?></td>
-								<td><?=	$value['available_expected']	?></td>
-								<td><?=	$value['available_expected']	?></td>
+									<td></td>
+									<td>0</td>
+									<td>Shipment</td>
+									<td><?=	$value['nbsent']	?></td>
+									<td><?=	$value['nbep']	?></td>
+									<td><?=	(isset($value['firstSent'])?'Sent '.$value['firstSent']:'Not Shipped')	?></td>
+									<td><?=	$value['available_expected']	?></td>
+									<td></td>
+									<td></td>
 
-								<td rowspan="<?=	count($infoJobs[$value['id_info_job']])+1	?>" style="height:100%;"><textarea class="commentaire" name="SubCComment_<?=	$value['id_info_job']	?>" ><?= $value['SubCComment'] ?></textarea></td>
-							</tr>
-							<?php foreach ($infoJobs[$value['id_info_job']] as $k => $v) :?>
-								<tr class="clickable-row" data-id="<?=	$v['id_tbljob']	?>">
-									<td><?=	$v['refSubC']	?></td>
-									<td><?=	$v['split']	?></td>
-									<td><?=	$v['test_type_abbr']	?></td>
-									<td><?=	$v['nbtest']	?></td>
-									<td><?=	$v['nbtestplanned']	?></td>
-									<td style=" white-space:nowrap;"><?=	$v['statut_client']	?></td>
-									<td><?=	$v['DyT_Cust']	?></td>
-									<td><?=	$v['DyT_SubC']	?></td>
+									<td rowspan="<?=	count($infoJobs[$value['id_info_job']])+1	?>" style="height:100%;"><textarea class="commentaire" name="SubCComment_<?=	$value['id_info_job']	?>" ><?= $value['SubCComment'] ?></textarea></td>
 								</tr>
-							<?php endforeach	?>
-							<tr><td colspan="13" style="background-color:black;line-height:30%;">&nbsp;</td></tr>
+								<?php foreach ($infoJobs[$value['id_info_job']] as $k => $v) :?>
+									<tr class="clickable-row" data-id="<?=	$v['id_tbljob']	?>">
+										<td><?=	$v['refSubC']	?></td>
+										<td><?=	$v['split']	?></td>
+										<td><?=	$v['test_type_abbr']	?></td>
+										<td><?=	$v['nbtest']	?></td>
+										<td><?=	$v['nbtestplanned']	?></td>
+										<td style=" white-space:nowrap;"><?=	$v['statut_SubC']	?></td>
+										<td><?=	$v['DyT_Cust']	?></td>
+										<td><?=	$v['DyT_SubC']	?></td>
+										<td><?=	$v['DyT_expected']	?></td>
+									</tr>
+								<?php endforeach	?>
+								<tr><td colspan="14" style="background-color:black;line-height:30%;">&nbsp;</td></tr>
+							<?php endif ?>
 						<?php endforeach	?>
 					</tbody>
 				</table>
 			</div>
 			<div style="height:7%; width:100%; padding:10px 0px;">
-			<input type="submit" value="SAVE & PRINT" style="width:100%;" >
-		</div>
+				<input type="submit" value="SAVE & PRINT" style="width:100%;" >
+			</div>
 		</form>
 	</div>
 </div>

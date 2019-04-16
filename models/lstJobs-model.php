@@ -378,12 +378,14 @@ class LstJobsModel
 
   public function getWeeklyReportSubC($subC) {
     $req = 'SELECT MAX(info_jobs.id_info_job) as id_info_job, MAX(customer) as customer, job, MAX(ref_matiere) as ref_matiere, MAX(po_number) as po_number, max(weeklyComment) as weeklyComment, max(SubCComment) as SubCComment, max(instruction) as instruction,
-    count(DISTINCT case when master_eprouvette_inOut_A is not null then master_eprouvettes.id_master_eprouvette end) AS nbreceived, count(DISTINCT master_eprouvettes.id_master_eprouvette) as nbep, min(master_eprouvette_inOut_A) as firstReceived, max(available_expected) as available_expected
-,min(eprouvettes.eprouvette_inOut_A) as firstSent
+    count(DISTINCT case when eprouvette_inOut_A is not null then master_eprouvettes.id_master_eprouvette end) AS nbsent, count(DISTINCT master_eprouvettes.id_master_eprouvette) as nbep, min(master_eprouvette_inOut_A) as firstReceived, max(available_expected) as available_expected,
+    min(eprouvettes.eprouvette_inOut_A) as firstSent, count(distinct case when etape<90 then id_tbljob end) as nbuncompleted
     FROM info_jobs
     LEFT JOIN tbljobs ON tbljobs.id_info_job=info_jobs.id_info_job
-    LEFT JOIN master_eprouvettes ON master_eprouvettes.id_info_job=info_jobs.id_info_job
-    LEFT JOIN eprouvettes ON eprouvettes.id_master_eprouvette=master_eprouvettes.id_master_eprouvette
+    LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+    LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
+    LEFT JOIN eprouvettes ON eprouvettes.id_job=tbljobs.id_tbljob
+    LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
     LEFT JOIN contacts  contactsST ON contactsST.id_contact=tbljobs.id_contactST
     WHERE info_job_actif=1 and job>13333 and contactsST.ref_customer='.$subC.'
     AND master_eprouvette_actif=1 AND eprouvette_actif=1
@@ -397,8 +399,8 @@ class LstJobsModel
 
   public function getWeeklyReportJob($id_infojob) {
     $req = 'SELECT id_tbljob,
-    id_statut_temp, statut_color, statut_client,customer, statuts.etape, statuts.statut,
-    job, split, test_type_abbr, test_type_cust, DyT_Cust, DyT_SubC, refSubC,
+    id_statut_temp, statut_color, statut_client, statut_SubC, customer, statuts.etape, statuts.statut,
+    job, split, test_type_abbr, test_type_cust, DyT_Cust, DyT_SubC, DyT_expected, refSubC,
     count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbep,
     count((eprouvettes.id_eprouvette)) as nbtestplanned,
     if(count(n_fichier)=0, sum(if(d_checked > 0,1,0)),count(n_fichier)) as nbtest,
@@ -420,8 +422,8 @@ class LstJobsModel
 
   public function getWeeklyReportSubCJob($id_infojob, $subC) {
     $req = 'SELECT id_tbljob,
-    id_statut_temp, statut_color, statut_client,customer, statuts.etape, statuts.statut,
-    job, split, test_type_abbr, test_type_cust, DyT_Cust, DyT_SubC, refSubC,
+    id_statut_temp, statut_color, statut_client, statut_SubC, customer, statuts.etape, statuts.statut,
+    job, split, test_type_abbr, test_type_cust, DyT_Cust, DyT_SubC, DyT_expected, refSubC,
     count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbep,
     count((eprouvettes.id_eprouvette)) as nbtestplanned,
     if(count(n_fichier)=0, sum(if(d_checked > 0,1,0)),count(n_fichier)) as nbtest,
@@ -455,11 +457,11 @@ class LstJobsModel
 
   public function updateWeeklyReportSubC($id, $comment) {
 
-      $reqUpdateWeeklyReport='UPDATE info_jobs
-      SET SubCComment = '.(($comment=="")? "NULL" : $this->db->quote($comment)).'
-      WHERE id_info_job = '.$this->db->quote($id);
+    $reqUpdateWeeklyReport='UPDATE info_jobs
+    SET SubCComment = '.(($comment=="")? "NULL" : $this->db->quote($comment)).'
+    WHERE id_info_job = '.$this->db->quote($id);
 
-      //echo $reqUpdateWeeklyReport;
-      $this->db->query($reqUpdateWeeklyReport);
-    }
+    //echo $reqUpdateWeeklyReport;
+    $this->db->query($reqUpdateWeeklyReport);
+  }
 }
