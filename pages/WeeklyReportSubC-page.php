@@ -56,7 +56,7 @@ include('controller/weeklyReportSubC-controller.php');
 									<td>Shipment</td>
 									<td><?=	$value['nbsent']	?></td>
 									<td><?=	$value['nbep']	?></td>
-									<td><?=	(isset($value['firstSent'])?'Sent '.$value['firstSent']:'Not Shipped')	?></td>
+									<td><?=	(isset($value['firstSent'])?'Shipped on '.$value['firstSent']:'Not Shipped')	?></td>
 									<td><?=	$value['available_expected']	?></td>
 									<td></td>
 									<td></td>

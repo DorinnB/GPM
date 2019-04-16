@@ -153,7 +153,7 @@ foreach ($lstJobCust as $key => $value) {
     $page->setCellValueByColumnAndRow(1+7, $row, 'Shipment');
     $page->setCellValueByColumnAndRow(1+8, $row, $value['nbsent']);
     $page->setCellValueByColumnAndRow(1+9, $row, $value['nbep']);
-    $page->setCellValueByColumnAndRow(1+10, $row, (isset($value['firstSent'])?'Sent '.$value['firstSent']:' Not Shipped'));
+    $page->setCellValueByColumnAndRow(1+10, $row, (isset($value['firstSent'])?'Shipped on '.$value['firstSent']:' Not Shipped'));
     $page->setCellValueByColumnAndRow(1+12, $row, '');
     $page->setCellValueByColumnAndRow(1+13, $row, '');
     $page->setCellValueByColumnAndRow(1+15, $row, $value['SubCComment']);
