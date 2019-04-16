@@ -281,16 +281,18 @@ class INOUT
   }
 
   public function RawData(){
-    $req='SELECT id_tbljob, job, split
+    $req='SELECT id_tbljob, job, split, count(CASE WHEN rawdatasent<=0 AND n_fichier IS NOT NULL THEN 1 END) as nbrawdataunsent
     FROM tbljobs
     LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
     LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
     LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
-    WHERE id_rawdata!=0 AND report_rawdata<=0
-    AND etape>80
+    LEFT JOIN eprouvettes ON eprouvettes.id_job=tbljobs.id_tbljob
+    LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
+    WHERE rawdatatobesent=1
     AND info_job_actif=1
     AND tbljob_actif=1
     AND invoice_type!=2
+    GROUP BY id_tbljob
     ORDER BY job DESC, split ASC
     ';
     return $this->db->getAll($req);
@@ -362,14 +364,14 @@ class INOUT
       ((eprouvettes.eprouvette_inOut_A is null AND n_fichier is null) and eprouvettes.eprouvette_inOut_B is not null)
       OR
       (eprouvettes.eprouvette_inOut_A is not null and (select count(eps.id_eprouvette) from eprouvettes eps left join tbljobs tbl on tbl.id_tbljob=eps.id_job where eps.id_master_eprouvette=eprouvettes.id_master_eprouvette and tbl.phase<tbljobs.phase and eps.eprouvette_actif=1 and eps.eprouvette_inOut_A is null group by eps.id_master_eprouvette
-      )>=1)
-    )
-    AND etape!=100
-    AND tbljobs.tbljob_actif=1
-    GROUP BY job
-    ORDER BY job DESC
-    ';
-    return $this->db->getAll($req);
-  }
+    )>=1)
+  )
+  AND etape!=100
+  AND tbljobs.tbljob_actif=1
+  GROUP BY job
+  ORDER BY job DESC
+  ';
+  return $this->db->getAll($req);
+}
 
 }

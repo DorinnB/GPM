@@ -51,26 +51,28 @@
             <a href="index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
               <?= $value['job'].'-'.$value['split'].' ('.$value['nb'].')'  ?>
             </a>
-        <?php endforeach  ?>
-      </div>
-      <div class="col-md-2">
-        <?php foreach ($oInOut->stepStatut(70) as $key => $value) : ?>
-          <a href="index.php?page=clotureJob&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
-            <?= $value['job'].'-'.$value['split']  ?>
-          </a>
-        <?php endforeach  ?>
-      </div>
-      <div class="col-md-2">
-        <?php foreach ($oQualite->RawData() as $key => $value) : ?>
-          <a href="index.php?page=clotureJob&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
-            <?= $value['job'].'-'.$value['split']  ?>
-          </a>
-        <?php endforeach  ?>
-      </div>
-      <div class="col-md-2">
+          <?php endforeach  ?>
+        </div>
+        <div class="col-md-2">
+          <?php foreach ($oInOut->stepStatut(70) as $key => $value) : ?>
+            <a href="index.php?page=clotureJob&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
+              <?= $value['job'].'-'.$value['split']  ?>
+            </a>
+          <?php endforeach  ?>
+        </div>
+        <div class="col-md-2">
+          <?php foreach ($oInOut->RawData() as $key => $value) : ?>
+            <?php if ($value['nbrawdataunsent']>0) : ?>
+              <a href="index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
+                <?= $value['job'].'-'.$value['split']  ?>
+              </a>
+            <?php endif ?>
+          <?php endforeach  ?>
+        </div>
+        <div class="col-md-2">
 
+        </div>
       </div>
     </div>
   </div>
-</div>
 </div>

@@ -33,21 +33,6 @@ class QualiteModel
         return $this->db->getAll($req);
     }
 
-    public function RawData(){
-      $req='SELECT id_tbljob, job, split
-      FROM tbljobs
-      LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
-      LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
-      LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
-      WHERE id_rawdata!=0 AND report_rawdata<=0
-      AND info_job_actif=1
-      AND tbljob_actif=1
-      AND invoice_type!=2
-      ORDER BY job DESC, split ASC
-      ';
-      return $this->db->getAll($req);
-    }
-
     public function getFlagJob() {
       $req='SELECT customer, job, split, tbljobs.id_tbljob, count(*) as nb
         FROM enregistrementessais
