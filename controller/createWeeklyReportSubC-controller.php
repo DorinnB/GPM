@@ -130,11 +130,12 @@ $row = 3; // 1-based index
 
 $validation = $page->getCell('AA1')->getDataValidation(); //data validation for completed
 
+
+
+
 //pour chaque split commencé non fini
 foreach ($lstJobCust as $key => $value) {
   if ($value['nbuncompleted']!=0) {
-
-    $MRIJobMissing="1"; //flag for MRIJob missing
 
     //on copie le style de pour chaque job
     for ($colEnTete = 0; $colEnTete <= 15; $colEnTete++) {
@@ -170,10 +171,7 @@ foreach ($lstJobCust as $key => $value) {
         $page->duplicateStyle($style, $dstCell);
       }
 
-      //test if any MRIJob filled to un-red the cell
-      if (!isset($value['firstSent']) OR (isset($value['firstSent']) AND ($v['refSubC']!='' OR ((strtotime($value['firstSent'])-strtotime($date))/3600/24)<4))) {
-        $MRIJobMissing="0";
-      }
+
 
 
 
@@ -194,10 +192,7 @@ foreach ($lstJobCust as $key => $value) {
       }
 
 
-      $page->setCellValueByColumnAndRow(1+4, $row, $v['refSubC']);
-
-
-      $page->getStyle('F'.$row.':F'.$row)->applyFromArray( $style_Update );
+      $page->setCellValueByColumnAndRow(1+4, $row, $v['refSubC']);      $page->getStyle('F'.$row.':F'.$row)->applyFromArray(((isset($value['firstSent']) AND $value['firstSent']>0 AND $v['refSubC']=='')?$style_alert:$style_Update));
       $page->setCellValueByColumnAndRow(1+6, $row, $v['split']);
       $page->setCellValueByColumnAndRow(1+7, $row, $v['test_type_cust']);
       $page->setCellValueByColumnAndRow(1+8, $row, $v['nbtest']);
@@ -206,15 +201,15 @@ foreach ($lstJobCust as $key => $value) {
       $page->getStyle('L'.$row.':L'.$row)->applyFromArray( $style_Update );    $page->getCellByColumnAndRow(1+11,$row)->setDataValidation(clone $validation);
       $page->setCellValueByColumnAndRow(1+12, $row, $v['DyT_SubC']);
       $page->setCellValueByColumnAndRow(1+13, $row, (isset($v['DyT_expected'])?date('Y-m-d', strtotime($v['DyT_expected']. ' - 3 days')):''));
-      $page->getStyle('O'.$row.':O'.$row)->applyFromArray( $style_Update );
+      $page->getStyle('O'.$row.':O'.$row)->applyFromArray(((isset($value['firstSent']) AND $value['firstSent']>0 AND $v['DyT_expected']=='')?$style_alert:$style_Update));
+
+
+
 
 
       $row++;
     }
 
-    if ($MRIJobMissing!="0") {
-      $page->getStyle('K'.$firstLine.':K'.$firstLine)->applyFromArray( $style_alert );
-    }
 
     $page->mergeCells('A'.$firstLine.':A'.($row-1));
     $page->mergeCells('B'.$firstLine.':B'.($row-1));
