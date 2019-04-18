@@ -27,6 +27,8 @@ foreach ($lstJobCust as $key => $value) {
 
 $date=date("Y-m-d H-i-s");
 
+
+
 /** Error reporting */
 error_reporting(E_ALL);
 ini_set('display_errors', TRUE);
@@ -58,6 +60,15 @@ $style_alert = array(
   'fill' => array(
     'fillType' => PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
     'color' => array('rgb'=>'C00000')
+  ),
+  'font'  => array(
+    'color' => array('rgb' => 'FFFFFF')
+  )
+);
+$style_warning = array(
+  'fill' => array(
+    'fillType' => PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+    'color' => array('rgb'=>'fabf8f')
   ),
   'font'  => array(
     'color' => array('rgb' => 'FFFFFF')
@@ -198,10 +209,14 @@ foreach ($lstJobCust as $key => $value) {
       $page->setCellValueByColumnAndRow(1+8, $row, $v['nbtest']);
       $page->setCellValueByColumnAndRow(1+9, $row, $v['nbtestplanned']);
       $page->setCellValueByColumnAndRow(1+10, $row, $v['statut_SubC']);
-      $page->getStyle('L'.$row.':L'.$row)->applyFromArray( $style_Update );    $page->getCellByColumnAndRow(1+11,$row)->setDataValidation(clone $validation);
+      $page->getStyle('L'.$row)->applyFromArray( $style_Update );    $page->getCellByColumnAndRow(1+11,$row)->setDataValidation(clone $validation);
       $page->setCellValueByColumnAndRow(1+12, $row, $v['DyT_SubC']);
       $page->setCellValueByColumnAndRow(1+13, $row, (isset($v['DyT_expected'])?date('Y-m-d', strtotime($v['DyT_expected']. ' - 3 days')):''));
-      $page->getStyle('O'.$row.':O'.$row)->applyFromArray(((isset($value['firstSent']) AND $value['firstSent']>0 AND $v['DyT_expected']=='')?$style_alert:$style_Update));
+
+      $delay=(isset($v['DyT_expected']))?(strtotime(date("Y-m-d"))-strtotime(date('Y-m-d', strtotime($v['DyT_expected']. ' - 3 days'))))/86400:-9999;
+      if ($delay>=0) {$page->getStyle('N'.$row)->applyFromArray( $style_alert );} elseif ($delay>=-5) {$page->getStyle('N'.$row)->applyFromArray( $style_warning );}
+
+      $page->getStyle('O'.$row)->applyFromArray(((isset($value['firstSent']) AND $value['firstSent']>0 AND $v['DyT_expected']=='')?$style_alert:$style_Update));
 
 
 

@@ -13,7 +13,7 @@
 			<li><a href="index.php?page=labo"><acronym title="LAB View">LAB</acronym></a></li>
 			<li><a href="index.php?page=manager"><acronym title="Manager View">Manager</acronym></a></li>
 			<li><a href="index.php?page=qualite"><acronym title="QUALITY View">Quality</acronym></a></li>
-			<li class="divider-vertical"><a href="index.php?page=lab"><acronym title="Eagle View of the LAB">E.V.LAB</acronym></a></li>
+			<li class="divider-vertical"><a href="index.php?page=lab"><acronym title="Overview of the LAB">O.LAB</acronym></a></li>
 			<li class="dropdown dropdownhover">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#">F.UP
 					<span class="caret"></span>
