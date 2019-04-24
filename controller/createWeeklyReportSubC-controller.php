@@ -59,7 +59,16 @@ $style_interligne = array(
 $style_alert = array(
   'fill' => array(
     'fillType' => PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
-    'color' => array('rgb'=>'C00000')
+    'color' => array('rgb'=>'DA9694')
+  ),
+  'font'  => array(
+    'color' => array('rgb' => 'FFFFFF')
+  )
+);
+$style_delay = array(
+  'fill' => array(
+    'fillType' => PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+    'color' => array('rgb'=>'000000')
   ),
   'font'  => array(
     'color' => array('rgb' => 'FFFFFF')
@@ -71,7 +80,7 @@ $style_warning = array(
     'color' => array('rgb'=>'fabf8f')
   ),
   'font'  => array(
-    'color' => array('rgb' => 'FFFFFF')
+    'color' => array('rgb' => '2D4D6A')
   )
 );
 $style_Update = array(
@@ -214,7 +223,7 @@ foreach ($lstJobCust as $key => $value) {
       $page->setCellValueByColumnAndRow(1+13, $row, (isset($v['DyT_expected'])?date('Y-m-d', strtotime($v['DyT_expected']. ' - 3 days')):''));
 
       $delay=(isset($v['DyT_expected']))?(strtotime(date("Y-m-d"))-strtotime(date('Y-m-d', strtotime($v['DyT_expected']. ' - 3 days'))))/86400:-9999;
-      if ($delay>=0) {$page->getStyle('N'.$row)->applyFromArray( $style_alert );} elseif ($delay>=-5) {$page->getStyle('N'.$row)->applyFromArray( $style_warning );}
+      if ($delay>=0) {$page->getStyle('N'.$row)->applyFromArray( $style_delay );} elseif ($delay>=-5) {$page->getStyle('N'.$row)->applyFromArray( $style_warning );}
 
       $page->getStyle('O'.$row)->applyFromArray(((isset($value['firstSent']) AND $value['firstSent']>0 AND $v['DyT_expected']=='')?$style_alert:$style_Update));
 
