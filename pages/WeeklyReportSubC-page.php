@@ -43,7 +43,7 @@ include('controller/weeklyReportSubC-controller.php');
 					</thead>
 					<tbody>
 						<?php foreach ($lstJobSubC as $key => $value) :?>
-							<?php if ($value['nbuncompleted']!=0) :?>
+							<?php if ($value['nbuncompleted']!=0 OR $value['nbEpNotReceived']>0) :?>
 								<tr style="height:100%;">
 
 									<td rowspan="<?=	count($infoJobs[$value['id_info_job']])+1	?>"><?=	$value['job']	?></td>

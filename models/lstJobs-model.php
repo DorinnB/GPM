@@ -379,7 +379,8 @@ class LstJobsModel
   public function getWeeklyReportSubC($subC) {
     $req = 'SELECT MAX(info_jobs.id_info_job) as id_info_job, MAX(customer) as customer, job, MAX(ref_matiere) as ref_matiere, MAX(po_number) as po_number, max(weeklyComment) as weeklyComment, max(SubCComment) as SubCComment, max(instruction) as instruction,
     count(DISTINCT case when eprouvette_inOut_A is not null then master_eprouvettes.id_master_eprouvette end) AS nbsent, count(DISTINCT master_eprouvettes.id_master_eprouvette) as nbep, min(master_eprouvette_inOut_A) as firstReceived, max(available_expected) as available_expected,
-    min(eprouvettes.eprouvette_inOut_A) as firstSent, count(distinct case when etape<90 then id_tbljob end) as nbuncompleted
+    min(eprouvettes.eprouvette_inOut_A) as firstSent, count(distinct case when etape<90 then id_tbljob end) as nbuncompleted,
+    sum(if(eprouvettes.eprouvette_inOut_B is null,1,0)) as nbEpNotReceived
     FROM info_jobs
     LEFT JOIN tbljobs ON tbljobs.id_info_job=info_jobs.id_info_job
     LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
@@ -389,7 +390,7 @@ class LstJobsModel
     LEFT JOIN contacts  contactsST ON contactsST.id_contact=tbljobs.id_contactST
     WHERE info_job_actif=1 and job>13333 and contactsST.ref_customer='.$subC.'
     AND master_eprouvette_actif=1 AND eprouvette_actif=1
-    AND (info_jobs.invoice_date>now()-interval 10 day OR info_jobs.invoice_type!=2)
+    AND (info_jobs.invoice_date>now()-interval 10 day OR info_jobs.invoice_type!=2) AND etape<100
     GROUP BY job
     ORDER BY job DESC
     ';

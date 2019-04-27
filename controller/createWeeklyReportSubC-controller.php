@@ -155,7 +155,7 @@ $validation = $page->getCell('AA1')->getDataValidation(); //data validation for 
 
 //pour chaque split commencé non fini
 foreach ($lstJobCust as $key => $value) {
-  if ($value['nbuncompleted']!=0) {
+  if ($value['nbuncompleted']!=0 OR $value['nbEpNotReceived']>0) {
 
     //on copie le style de pour chaque job
     for ($colEnTete = 0; $colEnTete <= 15; $colEnTete++) {
@@ -223,7 +223,7 @@ foreach ($lstJobCust as $key => $value) {
       $page->setCellValueByColumnAndRow(1+13, $row, (isset($v['DyT_expected'])?date('Y-m-d', strtotime($v['DyT_expected']. ' - 3 days')):''));
 
       $delay=(isset($v['DyT_expected']))?(strtotime(date("Y-m-d"))-strtotime(date('Y-m-d', strtotime($v['DyT_expected']. ' - 3 days'))))/86400:-9999;
-      if ($delay>=0) {$page->getStyle('N'.$row)->applyFromArray( $style_delay );} elseif ($delay>=-5) {$page->getStyle('N'.$row)->applyFromArray( $style_warning );}
+      if ($delay>=0) {$page->getStyle('N'.$row)->applyFromArray( $style_delay );} elseif ($delay>=-7) {$page->getStyle('N'.$row)->applyFromArray( $style_warning );}
 
       $page->getStyle('O'.$row)->applyFromArray(((isset($value['firstSent']) AND $value['firstSent']>0 AND $v['DyT_expected']=='')?$style_alert:$style_Update));
 
