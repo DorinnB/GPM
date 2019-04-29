@@ -212,9 +212,10 @@ $styleSplit = array(
 //nom du fichier excel d'UBR
 $objPHPExcel = $objReader->load("../templates/Invoice.xlsm");
 
-$page=$objPHPExcel->getSheetByName('Invoice'.$split['invoice_lang'].$split['invoice_currency']);
+//$page=$objPHPExcel->getSheetByName('Invoice'.$split['invoice_lang'].$split['invoice_currency']);
+$page=$objPHPExcel->getSheetByName('Invoice0'.$split['invoice_currency']);
 //on cache la fenetre template
-$objPHPExcel->getSheetByName('Invoice'.$split['invoice_lang'].$split['invoice_currency'])
+$objPHPExcel->getSheetByName('Invoice0'.$split['invoice_currency'])
 ->setSheetState(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_VISIBLE);
 
 
@@ -239,8 +240,8 @@ $val2Xls = array(
 
   'C16' => $split['VAT'],
   'C17' =>  $split['po_number'],
-  'C18' =>  $split['MRSASRef'],
-  'G17' => $split['customer'].'-'.$split['job'],
+  'G17' =>  $split['MRSASRef'],
+  'G16' => $split['customer'].'-'.$split['job'],
   'C19' =>  $split['info_jobs_instruction']
 
 );
@@ -343,7 +344,7 @@ $row++;
 if (substr($split['VAT'],0,2)=='FR') {  //si client francais=> TVA
 
   copyRange($page, 'O3:U7', Coordinate::stringFromColumnIndex(1).$row);
-  $page->setCellValueByColumnAndRow(1+6, $row,'=sum(G16:G'.($row-1).')');
+  $page->setCellValueByColumnAndRow(1+6, $row,'=sum(G24:G'.($row-1).')');
   $page->setCellValueByColumnAndRow(1+6, $row+1,'=G'.$row.'*20%');
   $page->setCellValueByColumnAndRow(1+6, $row+2,'=G'.$row.'+G'.($row+1));
 
@@ -354,7 +355,7 @@ if (substr($split['VAT'],0,2)=='FR') {  //si client francais=> TVA
 else {    //pas de TVA
 
   copyRange($page, 'O8:U10', Coordinate::stringFromColumnIndex(1).$row);
-  $page->setCellValueByColumnAndRow(1+6, $row,'=sum(G16:G'.($row-1).')');
+  $page->setCellValueByColumnAndRow(1+6, $row,'=sum(G24:G'.($row-1).')');
 
   $dt = date("Y-m-d");
   $page->setCellValueByColumnAndRow(1+6, $row+2, date( "Y-m-d", strtotime( "$dt +45 day" ) ));
