@@ -373,7 +373,7 @@ $page->getPageSetup()->setPrintArea('A1:G'.$row);
 
 
 //si ubr, on affiche un 'résumé' des données du job
-if (isset($_GET['UBR'])) {
+if (isset($_GET['UBR']) AND $_GET['UBR']==1) {
   foreach ($splits as $row) {
     //on recupere la liste des eprouvettes de ce split
     $oEprouvettes = new LstEprouvettesModel($db,$row['id_tbljob']);
