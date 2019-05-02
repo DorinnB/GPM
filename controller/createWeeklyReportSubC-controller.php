@@ -223,7 +223,7 @@ foreach ($lstJobCust as $key => $value) {
       $page->setCellValueByColumnAndRow(1+13, $row, (isset($v['DyT_expected'])?date('Y-m-d', strtotime($v['DyT_expected']. ' - 3 days')):''));
 
       $delay=(isset($v['DyT_expected']))?(strtotime(date("Y-m-d"))-strtotime(date('Y-m-d', strtotime($v['DyT_expected']. ' - 3 days'))))/86400:-9999;
-      if ($delay>=0) {$page->getStyle('N'.$row)->applyFromArray( $style_delay );} elseif ($delay>=-7) {$page->getStyle('N'.$row)->applyFromArray( $style_warning );}
+      if ($delay>=0 AND $v['statut_SubC']!="Completed SubC") {$page->getStyle('N'.$row)->applyFromArray( $style_delay );} elseif ($delay>=-7 AND $v['statut_SubC']!="Completed SubC") {$page->getStyle('N'.$row)->applyFromArray( $style_warning );}
 
       $page->getStyle('O'.$row)->applyFromArray(((isset($value['firstSent']) AND $value['firstSent']>0 AND $v['DyT_expected']=='')?$style_alert:$style_Update));
 
