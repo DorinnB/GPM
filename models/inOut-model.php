@@ -68,8 +68,7 @@ class INOUT
     }
     elseif ($type=='eprouvette_inOut_B') {
       $reqUpdate='UPDATE eprouvettes
-      SET '.$type.' = '.$date.',
-      d_checked = '.(($date!="NULL")?'1':'0').'
+      SET '.$type.' = '.$date.'
       WHERE id_eprouvette = '.$id;
     }
     else {

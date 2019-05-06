@@ -262,9 +262,12 @@ class EprouvetteModel
     }
 
     public function updateDCheck($iduser){
-      $reqUpdate='UPDATE `eprouvettes` SET
+      $reqUpdate='UPDATE `eprouvettes`
+      LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
+      LEFT JOIN test_type on test_type.id_test_type=tbljobs.id_type_essai
+      SET
       `d_checked` = '.$iduser.',
-      eprouvette_InOut_B=if(eprouvette_InOut_B IS NULL, NOW(), eprouvette_InOut_B)
+      eprouvette_InOut_B=IF(test_type.ST=1,  eprouvette_InOut_B, IF(eprouvette_InOut_B IS NULL, NOW(), eprouvette_InOut_B))
       WHERE `eprouvettes`.`id_eprouvette` = '.$this->id.';';
       //echo $reqUpdate;
       $result = $this->db->query($reqUpdate);
@@ -274,9 +277,12 @@ class EprouvetteModel
     }
 
     public function updateRemoveDCheck($iduser){
-      $reqUpdate='UPDATE `eprouvettes` SET
-      `d_checked` = -'.$_COOKIE['id_user'].',
-      eprouvette_InOut_B=NULL
+      $reqUpdate='UPDATE `eprouvettes`
+      LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
+      LEFT JOIN test_type on test_type.id_test_type=tbljobs.id_type_essai
+      SET
+      `d_checked` = -'.$iduser.',
+      eprouvette_InOut_B=IF(test_type.ST=1,  eprouvette_InOut_B, NULL)
       WHERE `eprouvettes`.`id_eprouvette` = '.$this->id.';';
       //echo $reqUpdate;
       $result = $this->db->query($reqUpdate);
