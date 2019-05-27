@@ -156,7 +156,7 @@ class LstJobsModel
     LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
     LEFT JOIN dessins ON dessins.id_dessin=master_eprouvettes.id_dwg
 
-    WHERE tbljob_actif=1 AND eprouvette_actif=1 and info_job_actif=1
+    WHERE tbljob_actif=1 AND eprouvette_actif=1 AND master_eprouvettes.master_eprouvette_actif=1 AND info_job_actif=1
 
     GROUP BY tbljobs.id_info_job
     order by job desc
@@ -369,7 +369,7 @@ class LstJobsModel
     LEFT JOIN eprouvettes ON eprouvettes.id_master_eprouvette=master_eprouvettes.id_master_eprouvette
     WHERE info_job_actif=1 and job>13333 and customer='.$customer.'
     AND master_eprouvette_actif=1 AND eprouvette_actif=1
-    AND (info_jobs.invoice_date>now()-interval 10 day OR info_jobs.invoice_type!=2)
+    AND (info_jobs.invoice_date>now()-interval 6 day OR info_jobs.invoice_type!=2)
     GROUP BY job
     ORDER BY job DESC
     ';
