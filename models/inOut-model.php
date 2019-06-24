@@ -272,6 +272,7 @@ class INOUT
     AND info_job_actif=1
     AND tbljob_actif=1
     AND invoice_type=2
+    AND etape != 100
 
     GROUP BY job
     ORDER BY job DESC
@@ -291,6 +292,7 @@ class INOUT
     AND info_job_actif=1
     AND tbljob_actif=1
     AND invoice_type!=2
+    AND etape != 100
     GROUP BY id_tbljob
     ORDER BY job DESC, split ASC
     ';
@@ -307,6 +309,7 @@ class INOUT
     AND info_job_actif=1
     AND tbljob_actif=1
     AND invoice_type!=2
+    AND etape != 100
     ORDER BY job DESC, split ASC
     ';
     return $this->db->getAll($req);
@@ -324,6 +327,7 @@ class INOUT
     AND info_job_actif=1
     AND tbljob_actif=1
     AND invoice_type!=2
+    AND etape != 100
     ORDER BY job DESC, split ASC
     ';
     return $this->db->getAll($req);
@@ -341,6 +345,7 @@ class INOUT
     AND info_job_actif=1
     AND tbljob_actif=1
     AND invoice_type!=2
+    AND etape != 100
     ORDER BY job DESC, split ASC
     ';
     return $this->db->getAll($req);
