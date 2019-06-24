@@ -59,7 +59,7 @@
 					</div>
 				</li>
 				<li>
-					<a href="#" data-toggle="modal" data-target="#notification" style="padding-left:0px; padding-right:5px;">
+					<a href="#" data-toggle="modal" id="envelopenotification" data-target="#notification" style="padding-left:0px; padding-right:5px;">
 						<span class="glyphicon glyphicon-envelope"><span id="countNotification" class="badge"></span></span>
 					</a>
 				</li>

@@ -5,7 +5,8 @@
   <div class="modal-content">
     <div class="modal-header" style="height:10%;">
       <button type="button" class="close" data-dismiss="modal">&times;</button>
-      <h4 class="modal-title">Notification</h4>
+      <h3 class="modal-title col-md-4 text-left">Notification</h3>
+      <?php if ($isBadge==1) {include('../controller/badgeAccess-controller.php');} ?>
     </div>
     <div class="modal-body" style="height:90%;">
       <div id="exTab2" class="container-fluid">

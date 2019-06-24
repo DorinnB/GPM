@@ -16,6 +16,10 @@ $oUser = new TechModel($db);
 $lstUsers=$oUser->getAllTech();
 
 
+include '../models/badge-model.php';
+$oBadge = new BadgeModel($db);
+$isBadge=$oBadge->isBadge();
+
 
 include('../views/notification-view.php');
 

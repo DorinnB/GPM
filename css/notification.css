@@ -4,6 +4,10 @@
 #notification .modal-header {
   color:black;
 }
+#notification .modal-header [class*="col-"] {
+background-color : initial ;
+border-width: 0px;
+}
 #notification .modal-content {
   height:600px;
   color:white;
@@ -11,6 +15,23 @@
   border: 0px;
 }
 
+.badgeAccess {
+  display: inline;
+  width: 10%;
+}
+.badgeAccessEnable{
+    width: 25%;
+}
+
+.blink_me {
+  animation: blinker 1s forwards infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0.5;
+  }
+}
 
 .labelTitle {
   display:block;
@@ -19,7 +40,6 @@
 .labelValue {
   font-weight:normal;
 }
-
 
 .from {
   float:left;

@@ -1,5 +1,12 @@
 $(document).ready(function(){
 
+  $("#envelopenotification").click(function(e) {
+
+    $('#notification').load('controller/notification-controller.php');
+  });
+
+
+
   $(".reply").click(function(e) {
     $('.nav-pills a[href="#new"]').tab('show'); //affichage "new"
     $('#subject').val( 'TR :'+ $('#received_' + $(this).attr('data-id_notification')).find('.subject').text()); //modification subject
@@ -52,6 +59,11 @@ $(document).ready(function(){
   });
 
 
+
+
+
+
+
   $("#id_receiver_frame").select2({ width: "100%" });
   $("#id_receiver_user").select2({ width: "100%" });
 
@@ -59,4 +71,20 @@ $(document).ready(function(){
     $('.receiver_frame').toggle() ;
     $('.receiver_user').toggle() ;
   });
+
+
+    $(".clockINOUT").click(function(e) {
+      $.ajax({
+        type: "POST",
+        url: "controller/updateBadge.php",
+        data:  {
+          clock: $(this).attr('data-clockINOUT'),
+          type:'ClockINOUT'
+        },
+        success: function(data)
+        {
+          $('#notification').load('controller/notification-controller.php');
+        }
+      });
+    });
 });
