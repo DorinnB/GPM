@@ -10,3 +10,11 @@
 .bandeau  {
   background-color: #536E94;
 }
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #5B9BD5;
+}
+.table-striped > tbody > tr:nth-of-type(2n+1) {
+    background-color: #536E94;
+
+}

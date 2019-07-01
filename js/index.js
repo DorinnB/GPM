@@ -3,3 +3,9 @@ $(document).ajaxStart(function() {
 }).ajaxStop(function() {
     $(document.body).css({'cursor' : 'auto'});
 });
+
+$(document).ready(function() {
+  $("#planningTech").click(function(e) {
+    $("#carre2").load('controller/planningTech-controller.php');
+  });
+});

@@ -8,11 +8,11 @@
 		<div class="col-md-12 carre" id="carre" style="height:100%; display:block; background-color:#44546A;">
 			<div class="row" style="height:50%;">
 				<div class="col-md-6" style="height:100%; overflow: auto;"><?php include 'controller/lab-small-controller.php'; ?></div>
-				<div class="col-md-6" style="height:100%; overflow: auto;"></div>
+				<div id="carre2" class="col-md-6" style="height:100%; overflow: auto;"><?php include 'views/btn-view.php'; ?></div>
 			</div>
 			<div class="row" style="height:50%;">
 				<div class="col-md-6" style="height:100%">carré 3</div>
-	<div class="col-md-6" style="height:100%; overflow: auto;"><?php include 'views/logupdate.php'; ?></div>
+				<div class="col-md-6" style="height:100%; overflow: auto;"><?php include 'views/logupdate.php'; ?></div>
 			</div>
 		</div>
 		<div class="col-md-12 unique" id="pageunique" style="height:100%; display:none;">
@@ -37,4 +37,4 @@ require('views/login-view.php');
 if (isset($_GET['id_tbljob'])) {
 	echo "<script> goto('split','id_tbljob',".$_GET['id_tbljob'].",'noModif');</script>";
 }
- ?>
+?>

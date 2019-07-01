@@ -41,25 +41,17 @@ Editor::inst( $db, 'badges' )
   ->value( 'id_technicien' )
   ->label( 'id_technicien' )
   ),
-  Field::inst( 't2.technicien'),
-  Field::inst( 'ba.id_manager')
+  Field::inst( 't2.technicien')
   )
 
   ->leftJoin( 'techniciens',     'techniciens.id_technicien',          '=', 'badges.id_user' )
   ->leftJoin( 'techniciens as t2',     't2.id_technicien',          '=', 'badges.id_validator' )
-  ->leftJoin( 'badge_access as ba',     'ba.id_managed',          '=', 'badges.id_user' )
 
   ->where( function ( $q ) {
-    $q->where('ba.id_manager',(isset($_COOKIE['id_user'])?$_COOKIE['id_user']:0));
-    //$q->or_where('id_user',(isset($_COOKIE['id_user'])?$_COOKIE['id_user']:0));
+    //$q->where('ba.id_manager',(isset($_COOKIE['id_user'])?$_COOKIE['id_user']:0));
+    $q->where('id_user',(isset($_COOKIE['id_user'])?$_COOKIE['id_user']:0));
   })
 
-  //enregistrement du user effectuant l'update
-  ->on( 'preEdit', function ( $editor, $values ) {
-    $editor
-    ->field( 'badges.id_validator' )
-    ->setValue( $_COOKIE['id_user'] );
-  } )
 
   ->process($_POST)
   ->json();

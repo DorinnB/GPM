@@ -8,7 +8,7 @@
 		<div class="col-md-12 carre" id="carre" style="height:100%; display:block; background-color:#44546A;">
 			<div class="row" style="height:50%;">
 				<div class="col-md-6" style="height:100%; overflow: auto;"><?php include 'controller/lab-small-controller.php'; ?></div>
-				<div class="col-md-6" style="height:100%; overflow: auto;"></div>
+				<div id="carre2" class="col-md-6" style="height:100%; overflow: auto;"><?php include 'views/btn-view.php'; ?></div>
 			</div>
 			<div class="row" style="height:50%;">
 				<div class="col-md-6" style="height:100%"><?php include 'controller/administrativeList-controller.php'; ?></div>

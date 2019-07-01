@@ -47,18 +47,26 @@ $firstdayweek=date("Y-m-d", strtotime('monday this week'));
 $colMonday = array_search($firstdayweek, $tbldate);
 
 
-    for ($col = $colMonday; $col <= $colMonday+14; ++$col) {
-        $tblplanning[4][$col]=date("Y-m-d", mktime(0,0,0,1, $worksheet->getCellByColumnAndRow($col, 4)->getCalculatedValue()-1, 1900));
-    }
-
-for ($row = 5; $row <= 11; ++$row) {
-    $tblplanning[$row][0]=$worksheet->getCellByColumnAndRow(1, $row)->getCalculatedValue();
-    for ($col = $colMonday; $col <= $colMonday+14; ++$col) {
-        $tblplanning[$row][$col]=$worksheet->getCellByColumnAndRow($col, $row)->getCalculatedValue();
-    }
+$colInit=1;
+$tblheader[0][0]="Tech";
+$tblheader[1][0]="";
+for ($col = $colMonday; $col <= $colMonday+13; ++$col) {
+  $tblheader[0][$colInit]=date("m/d", mktime(0,0,0,1, $worksheet->getCellByColumnAndRow($col, 4)->getCalculatedValue()-1, 1900));
+  $tblheader[1][$colInit]=date("D", mktime(0,0,0,1, $worksheet->getCellByColumnAndRow($col, 4)->getCalculatedValue()-1, 1900));
+  $colInit++;
 }
 
-var_dump($tblplanning);
+$colInit=1;
+for ($row = 6; $row <= 11; ++$row) {
+  $tblplanning[$row][0]=$worksheet->getCellByColumnAndRow(1, $row)->getCalculatedValue();
+  for ($col = $colMonday; $col <= $colMonday+13; ++$col) {
+    $tblplanning[$row][$colInit]=$worksheet->getCellByColumnAndRow($col, $row)->getCalculatedValue();
+    $colInit++;
+  }
+}
+
+
+include('../views/planningTech-view.php');
 
 
 ?>
