@@ -8,6 +8,7 @@
 			<div style="display:none;" id="dayhours" data-value="<?= $ini['Badge']['dayhours']	?>"></div>
 			<div style="display:none;" id="resthours" data-value="<?= $ini['Badge']['resthours']	?>"></div>
 			<table id="table_badge" class="table table-condensed table-hover table-bordered" cellspacing="0" width="100%"  style="white-space:nowrap;">
+				<caption style="color:white; font-size:200%;">Technician check in/out (filtered on last week by default)</caption>
 				<thead>
 					<tr>
 						<th><acronym title="Week Number">W.</acronym></th>
