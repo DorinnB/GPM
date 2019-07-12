@@ -30,7 +30,7 @@ $(document).ready(function() {
       url : "controller/editor-badge.php",
       type: "POST"
     },
-    order: [[ 1, "asc" ],[2,"asc"]],
+    order: [[ 1, "desc" ],[2,"asc"]],
     columns: [
       {  data: null,
         render: function ( data, type, row ) {

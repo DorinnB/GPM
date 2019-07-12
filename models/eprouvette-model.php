@@ -66,7 +66,7 @@ class EprouvetteModel
     c_type_1_val, c_type_2_val, c_type_3_val, c_type_4_val, c_type_5_val,
     Cycle_min, runout, cycle_estime, c_commentaire, c_checked, d_checked, dim_1, dim_2, dim_3,
     d_commentaire, check_rupture, flag_qualite, checked,
-    n_essai, n_fichier, machine, enregistrementessais.date, eprouvettes.waveform, Rupture, Fracture,
+    n_essai, n_fichier, machine, enregistrementessais.date, eprouvettes.waveform, Rupture, Fracture, fractureCust, id_rawdata,
     eprouvette_InOut_A, eprouvette_InOut_B,
     val_1,val_2,val_3,val_4,val_5,val_6,val_7,val_8,val_9,val_10,
     other_1, other_2, other_3, other_4, other_5,

@@ -32,6 +32,8 @@ Editor::inst( $db, 'eprouvettes' )
   Field::inst( 'eprouvettes.d_commentaire'),
   Field::inst( 'eprouvettes.q_commentaire'),
   Field::inst( 'eprouvettes.valid'),
+  Field::inst( 'eprouvettes.unvalidity')->setFormatter( 'Format::ifEmpty', null ),
+  Field::inst( 'eprouvettes.validupto')->setFormatter( 'Format::ifEmpty', null ),
   Field::inst( 'eprouvettes.flag_qualite'),
   Field::inst( 'test_type.test_type_abbr')
 //  Field::inst( 'techniciens.technicien')

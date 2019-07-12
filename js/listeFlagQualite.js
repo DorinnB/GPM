@@ -18,20 +18,32 @@ $(document).ready(function() {
       { label: "Lab Comments",       name: "eprouvettes.d_commentaire", type: "textarea" },
       { label: "Quality Comment",       name: "eprouvettes.q_commentaire",  type: "textarea"},
       { label: "Test Valid ?",       name: "eprouvettes.valid",
-        type: "radio",
-        options: [{ label: "Valid", value: 1 },{ label: "Void", value: 0 }]
-        },
-      { label: "Reason:",              name: "incident_causes[].id_incident_cause",
-          type: "select",
-          multiple: true
+      type: "radio",
+      options: [
+        { label: "Valid", value: 1 },
+        { label: "Unvalid", value: 2 },
+        { label: "Void", value: 0 }      ]
       },
+      { label: "Unvalidity",       name: "eprouvettes.unvalidity",
+      type:  "radio",
+      options: [
+        { label: "N/A", value: null},
+        { label: "SI", value: "SI"},
+        { label: "EC", value: "EC"},
+        { label: "ENC", value: "ENC"},
+        { label: "EVC", value: "EVC"}
+      ]},
+      { label: "Valid up to ? (if EVC)",       name: "eprouvettes.validupto"},
+      { label: "Reason:",              name: "incident_causes[].id_incident_cause",
+      type: "select",
+      multiple: true    },
       { label: "Flag Quality",       name: "eprouvettes.flag_qualite",
       type:  "radio",
-          options: [
-              { label: "Cancel", value: 0},
-              { label: "Warning", value: iduser},
-              { label: "Close", value: -iduser}
-          ]}
+      options: [
+        { label: "Cancel", value: 0},
+        { label: "Warning", value: iduser},
+        { label: "Close", value: -iduser}
+      ]}
     ]
   } );
 
@@ -48,7 +60,7 @@ $(document).ready(function() {
     ajax: {
       url : "controller/editor-listeFlagQualite.php",
       type: "POST",
-    data: {"filtre" : filtre}
+      data: {"filtre" : filtre}
     },
     order: [[ 1, "desc" ]],
     columns: [
@@ -57,95 +69,95 @@ $(document).ready(function() {
         render : function(data, type, full, meta){
           return '<a href="index.php?page=split&id_tbljob='+data.tbljobs.id_tbljob+'">'+data.info_jobs.job+'</a>';
         }},
-      { data: "tbljobs.split" },
-      { data: null,
-        render : function(data, type, full, meta){
-          return '<a href="#" class="open-GestionEp" data-toggle="modal" data-target="#gestionEp" data-id="'+data.eprouvettes.id_eprouvette+'" onclick="gestionEp('+data.eprouvettes.id_eprouvette+');">'+data.enregistrementessais.n_fichier+'</a>';
-        }},
-      { data: "machines.machine" },
-      { data: "enregistrementessais.date" },
-      { data: "eprouvettes.d_commentaire", width: "40%" },
-      { data: "eprouvettes.flag_qualite" },
-      { data: "eprouvettes.q_commentaire", width: "30%" },
-      { data: "eprouvettes.valid" },
-      { data: "TDR_types", render: "[, ].TDR_type" },
-      { data: "incident_causes", render: "[, ].incident_cause" },
-      { data: "test_type.test_type_abbr" }
-      ],
-      scrollY: '70vh',
-      scrollCollapse: true,
-      paging: false,
-      select: {
-        style:    'os',
-        blurable: true
-      },
-      buttons: [
-      {
-        extend: "edit",
-        editor: editorQ,
-        formButtons: [
-          'Edit',
-          { label: 'Cancel', fn: function () { this.close(); } }
+        { data: "tbljobs.split" },
+        { data: null,
+          render : function(data, type, full, meta){
+            return '<a href="#" class="open-GestionEp" data-toggle="modal" data-target="#gestionEp" data-id="'+data.eprouvettes.id_eprouvette+'" onclick="gestionEp('+data.eprouvettes.id_eprouvette+');">'+data.enregistrementessais.n_fichier+'</a>';
+          }},
+          { data: "machines.machine" },
+          { data: "enregistrementessais.date" },
+          { data: "eprouvettes.d_commentaire", width: "40%" },
+          { data: "eprouvettes.flag_qualite" },
+          { data: "eprouvettes.q_commentaire", width: "30%" },
+          { data: "eprouvettes.valid" },
+          { data: "TDR_types", render: "[, ].TDR_type" },
+          { data: "incident_causes", render: "[, ].incident_cause" },
+          { data: "test_type.test_type_abbr" }
+        ],
+        scrollY: '70vh',
+        scrollCollapse: true,
+        paging: false,
+        select: {
+          style:    'os',
+          blurable: true
+        },
+        buttons: [
+          {
+            extend: "edit",
+            editor: editorQ,
+            formButtons: [
+              'Edit',
+              { label: 'Cancel', fn: function () { this.close(); } }
+            ]
+          }
         ]
-      }
-    ]
+      } );
+
+
+
+
+
+
+      $('#container').css('display', 'block');
+      table.columns.adjust().draw();
+
+      // Filter event handler
+      $( table.table().container() ).on( 'keyup', 'tfoot input', function () {
+        table
+        .column( $(this).data('index') )
+        .search( this.value )
+        .draw();
+      } );
+
+      //table.columns.adjust().draw();
+
+
+
+
+
+
     } );
 
 
-
-
-
-
-    $('#container').css('display', 'block');
-    table.columns.adjust().draw();
-
-    // Filter event handler
-    $( table.table().container() ).on( 'keyup', 'tfoot input', function () {
-      table
-      .column( $(this).data('index') )
-      .search( this.value )
-      .draw();
-    } );
-
-    //table.columns.adjust().draw();
-
-
-
-
-
-
-  } );
-
-
-  function gestionEp(idEp) {
-    $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+idEp);
-  }
-
-
-  //Selon le navigateur utilisé, on detecte le style de transition utilisé
-  function whichTransitionEvent(){
-    var t,
-    el = document.createElement("fakeelement");
-
-    var transitions = {
-      "transition"      : "transitionend",
-      "OTransition"     : "oTransitionEnd",
-      "MozTransition"   : "transitionend",
-      "WebkitTransition": "webkitTransitionEnd"
+    function gestionEp(idEp) {
+      $('#gestionEp').load('controller/splitGestionEp-controller.php?idEp='+idEp);
     }
 
-    for (t in transitions){
-      if (el.style[t] !== undefined){
-        return transitions[t];
+
+    //Selon le navigateur utilisé, on detecte le style de transition utilisé
+    function whichTransitionEvent(){
+      var t,
+      el = document.createElement("fakeelement");
+
+      var transitions = {
+        "transition"      : "transitionend",
+        "OTransition"     : "oTransitionEnd",
+        "MozTransition"   : "transitionend",
+        "WebkitTransition": "webkitTransitionEnd"
+      }
+
+      for (t in transitions){
+        if (el.style[t] !== undefined){
+          return transitions[t];
+        }
       }
     }
-  }
 
-  var transitionEvent = whichTransitionEvent();
+    var transitionEvent = whichTransitionEvent();
 
-  //On retracte le tbl des jobs, et une fois retracté, on redessine le tableau history
-  $("#wrapper").addClass("toggled");
-  $("#wrapper").one(transitionEvent,
-    function(event) {
-      $('#table_listeFlagQualite').DataTable().draw();
-    });
+    //On retracte le tbl des jobs, et une fois retracté, on redessine le tableau history
+    $("#wrapper").addClass("toggled");
+    $("#wrapper").one(transitionEvent,
+      function(event) {
+        $('#table_listeFlagQualite').DataTable().draw();
+      });

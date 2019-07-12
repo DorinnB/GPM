@@ -32,7 +32,7 @@
 
 	<a href="index.php?page=badgeUsers" class="btn btn-default btn-lg" style="width:50px; height:100%; padding:0px; border-radius:10px;">
 
-							<img type="image" src="img/calendar_yes.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">
+							<img type="image" src="img/badge.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">
 
 					</a>
 </div>

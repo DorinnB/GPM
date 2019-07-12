@@ -17,7 +17,7 @@ $(document).ready(function() {
       url : "controller/editor-badgeUsers.php",
       type: "POST"
     },
-    order: [[ 1, "desc" ],[2,"desc"]],
+    order: [[ 1, "desc" ],[2,"asc"]],
     columns: [
       {  data: null,
         class:"week",

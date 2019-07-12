@@ -168,386 +168,409 @@
 
                 <div class="row" style="padding: 0px 10px; border-bottom: medium solid  #536E94; border-top: medium solid #536E94;">
                   <form class="form-group" style="height:100%;" id="update_Rupture">
-                    <div class="col-md-4">
-                      <label for="Rupture">Rupture :</label>
-                      <input type="text" class="form-control" name="Rupture" value="<?= $eprouvette['Rupture'] ?>" <?= ($eprouvette['Rupture']=="")?"":"disabled"  ?>>
+
+                    <?php if ($eprouvette['id_rawdata']==6): ?>
+                      <div class="col-md-3">
+                        <label for="Rupture">Rupture :</label>
+                        <input type="text" class="form-control" name="Rupture" value="<?= $eprouvette['Rupture'] ?>" <?= ($eprouvette['Rupture']=="")?"":"disabled"  ?>>
+                      </div>
+                      <div class="col-md-3 col-md-offset-1">
+                        <label for="Fracture">Fracture :</label>
+                        <input type="text" class="form-control" name="Fracture" value="<?= $eprouvette['Fracture'] ?>" <?= ($eprouvette['Fracture']=="")?"":"disabled"  ?>>
+                      </div>
+                      <div class="col-md-3">
+                        <label for="Fracture Cust" data-toggle="tooltip" title="IX=>IT      AX=>ST      OX=>ET
+                          AR=>AR_x rayon        Tete=>TF
+                          NR=>NR
+                          S=>S     SS=>I        Angle 15°">Cust. :</label>
+                          <input type="text" class="form-control" name="fractureCust" value="<?= $eprouvette['fractureCust'] ?>" <?= ($eprouvette['Fracture']=="")?"":"disabled"  ?>>
+                        </div>
+                        <div class="col-md-2 check<?=	$eprouvette['check_rupture']	?>" id="check_rupture" data-check_rupture="<?= $eprouvette['check_rupture'] ?>" style="background-color:<?=	($eprouvette['Fracture']=="")?'':(($eprouvette['check_rupture']<=0)?'darkred':'darkgreen')	?>">
+                          <img type="image" src="img/<?=	($eprouvette['Fracture']=="")?'save.png':(($eprouvette['check_rupture']<=0)?'cross.png':'check.png')	?>" style="height:65px;padding:5px 0px; margin: auto;" title="<?=	($eprouvette['check_rupture']<=0)?'Check Rupture/Fracture ('.abs($eprouvette['check_rupture']).')':$eprouvette['check_rupture']	?>">
+                        </div>
+                      <?php else : ?>
+                        <div class="col-md-4">
+                          <label for="Rupture">Rupture :</label>
+                          <input type="text" class="form-control" name="Rupture" value="<?= $eprouvette['Rupture'] ?>" <?= ($eprouvette['Rupture']=="")?"":"disabled"  ?>>
+                        </div>
+                        <div class="col-md-4 col-md-offset-1">
+                          <label for="Fracture">Fracture :</label>
+                          <input type="text" class="form-control" name="Fracture" value="<?= $eprouvette['Fracture'] ?>" <?= ($eprouvette['Fracture']=="")?"":"disabled"  ?>>
+                        </div>
+                        <div class="col-md-2 col-md-offset-1 check<?=	$eprouvette['check_rupture']	?>" id="check_rupture" data-check_rupture="<?= $eprouvette['check_rupture'] ?>" style="background-color:<?=	($eprouvette['Fracture']=="")?'':(($eprouvette['check_rupture']<=0)?'darkred':'darkgreen')	?>">
+                          <img type="image" src="img/<?=	($eprouvette['Fracture']=="")?'save.png':(($eprouvette['check_rupture']<=0)?'cross.png':'check.png')	?>" style="height:65px;padding:5px 0px; margin: auto;" title="<?=	($eprouvette['check_rupture']<=0)?'Check Rupture/Fracture ('.abs($eprouvette['check_rupture']).')':$eprouvette['check_rupture']	?>">
+                        </div>
+                      <?php endif ?>
+
+                      <input type="hidden" id="typeRupture" name="typeRupture" value="<?=  ($eprouvette['Fracture']=="")?'save':(($eprouvette['check_rupture']<=0)?'check':'decheck')	?>">
+                      <input type="hidden" id="idEp" name="idEp" value="<?=  $_GET['idEp'] ?>">
+                      <input type="hidden" name="iduser" value="<?=  $_COOKIE['id_user'] ?>">
+                    </form>
+                  </div>
+
+                  <div class="row" style="height:55%; padding: 0px 10px;">
+                    <form class="form-group" id="update_d_commentaire" style="height:100%;">
+                      <div class="col-md-10" style="height:100%;">
+                        <b style="float:left;">Lab Observation</b><br/>
+                        <textarea class="form-control" id="d_commentaire" name="d_commentaire"  style="resize:none;background-color:#5B9BD5;border-width:0px; color:white;height:85%"><?= $eprouvette['d_commentaire'] ?></textarea>
+                      </div>
+                      <div class="col-md-2" style="height:100%;">
+                        <div style="padding:5px 5px; margin: auto;">
+                          <a href="#1f" data-toggle="tab">
+                            <?php if ($TDRCount==0) :?>
+                              <h1><span class="label label-default"><?= $TDRCount ?></span></h1>
+                            <?php else  :?>
+                              <h1><span class="label label-warning"><?= $TDRCount ?></span></h1>
+                            <?php endif ?>
+                          </a>
+                        </div>
+                        <div id="flagQualite" data-flagQualite="<?= $eprouvette['flag_qualite'] ?>"  data-idepflagqualite="<?= $eprouvette['id_eprouvette'] ?>">
+                          <img type="image" src="img/warning_<?= $iconeFlagQualite ?>.png" style="height:65px; padding:5px 5px; margin: auto;" title="<?=	($eprouvette['flag_qualite']==0)?'Quality Flag':$eprouvette['flag_qualite']	?>">
+                        </div>
+                        <div id="save_d_commentaire" style="cursor:pointer;">
+                          <img type="image" src="img/save.png" style="height:65px; padding:5px 5px;display: block; margin: auto;">
+                        </div>
+                      </div>
+                      <input type="hidden" id="idEp" name="idEp" value="<?=  $_GET['idEp'] ?>">
+                      <input type="hidden" name="technicien" value="<?=  $_COOKIE['technicien'] ?>">
+                    </form>
+                  </div>
+
+                  <div class="row" style="padding:5px 10px 0px 10px;">
+                    <button type="button" id="flecheDown2" style="width:45%;background-color:dimgray; float:left;" title="Next Test Number">
+                      <span class="glyphicon glyphicon-chevron-down"></span> Next Test
+                    </button>
+                    <button type="button" id="flecheDown" style="width:45%;background-color:dimgray; float:right;" title="Next Test Same Frame">
+                      <span class="glyphicon glyphicon-chevron-down"></span> Same Frame
+                    </button>
+                  </div>
+
+                </div>
+
+                <div class="tab-pane" id="1c" style="height:100%;">
+                  <form class="form-group" style="height:100%;" id="prestartForm" onkeypress="return event.keyCode != 13;">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <label>Machine
+                          <a id="showFrameManagement" target="_blank" href="#">
+                            <span class="glyphicon glyphicon-new-window"></span>
+                          </a>
+                        </label>
+                        <select class="form-control" id="id_poste" name="id_poste">
+                          <?php foreach ($lstPoste->getAllPoste() as $row): ?>
+                            <option value="<?= $row['id_poste'] ?>" <?=  ((isset($_COOKIE['id_machine']) and ($_COOKIE['id_machine']==$row['id_machine']))?"selected":"" )  ?>><?= $row['machine'] ?></option>
+                          <?php endforeach ?>
+                        </select>
+                      </div>
+                      <div class="col-sm-6">
+                        <label>Job</label>
+                        <input type="text" class="form-control" placeholder="<?= $eprouvette['job'] ?>" disabled>
+                      </div>
                     </div>
-                    <div class="col-md-4 col-md-offset-1">
-                      <label for="Fracture">Fracture :</label>
-                      <input type="text" class="form-control" name="Fracture" value="<?= $eprouvette['Fracture'] ?>" <?= ($eprouvette['Fracture']=="")?"":"disabled"  ?>>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <label>Shunt Cal</label>
+                        <input type="text" class="form-control" name="shunt_cal" placeholder="Shunt Cal">
+                      </div>
+                      <div class="col-sm-6">
+                        <label>Tune Verification</label>
+                        <label class="radio checkbox"><input type="radio" name="tune" value="1"> Dummy</label>
+                        <label class="radio checkbox"><input type="radio" name="tune" value="2"> Same Param.</label>
+                        <label class="radio checkbox"><input type="checkbox" name="custom_frequency" value="2">Custom Frequency</label>
+                      </div>
                     </div>
-                    <div class="col-md-2 col-md-offset-1 check<?=	$eprouvette['check_rupture']	?>" id="check_rupture" data-check_rupture="<?= $eprouvette['check_rupture'] ?>" style="background-color:<?=	($eprouvette['Fracture']=="")?'':(($eprouvette['check_rupture']<=0)?'darkred':'darkgreen')	?>">
-                      <img type="image" src="img/<?=	($eprouvette['Fracture']=="")?'save.png':(($eprouvette['check_rupture']<=0)?'cross.png':'check.png')	?>" style="height:65px;padding:5px 0px; margin: auto;" title="<?=	($eprouvette['check_rupture']<=0)?'Check Rupture/Fracture ('.abs($eprouvette['check_rupture']).')':$eprouvette['check_rupture']	?>">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <label class="checkbox">
+                          <input type="checkbox" name="valid_alignement"> Alignement
+                        </label>
+                      </div>
+                      <div class="col-sm-6">
+                        <label class="checkbox">
+                          <input type="checkbox" name="valid_extenso"> Cal Extenso
+                        </label>
+                      </div>
                     </div>
-                    <input type="hidden" id="typeRupture" name="typeRupture" value="<?=  ($eprouvette['Fracture']=="")?'save':(($eprouvette['check_rupture']<=0)?'check':'decheck')	?>">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <label class="checkbox">
+                          <input type="checkbox" name="valid_temperature"> Cal Temperature
+                        </label>
+                      </div>
+                      <div class="col-sm-6">
+                        <label class="checkbox">
+                          <input type="checkbox" name="valid_temperature_line"> Cal Temp. Line
+                        </label>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <label class="checkbox">
+                          <input type="checkbox" name="signal_true"> True Signal
+                        </label>
+                      </div>
+                      <div class="col-sm-6">
+                        <label class="checkbox">
+                          <input type="checkbox" name="signal_tapered"> Tapered Signal
+                        </label>
+                      </div>
+                    </div>
+                    <div style="height:25%;">
+                      <button type="submit" class="btn btn-default" id="submit_prestart">Record Prestart Checklist</button>
+                    </div>
                     <input type="hidden" id="idEp" name="idEp" value="<?=  $_GET['idEp'] ?>">
-                    <input type="hidden" name="iduser" value="<?=  $_COOKIE['id_user'] ?>">
+                    <input type="hidden" name="id_user" value="<?=  $_COOKIE['id_user'] ?>">
+                    <input type="hidden" name="id_tbljob" value="<?= $eprouvette['id_job'] ?>">
                   </form>
                 </div>
 
-                <div class="row" style="height:55%; padding: 0px 10px;">
-                  <form class="form-group" id="update_d_commentaire" style="height:100%;">
-                    <div class="col-md-10" style="height:100%;">
-                      <b style="float:left;">Lab Observation</b><br/>
-                      <textarea class="form-control" id="d_commentaire" name="d_commentaire"  style="resize:none;background-color:#5B9BD5;border-width:0px; color:white;height:85%"><?= $eprouvette['d_commentaire'] ?></textarea>
-                    </div>
-                    <div class="col-md-2" style="height:100%;">
-                      <div style="padding:5px 5px; margin: auto;">
-                        <a href="#1f" data-toggle="tab">
-                          <?php if ($TDRCount==0) :?>
-                            <h1><span class="label label-default"><?= $TDRCount ?></span></h1>
-                          <?php else  :?>
-                            <h1><span class="label label-warning"><?= $TDRCount ?></span></h1>
-                          <?php endif ?>
-                        </a>
-                      </div>
-                      <div id="flagQualite" data-flagQualite="<?= $eprouvette['flag_qualite'] ?>"  data-idepflagqualite="<?= $eprouvette['id_eprouvette'] ?>">
-                        <img type="image" src="img/warning_<?= $iconeFlagQualite ?>.png" style="height:65px; padding:5px 5px; margin: auto;" title="<?=	($eprouvette['flag_qualite']==0)?'Quality Flag':$eprouvette['flag_qualite']	?>">
-                      </div>
-                      <div id="save_d_commentaire" style="cursor:pointer;">
-                        <img type="image" src="img/save.png" style="height:65px; padding:5px 5px;display: block; margin: auto;">
-                      </div>
-                    </div>
-                    <input type="hidden" id="idEp" name="idEp" value="<?=  $_GET['idEp'] ?>">
-                    <input type="hidden" name="technicien" value="<?=  $_COOKIE['technicien'] ?>">
-                  </form>
-                </div>
+                <div class="tab-pane" id="1d" style="height:100%;">
 
-                <div class="row" style="padding:5px 10px 0px 10px;">
-                  <button type="button" id="flecheDown2" style="width:45%;background-color:dimgray; float:left;" title="Next Test Number">
-                    <span class="glyphicon glyphicon-chevron-down"></span> Next Test
-                  </button>
-                  <button type="button" id="flecheDown" style="width:45%;background-color:dimgray; float:right;" title="Next Test Same Frame">
-                    <span class="glyphicon glyphicon-chevron-down"></span> Same Frame
-                  </button>
-                </div>
-
-              </div>
-
-              <div class="tab-pane" id="1c" style="height:100%;">
-                <form class="form-group" style="height:100%;" id="prestartForm" onkeypress="return event.keyCode != 13;">
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <label>Machine
-                        <a id="showFrameManagement" target="_blank" href="#">
-                          <span class="glyphicon glyphicon-new-window"></span>
-                        </a>
-                      </label>
-                      <select class="form-control" id="id_poste" name="id_poste">
-                        <?php foreach ($lstPoste->getAllPoste() as $row): ?>
-                          <option value="<?= $row['id_poste'] ?>" <?=  ((isset($_COOKIE['id_machine']) and ($_COOKIE['id_machine']==$row['id_machine']))?"selected":"" )  ?>><?= $row['machine'] ?></option>
-                        <?php endforeach ?>
-                      </select>
-                    </div>
-                    <div class="col-sm-6">
-                      <label>Job</label>
-                      <input type="text" class="form-control" placeholder="<?= $eprouvette['job'] ?>" disabled>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <label>Shunt Cal</label>
-                      <input type="text" class="form-control" name="shunt_cal" placeholder="Shunt Cal">
-                    </div>
-                    <div class="col-sm-6">
-                      <label>Tune Verification</label>
-                      <label class="radio checkbox"><input type="radio" name="tune" value="1"> Dummy</label>
-                      <label class="radio checkbox"><input type="radio" name="tune" value="2"> Same Param.</label>
-                      <label class="radio checkbox"><input type="checkbox" name="custom_frequency" value="2">Custom Frequency</label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <label class="checkbox">
-                        <input type="checkbox" name="valid_alignement"> Alignement
-                      </label>
-                    </div>
-                    <div class="col-sm-6">
-                      <label class="checkbox">
-                        <input type="checkbox" name="valid_extenso"> Cal Extenso
-                      </label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <label class="checkbox">
-                        <input type="checkbox" name="valid_temperature"> Cal Temperature
-                      </label>
-                    </div>
-                    <div class="col-sm-6">
-                      <label class="checkbox">
-                        <input type="checkbox" name="valid_temperature_line"> Cal Temp. Line
-                      </label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <label class="checkbox">
-                        <input type="checkbox" name="signal_true"> True Signal
-                      </label>
-                    </div>
-                    <div class="col-sm-6">
-                      <label class="checkbox">
-                        <input type="checkbox" name="signal_tapered"> Tapered Signal
-                      </label>
-                    </div>
-                  </div>
-                  <div style="height:25%;">
-                    <button type="submit" class="btn btn-default" id="submit_prestart">Record Prestart Checklist</button>
-                  </div>
-                  <input type="hidden" id="idEp" name="idEp" value="<?=  $_GET['idEp'] ?>">
-                  <input type="hidden" name="id_user" value="<?=  $_COOKIE['id_user'] ?>">
-                  <input type="hidden" name="id_tbljob" value="<?= $eprouvette['id_job'] ?>">
-                </form>
-              </div>
-
-              <div class="tab-pane" id="1d" style="height:100%;">
-
-                <figure style="display:inline-block;" class="document" data-type="FT">
-                  <img  src="img/excel-FT.png" height="90" width="60"  alt="" />
-                  <figcaption>FT (<?= $oDocument->nbDocuments('eprouvettes',$eprouvette['id_eprouvette'],'FT'); ?>)</figcaption>
-                </figure>
-
-
-                <a href="controller/createPrestart-controller.php?id_prestart=<?= $eprouvette['id_prestart'] ?>&id_ep=<?= $_GET['idEp'] ?>" style="display:inline-block;">
-                  <figure>
-
-                    <img  src="img/excel-Prestart.png" height="90" width="60" alt="" />
-                    <figcaption>Prestart</figcaption>
+                  <figure style="display:inline-block;" class="document" data-type="FT">
+                    <img  src="img/excel-FT.png" height="90" width="60"  alt="" />
+                    <figcaption>FT (<?= $oDocument->nbDocuments('eprouvettes',$eprouvette['id_eprouvette'],'FT'); ?>)</figcaption>
                   </figure>
-                </a>
-<!--
-                <figure style="display:inline-block;" class="document" data-type="TDR">
+
+
+                  <a href="controller/createPrestart-controller.php?id_prestart=<?= $eprouvette['id_prestart'] ?>&id_ep=<?= $_GET['idEp'] ?>" style="display:inline-block;">
+                    <figure>
+
+                      <img  src="img/excel-Prestart.png" height="90" width="60" alt="" />
+                      <figcaption>Prestart</figcaption>
+                    </figure>
+                  </a>
+                  <!--
+                  <figure style="display:inline-block;" class="document" data-type="TDR">
                   <img  src="img/excel-Restart.png" height="90" width="60"  alt="" />
                   <figcaption>TDR (<?= $oDocument->nbDocuments('eprouvettes',$eprouvette['id_eprouvette'],'TDR'); ?>)</figcaption>
                 </figure>
--->
+              -->
 
-                <figure style="display:inline-block;" id="IRR" class="document" data-type="IRR">
-                  <img  src="img/excel-IRR.png" height="90" width="60"  alt="" />
-                  <figcaption>IRR (<?= $oDocument->nbDocuments('eprouvettes',$eprouvette['id_eprouvette'],'IRR'); ?>)</figcaption>
+              <figure style="display:inline-block;" id="IRR" class="document" data-type="IRR">
+                <img  src="img/excel-IRR.png" height="90" width="60"  alt="" />
+                <figcaption>IRR (<?= $oDocument->nbDocuments('eprouvettes',$eprouvette['id_eprouvette'],'IRR'); ?>)</figcaption>
+              </figure>
+
+              <figure style="display:inline-block;" class="document" data-type="CAR">
+                <img  src="img/excel-Corrective.png" height="90" width="60"  alt="" />
+                <figcaption><acronym title="Corrective Action Request">CAR</acronym> (<?= $oDocument->nbDocuments('eprouvettes',$eprouvette['id_eprouvette'],'CAR'); ?>)</figcaption>
+              </figure>
+
+              <figure style="display:inline-block;" class="document" data-type="Other">
+                <img  src="img/doc.png" height="40" width="40"  alt="" />
+                <figcaption><acronym title="Other">Oth</acronym> (<?= $oDocument->nbDocuments('eprouvettes',$eprouvette['id_eprouvette'],'Other'); ?>)</figcaption>
+              </figure>
+
+              <a href="#" id="createXML" style="display:inline-block;">
+                <figure>
+                  <img  src="img/xml.png" height="40" width="40" alt="" />
+                  <figcaption>XML</figcaption>
                 </figure>
+              </a>
 
-                <figure style="display:inline-block;" class="document" data-type="CAR">
-                  <img  src="img/excel-Corrective.png" height="90" width="60"  alt="" />
-                  <figcaption><acronym title="Corrective Action Request">CAR</acronym> (<?= $oDocument->nbDocuments('eprouvettes',$eprouvette['id_eprouvette'],'CAR'); ?>)</figcaption>
-                </figure>
+              <div id="doc_ep" style=height:40%;>
 
-                <figure style="display:inline-block;" class="document" data-type="Other">
-                  <img  src="img/doc.png" height="40" width="40"  alt="" />
-                  <figcaption><acronym title="Other">Oth</acronym> (<?= $oDocument->nbDocuments('eprouvettes',$eprouvette['id_eprouvette'],'Other'); ?>)</figcaption>
-                </figure>
+              </div>
 
-                <a href="#" id="createXML" style="display:inline-block;">
-                  <figure>
-                    <img  src="img/xml.png" height="40" width="40" alt="" />
-                    <figcaption>XML</figcaption>
-                  </figure>
-                </a>
+            </div>
 
-                <div id="doc_ep" style=height:40%;>
+            <div class="tab-pane" id="1f" style="height:100%;">
+              <button class="create">New</button>
+            </div>
+
+            <div class="tab-pane" id="1g" style="height:100%;">
+              <div class="row">
+                <div class="col-md-6">
+                  <p>Strain Control</p>
+                  <table class="table-striped table-bordered .table-condensed" style="width:90%">
+                    <caption>Control Tolerance (cycle)</caption>
+                    <tr>
+                      <td>OVST Max</td>
+                      <td><?= $eprouvette['OVST_strain_max']  ?></td>
+                    </tr>
+                    <tr>
+                      <td>UDST Min</td>
+                      <td><?= $eprouvette['UDST_strain_max']  ?></td>
+                    </tr>
+                    <tr>
+                      <td>UDST Min</td>
+                      <td><?= $eprouvette['UDST_strain_min']  ?></td>
+                    </tr>
+                    <tr>
+                      <td>OVST Min</td>
+                      <td><?= $eprouvette['OVST_strain_min']  ?></td>
+                    </tr>
+                  </table>
+
+                  <table class="table-striped table-bordered .table-condensed" style="width:90%">
+                    <caption>MinMax (%)</caption>
+                    <tr>
+                      <td>Peak</td>
+                      <td><i style="font-size:smaller;">???</i></td>
+                    </tr>
+                    <tr>
+                      <td>Valley</td>
+                      <td><i style="font-size:smaller;">???</i></td>
+                    </tr>
+                  </table>
+
+                  <table class="table-striped table-bordered .table-condensed" style="width:90%">
+                    <caption>T (°C)</caption>
+                    <tr>
+                      <td>OVST T°</td>
+                      <td><i style="font-size:smaller;">???</i></td>
+                    </tr>
+                    <tr>
+                      <td>UDST T°</td>
+                      <td><i style="font-size:smaller;">???</i></td>
+                    </tr>
+                    <tr>
+                      <td>Peak</td>
+                      <td><i style="font-size:smaller;">???</i></td>
+                    </tr>
+                    <tr>
+                      <td>Valley</td>
+                      <td><i style="font-size:smaller;">???</i></td>
+                    </tr>
+                  </table>
 
                 </div>
+                <div class="col-md-6">
+                  <p>Load Control</p>
+                  <table class="table-striped table-bordered .table-condensed" style="width:90%">
+                    <caption>Control Tolerance (cycle)</caption>
+                    <tr>
+                      <td>OVST Max</td>
+                      <td><?= $eprouvette['OVST_load_max']  ?></td>
+                    </tr>
+                    <tr>
+                      <td>UDST Max</td>
+                      <td><?= $eprouvette['UDST_load_max']  ?></td>
+                    </tr>
+                    <tr>
+                      <td>UDST Min</td>
+                      <td><?= $eprouvette['UDST_load_min']  ?></td>
+                    </tr>
+                    <tr>
+                      <td>OVST Min</td>
+                      <td><?= $eprouvette['OVST_load_min']  ?></td>
+                    </tr>
+                  </table>
 
-              </div>
+                  <table class="table-striped table-bordered .table-condensed" style="width:90%">
+                    <caption>Min/Max (kN)</caption>
+                    <tr>
+                      <td>Peak</td>
+                      <td><i style="font-size:smaller;">???</i></td>
+                    </tr>
+                    <tr>
+                      <td>Valley</td>
+                      <td><i style="font-size:smaller;">???</i></td>
+                    </tr>
+                  </table>
 
-              <div class="tab-pane" id="1f" style="height:100%;">
-                <button class="create">New</button>
-              </div>
+                  <table class="table-striped table-bordered .table-condensed" style="width:90%">
+                    <caption>T (°C)</caption>
+                    <tr>
+                      <td>OVST T°</td>
+                      <td><i style="font-size:smaller;">???</i></td>
+                    </tr>
+                    <tr>
+                      <td>UDST T°</td>
+                      <td><i style="font-size:smaller;">???</i></td>
+                    </tr>
+                    <tr>
+                      <td>Peak</td>
+                      <td><i style="font-size:smaller;">???</i></td>
+                    </tr>
+                    <tr>
+                      <td>Valley</td>
+                      <td><i style="font-size:smaller;">???</i></td>
+                    </tr>
+                  </table>
 
-              <div class="tab-pane" id="1g" style="height:100%;">
-                <div class="row">
-                  <div class="col-md-6">
-                    <p>Strain Control</p>
-                    <table class="table-striped table-bordered .table-condensed" style="width:90%">
-                      <caption>Control Tolerance (cycle)</caption>
-                      <tr>
-                        <td>OVST Max</td>
-                        <td><?= $eprouvette['OVST_strain_max']  ?></td>
-                      </tr>
-                      <tr>
-                        <td>UDST Min</td>
-                        <td><?= $eprouvette['UDST_strain_max']  ?></td>
-                      </tr>
-                      <tr>
-                        <td>UDST Min</td>
-                        <td><?= $eprouvette['UDST_strain_min']  ?></td>
-                      </tr>
-                      <tr>
-                        <td>OVST Min</td>
-                        <td><?= $eprouvette['OVST_strain_min']  ?></td>
-                      </tr>
-                    </table>
-
-                    <table class="table-striped table-bordered .table-condensed" style="width:90%">
-                      <caption>MinMax (%)</caption>
-                      <tr>
-                        <td>Peak</td>
-                        <td><i style="font-size:smaller;">???</i></td>
-                      </tr>
-                      <tr>
-                        <td>Valley</td>
-                        <td><i style="font-size:smaller;">???</i></td>
-                      </tr>
-                    </table>
-
-                    <table class="table-striped table-bordered .table-condensed" style="width:90%">
-                      <caption>T (°C)</caption>
-                      <tr>
-                        <td>OVST T°</td>
-                        <td><i style="font-size:smaller;">???</i></td>
-                      </tr>
-                      <tr>
-                        <td>UDST T°</td>
-                        <td><i style="font-size:smaller;">???</i></td>
-                      </tr>
-                      <tr>
-                        <td>Peak</td>
-                        <td><i style="font-size:smaller;">???</i></td>
-                      </tr>
-                      <tr>
-                        <td>Valley</td>
-                        <td><i style="font-size:smaller;">???</i></td>
-                      </tr>
-                    </table>
-
-                  </div>
-                  <div class="col-md-6">
-                    <p>Load Control</p>
-                    <table class="table-striped table-bordered .table-condensed" style="width:90%">
-                      <caption>Control Tolerance (cycle)</caption>
-                      <tr>
-                        <td>OVST Max</td>
-                        <td><?= $eprouvette['OVST_load_max']  ?></td>
-                      </tr>
-                      <tr>
-                        <td>UDST Max</td>
-                        <td><?= $eprouvette['UDST_load_max']  ?></td>
-                      </tr>
-                      <tr>
-                        <td>UDST Min</td>
-                        <td><?= $eprouvette['UDST_load_min']  ?></td>
-                      </tr>
-                      <tr>
-                        <td>OVST Min</td>
-                        <td><?= $eprouvette['OVST_load_min']  ?></td>
-                      </tr>
-                    </table>
-
-                    <table class="table-striped table-bordered .table-condensed" style="width:90%">
-                      <caption>Min/Max (kN)</caption>
-                      <tr>
-                        <td>Peak</td>
-                        <td><i style="font-size:smaller;">???</i></td>
-                      </tr>
-                      <tr>
-                        <td>Valley</td>
-                        <td><i style="font-size:smaller;">???</i></td>
-                      </tr>
-                    </table>
-
-                    <table class="table-striped table-bordered .table-condensed" style="width:90%">
-                      <caption>T (°C)</caption>
-                      <tr>
-                        <td>OVST T°</td>
-                        <td><i style="font-size:smaller;">???</i></td>
-                      </tr>
-                      <tr>
-                        <td>UDST T°</td>
-                        <td><i style="font-size:smaller;">???</i></td>
-                      </tr>
-                      <tr>
-                        <td>Peak</td>
-                        <td><i style="font-size:smaller;">???</i></td>
-                      </tr>
-                      <tr>
-                        <td>Valley</td>
-                        <td><i style="font-size:smaller;">???</i></td>
-                      </tr>
-                    </table>
-
-                  </div>
-                </div>
-              </div>
-
-
-              <div class="tab-pane" id="2a" style="height:100%;">
-                <h3 style="height:100%;">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <p>Do you really want to retest this specimen ?</p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <button type="submit" class="btn btn-default" onclick="retest('<?= $eprouvette ['id_eprouvette'] ?>','<?= $eprouvette ['id_job'] ?>');">
-                      Retest this specimen
-                    </button>
-                  </div>
-                </h3>
-              </div>
-              <div class="tab-pane" id="3a" style="height:100%;">
-                <h3 style="height:100%;">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <p>Do you really want to delete this restart ?</p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <button type="submit" class="btn btn-default" onclick="delTest('<?= $eprouvette ['id_eprouvette'] ?>','<?= $eprouvette ['id_job'] ?>');">
-                      Delete this restart
-                    </button>
-                  </div>
-                </h3>
-              </div>
-              <div class="tab-pane" id="3b" style="height:100%;">
-                <h3 style="height:100%;">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <p>Do you really want to cancel the test <?= $eprouvette ['n_fichier'] ?></p>
-                      <p style="font-size:small;">The file number will be lost.
-                        <br/>
-                        Changer criere d'apparition sur demarrage TS au lieu affichage cycle ?</p>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">Job :</div>
-                      <div class="col-md-6"><?= $eprouvette ['customer'].'-'.$eprouvette ['job']. '-'.$eprouvette ['split'].' ('.$eprouvette ['test_type'].')' ?></div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">Test Nb :</div>
-                      <div class="col-md-6"><?= $eprouvette ['n_essai'] ?></div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">Machine :</div>
-                      <div class="col-md-6"><?= $eprouvette ['machine'] ?></div>
-                    </div>
-                    <div class="row">
-                      <button type="submit" class="btn btn-default" onclick="cancelTest('<?= $eprouvette ['id_eprouvette'] ?>','<?= $eprouvette ['id_job'] ?>');">
-                        Cancel this test
-                      </button>
-                    </div>
-                  </h3>
-                </div>
-                <div class="tab-pane" id="logon" style="height:100%; display:none;">
-                  <h3 style="height:100%;">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <p><br/><br/>You need to login to show the menu.</p>
-                      </div>
-                    </div>
-                  </h3>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="modal-footer">
-            <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+
+            <div class="tab-pane" id="2a" style="height:100%;">
+              <h3 style="height:100%;">
+                <div class="row">
+                  <div class="col-md-12">
+                    <p>Do you really want to retest this specimen ?</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <button type="submit" class="btn btn-default" onclick="retest('<?= $eprouvette ['id_eprouvette'] ?>','<?= $eprouvette ['id_job'] ?>');">
+                    Retest this specimen
+                  </button>
+                </div>
+              </h3>
+            </div>
+            <div class="tab-pane" id="3a" style="height:100%;">
+              <h3 style="height:100%;">
+                <div class="row">
+                  <div class="col-md-12">
+                    <p>Do you really want to delete this restart ?</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <button type="submit" class="btn btn-default" onclick="delTest('<?= $eprouvette ['id_eprouvette'] ?>','<?= $eprouvette ['id_job'] ?>');">
+                    Delete this restart
+                  </button>
+                </div>
+              </h3>
+            </div>
+            <div class="tab-pane" id="3b" style="height:100%;">
+              <h3 style="height:100%;">
+                <div class="row">
+                  <div class="col-md-12">
+                    <p>Do you really want to cancel the test <?= $eprouvette ['n_fichier'] ?></p>
+                    <p style="font-size:small;">The file number will be lost.
+                      <br/>
+                      Changer criere d'apparition sur demarrage TS au lieu affichage cycle ?</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">Job :</div>
+                    <div class="col-md-6"><?= $eprouvette ['customer'].'-'.$eprouvette ['job']. '-'.$eprouvette ['split'].' ('.$eprouvette ['test_type'].')' ?></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">Test Nb :</div>
+                    <div class="col-md-6"><?= $eprouvette ['n_essai'] ?></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">Machine :</div>
+                    <div class="col-md-6"><?= $eprouvette ['machine'] ?></div>
+                  </div>
+                  <div class="row">
+                    <button type="submit" class="btn btn-default" onclick="cancelTest('<?= $eprouvette ['id_eprouvette'] ?>','<?= $eprouvette ['id_job'] ?>');">
+                      Cancel this test
+                    </button>
+                  </div>
+                </h3>
+              </div>
+              <div class="tab-pane" id="logon" style="height:100%; display:none;">
+                <h3 style="height:100%;">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p><br/><br/>You need to login to show the menu.</p>
+                    </div>
+                  </div>
+                </h3>
+              </div>
+            </div>
           </div>
         </div>
 
+        <div class="modal-footer">
+          <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+        </div>
       </div>
+
     </div>
-
-
   </div>
+
+
+</div>

@@ -24,7 +24,7 @@
           <?php foreach ($tblplanning as $key => $line): ?>
             <tr>
               <?php foreach ($line as $col): ?>
-                <td class="<?= ($col=="0")?"black":"" ?>"><?= $col ?></td>
+                <td class="<?= ((!is_numeric($col)) OR ($col=="0"))?"black":"" ?>"><?= $col ?></td>
               <?php  endforeach  ?>
             </tr>
           <?php  endforeach  ?>
