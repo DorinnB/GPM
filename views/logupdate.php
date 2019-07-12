@@ -2,6 +2,8 @@
   GPM's update list
 </h3>
 <p style="color:white;">
+  Jul 2019 -> planning Tech & badging.<br />
+  Apr 2019 -> WeeklyReport SubC.<br />
   Feb 2019 -> config.ini / new Report, Annexe & Invoice<br />
   19 Dec 2018 -> add Notification<br />
   Dec 2018 -> Chgt logiciel excelGPM / gestion stock / raw data sent / eval TS<br />
