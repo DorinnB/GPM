@@ -9,6 +9,7 @@ $(document).ready(function() {
     },
     table: "#table_entreprises",
     fields: [
+      { label: "N° Cust/SubC", name: "entreprises.id_entreprise"  },
       { label: "Companie", name: "entreprises.entreprise"  },
       { label: "Abbreviation", name: "entreprises.entreprise_abbr"  },
       { label: "Activity", name: "entreprises.activity_area", type: "select",

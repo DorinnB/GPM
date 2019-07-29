@@ -152,6 +152,10 @@ function dChecked(e) {
         $( "tr" ).find("[data-idepdchecked='" + data['id_eprouvette'] + "']").css("color","darkgreen");
         $( "tr" ).find("[data-idepdchecked='" + data['id_eprouvette'] + "']").html(data['id_user']);
         $( "tr" ).find("[data-idepdchecked='" + data['id_eprouvette'] + "']").attr("data-dchecked",data['id_user'] );
+        if (data['is_Trans']==0) {
+          alert('GPM is unable to find the folder on Trans!');
+        }
+
       }
 
     },
@@ -252,10 +256,10 @@ function rawdata(e) {
           rawdata : e.attr('data-rawdata')
         },
         success : function(data, statut){
-            $( "tr" ).find("[data-ideprawdata='" + data['id_eprouvette'] + "']").css("background-color","darkred");
-            $( "tr" ).find("[data-ideprawdata='" + data['id_eprouvette'] + "']").css("color","darkred");
-            $( "tr" ).find("[data-ideprawdata='" + data['id_eprouvette'] + "']").html("0");
-            $( "tr" ).find("[data-ideprawdata='" + data['id_eprouvette'] + "']").attr("data-rawdata","0");
+          $( "tr" ).find("[data-ideprawdata='" + data['id_eprouvette'] + "']").css("background-color","darkred");
+          $( "tr" ).find("[data-ideprawdata='" + data['id_eprouvette'] + "']").css("color","darkred");
+          $( "tr" ).find("[data-ideprawdata='" + data['id_eprouvette'] + "']").html("0");
+          $( "tr" ).find("[data-ideprawdata='" + data['id_eprouvette'] + "']").attr("data-rawdata","0");
         },
         error : function(resultat, statut, erreur) {
           console.log(Object.keys(resultat));

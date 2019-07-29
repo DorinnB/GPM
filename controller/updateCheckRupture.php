@@ -22,6 +22,10 @@ if($_POST['iduser']!=0){
       $oEprouvette->Fracture=$_POST['Fracture'];
       $oEprouvette->update_Fracture();
     }
+    if (isset($_POST['fractureCust']) AND $_POST['fractureCust']!="") {
+      $oEprouvette->fractureCust=$_POST['fractureCust'];
+      $oEprouvette->update_fractureCust();
+    }
       $maReponse = array('id_eprouvette' => $_POST['idEp']);
       echo json_encode($maReponse);
 

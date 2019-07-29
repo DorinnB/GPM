@@ -8,8 +8,10 @@
 		<label for="poste">Poste</label>
 		<select class="form-control" id="poste" name="poste">
 			<option value="">-</option>
-			<?php for ($i=0; $i <30; $i++):	?>
-				<option value="<?= $i ?>" <?=  ($poste['poste']== $i)?"selected":""  ?>><?= $i ?></option>
+			<?php for ($j=0; $j <=5; $j++):	?>
+				<?php for ($i=0; $i <30; $i++):	?>
+					<option value="<?= ($j*100+$i) ?>" <?=  ($poste['poste']== ($j*100+$i))?"selected":""  ?>><?= ($j*100+$i) ?></option>
+				<?php endfor ?>
 			<?php endfor ?>
 		</select>
 	</div>
