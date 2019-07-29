@@ -28,105 +28,150 @@ foreach ($test as $value) {
   $poste[$value['poste']]['background-color']='Yellow';
   $poste[$value['poste']]['color']='white';
 
-
-  //recuperation des couleurs des blocs
-  if ($value['currentBlock_temp']=='Init') {
-    $poste[$value['poste']]['background-color']='Sienna';
-    $runStop[]="WIP";
-  }
-  elseif ($value['currentBlock_temp']=='Menu') {
-    $poste[$value['poste']]['background-color']='Sienna';
-    $runStop[]="WIP";
-  }
-  elseif ($value['currentBlock_temp']=='Parameters') {
-    $poste[$value['poste']]['background-color']='Sienna';
-    $runStop[]="WIP";
-  }
-  elseif ($value['currentBlock_temp']=='Adv.') {
-    $poste[$value['poste']]['background-color']='Sienna';
-    $runStop[]="WIP";
-  }
-  elseif ($value['currentBlock_temp']=='Check') {
-    $poste[$value['poste']]['background-color']='Sienna';
-    $runStop[]="WIP";
-  }
-  elseif ($value['currentBlock_temp']=='Amb.') {
-    $poste[$value['poste']]['background-color']='Sienna';
-    $runStop[]="WIP";
-  }
-  elseif ($value['currentBlock_temp']=='ET') {
-    $poste[$value['poste']]['background-color']='Sienna';
-    $runStop[]="WIP";
-  }
-  elseif ($value['currentBlock_temp']=='Ramp') {
-    $poste[$value['poste']]['background-color']='Sienna';
-    $runStop[]="WIP";
-  }
-  elseif ($value['currentBlock_temp']=='Strain') {
-    $poste[$value['poste']]['background-color']='darkgreen';
-    $runStop[]="RUN";
-  }
-  elseif ($value['currentBlock_temp']=='Switchable') {
-    $poste[$value['poste']]['background-color']='yellow';
-    $poste[$value['poste']]['color']='black';
-    $runStop[]="RUN";
-  }
-  elseif ($value['currentBlock_temp']=='Not') {
-    $poste[$value['poste']]['background-color']='#108800';
-    $runStop[]="RUN";
-  }
-  elseif ($value['currentBlock_temp']=='STL') {
-    $poste[$value['poste']]['background-color']='Sienna';
-    $runStop[]="WIP";
-  }
-  elseif ($value['currentBlock_temp']=='Load') {
-    $poste[$value['poste']]['background-color']='darkgreen';
-    $runStop[]="RUN";
-  }
-  elseif ($value['currentBlock_temp']=='Dwell') {
-    $poste[$value['poste']]['background-color']='darkgreen';
-    $runStop[]="RUN";
-  }
-  elseif ($value['currentBlock_temp']=='Fluage') {
-    $poste[$value['poste']]['background-color']='darkgreen';
-    $runStop[]="RUN";
-  }
-  elseif ($value['currentBlock_temp']=='Relaxation') {
-    $poste[$value['poste']]['background-color']='darkgreen';
-    $runStop[]="RUN";
-  }
-  elseif($value['currentBlock_temp']=='Stop') {
-    $poste[$value['poste']]['background-color']='darkred';
-    $runStop[]="STOP";
-  }
-  elseif ($value['currentBlock_temp']=='Straightening') {
-    $poste[$value['poste']]['background-color']='Sienna';
-    $runStop[]="WIP";
-  }
-  elseif($value['currentBlock_temp']=='Report') {
-    $poste[$value['poste']]['background-color']='gray';
-    $runStop[]="STOP";
-  }
-  elseif($value['currentBlock_temp']=='Send' OR $value['currentBlock_temp']=='send') {
-    $poste[$value['poste']]['background-color']='dimgray';
-    $runStop[]="STOP";
-    //affichage en violet si "new condition ready"
-    if ($poste[$value['poste']]['etape']==53) {
-      $poste[$value['poste']]['background-color']='Gold';
-    }
-
-  }
-  elseif($value['currentBlock_temp']=='Analysis') {
-    $poste[$value['poste']]['background-color']='Sienna';
-    $runStop[]="WIP";
-  }
-  elseif($value['currentBlock_temp']=='Restart') {
-    $poste[$value['poste']]['background-color']='Sienna';
-    $runStop[]="WIP";
-  }
-  elseif($value['currentBlock_temp']=='') {
-    $poste[$value['poste']]['background-color']='Sienna';
-    $runStop[]="WIP";
+  switch ($value['currentBlock_temp']) {
+    case "Init":
+      $poste[$value['poste']]['background-color']='Sienna';
+      $poste[$value['poste']]['color']='white';
+      $runStop[]="WIP";
+    break;
+    case "Menu":
+      $poste[$value['poste']]['background-color']='Sienna';
+      $poste[$value['poste']]['color']='white';
+      $runStop[]="WIP";
+    break;
+    case "Parameters":
+      $poste[$value['poste']]['background-color']='Sienna';
+      $poste[$value['poste']]['color']='white';
+      $runStop[]="WIP";
+    break;
+    case "Adv.":
+      $poste[$value['poste']]['background-color']='Sienna';
+      $poste[$value['poste']]['color']='white';
+      $runStop[]="WIP";
+    break;
+    case "Check":
+      $poste[$value['poste']]['background-color']='Sienna';
+      $poste[$value['poste']]['color']='white';
+      $runStop[]="WIP";
+    break;
+    case "Amb.":
+      $poste[$value['poste']]['background-color']='Sienna';
+      $poste[$value['poste']]['color']='white';
+      $runStop[]="WIP";
+    break;
+    case "ET":
+      $poste[$value['poste']]['background-color']='Sienna';
+      $poste[$value['poste']]['color']='white';
+      $runStop[]="WIP";
+    break;
+    case "Ramp":
+      $poste[$value['poste']]['background-color']='Sienna';
+      $poste[$value['poste']]['color']='white';
+      $runStop[]="WIP";
+    break;
+    case "RampTemp":
+      $poste[$value['poste']]['background-color']='Sienna';
+      $poste[$value['poste']]['color']='white';
+      $runStop[]="WIP";
+    break;
+    case "RampTemp1h":
+      $poste[$value['poste']]['background-color']='yellow';
+      $poste[$value['poste']]['color']='black';
+      $runStop[]="WIP";
+    break;
+    case "RampTemp3h":
+      $poste[$value['poste']]['background-color']='pink';
+      $poste[$value['poste']]['color']='black';
+      $runStop[]="WIP";
+    break;
+    case "Strain":
+      $poste[$value['poste']]['background-color']='darkgreen';
+      $poste[$value['poste']]['color']='white';
+      $runStop[]="RUN";
+    break;
+    case "Switchable":
+      $poste[$value['poste']]['background-color']='yellow';
+      $poste[$value['poste']]['color']='black';
+      $runStop[]="RUN";
+    break;
+    case "Not":
+      $poste[$value['poste']]['background-color']='#108800';
+      $poste[$value['poste']]['color']='white';
+      $runStop[]="RUN";
+    break;
+    case "STL":
+      $poste[$value['poste']]['background-color']='Sienna';
+      $poste[$value['poste']]['color']='white';
+      $runStop[]="RUN";
+    break;
+    case "Load":
+      $poste[$value['poste']]['background-color']='darkgreen';
+      $poste[$value['poste']]['color']='white';
+      $runStop[]="RUN";
+    break;
+    case "Dwell":
+      $poste[$value['poste']]['background-color']='darkgreen';
+      $poste[$value['poste']]['color']='white';
+      $runStop[]="RUN";
+    break;
+    case "Fluage":
+      $poste[$value['poste']]['background-color']='darkgreen';
+      $poste[$value['poste']]['color']='white';
+      $runStop[]="RUN";
+    break;
+    case "Relaxation":
+      $poste[$value['poste']]['background-color']='darkgreen';
+      $poste[$value['poste']]['color']='white';
+      $runStop[]="RUN";
+    break;
+    case "Stop":
+      $poste[$value['poste']]['background-color']='darkred';
+      $poste[$value['poste']]['color']='white';
+      $runStop[]="STOP";
+    break;
+    case "Straightening":
+      $poste[$value['poste']]['background-color']='Sienna';
+      $poste[$value['poste']]['color']='white';
+      $runStop[]="WIP";
+    break;
+    case "Report":
+      $poste[$value['poste']]['background-color']='gray';
+      $poste[$value['poste']]['color']='white';
+      $runStop[]="STOP";
+    break;
+    case "Send":
+      $poste[$value['poste']]['background-color']='dimgray';
+      $poste[$value['poste']]['color']='white';
+      $runStop[]="STOP";
+      if ($poste[$value['poste']]['etape']==53) {
+        $poste[$value['poste']]['background-color']='Gold';
+        $poste[$value['poste']]['color']='black';
+      }
+    break;
+    case "send":
+      $poste[$value['poste']]['background-color']='dimgray';
+      $poste[$value['poste']]['color']='white';
+      $runStop[]="STOP";
+      if ($poste[$value['poste']]['etape']==53) {
+        $poste[$value['poste']]['background-color']='Gold';
+        $poste[$value['poste']]['color']='black';
+      }
+    break;
+    case "Analysis":
+      $poste[$value['poste']]['background-color']='Sienna';
+      $poste[$value['poste']]['color']='white';
+      $runStop[]="WIP";
+    break;
+    case "Restart":
+      $poste[$value['poste']]['background-color']='Sienna';
+      $poste[$value['poste']]['color']='white';
+      $runStop[]="WIP";
+    break;
+    case "":
+      $poste[$value['poste']]['background-color']='Sienna';
+      $poste[$value['poste']]['color']='white';
+      $runStop[]="WIP";
+    break;
   }
   //$runStop[]=$poste[$value['poste']]['background-color'];
 

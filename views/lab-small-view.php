@@ -4,6 +4,33 @@
     <div class="row">
       <div class="col-md-6">
         <div class="row">
+          <div class="col-md-4"><?php $n_poste=502; include("lab-poste-small-view.php"); ?>
+          </div>
+          <div class="col-md-2">
+          </div>
+          <div class="col-md-4"><?php $n_poste=501; include("lab-poste-small-view.php"); ?>
+          </div>
+          <div class="col-md-1">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-4"><?php $n_poste=503; include("lab-poste-small-view.php"); ?>
+          </div>
+          <div class="col-md-2">
+          </div>
+          <div class="col-md-4"><?php $n_poste=504; include("lab-poste-small-view.php"); ?>
+          </div>
+          <div class="col-md-1">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
           <div class="col-md-4"><?php $n_poste=1; include("lab-poste-small-view.php"); ?>
           </div>
           <div class="col-md-2">

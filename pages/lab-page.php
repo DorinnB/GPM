@@ -10,6 +10,38 @@
       <div class="row">
         <div class="col-md-1">
         </div>
+        <div class="col-md-4"><?php $n_poste=502; include("views/lab-poste-large-view.php"); ?>
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-4"><?php $n_poste=501; include("views/lab-poste-large-view.php"); ?>
+        </div>
+        <div class="col-md-1">
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-4"><?php $n_poste=503; include("views/lab-poste-large-view.php"); ?>
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-4"><?php $n_poste=504; include("views/lab-poste-large-view.php"); ?>
+        </div>
+        <div class="col-md-1">
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-1">
+        </div>
         <div class="col-md-4"><?php $n_poste=1; include("views/lab-poste-large-view.php"); ?>
         </div>
         <div class="col-md-2">
@@ -188,17 +220,25 @@
   <div class="row">
     <div class="col-md-6">
       <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-1">
         </div>
-        <div class="col-md-4">
-          <div style="background-color:;border: 1px solid black;">Frame (<?= $planned['nb'] ?> Planned)</div>
-          <?= (isset(array_count_values($runStop)['RUN'])?'<div style="background-color:darkgreen;border: 1px solid black;"> Running : '.array_count_values($runStop)['RUN'].'</div>':'') ?>
-          <?= (isset(array_count_values($runStop)['WIP'])?'<div style="background-color:Sienna;border: 1px solid black;"> WIP : '.array_count_values($runStop)['WIP'].'</div>':'') ?>
-          <div style="background-color:;border: 1px solid black; margin-top:5px;">Split</div>
-          <?php foreach ($splitToDo as $row): ?>
-            <div style="background-color:<?=  $row['statut_color']  ?>;border: 1px solid black;"><?= $row['statut'].' '.$row['nb'] ?></div>
-          <?php endforeach  ?>
+        <div class="col-md-5">
+          <div class="col-md-12 machine" style="margin:5px 0px;">
+            <div class="col-md-6">
+              <div style="background-color:;border: 1px solid black;">Frame (<?= $planned['nb'] ?> Planned)</div>
+              <?= (isset(array_count_values($runStop)['RUN'])?'<div style="background-color:darkgreen;border: 1px solid black;"> Running : '.array_count_values($runStop)['RUN'].'</div>':'') ?>
+              <?= (isset(array_count_values($runStop)['WIP'])?'<div style="background-color:Sienna;border: 1px solid black;"> WIP : '.array_count_values($runStop)['WIP'].'</div>':'') ?>
+            </div>
+            <div class="col-md-6">
+              <div style="background-color:;border: 1px solid black;">Split</div>
+              <?php foreach ($splitToDo as $row): ?>
+                <div style="background-color:<?=  $row['statut_color']  ?>;border: 1px solid black;"><?= $row['statut'].' '.$row['nb'] ?></div>
+              <?php endforeach  ?>
+            </div>
+          </div>
+
         </div>
+
         <div class="col-md-1">
         </div>
         <div class="col-md-4"><?php $n_poste=27; include("views/lab-poste-large-view.php"); ?>
