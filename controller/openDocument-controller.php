@@ -2,20 +2,15 @@
 include_once('../models/db.class.php'); // call db.class.php
 $db = new db(); // create a new object, class db()
 
+$ini = parse_ini_file('../var/config.ini');
 
 if (!isset($_GET['file_type']) OR !isset($_GET['file_name'])) {
   exit;
 }
 
-// Rendre votre modèle accessible
-include '../models/lstFilePath-model.php';
-// Création d'une instance
-$ofilePath = new FilePathsModel($db);
-
-$ofilePath->file_type=$_GET['file_type'];
-$filePath=$ofilePath->getFilePath();
 
 
+$filePath=$ini['PATH_'.$_GET['file_type']];
 
 
 
@@ -23,7 +18,7 @@ $filePath=$ofilePath->getFilePath();
 
 if ($filePath) {
 
-  $filename = $filePath['file_path'].$_GET['file_name'];
+  $filename = $filePath.$_GET['file_name'];
 
   if (file_exists($filename)) {
   	$content = file_get_contents($filename);
@@ -33,7 +28,7 @@ if ($filePath) {
   	header('Pragma: public');
   	echo $content;
   } else {
-      echo $filename.' does exist anymore.<br> Please contact Quality Manager';
+      echo '[ '.$filename.' ] does exist anymore.<br> Please contact Quality Manager';
   }
 
 }

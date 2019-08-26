@@ -125,10 +125,10 @@ class LstEtatMachines
       elseif ($filtre=="Frame") {
         $groupBy='machine,';
         if ($group=="Month") {
-          $filterBy.='WHERE MONTH(periode)>=MONTH(now())';
+          $filterBy='WHERE MONTH(periode)>=MONTH(now())';
         }
         elseif ($group=="Year") {
-          $filterBy.='WHERE YEAR(periode)>=YEAR(now())';
+          $filterBy='WHERE YEAR(periode)>=YEAR(now())';
         }
       }
       else {  //jours uniquement machine
