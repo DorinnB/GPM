@@ -61,7 +61,7 @@ table td.rawdata[data-rawdata*="-"]  {
   color:chocolate;
   background-color:chocolate;
 }
-table td.rawdata[data-rawdata*="0"]  {
+table td.rawdata[data-rawdata="0"]  {
   color:chocolate;
   background-color:chocolate;
 }
