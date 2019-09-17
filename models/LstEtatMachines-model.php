@@ -25,7 +25,7 @@ class LstEtatMachines
       $filtered='YEAR(periode)';
     }
     if ($filtre=="Month") {
-      $filtered='MONTH(periode)';
+      $filtered='year(periode), MONTH(periode)';
     }
     else {
       $filtered='machine';
@@ -35,8 +35,8 @@ class LstEtatMachines
     $req="SELECT
     max(machine) as machine,
     sum(cumul)/60 as cumul,
-    SUM(if(etatmachine in ('Load','Strain','Dwell','Not','Fluage','Switchable'),cumul,0))/60 as cycling,
-    SUM(if(etatmachine in ('Ramp'),cumul,0))/60 as rampToTemp,
+    SUM(if(etatmachine in ('Load','Strain','Dwell','Not','Fluage','Switchable','Relaxation'),cumul,0))/60 as cycling,
+    SUM(if(etatmachine in ('Ramp','RampTemp','RampTemp1h','RampTemp3h'),cumul,0))/60 as rampToTemp,
     SUM(if(etatmachine is null or etatmachine in ( 'Init','Menu','Parameters','Adv.','Check','Amb.','ET','STL','Stop','Straightening','Report','Analysis','Restart'),cumul,0))/60 as noncycling,
     SUM(if(etatmachine in ('Send'),cumul,0))/60 as send,
     SUM(if(etatmachine='Send' AND (etape>=59 OR etape=52),cumul,0))/60 as noTest,
@@ -59,8 +59,8 @@ class LstEtatMachines
     $req="SELECT
     machine,
     sum(cumul)/60 as cumul,
-    SUM(if(etatmachine in ('Load','Strain','Dwell','Not','Fluage'),cumul,0))/60 as cycling,
-    SUM(if(etatmachine in ('Ramp'),cumul,0))/60 as rampToTemp,
+    SUM(if(etatmachine in ('Load','Strain','Dwell','Not','Fluage','Switchable','Relaxation'),cumul,0))/60 as cycling,
+    SUM(if(etatmachine in ('Ramp','RampTemp','RampTemp1h','RampTemp3h'),cumul,0))/60 as rampToTemp,
     SUM(if(etatmachine is null or etatmachine in ( 'Init','Menu','Parameters','Adv.','Check','Amb.','ET','Switchable','STL','Stop','Straightening','Report','Analysis'),cumul,0))/60 as noncycling,
     SUM(if(etatmachine in ('Send'),cumul,0))/60 as send,
     SUM(if(etatmachine='Send' AND (etape>=59 OR etape=52),cumul,0))/60 as noTest,
@@ -94,8 +94,8 @@ class LstEtatMachines
       $req="SELECT
       max(machine) as machine,
       sum(cumul)/60 as cumul,
-      SUM(if(etatmachine in ('Load','Strain','Dwell','Not','Fluage','Switchable'),cumul,0))/60 as cycling,
-      SUM(if(etatmachine in ('Ramp'),cumul,0))/60 as rampToTemp,
+      SUM(if(etatmachine in ('Load','Strain','Dwell','Not','Fluage','Switchable','Relaxation'),cumul,0))/60 as cycling,
+      SUM(if(etatmachine in ('Ramp','RampTemp','RampTemp1h','RampTemp3h'),cumul,0))/60 as rampToTemp,
       SUM(if(etatmachine is null or etatmachine in ( 'Init','Menu','Parameters','Adv.','Check','Amb.','ET','STL','Stop','Straightening','Report','Analysis','Restart'),cumul,0))/60 as noncycling,
       SUM(if(etatmachine in ('Send'),cumul,0))/60 as send,
       SUM(if(etatmachine='Send' AND (etape>=59 OR etape=52 OR etape=20),cumul,0))/60 as noTest,
@@ -118,25 +118,29 @@ class LstEtatMachines
     }
     else {  //on prend l'autre requete (autre table)
 
+      $filterBy='where 1';
+      $groupBy='';
+
       if ($filtre=="Lab") { //jours Lab
-        $filterBy='';
+        $filterBy='where 1';
         $groupBy='';
       }
       elseif ($filtre=="Frame") {
         $groupBy='machine,';
         if ($group=="Month") {
-          $filterBy='WHERE MONTH(periode)>=MONTH(now())';
+          $filterBy.=' AND YEAR(periode)>=YEAR(now()) AND MONTH(periode)>=MONTH(now())';
         }
         elseif ($group=="Year") {
-          $filterBy='WHERE YEAR(periode)>=YEAR(now())';
+          $filterBy.=' AND YEAR(periode)>=YEAR(now())';
         }
       }
       else {  //jours uniquement machine
-        $filterBy='WHERE machines.id_machine='.$filtre;
+        $filterBy.=' AND machines.id_machine='.$filtre;
       }
 
       if ($group=="Month") {
-        $groupBy.='MONTH(periode)';
+        $filterBy.=' AND periode > DATE_SUB(NOW(),INTERVAL 1 YEAR)';
+        $groupBy.='YEAR(periode), MONTH(periode)';
       }
       elseif ($group=="Year") {
         $groupBy.='YEAR(periode)';
@@ -152,8 +156,8 @@ class LstEtatMachines
       $req="SELECT
       max(machine) as machine,
       sum(cumul)/60 as cumul,
-      SUM(if(etatmachine in ('Load','Strain','Dwell','Not','Fluage','Switchable'),cumul,0))/60 as cycling,
-      SUM(if(etatmachine in ('Ramp'),cumul,0))/60 as rampToTemp,
+      SUM(if(etatmachine in ('Load','Strain','Dwell','Not','Fluage','Switchable','Relaxation'),cumul,0))/60 as cycling,
+      SUM(if(etatmachine in ('Ramp','RampTemp','RampTemp1h','RampTemp3h'),cumul,0))/60 as rampToTemp,
       SUM(if(etatmachine is null or etatmachine in ( 'Init','Menu','Parameters','Adv.','Check','Amb.','ET','STL','Stop','Straightening','Report','Analysis','Restart'),cumul,0))/60 as noncycling,
       SUM(if(etatmachine in ('Send'),cumul,0))/60 as send,
       SUM(if(etatmachine='Send' AND (etape>=59 OR etape=52 OR etape=20),cumul,0))/60 as noTest,
@@ -170,7 +174,7 @@ class LstEtatMachines
       ".$filterBy."
       GROUP BY ".$groupBy." ;";
 
-      echo $req;
+      //echo $req;
 
       return $this->db->getAll($req);
 
