@@ -24,7 +24,29 @@
       </div>
     </div>
 
+<!--
+<div class="col-md-12 machine" style="border:1px solid black; margin:5px 0px;background-color:<?= $poste[$n_poste]['background-color'] ?>;color:<?= $poste[$n_poste]['color'] ?>;display:<?=  (($poste[$n_poste]['currentBlock_temp']=='Send' or $poste[$n_poste]['currentBlock_temp']=='send') AND $poste[$n_poste]['etape']!=53)?'none':'block'  ?>;">
+  <div class="col-md-6">
+    <b><?= $poste[$n_poste]['machine']  ?><br/></b>
+  </div>
+  <div class="col-md-2 col-md-offset-2">
+    <img src="img/<?= $poste[$n_poste]['icone_file']  ?>" style="width: auto;max-height: 15px;">
+  </div>
 
+  <div class="col-md-2">
+    <img src="img/medal_<?= $poste[$n_poste]['prio_machine_forecast']  ?>" style="width: auto;max-height: 15px;">
+  </div>
+  <div class="col-md-12 machineNoClick" style="padding:0px;">
+    <a href="index.php?page=split&amp;id_tbljob=<?=  $poste[$n_poste]['id_job'] ?>">
+      <b>Job:</b> <?= $poste[$n_poste]['customer'].' '.$poste[$n_poste]['job'].' '. $poste[$n_poste]['split']  ?><i style="font-size:x-small;"> (<?= $poste[$n_poste]['statut']  ?>)</i><br/>
+
+      <b>ID:</b> <?= $poste[$n_poste]['prefixe'].' '.$poste[$n_poste]['nom_eprouvette']  ?><br/>
+      <?= isset($poste[$n_poste]['Cycle_final_temp'])?$poste[$n_poste]['Cycle_final_temp'].'&nbsp;<b>cy.</b>&nbsp;('.$poste[$n_poste]['tempsRestant'].'h<b>&nbsp;left</b>)':''  ?> <b>T°:</b> <?= (!empty($poste[$n_poste]['c_temperature'])?number_format($poste[$n_poste]['c_temperature'], 0,'.', ' '):'').(!empty($poste[$n_poste]['temperature_temp'])?" [".number_format($poste[$n_poste]['temperature_temp'], 1,'.', ' ')."]":'')   ?><br/>
+      <?= $poste[$n_poste]['currentBlock_temp']  ?>
+    </a>
+  </div>
+</div>
+-->
 
     <div class="col-md-12 foreCast" style="border:1px solid black; margin:5px 0px;background-color:#536E94;color:white;display:<?=  (($poste[$n_poste]['currentBlock_temp']=='Send' or $poste[$n_poste]['currentBlock_temp']=='send') AND $poste[$n_poste]['etape']!=53)?'block':'none'  ?>;">
       <div class="col-md-6 nMachine">
