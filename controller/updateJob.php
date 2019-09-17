@@ -9,6 +9,8 @@ $db = new db(); // create a new object, class db()
 </h3>
 <a href="../index.php?page=split&id_tbljob=<?= $_POST['id_tbljob'] ?>">click here if you aren't redirected</a>
 <br/><br/>
+<button title="Click to show/hide content" type="button" onclick="if(document.getElementById('spoiler') .style.display=='none') {document.getElementById('spoiler') .style.display=''}else{document.getElementById('spoiler') .style.display='none'}">Show/hide</button>
+
 <div id="spoiler" style="display:none">
 
 	<?php
@@ -79,20 +81,25 @@ $db = new db(); // create a new object, class db()
 
 
 
+	//explode (NOT parse_str) due to php limit
+	$dataEpExploded = explode("&", $_POST['dataEp']);
 	$dataEp = array();
-	parse_str($_POST['dataEp'], $dataEp);
-	var_dump($dataEp);
+
+	var_dump($dataEpExploded);
 
 
 	//Pour chaque elements d'eprouvette
-	foreach ($dataEp as $key => $value) {
+	foreach ($dataEpExploded as $key => $value) {
 		//  echo $value.'<br/>';
-		$valeur=$value;
-		$ref_eprouvette=explode("-", $key)[0];
-		$attribut=explode("-", $key)[1];
+		$val=explode("=", $value);
+		$k=$val[0];
+		$valeur=$val[1];
+
+		$ref_eprouvette=explode("-", $k)[0];
+		$attribut=explode("-", $k)[1];
 
 		if ($attribut=="prefixe" || $attribut=="nom_eprouvette" || $attribut=="id_dwg"){
-			$ep[$ref_eprouvette][$attribut]=$valeur;
+			$ep[$ref_eprouvette][$attribut]=rawurldecode($valeur);;
 		}
 	}
 
@@ -123,11 +130,13 @@ $db = new db(); // create a new object, class db()
 
 
 	//pour chaque split on regarde si l'on doit créer ou supprimer une eprouvette
-	foreach ($dataEp as $key => $value) {
+	foreach ($dataEpExploded as $key => $value) {
 		//  echo $value.'<br/>';
-		$valeur=$value;
-		$ref_eprouvette=explode("-", $key)[0];
-		$attribut=explode("-", $key)[1];
+		$val=explode("=", $value);
+		$k=$val[0];
+		$valeur=$val[1];
+		$ref_eprouvette=explode("-", $k)[0];
+		$attribut=explode("-", $k)[1];
 
 		if ($attribut=="prefixe" || $attribut=="nom_eprouvette" || $attribut=="id_dwg"){
 			echo '-<br/>';
@@ -245,12 +254,11 @@ $db = new db(); // create a new object, class db()
 	}
 
 
-include 'createJobFolder-controller.php';
+	include 'createJobFolder-controller.php';
 
 	?>
 
 </div>
 
-<button title="Click to show/hide content" type="button" onclick="if(document.getElementById('spoiler') .style.display=='none') {document.getElementById('spoiler') .style.display=''}else{document.getElementById('spoiler') .style.display='none'}">Show/hide</button>
 
-<script type='text/javascript'>document.location.replace('../index.php?page=split&id_tbljob=<?= $_POST['id_tbljob'] ?>');</script>
+<scriptdddddd type='text/javascript'>document.location.replace('../index.php?page=split&id_tbljob=<?= $_POST['id_tbljob'] ?>');</script>
