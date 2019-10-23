@@ -17,7 +17,7 @@
         <a href="index.php?page=split&amp;id_tbljob=<?=  $poste[$n_poste]['id_job'] ?>">
           <b>Job:</b> <?= $poste[$n_poste]['customer'].' '.$poste[$n_poste]['job'].' '. $poste[$n_poste]['split']  ?><i style="font-size:x-small;"> (<?= $poste[$n_poste]['statut']  ?>)</i><br/>
 
-          <b>ID:</b> <?= $poste[$n_poste]['prefixe'].' '.$poste[$n_poste]['nom_eprouvette']  ?><br/>
+      <!--    <b>ID:</b> <?= $poste[$n_poste]['prefixe'].' '.$poste[$n_poste]['nom_eprouvette']  ?><br/>-->
           <?= isset($poste[$n_poste]['Cycle_final_temp'])?$poste[$n_poste]['Cycle_final_temp'].'&nbsp;<b>cy.</b>&nbsp;('.$poste[$n_poste]['tempsRestant'].'h<b>&nbsp;left</b>)':''  ?> <b>T°:</b> <?= (!empty($poste[$n_poste]['c_temperature'])?number_format($poste[$n_poste]['c_temperature'], 0,'.', ' '):'').(!empty($poste[$n_poste]['temperature_temp'])?" [".number_format($poste[$n_poste]['temperature_temp'], 1,'.', ' ')."]":'')   ?><br/>
           <?= $poste[$n_poste]['currentBlock_temp']  ?>
         </a>

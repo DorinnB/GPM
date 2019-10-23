@@ -193,3 +193,6 @@ div.DTE textarea {
 td[data-toggle="tooltip"]  {
 background:url("../img/changed.png") top right /15px no-repeat;
 }
+td[data-toggle="aide"]  {
+background:url("../img/question2.png") top right /10px no-repeat;
+}

@@ -139,7 +139,7 @@ class LstEtatMachines
       }
 
       if ($group=="Month") {
-        $filterBy.=' AND periode > DATE_SUB(NOW(),INTERVAL 1 YEAR)';
+        $filterBy.=' AND periode > DATE_SUB(NOW(),INTERVAL 2 YEAR)';
         $groupBy.='YEAR(periode), MONTH(periode)';
       }
       elseif ($group=="Year") {

@@ -39,6 +39,8 @@
         <th><acronym title='Temperature Recorder Bot'>Bot</acronym></th>
         <th><acronym title='Compressor'>C.</acronym></th>
         <th><acronym title='Station'>S.</acronym></th>
+        <th><acronym title='Servovalve 1'>Servo1</acronym></th>
+        <th><acronym title='Servovalve 2'>Servo2</acronym></th>
         <th><acronym title='Technicien'>Tech.</acronym></th>
 
       </tr>
@@ -82,6 +84,8 @@
         <th><acronym title='Temperature Recorder Bot'>Bot</acronym></th>
         <th><acronym title='Compressor'>C.</acronym></th>
         <th><acronym title='Station'>S.</acronym></th>
+        <th><acronym title='Servovalve 1'>Servo1</acronym></th>
+        <th><acronym title='Servovalve 2'>Servo2</acronym></th>
         <th><acronym title='Technicien'>Tech.</acronym></th>
 
       </tr>
@@ -145,6 +149,8 @@
           <td><?= $history[$k]['ind_temp_bot'] ?></td>
           <td><?= $history[$k]['compresseur'] ?></td>
           <td><?= $history[$k]['poste'] ?></td>
+          <td><?= $history[$k]['servovalve1'] ?></td>
+          <td><?= $history[$k]['servovalve2'] ?></td>
           <td><?= $history[$k]['id_operateur'] ?></td>
         </tr>
       <?php endfor ?>

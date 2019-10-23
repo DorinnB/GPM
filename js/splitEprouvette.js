@@ -36,7 +36,7 @@ $(document).ready(function() {
 
   //activation des tooltip
   $('[data-toggle="tooltip"]').tooltip();
-
+  $('[data-toggle="aide"]').tooltip();
 
   // Setup - add a text input to each footer cell
   $('#table_ep tfoot th').each( function (i) {

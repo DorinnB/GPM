@@ -42,11 +42,11 @@
       <div class="row">
         <div class="col-md-1">
         </div>
-        <div class="col-md-4"><?php $n_poste=1; include("views/lab-poste-large-view.php"); ?>
+        <div class="col-md-4"><?php $n_poste=101; include("views/lab-poste-large-view.php"); ?>
         </div>
         <div class="col-md-2">
         </div>
-        <div class="col-md-4"><?php $n_poste=7; include("views/lab-poste-large-view.php"); ?>
+        <div class="col-md-4"><?php $n_poste=201; include("views/lab-poste-large-view.php"); ?>
         </div>
         <div class="col-md-1">
         </div>
@@ -56,41 +56,11 @@
       <div class="row">
         <div class="col-md-1">
         </div>
-        <div class="col-md-4"><?php $n_poste=13; include("views/lab-poste-large-view.php"); ?>
+        <div class="col-md-4"><?php $n_poste=301; include("views/lab-poste-large-view.php"); ?>
         </div>
         <div class="col-md-2">
         </div>
-        <div class="col-md-4"><?php $n_poste=20; include("views/lab-poste-large-view.php"); ?>
-        </div>
-        <div class="col-md-1">
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <div class="row">
-        <div class="col-md-1">
-        </div>
-        <div class="col-md-4"><?php $n_poste=2; include("views/lab-poste-large-view.php"); ?>
-        </div>
-        <div class="col-md-2">
-        </div>
-        <div class="col-md-4"><?php $n_poste=8; include("views/lab-poste-large-view.php"); ?>
-        </div>
-        <div class="col-md-1">
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="row">
-        <div class="col-md-1">
-        </div>
-        <div class="col-md-4"><?php $n_poste=14; include("views/lab-poste-large-view.php"); ?>
-        </div>
-        <div class="col-md-2">
-        </div>
-        <div class="col-md-4"><?php $n_poste=21; include("views/lab-poste-large-view.php"); ?>
+        <div class="col-md-4"><?php $n_poste=401; include("views/lab-poste-large-view.php"); ?>
         </div>
         <div class="col-md-1">
         </div>
@@ -102,11 +72,11 @@
       <div class="row">
         <div class="col-md-1">
         </div>
-        <div class="col-md-4"><?php $n_poste=3; include("views/lab-poste-large-view.php"); ?>
+        <div class="col-md-4"><?php $n_poste=102; include("views/lab-poste-large-view.php"); ?>
         </div>
         <div class="col-md-2">
         </div>
-        <div class="col-md-4"><?php $n_poste=9; include("views/lab-poste-large-view.php"); ?>
+        <div class="col-md-4"><?php $n_poste=202; include("views/lab-poste-large-view.php"); ?>
         </div>
         <div class="col-md-1">
         </div>
@@ -116,41 +86,11 @@
       <div class="row">
         <div class="col-md-1">
         </div>
-        <div class="col-md-4"><?php $n_poste=15; include("views/lab-poste-large-view.php"); ?>
+        <div class="col-md-4"><?php $n_poste=302; include("views/lab-poste-large-view.php"); ?>
         </div>
         <div class="col-md-2">
         </div>
-        <div class="col-md-4"><?php $n_poste=22; include("views/lab-poste-large-view.php"); ?>
-        </div>
-        <div class="col-md-1">
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <div class="row">
-        <div class="col-md-1">
-        </div>
-        <div class="col-md-4"><?php $n_poste=4; include("views/lab-poste-large-view.php"); ?>
-        </div>
-        <div class="col-md-2">
-        </div>
-        <div class="col-md-4"><?php $n_poste=10; include("views/lab-poste-large-view.php"); ?>
-        </div>
-        <div class="col-md-1">
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="row">
-        <div class="col-md-1">
-        </div>
-        <div class="col-md-4"><?php $n_poste=16; include("views/lab-poste-large-view.php"); ?>
-        </div>
-        <div class="col-md-2">
-        </div>
-        <div class="col-md-4"><?php $n_poste=23; include("views/lab-poste-large-view.php"); ?>
+        <div class="col-md-4"><?php $n_poste=402; include("views/lab-poste-large-view.php"); ?>
         </div>
         <div class="col-md-1">
         </div>
@@ -162,11 +102,11 @@
       <div class="row">
         <div class="col-md-1">
         </div>
-        <div class="col-md-4"><?php $n_poste=5; include("views/lab-poste-large-view.php"); ?>
+        <div class="col-md-4"><?php $n_poste=103; include("views/lab-poste-large-view.php"); ?>
         </div>
         <div class="col-md-2">
         </div>
-        <div class="col-md-4"><?php $n_poste=11; include("views/lab-poste-large-view.php"); ?>
+        <div class="col-md-4"><?php $n_poste=203; include("views/lab-poste-large-view.php"); ?>
         </div>
         <div class="col-md-1">
         </div>
@@ -176,11 +116,11 @@
       <div class="row">
         <div class="col-md-1">
         </div>
-        <div class="col-md-4"><?php $n_poste=17; include("views/lab-poste-large-view.php"); ?>
+        <div class="col-md-4"><?php $n_poste=303; include("views/lab-poste-large-view.php"); ?>
         </div>
         <div class="col-md-2">
         </div>
-        <div class="col-md-4"><?php $n_poste=24; include("views/lab-poste-large-view.php"); ?>
+        <div class="col-md-4"><?php $n_poste=403; include("views/lab-poste-large-view.php"); ?>
         </div>
         <div class="col-md-1">
         </div>
@@ -192,11 +132,11 @@
       <div class="row">
         <div class="col-md-1">
         </div>
-        <div class="col-md-4"><?php $n_poste=6; include("views/lab-poste-large-view.php"); ?>
+        <div class="col-md-4"><?php $n_poste=104; include("views/lab-poste-large-view.php"); ?>
         </div>
         <div class="col-md-2">
         </div>
-        <div class="col-md-4"><?php $n_poste=12; include("views/lab-poste-large-view.php"); ?>
+        <div class="col-md-4"><?php $n_poste=204; include("views/lab-poste-large-view.php"); ?>
         </div>
         <div class="col-md-1">
         </div>
@@ -206,11 +146,71 @@
       <div class="row">
         <div class="col-md-1">
         </div>
-        <div class="col-md-4"><?php $n_poste=18; include("views/lab-poste-large-view.php"); ?>
+        <div class="col-md-4"><?php $n_poste=304; include("views/lab-poste-large-view.php"); ?>
         </div>
         <div class="col-md-2">
         </div>
-        <div class="col-md-4"><?php $n_poste=25; include("views/lab-poste-large-view.php"); ?>
+        <div class="col-md-4"><?php $n_poste=404; include("views/lab-poste-large-view.php"); ?>
+        </div>
+        <div class="col-md-1">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-4"><?php $n_poste=105; include("views/lab-poste-large-view.php"); ?>
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-4"><?php $n_poste=205; include("views/lab-poste-large-view.php"); ?>
+        </div>
+        <div class="col-md-1">
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-4"><?php $n_poste=305; include("views/lab-poste-large-view.php"); ?>
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-4"><?php $n_poste=405; include("views/lab-poste-large-view.php"); ?>
+        </div>
+        <div class="col-md-1">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-4"><?php $n_poste=106; include("views/lab-poste-large-view.php"); ?>
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-4"><?php $n_poste=206; include("views/lab-poste-large-view.php"); ?>
+        </div>
+        <div class="col-md-1">
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-4"><?php $n_poste=306; include("views/lab-poste-large-view.php"); ?>
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-4"><?php $n_poste=406; include("views/lab-poste-large-view.php"); ?>
         </div>
         <div class="col-md-1">
         </div>
@@ -241,7 +241,7 @@
 
         <div class="col-md-1">
         </div>
-        <div class="col-md-4"><?php $n_poste=27; include("views/lab-poste-large-view.php"); ?>
+        <div class="col-md-4"><?php $n_poste=207; include("views/lab-poste-large-view.php"); ?>
         </div>
         <div class="col-md-1">
         </div>
@@ -251,11 +251,11 @@
       <div class="row">
         <div class="col-md-1">
         </div>
-        <div class="col-md-4"><?php $n_poste=19; include("views/lab-poste-large-view.php"); ?>
+        <div class="col-md-4"><?php $n_poste=307; include("views/lab-poste-large-view.php"); ?>
         </div>
         <div class="col-md-2">
         </div>
-        <div class="col-md-4"><?php $n_poste=26; include("views/lab-poste-large-view.php"); ?>
+        <div class="col-md-4"><?php $n_poste=407; include("views/lab-poste-large-view.php"); ?>
         </div>
         <div class="col-md-1">
         </div>

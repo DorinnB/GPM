@@ -58,12 +58,15 @@ class PosteModel
           cartouche_stroke, cartouche_load, cartouche_strain, enregistreur, extensometre, o1.outillage as outillage_top, o2.outillage as outillage_bot, chauffage, i1.ind_temp as ind_temp_top, i2.ind_temp as ind_temp_strap, i3.ind_temp as ind_temp_bot,
           IF( compresseur = 1,  '.'"&#10004;"'.',  "" ) as compresseur, postes.date,
           Disp_P,	Disp_i,	Disp_D,	Disp_Conv,	Disp_Sens,	Load_P,	Load_i,	Load_D,	Load_Conv,	Load_Sens,	Strain_P,	Strain_i,	Strain_D,	Strain_Conv,	Strain_Sens,
+          s1.servovalve as servovalve1, s2.servovalve as servovalve2, 
           poste_commentaire, poste_reason, id_operateur
 				FROM postes
 				LEFT JOIN enregistreurs ON enregistreurs.id_enregistreur=postes.id_enregistreur
         LEFT JOIN cell_displacement ON cell_displacement.id_cell_displacement=postes.id_cell_displacement
         LEFT JOIN cell_load ON cell_load.id_cell_load=postes.id_cell_load
 				LEFT JOIN extensometres ON extensometres.id_extensometre=postes.id_extensometre
+        LEFT JOIN servovalves s1 ON s1.id_servovalve=postes.id_servovalve1
+        LEFT JOIN servovalves s2 ON s2.id_servovalve=postes.id_servovalve2
 				LEFT JOIN outillages o1 ON o1.id_outillage = postes.id_outillage_top
 				LEFT JOIN outillages o2 ON o2.id_outillage = postes.id_outillage_bot
 				LEFT JOIN chauffages ON chauffages.id_chauffage=postes.id_chauffage

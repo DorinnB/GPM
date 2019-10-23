@@ -60,7 +60,7 @@
 		<input class="form-control" id="displacement_Model" value="" type="text" disabled>
 	</div>
 	<div class="form-group">
-		<label for="displacement_Capacity">Capacity (kN)</label>
+		<label for="displacement_Capacity">Capacity (mm)</label>
 		<input class="form-control" id="displacement_Capacity" value="" type="text" disabled>
 	</div>
 	<div class="form-group">

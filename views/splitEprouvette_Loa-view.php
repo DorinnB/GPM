@@ -105,7 +105,7 @@
           <td class="decimal<?=  $ep[$k]['c_type_1_deci']  ?> <?= $classStepcase ?>"><?= $ep[$k]['stepcase_val'] ?></td>
           <td class="decimal0" <?= $epHisto2[$k]['Cycle_min'] ?>><?= $ep[$k]['Cycle_min'] ?></td>
           <td class="decimal0" <?= $epHisto2[$k]['runout'] ?>><?= $ep[$k]['runout'] ?></td>
-          <td class="decimal0 <?= $ep[$k]['cycle_estimeCSS'] ?>" ><?= $ep[$k]['cycle_estime'] ?></td>
+          <td class="decimal0 <?= $ep[$k]['cycle_estimeCSS'] ?>" <?= ($ep[$k]['estimatedTestTime']=='')?'':'data-toggle="aide" title="'.$ep[$k]['estimatedTestTime'].'"' ?>><?= $ep[$k]['cycle_estime'] ?></td>
           <td class="popover-markup" data-placement="left"><?= ($ep[$k]['comm'].$ep[$k]['c_commentaire']=="")?"":substr($ep[$k]['comm'].$ep[$k]['c_commentaire'],0,5)." [...]" ?>
             <?php if ($ep[$k]['comm'].$ep[$k]['c_commentaire'] !=""):  ?>
               <div class="head hide">Order Comment</div>

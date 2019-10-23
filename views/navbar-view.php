@@ -49,7 +49,7 @@
 				</form>
 			</li>
 			<!--<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>-->
-
+<!--<li><label id="timer"></label></li>-->
 			<li>
 				<a href="#" id="login">
 					<span class="glyphicon glyphicon-log-in"></span>
@@ -68,3 +68,13 @@
 			</ul>
 		</div>
 	</nav>
+<!--
+	<?php $today = getdate(); ?>
+	<script>
+	    var d = new Date(Date(<?php echo $today['year'].",".$today['mon'].",".$today['mday'].",".$today['hours'].",".$today['minutes'].",".$today['seconds']; ?>));
+	    setInterval(function() {
+	        d.setSeconds(d.getSeconds() + 1);
+	        $('#timer').text((d.getHours() +':' + d.getMinutes() + ':' + d.getSeconds() ));
+	    }, 1000);
+	</script>
+-->

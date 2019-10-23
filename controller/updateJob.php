@@ -99,7 +99,7 @@ $db = new db(); // create a new object, class db()
 		$attribut=explode("-", $k)[1];
 
 		if ($attribut=="prefixe" || $attribut=="nom_eprouvette" || $attribut=="id_dwg"){
-			$ep[$ref_eprouvette][$attribut]=rawurldecode($valeur);;
+			$ep[$ref_eprouvette][$attribut]=urldecode($valeur);;
 		}
 	}
 

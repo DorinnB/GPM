@@ -302,7 +302,7 @@ for($k=0;$k < count($ep);$k++)	{
       $modulo=24;
     }
 
-
+$ep[$k]['estimatedTestTime']="";
 
   }
   else {
@@ -324,8 +324,10 @@ for($k=0;$k < count($ep);$k++)	{
     }
     else {
       $unestimatedTestLeft+=1;
+      $EstimatedTestTime="";
     }
 
+$ep[$k]['estimatedTestTime']=$EstimatedTestTime;
 
     //calcul estimé du temps "occupation machine" pour chaque essai
     if ($EstimatedTestTime>0) {
@@ -353,6 +355,16 @@ for($k=0;$k < count($ep);$k++)	{
     }
   }
   $estimatedTimeLeft+=(intval(floor($EstimatedTestTime/24))+$modulo/24)*24;
+
+if ($ep[$k]['estimatedTestTime']=="") {
+  $ep[$k]['estimatedTestTime']="";
+}
+elseif ($ep[$k]['estimatedTestTime']>72) {
+  $ep[$k]['estimatedTestTime']=round($ep[$k]['estimatedTestTime']/24).' j';
+}
+else {
+  $ep[$k]['estimatedTestTime']=round($ep[$k]['estimatedTestTime']). 'h';
+}
 
   //echo intval(floor($EstimatedTestTime/24))+$modulo;
   echo '

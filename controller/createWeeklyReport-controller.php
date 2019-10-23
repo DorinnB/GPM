@@ -125,7 +125,7 @@ foreach ($lstJobCust as $key => $value) {
   $page->setCellValueByColumnAndRow(1+1, $row, $value['ref_matiere']);
   $page->setCellValueByColumnAndRow(1+2, $row, $value['job']);
   $page->setCellValueByColumnAndRow(1+3, $row, 0);
-  $page->setCellValueByColumnAndRow(1+4, $row, 'Réception Matière');
+  $page->setCellValueByColumnAndRow(1+4, $row, 'Material Receipt');
   $page->setCellValueByColumnAndRow(1+5, $row, $value['nbreceived']);
   $page->setCellValueByColumnAndRow(1+6, $row, $value['nbep']);
   $page->setCellValueByColumnAndRow(1+7, $row, (isset($value['firstReceived'])?'Receipt '.$value['firstReceived']:' Not Received'));
