@@ -46,6 +46,7 @@
             <option value="%" <?=  ($split['c_unite']=="%")?'selected':'' ?>>%</option>
             <option value="kN" <?=  ($split['c_unite']=="kN")?'selected':'' ?>>kN</option>
             <option value="MPa" <?=  ($split['c_unite']=="MPa")?'selected':'' ?>>MPa</option>
+            <option value="mm" <?=  ($split['c_unite']=="mm")?'selected':'' ?>>mm</option>
           </select>
         </div>
         <div class="form-group">

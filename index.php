@@ -95,6 +95,8 @@ Require("connection.php");
 
 	</div>
 	<!-- /#wrapper -->
+	<link href="lib/bootstrap-toggle-master/css/bootstrap-toggle.min.css" rel="stylesheet">
+	<script src="lib/bootstrap-toggle-master/js/bootstrap-toggle.min.js"></script>
 
 	<?php //creation de User si le cookie est présent et correct
 	if (isset($_COOKIE['id_user']))	{

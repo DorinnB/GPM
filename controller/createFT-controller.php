@@ -393,6 +393,21 @@ Elseif ($essai['c_unite']=="%")	{
   $FT->setCellValue('B34', $maxLimitStrain);
   $FT->setCellValue('C34', $minLimitStrain);
 }
+Elseif ($essai['c_unite']=="mm")	{
+
+
+  $FT->setCellValue('K21', 'MAX (kN)');
+  $FT->setCellValue('M21', 'MIN (kN)');
+  $FT->setCellValue('K22', ' ');
+  $FT->setCellValue('M22', ' ');
+
+  $FT->setCellValue('B32', ' ');
+  $FT->setCellValue('C32', '-');
+  $FT->setCellValue('B33', ' ');
+  $FT->setCellValue('C33', ' ');
+  $FT->setCellValue('B34', ' ');
+  $FT->setCellValue('C34', ' ');
+}
 Else	{
   $maxkN = "ERREUR d'unité";
   $minkN = "ERREUR d'unité";

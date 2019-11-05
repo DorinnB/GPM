@@ -261,4 +261,4 @@ $db = new db(); // create a new object, class db()
 </div>
 
 
-<scriptdddddd type='text/javascript'>document.location.replace('../index.php?page=split&id_tbljob=<?= $_POST['id_tbljob'] ?>');</script>
+<script type='text/javascript'>document.location.replace('../index.php?page=split&id_tbljob=<?= $_POST['id_tbljob'] ?>');</script>

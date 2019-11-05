@@ -209,6 +209,10 @@ for($k=0;$k < count($ep);$k++)	{
       $ep[$k]['min']=round($oEp->MIN(),3);
       $maxcell=max(abs($ep[$k]['max']),abs($ep[$k]['min']))*$ep[$k]['young']*$area/100;
     }
+    elseif ($ep[$k]['c_unite']=="mm") {
+      $ep[$k]['max']=round($oEp->MAX(),3);
+      $ep[$k]['min']=round($oEp->MIN(),3);
+    }
     else  {
       $ep[$k]['max']="?";
       $ep[$k]['min']="?";
@@ -269,6 +273,12 @@ for($k=0;$k < count($ep);$k++)	{
     $ep[$k]['c_type_2_deci']=2;
   }
   elseif ($ep[$k]['c_unite']=='%') {
+    $ep[$k]['max']=(!empty($ep[$k]['max']) || ($ep[$k]['max']=="0"))?$ep[$k]['max']:'';
+    $ep[$k]['min']=(!empty($ep[$k]['min']) || ($ep[$k]['min']=="0"))?$ep[$k]['min']:'';
+    $ep[$k]['c_type_1_deci']=3;
+    $ep[$k]['c_type_2_deci']=3;
+  }
+  elseif ($ep[$k]['c_unite']=='mm') {
     $ep[$k]['max']=(!empty($ep[$k]['max']) || ($ep[$k]['max']=="0"))?$ep[$k]['max']:'';
     $ep[$k]['min']=(!empty($ep[$k]['min']) || ($ep[$k]['min']=="0"))?$ep[$k]['min']:'';
     $ep[$k]['c_type_1_deci']=3;

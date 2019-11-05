@@ -54,12 +54,12 @@ include('controller/weeklyReport-controller.php');
 								<td rowspan="<?=	count($infoJobs[$value['id_info_job']])+1	?>"><?=	$value['contacts']	?></td>
 							</tr>
 							<?php foreach ($infoJobs[$value['id_info_job']] as $k => $v) :?>
-								<tr class="clickable-row" data-id="<?=	$v['id_tbljob']	?>">
+								<tr class="xxxxxxxclickable-row" data-id="<?=	$v['id_tbljob']	?>">
 									<td><?=	$v['split']	?></td>
-									<td><?=	$v['test_type_abbr']	?></td>
+									<td><a href="index.php?page=split&amp;id_tbljob=<?= $v['id_tbljob'] ?>"><?=	$v['test_type_abbr']	?></a></td>
 									<td><?=	$v['nbtest']	?></td>
 									<td><?=	$v['nbtestplanned']	?></td>
-									<td><?=	$v['statut_client']	?></td>
+									<td><a href="index.php?page=split&amp;id_tbljob=<?= $v['id_tbljob'] ?>"><?=	$v['statut_client']	?></a></td>
 									<td><?=	$v['DyT_Cust']	?></td>
 								</tr>
 							<?php endforeach	?>

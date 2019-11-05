@@ -64,13 +64,13 @@ include('controller/weeklyReportSubC-controller.php');
 									<td rowspan="<?=	count($infoJobs[$value['id_info_job']])+1	?>" style="height:100%;"><textarea class="commentaire" name="SubCComment_<?=	$value['id_info_job']	?>" ><?= $value['SubCComment'] ?></textarea></td>
 								</tr>
 								<?php foreach ($infoJobs[$value['id_info_job']] as $k => $v) :?>
-									<tr class="clickable-row" data-id="<?=	$v['id_tbljob']	?>">
+									<tr class="xxxxxxxxxxxclickable-row" data-id="<?=	$v['id_tbljob']	?>">
 										<td><?=	$v['refSubC']	?></td>
 										<td><?=	$v['split']	?></td>
-										<td><?=	$v['test_type_abbr']	?></td>
+										<td><a href="index.php?page=split&amp;id_tbljob=<?= $v['id_tbljob'] ?>"><?=	$v['test_type_abbr']	?></a></td>
 										<td><?=	$v['nbtest']	?></td>
 										<td><?=	$v['nbtestplanned']	?></td>
-										<td style=" white-space:nowrap;"><?=	$v['statut_SubC']	?></td>
+										<td style=" white-space:nowrap;"><a href="index.php?page=split&amp;id_tbljob=<?= $v['id_tbljob'] ?>"><?=	$v['statut_SubC']	?></a></td>
 										<td><?=	$v['DyT_Cust']	?></td>
 										<td><?=	$v['DyT_SubC']	?></td>
 										<td><?=	$v['DyT_expected']	?></td>

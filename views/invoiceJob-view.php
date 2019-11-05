@@ -151,7 +151,7 @@
 												<div class="col-md-1 qteGPM"><input class="form-control decimal0" name="qteGPM" value="<?= $invoicelines['qteGPM'] ?>" type="text" disabled></div>
 												<div class="col-md-1 qteUser"><input class="form-control decimal0" name="qteUser" value="<?= $invoicelines['qteUser'] ?>" type="text"></div>
 												<div class="col-md-1 priceUnit"><input class="form-control decimal2" name="priceUnit" value="<?= $invoicelines['priceUnit'] ?>" type="text"></div>
-												<div class="col-md-1 totalUser"><input class="form-control decimal2" name="totalUser" value="<?= (($invoicelines['qteUser']>0)?$invoicelines['qteUser']:$invoicelines['qteGPM'])*$invoicelines['priceUnit'] ?>" type="text" disabled></div>
+												<div class="col-md-1 totalUser"><input class="form-control decimal2" name="totalUser" value="<?= (($invoicelines['qteUser']!="")?$invoicelines['qteUser']:$invoicelines['qteGPM'])*$invoicelines['priceUnit'] ?>" type="text" disabled></div>
 												<div class="col-md-1 delete">
 													<input class="toDelete" name="toDelete" value="" type="hidden">
 													<button type="button" class="btn btn-danger deleteInvoiceLine" aria-label="Left Align">
@@ -284,6 +284,9 @@
 </div>
 
 
+
+<link href="lib/bootstrap-toggle-master/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="lib/bootstrap-toggle-master/js/bootstrap-toggle.min.js"></script>
 
 
 <form id="invoiceJob" method="POST" action="controller/updateInvoiceJob.php" style="display:none;">
