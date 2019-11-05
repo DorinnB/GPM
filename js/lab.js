@@ -1,13 +1,26 @@
-$("#wrapper").addClass("toggled");
 
-
-//Un click sur une ligne du tableau des jobs ouvre le split correspondant
-$("#table_id >tbody > tr").click(function(e) {
-  window.location.href = 'index.php?page=split&id_tbljob='+$(this).data("id_tbljob");
-});
 
 
 $(document).ready(function() {
+
+
+    $('.toForCast').on("click", function(){
+      $(this).closest('.lab').find('.foreCastView').first().css('display','block');
+      $(this).closest('.lab').find('.machineView').first().css('display','none');
+    });
+
+
+    $( ".toMachine" ).on("click", function(){
+      $(this).closest('.lab').find('.foreCastView').first().css('display','none');
+      $(this).closest('.lab').find('.machineView').first().css('display','block');
+    });
+
+
+
+
+
+
+
 
   //pour chaque machine, si on click sur le forecast, on affiche l'etat ctuel
   $( ".foreCast" ).each(function(index) {
@@ -21,7 +34,7 @@ $(document).ready(function() {
     $(this).on("click", function(evt){
       //For descendants of machineNoClick being clicked, remove this check if you do not want to put constraint on descendants.
       if($(evt.target).closest('.machineNoClick').length)
-         return;
+      return;
 
 
       $(this).css('display','none');

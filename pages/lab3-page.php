@@ -39,7 +39,7 @@
       </div>
       <div class="col-md-6"> <!-- ligne 2 -->
         <?php $n_poste=201; $nb=8; include("views/lab-poste-large2-view.php"); ?>
-        <?php $n_poste=202; $nb=8; include("views/lab-poste-large2-view.php"); ?>
+        <?php $n_poste=201; $nb=8; include("views/lab-poste-large2-view.php"); ?>
         <?php $n_poste=203; $nb=8; include("views/lab-poste-large2-view.php"); ?>
         <?php $n_poste=204; $nb=8; include("views/lab-poste-large2-view.php"); ?>
         <?php $n_poste=205; $nb=8; include("views/lab-poste-large2-view.php"); ?>
@@ -64,6 +64,7 @@
     </div>
     <div class="col-md-5"> <!-- ligne cote fenetre -->
       <div class="col-md-6"> <!-- ligne 3 -->
+        <?php $n_poste=503; $nb=8; include("views/lab-poste-large2-view.php"); ?>
         <?php $n_poste=301; $nb=8; include("views/lab-poste-large2-view.php"); ?>
         <?php $n_poste=302; $nb=8; include("views/lab-poste-large2-view.php"); ?>
         <?php $n_poste=303; $nb=8; include("views/lab-poste-large2-view.php"); ?>
