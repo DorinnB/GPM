@@ -53,6 +53,7 @@
         <th><acronym title="Final Cycles">Final</acronym></th>
         <th><acronym title="Rupture">Rupt</acronym></th>
         <th><acronym title="Fracture">Fract.</acronym></th>
+        <th><acronym title="Fracture Customer">F.Cust.</acronym></th>
         <th><acronym title="Test Duration (h)">Tps</acronym></th>
         <th><acronym title="Dilatation">&Delta;&epsilon; °</acronym></th>
         <th><acronym title="suite">E RT</acronym></th>
@@ -103,6 +104,7 @@
         <th><acronym title="Final Cycles">Final</acronym></th>
         <th><acronym title="Rupture">Rupt</acronym></th>
         <th><acronym title="Fracture">Fract.</acronym></th>
+        <th><acronym title="Fracture Customer">F.Cust.</acronym></th>
         <th><acronym title="Test Duration (h)">Tps</acronym></th>
         <th><acronym title="Dilatation">&Delta;&epsilon; °</acronym></th>
         <th><acronym title="suite">E RT</acronym></th>

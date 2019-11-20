@@ -49,6 +49,7 @@ Editor::inst( $db, 'eprouvettes' )
   Field::inst( 'eprouvettes.Cycle_final')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.Rupture')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.Fracture')->setFormatter( 'Format::nullEmpty' ),
+  Field::inst( 'eprouvettes.fractureCust')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.temps_essais')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.dilatation')->setFormatter( 'Format::nullEmpty' ),
   Field::inst( 'eprouvettes.E_RT')->setFormatter( 'Format::nullEmpty' ),

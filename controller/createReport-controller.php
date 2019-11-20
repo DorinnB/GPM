@@ -710,6 +710,7 @@ ElseIf ($split['test_type_abbr']=="PS" AND $type=="Annexe")	{
 
   //job number
   $pvEssais->setCellValue("M1", $split['customer'].'-'.$split['job']);
+  $pvEssais->setCellValue("N1", $split['customer'].'-'.$split['job'].'-'.$split['split']);
 
   //titre des lignes PV
   $pvEssais->setCellValueByColumnAndRow(1+0, 19, $split['c_type_1']);
@@ -1276,6 +1277,7 @@ ElseIf (($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="LoS" OR $
 
   //job number
   $pvEssais->setCellValue("M1", $split['customer'].'-'.$split['job']);
+  $pvEssais->setCellValue("N1", $split['customer'].'-'.$split['job'].'-'.$split['split']);
 
   //titre des lignes PV
   $pvEssais->setCellValueByColumnAndRow(1+0, 19, $split['c_type_1']);
@@ -1825,6 +1827,7 @@ ElseIf ($split['test_type_abbr']=="Ovl" AND $type=="Annexe")	{
 
   //job number
   $pvEssais->setCellValue("M1", $split['customer'].'-'.$split['job']);
+  $pvEssais->setCellValue("N1", $split['customer'].'-'.$split['job'].'-'.$split['split']);
 
 
   $row = 0; // 1-based index
@@ -1952,6 +1955,7 @@ ElseIf ($split['test_type_abbr']=="PQC" AND $type=="Annexe")	{
 
   //job number
   $pvEssais->setCellValue("M1", $split['customer'].'-'.$split['job']);
+  $pvEssais->setCellValue("N1", $split['customer'].'-'.$split['job'].'-'.$split['split']);
 
 
   $row = 0; // 1-based index
@@ -2079,6 +2083,7 @@ ElseIf ($split['test_type_abbr']=="PIX" AND $type=="Annexe")	{
 
   //job number
   $pvEssais->setCellValue("M1", $split['customer'].'-'.$split['job']);
+  $pvEssais->setCellValue("N1", $split['customer'].'-'.$split['job'].'-'.$split['split']);
 
 
   $row = 10;
