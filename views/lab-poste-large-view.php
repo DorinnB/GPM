@@ -45,6 +45,9 @@
           <img id="priorite_<?= $poste[$n_poste]['id_machine']   ?>" src="img/medal_<?= $poste[$n_poste]['prio_machine_forecast']  ?>" class="priorite" data-id="<?= $poste[$n_poste]['id_machine']  ?>" style="width: auto;max-height: 30px; margin-top:10px;">
         </div>
     </div>
-
+<?php elseif ($n_poste==202): ?>
+  <div class="col-md-12 foreCastView" style="border:1px solid black; margin:<?= (8-$nb)*7+5 ?>px 0px;background-color:#536E94;color:white;display:block">
+</br></br></br></br>
+</div>
   <?php endif ?>
 </div>

@@ -16,6 +16,8 @@ $oPlanningLab = new PLANNINGLAB($db);
 $planned=$oPlanningLab->getPlanningDay();
 
 
+$view=(isset($_GET['view'])?$_GET['view']:"default");
+
 //variable des etats des machines (run, stop, wip) pour la vue lab
 $runStop=array();
 

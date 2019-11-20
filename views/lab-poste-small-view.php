@@ -11,6 +11,10 @@
     <?= $poste[$n_poste]['icone_name']  ?><br/>
   </div>
 
-
+<?php elseif ($n_poste==202): ?>
+<div class="col-md-12 foreCast" style="border:1px solid black; margin:<?= (8-$nb)*3+1 ?>px 0px;background-color:#536E94;color:white;display:block">
+  <br/>
+  <br/>
+</div>
 <?php endif ?>
 </div>

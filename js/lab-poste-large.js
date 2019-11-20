@@ -1,5 +1,29 @@
 myVar = setTimeout(function(){ document.location.reload(); }, 60000);
 
+
+var $_GET = $_GET(),
+view = $_GET['view'];
+
+
+//vue differentes selons filtre
+if (view=="test") {
+  $('.machineView').each(function (index, value) {    $(this).css("display", "block");  });
+  $('.foreCastView').each(function (index, value) {    $(this).css("display", "none");  });
+  $('.calibrationView').each(function (index, value) {    $(this).css("display", "none");  });
+}
+else if (view=="comment") {
+  $('.machineView').each(function (index, value) {    $(this).css("display", "none");  });
+  $('.foreCastView').each(function (index, value) {    $(this).css("display", "block");  });
+  $('.calibrationView').each(function (index, value) {    $(this).css("display", "none");  });
+}
+else if (view=="calibration") {
+  $('.machineView').each(function (index, value) {    $(this).css("display", "none");  });
+  $('.foreCastView').each(function (index, value) {    $(this).css("display", "none");  });
+  $('.calibrationView').each(function (index, value) {    $(this).css("display", "block");  });
+}
+
+
+
 // Trigger action when the contexmenu is about to be shown
 $(".icone").contextmenu(function (event) {
 
@@ -9,12 +33,12 @@ $(".icone").contextmenu(function (event) {
   // Show contextmenu
   $(".icone-menu").finish().toggle(100).
   // In the right position (the mouse)
-    css({
-      top: event.pageY + "px",
-      left: event.pageX + "px"
-    });
-    $('.icone-menu').load('controller/lab-icone-controller.php?type=icone&id_machine='+$(this).attr("data-id"));
+  css({
+    top: event.pageY + "px",
+    left: event.pageX + "px"
   });
+  $('.icone-menu').load('controller/lab-icone-controller.php?type=icone&id_machine='+$(this).attr("data-id"));
+});
 
 $(".priorite").contextmenu(function (event) {
 
@@ -23,13 +47,13 @@ $(".priorite").contextmenu(function (event) {
 
   // Show contextmenu
   $(".priorite-menu").finish().toggle(100).
-    // In the right position (the mouse)
-    css({
-      top: event.pageY + "px",
-      left: event.pageX + "px"
-    });
-    $('.priorite-menu').load('controller/lab-icone-controller.php?type=priorite&id_machine='+$(this).attr("data-id"));
+  // In the right position (the mouse)
+  css({
+    top: event.pageY + "px",
+    left: event.pageX + "px"
   });
+  $('.priorite-menu').load('controller/lab-icone-controller.php?type=priorite&id_machine='+$(this).attr("data-id"));
+});
 
 $(".commentaire").contextmenu(function (event) {
 
@@ -38,12 +62,12 @@ $(".commentaire").contextmenu(function (event) {
   // Show contextmenu
   $(".commentaire-menu").finish().toggle(100).
   // In the right position (the mouse)
-    css({
-      top: event.pageY + "px",
-      left: event.pageX + "px"
-    });
-    $('.commentaire-menu').load('controller/lab-icone-controller.php?type=commentaire&id_machine='+$(this).attr("data-id")+'&commentaire='+$(this).html());
+  css({
+    top: event.pageY + "px",
+    left: event.pageX + "px"
   });
+  $('.commentaire-menu').load('controller/lab-icone-controller.php?type=commentaire&id_machine='+$(this).attr("data-id")+'&commentaire='+$(this).html());
+});
 
 
 
