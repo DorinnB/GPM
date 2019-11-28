@@ -126,7 +126,7 @@ class InvoiceModel
     LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
     WHERE id_tbljob='.$id_tbljob.'
     AND eprouvette_actif=1
-    AND valid=1
+    AND valid!=0
     GROUP BY id_invoiceline
     ORDER BY pricinglists.id_pricingList
     ';
