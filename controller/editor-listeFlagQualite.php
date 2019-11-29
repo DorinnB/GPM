@@ -21,6 +21,8 @@ Editor::inst( $db, 'eprouvettes' )
   Field::inst( 'eprouvettes.id_eprouvette'),
   Field::inst( 'enregistrementessais.n_fichier'),
   Field::inst( 'enregistrementessais.date'),
+  Field::inst( 'op.technicien' ),
+  Field::inst( 'chk.technicien'),
   Field::inst( 'eprouvettes.n_essai'),
   Field::inst( 'info_jobs.customer'),
   Field::inst( 'info_jobs.job'),
@@ -48,7 +50,8 @@ Editor::inst( $db, 'eprouvettes' )
   ->leftJoin( 'prestart',     'prestart.id_prestart',          '=', 'enregistrementessais.id_prestart' )
   ->leftJoin( 'postes',     'postes.id_poste',          '=', 'prestart.id_poste' )
   ->leftJoin( 'machines',     'machines.id_machine',          '=', 'postes.id_machine' )
-  //->leftJoin( 'techniciens',     'techniciens.id_technicien',          '=', 'eprouvettes.flag_qualite' )
+->leftJoin( 'techniciens as op',     'op.id_technicien',          '=', 'enregistrementessais.id_operateur' )
+->leftJoin( 'techniciens as chk',     'chk.id_technicien',          '=', 'enregistrementessais.id_controleur' )
 
   ->join(
           Mjoin::inst( 'TDR_types' )

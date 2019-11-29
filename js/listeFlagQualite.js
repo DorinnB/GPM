@@ -74,6 +74,8 @@ $(document).ready(function() {
           render : function(data, type, full, meta){
             return '<a href="#" class="open-GestionEp" data-toggle="modal" data-target="#gestionEp" data-id="'+data.eprouvettes.id_eprouvette+'" onclick="gestionEp('+data.eprouvettes.id_eprouvette+');">'+data.enregistrementessais.n_fichier+'</a>';
           }},
+          { data: "op.technicien", "visible": false },
+          { data: "chk.technicien", "visible": false },
           { data: "machines.machine" },
           { data: "enregistrementessais.date" },
           { data: "eprouvettes.d_commentaire", width: "40%" },
@@ -99,6 +101,12 @@ $(document).ready(function() {
               'Edit',
               { label: 'Cancel', fn: function () { this.close(); } }
             ]
+          },
+          {
+            extend: 'excel',
+            text: 'Export Excel',
+            exportOptions: {
+            }
           }
         ]
       } );
