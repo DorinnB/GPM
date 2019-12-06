@@ -27,6 +27,11 @@ class CellLoadModel
     echo json_encode( $this->db->getOne($req));;
   }
 
+  public function getCellLoadInformation($id_cell_load) {
+    $req='SELECT * FROM cell_load where id_cell_load = '.$id_cell_load.' AND cell_load_actif=1 ORDER BY id_cell_load DESC LIMIT 1;';
+    return $this->db->getOne($req);
+  }
+
   public function getAllCell_loadLocation() {
     $req='SELECT DISTINCT(cell_load_serial), cell_load.id_cell_load, machine, cell_load_capacity, cell_load_comment
     FROM cell_load

@@ -13,5 +13,9 @@ class IndTempModel
         return $this->db->getAll($req);
     }
 
+    public function getIndTemp($id) {
+      $req='SELECT * FROM ind_temps where id_ind_temp='.$this->db->quote($id).';';
+        return $this->db->getOne($req);
+    }
 
 }

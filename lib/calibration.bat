@@ -1,0 +1,2 @@
+chcp 65001
+"C:\Program Files (x86)\CoolUtils\PDF Combine Pro\PDFCombinePro.exe" "c:\wamp\www\GPM\temp\%1.xlsx" "\\SRVDC\DONNEES\LABO\Calibrations\PDF\%2.pdf" -kfs -c PDF -pdflimit 0 -Head:off -HeadAlign c -HeadFont Tahoma -HeadSize 10 -FootText "[Page Counter] of [Total Pages]" -FootAlign r -FootFont "Arial Narrow" -FootSize 10 -bookmark -npr 0,0 -bstyle f -bpdf -PDFAuthor GPM -PDFProducer Softplicity -toclinestyle D -toclinecolor silver -tocfont [Calibri,11,black] -tocmargins [0.80,0.80,0.80,0.80] -pc M -TM 0.3 -LM 0.3 -BM 0.3 -RM 0.3 -ps A4
