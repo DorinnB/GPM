@@ -19,11 +19,13 @@ class CalibrationModel
 
 
 
-  public function getAllcalibration($type=0, $id_machine=0, $idElement=0) {
+  public function getAllcalibration($type=0, $id_machine=0, $idElement=0, $limit=100) {
 
     $filtreElement=($idElement==0 OR !isset($idElement))?"1":"id_element=".$this->db->quote($idElement);
     $filtreMachine=($id_machine==0 OR !isset($id_machine))?"1":"id_machine=".$this->db->quote($id_machine);
 
+    $filtreType=($type==0)?"id_type":$this->db->quote($type);   //si =0 alors tous les types
+    $filtreLimit=(is_numeric($limit))?$limit:$this->db->quote($limit);
 
     $req='SELECT
       id_calibration, machine, dessin, matiere, thermocouple, scale, adjustment, cancelprevious, compliant, date_start, date_end, operator, checker
@@ -31,8 +33,9 @@ class CalibrationModel
       LEFT JOIN machines ON machines.id_machine=calibrations.id_frame
       LEFT JOIN matieres ON matieres.id_matiere=calibrations.id_material
       LEFT JOIN dessins ON dessins.id_dessin=calibrations.id_format
-      WHERE id_type='.$this->db->quote($type).' AND '.$filtreMachine.' AND '.$filtreElement.'
+      WHERE id_type='.$filtreType.' AND '.$filtreMachine.' AND '.$filtreElement.'
       ORDER BY date_start DESC
+      LIMIT '.$filtreLimit.'
       ;';
 
     //echo $req;

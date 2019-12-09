@@ -36,7 +36,7 @@ $poste=$oPoste->getPoste();
 
 
 
-
+$limit=(isset($_GET['limit']))?$_GET['limit']:"100";
 $type=(isset($_GET['type']))?$_GET['type']:"0";
 $idElement=(isset($_GET['idElement']))?$_GET['idElement']:"";
 $element="N/A";
@@ -95,18 +95,4 @@ elseif ($type=="2") {   //temperature
   }
 }
 
-$history=$oCalibration->getAllCalibration($type, $poste['id_machine'], $idElement);    //to del
-
-
-
-
-/*
-array(
-  "alignement" => "Alignement",
-  "temperature" => "Temperature",
-  "extensometer" => "Extensometer",
-  "tempLine" => "Temp. Line",
-  "load" => "Load",
-  "displacement" => "Displacement"
-);
-*/
+$history=$oCalibration->getAllCalibration($type, $poste['id_machine'], $idElement, $limit);

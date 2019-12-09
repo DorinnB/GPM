@@ -4,7 +4,7 @@
 
 	<?php	foreach ($lstCalib as $key => $value) :		?>
 		<div class="col-md-2">
-			<a href="index.php?page=calibration&type=<?= $value['id_calibration_type'] ?>" class="btn btn-primary btn-block <?= ($type==$value['id_calibration_type'])?"active":"" 	?>" role="button"><?= $value['calibration_type'] ?></a>
+			<a href="index.php?page=calibration&type=<?= $value['id_calibration_type'] ?>&limit=100" class="btn btn-primary btn-block <?= ($type==$value['id_calibration_type'])?"active":"" 	?>" role="button"><?= $value['calibration_type'] ?></a>
 		</div>
 	<?php endforeach ?>
 </div>
@@ -16,9 +16,9 @@
 			<span class="caret"></span>
 		</button>
 		<ul class="dropdown-menu">
-			<li class="<?= ($idPoste==0)?"active":"" 	?>"><a href="index.php?page=calibration&type=<?= $type ?>&idposte=0&idElement=0">N/A</a></li>
+			<li class="<?= ($idPoste==0)?"active":"" 	?>"><a href="index.php?page=calibration&type=<?= $type ?>&idposte=0&idElement=0&limit=100">N/A</a></li>
 			<?php foreach ($postes as $row): ?>
-				<li class="<?= ($idPoste==$row['id_poste'])?"active":"" 	?>"><a href="index.php?page=calibration&type=<?= $type ?>&idposte=<?=	$row['id_poste'] ?>"><?= $row['machine'] ?></a></li>
+				<li class="<?= ($idPoste==$row['id_poste'])?"active":"" 	?>"><a href="index.php?page=calibration&type=<?= $type ?>&idposte=<?=	$row['id_poste'] ?>&limit=100"><?= $row['machine'] ?></a></li>
 			<?php endforeach ?>
 		</ul>
 	</div>
@@ -29,7 +29,7 @@
 		</button>
 		<ul class="dropdown-menu">
 			<?php foreach ($lstIdElement as $row): ?>
-				<li class="<?= ($idElement==$row['id_element'])?"active":"" 	?>"><a href="index.php?page=calibration&type=<?= $type ?>&idposte=<?=	$idPoste ?>&idElement=<?=	$row['id_element'] ?>"><?= $row['element'] ?></a></li>
+				<li class="<?= ($idElement==$row['id_element'])?"active":"" 	?>"><a href="index.php?page=calibration&type=<?= $type ?>&idposte=<?=	$idPoste ?>&idElement=<?=	$row['id_element'] ?>&limit=100"><?= $row['element'] ?></a></li>
 			<?php endforeach ?>
 		</ul>
 	</div>
@@ -38,7 +38,7 @@
 
 <div class="row" style="height:50%; padding-top:10px; padding-bottom:10px;">
 	<div class="col-md-2 col-md-offset-4" style="height:100%;">
-		<a href="controller/createCalibration-controller.php?type=<?= $type ?>&idposte=<?=	$idPoste ?>&idElement=<?=	$idElement ?>" class="btn btn-default btn-lg" title="New Calibration File" style="width:100%; height:100%; padding:0px; border-radius:10px;">
+		<a href="controller/createCalibration-controller.php?type=<?= $type ?>&idposte=<?=	$idPoste ?>&idElement=<?=	$idElement ?>&limit=100" class="btn btn-default btn-lg" title="New Calibration File" style="width:100%; height:100%; padding:0px; border-radius:10px;">
 			<p style="font-size:small; height:100%">
 				<img type="image" src="img/nextJob.png"  style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
 			</p>
