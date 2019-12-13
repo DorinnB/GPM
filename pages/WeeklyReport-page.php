@@ -25,7 +25,7 @@ include('controller/weeklyReport-controller.php');
 				<table class="table table-condensed table-bordered" id="tableWeeklyReport">
 					<thead>
 						<tr>
-							<td>PO/Instructions</td>
+							<td>PO/Quote/Instructions</td>
 							<td>Material</td>
 							<td>Metcut Job</td>
 							<td>Split</td>
@@ -41,7 +41,11 @@ include('controller/weeklyReport-controller.php');
 					<tbody>
 						<?php foreach ($lstJobCust as $key => $value) :?>
 							<tr style="height:100%;">
-								<td rowspan="<?=	count($infoJobs[$value['id_info_job']])+1	?>"><?=	$value['po_number']	?><br/><?=	$value['instruction']	?></td>
+								<td rowspan="<?=	count($infoJobs[$value['id_info_job']])+1	?>">
+									<?=	(trim($value['po_number'])!='' )?'PO: '.$value['po_number'].'<br/>':""	?>
+										<?=	(trim($value['devis'])!='' )?'Quote: '.$value['devis'].'<br/>':""	?>
+											<?=	$value['instruction']	?>
+								</td>
 								<td rowspan="<?=	count($infoJobs[$value['id_info_job']])+1	?>"><?=	$value['ref_matiere']	?></td>
 								<td rowspan="<?=	count($infoJobs[$value['id_info_job']])+1	?>"><?=	$value['job']	?></td>
 								<td>0</td>

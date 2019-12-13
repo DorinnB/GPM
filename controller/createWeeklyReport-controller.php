@@ -121,7 +121,11 @@ foreach ($lstJobCust as $key => $value) {
   }
   $firstLine=$row;
   //on ecrit les données par split
-  $page->setCellValueByColumnAndRow(1+0, $row, $value['po_number']."\n".$value['instruction']);
+
+$po_number=(trim($value['po_number'])!='')?'PO: '.$value['po_number']."\n":'';
+$quote=(trim($value['devis'])!='')?'Quote: '.$value['devis']."\n":'';
+
+  $page->setCellValueByColumnAndRow(1+0, $row, $po_number.$quote.$value['instruction']);
   $page->setCellValueByColumnAndRow(1+1, $row, $value['ref_matiere']);
   $page->setCellValueByColumnAndRow(1+2, $row, $value['job']);
   $page->setCellValueByColumnAndRow(1+3, $row, 0);
