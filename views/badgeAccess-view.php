@@ -1,4 +1,4 @@
-<div class="col-md-7">
+<div class="col-md-8">
 	<?php if ($clockState['in1']==""): ?>
 		<button type="button" class="btn btn-success badgeAccess clockINOUT badgeAccessEnable" data-clockINOUT="in1">IN</button>
 		<button type="button" class="btn btn-primary badgeAccess disabled" data-clockINOUT="2">OUT</button>
@@ -31,8 +31,17 @@
 
 
 	<a href="index.php?page=badgeUsers" class="btn btn-default btn-lg" style="width:50px; height:100%; padding:0px; border-radius:10px;">
+		<img type="image" src="img/badge.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">
+	</a>
 
-							<img type="image" src="img/badge.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">
+	<label id="timer"></label>
 
-					</a>
 </div>
+<?php $today = getdate(); ?>
+<script>
+var d = new Date(Date(<?php echo $today['year'].",".$today['mon'].",".$today['mday'].",".$today['hours'].",".$today['minutes'].",".$today['seconds']; ?>));
+setInterval(function() {
+	d.setSeconds(d.getSeconds() + 1);
+	$('#timer').text((d.getHours() +':' + d.getMinutes() + ':' + d.getSeconds() ));
+}, 1000);
+</script>
