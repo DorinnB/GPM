@@ -2,7 +2,8 @@
   GPM's update list
 </h3>
 <p style="color:white;">
-  Aug 2109 -> change specification quality folder (instruction GPM) and added to $ini<br />
+  Nov&Dec 2019 -> LabMonitoring, starting calibration with TempLine<br />
+  Aug 2019 -> change specification quality folder (instruction GPM) and added to $ini<br />
   Jul 2019 -> planning Tech & badging. Check if data on trans<br />
   Apr 2019 -> WeeklyReport SubC.<br />
   Feb 2019 -> config.ini / new Report, Annexe & Invoice<br />
