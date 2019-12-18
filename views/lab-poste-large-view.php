@@ -21,6 +21,7 @@
       <div class="col-md-2" style="padding-right:0px;">
         <img src="img/<?= $poste[$n_poste]['icone_file']  ?>" style="width: auto;max-height: 20px; margin-top:5px;"><br/>
         <img src="img/medal_<?= $poste[$n_poste]['prio_machine_forecast']  ?>" style="width: auto;max-height: 20px; margin-top:10px;">
+         <a href="index.php?page=labMonitoring&machine=<?= $poste[$n_poste]['machine'] ?>#" style="display:block; margin-top:5px;"><span class="glyphicon glyphicon-picture"></span></a>
       </div>
     </div>
 

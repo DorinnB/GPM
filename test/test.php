@@ -1,17 +1,30 @@
+<script type="text/javascript" src="../jquery/jquery-3.1.0.js"></script>
+
+
+
+
+
+
+
+<div>
 <?php
 
 
-$file='//SRVDC/DONNEES/LABO/Calibrations/PDF/1_TempLine_20001_K.pdf';
+ ?>
+ </div>
 
 
- echo "modifié le : " . date ("F d Y H:i:s.", filemtime($file));
-echo '<br/>';
-
-    echo "modifié le : " . date("F d Y H:i:s.", filectime($file));
-echo '<br/>';
-echo fileowner ($file);
-var_dump( stat ($file));
-
-
-
+<?php
+$formatted_date =  date('Y/m/d H:i:s');
+echo $formatted_date;
 ?>
+<br/>
+Javascript code:
+
+<div id="timer3"></div>
+<script>
+var javascript_date = new Date("<?php echo $formatted_date; ?>");
+
+javascript_date.setSeconds(javascript_date.getSeconds() + 10);
+$('#timer3').html(javascript_date);
+</script>
