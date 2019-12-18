@@ -34,10 +34,11 @@
 		<img type="image" src="img/badge.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">
 	</a>
 
-	<label id="timer"></label>
+	<label id="timer"><?= date('H:i:s') ?></label>
 
 </div>
 <?php $today = getdate(); ?>
+<!--
 <script>
 var d = new Date(Date(<?php echo $today['year'].",".$today['mon'].",".$today['mday'].",".$today['hours'].",".$today['minutes'].",".$today['seconds']; ?>));
 setInterval(function() {
@@ -45,3 +46,4 @@ setInterval(function() {
 	$('#timer').text((d.getHours() +':' + d.getMinutes() + ':' + d.getSeconds() ));
 }, 1000);
 </script>
+-->
