@@ -603,6 +603,11 @@ If ($split['test_type_abbr']=="Str" AND $type=="Report")	{
     $pvEssais->setCellValueByColumnAndRow(1+$col, 56, $value['Fracture']);
     $pvEssais->setCellValueByColumnAndRow(1+$col, 57, ceil(($value['temps_essais']>0)?$value['temps_essais']:$value['temps_essais_calcule']));
 
+
+    $pvEssais->setCellValueByColumnAndRow(1+$col, 65, $value['fractureCust']);
+
+
+
     if ($value['Cycle_final_valid']==0 AND isset($value['Cycle_final'])) {
       $pvEssais->getStyle(Coordinate::stringFromColumnIndex(1+$col).'9:'.Coordinate::stringFromColumnIndex(1+$col).'58')->applyFromArray( $styleCell['checked'] ); //default style
       $pvEssais->getStyle(Coordinate::stringFromColumnIndex(1+$col).'9:'.Coordinate::stringFromColumnIndex(1+$col).'9')->applyFromArray( $styleCell['running'] );
