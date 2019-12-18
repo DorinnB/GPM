@@ -8,7 +8,7 @@
 
 
 
-<div id="myCarousel" class="container-fluid carousel" style="margin:0px 10px; height:100%;">
+<div id="myCarousel" class="container-fluid carousel" data-interval="false" style="margin:0px 10px; height:100%;">
 
 
   <!-- Wrapper for slides -->
