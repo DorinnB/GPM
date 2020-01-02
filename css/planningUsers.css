@@ -1,0 +1,98 @@
+#page-content-wrapper div{
+  color:white;
+  background-color: rgb(68, 84, 106);
+}
+#page-content-wrapper .btn-group  {
+  color:black;
+}
+
+
+.table-hover tbody tr:hover , .table-hover tbody tr:hover th {
+  background-color: #5B9BD5;
+}
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #536E94 ;
+}
+
+table.DTFC_Cloned tr {
+  background-color: inherit;
+  margin-bottom: 0;
+}
+div.DTFC_LeftHeadWrapper table,
+div.DTFC_RightHeadWrapper table {
+  border-bottom: none !important;
+  margin-bottom: 0 !important;
+  background-color: inherit;
+}
+
+input,  select{
+color:black;
+}
+a {
+  color:white;
+}
+
+
+
+
+.refused {     /* attente validation */
+    background-color: darkred !important;
+     opacity: 0.5;
+     color:white;
+}
+.validated {     /* validé */
+    background-color: darkgreen !important;
+     opacity: 0.5;
+     color:white;
+}
+
+
+.type_ {     /* Absence */
+    background-color: lightgray;
+     opacity: 0.5;
+     color:black;
+}
+
+
+.notWorkable {
+  background-color: black;
+  opacity : 1;
+  color:black;
+}
+
+
+.type_1 {     /* travail  */
+}
+.type_2 {     /* Congé  */
+  background-color: yellow;
+   opacity: 0.5;
+   color:black;
+}
+.type_3 {     /* RTT  */
+  background-color: lightyellow;
+   opacity: 0.5;
+   color:black;
+}
+.type_4 {     /* Récup  */
+  background-color: lightyellow;
+   opacity: 0.5;
+   color:black;
+}
+.type_5 {     /* Maladie  */
+  background-color: purple;
+   opacity: 0.5;
+   color:white;
+}
+.type_6 {     /* Déplacement  */
+
+}
+.type_7 {     /* Férié  */
+  background-color: black;
+
+   color:black;
+}
+.type_8 {     /* Fermé  */
+  background-color: black;
+   opacity: 0.5;
+   color:white;
+}
