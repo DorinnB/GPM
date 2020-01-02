@@ -2239,6 +2239,9 @@ ElseIf ($type=="Short" AND $specific=="_Std") {
 
     $val2Xls = array(
 
+      'B2'=> $split['test_type'],
+      'C32'=> $split['test_type_abbr'],
+
       'B5'=> $split['entreprise'],
       'B6'=> $split['prenom'].' '.$split['nom'],
 
@@ -2276,6 +2279,7 @@ ElseIf ($type=="Short" AND $specific=="_Std") {
 
     //job number
     $pvEssais->setCellValue("M1", $jobcomplet);
+    $pvEssais->setCellValue("D2", $split['test_type']);
 
     //titre des lignes PV
     $pvEssais->setCellValueByColumnAndRow(1+0, 19, $split['c_type_1']);
