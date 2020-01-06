@@ -32,6 +32,12 @@ a {
   color:white;
 }
 
+.createSpace {
+  margin-right:20px;
+}
+
+
+
 
 
 
@@ -63,36 +69,108 @@ a {
 
 .type_1 {     /* travail  */
 }
+.unconfirmed_1 {
+  animation: blinker1 1s linear infinite;
+}
+@keyframes blinker1 {
+50% {
+  border-width: 0 20px 0 20px;
+  border-color : darkblue;
+ }
+}
 .type_2 {     /* Congé  */
   background-color: yellow;
    opacity: 0.5;
    color:black;
+}
+.unconfirmed_2 {
+  animation: blinker2 1s linear infinite;
+}
+@keyframes blinker2 {
+50% {
+  border-width: 0 20px 0 20px;
+  border-color : yellow;
+ }
 }
 .type_3 {     /* RTT  */
   background-color: lightyellow;
    opacity: 0.5;
    color:black;
 }
+.unconfirmed_3 {
+  animation: blinker3 1s linear infinite;
+}
+@keyframes blinker3 {
+50% {
+  border-width: 0 20px 0 20px;
+  border-color : lightyellow;
+ }
+}
 .type_4 {     /* Récup  */
   background-color: lightyellow;
    opacity: 0.5;
    color:black;
+}
+.unconfirmed_4 {
+  animation: blinker4 1s linear infinite;
+}
+@keyframes blinker4 {
+50% {
+  border-width: 0 20px 0 20px;
+  border-color : lightyellow;
+ }
 }
 .type_5 {     /* Maladie  */
   background-color: purple;
    opacity: 0.5;
    color:white;
 }
+.unconfirmed_5 {
+  animation: blinker5 1s linear infinite;
+}
+@keyframes blinker5 {
+50% {
+  border-width: 0 20px 0 20px;
+  border-color : purple;
+ }
+}
 .type_6 {     /* Déplacement  */
 
 }
+.unconfirmed_6 {
+  animation: blinker6 1s linear infinite;
+}
+@keyframes blinker6 {
+50% {
+  border-width: 0 20px 0 20px;
+  border-color : darkblue;
+ }
+}
 .type_7 {     /* Férié  */
   background-color: black;
-
    color:black;
+}
+
+.unconfirmed_7 {
+  animation: blinker7 1s linear infinite;
+}
+@keyframes blinker7 {
+50% {
+  border-width: 0 20px 0 20px;
+  border-color : black;
+ }
 }
 .type_8 {     /* Fermé  */
   background-color: black;
    opacity: 0.5;
    color:white;
+}
+.unconfirmed_8 {
+  animation: blinker8 1s linear infinite;
+}
+@keyframes blinker8 {
+50% {
+  border-width: 0 20px 0 20px;
+  border-color : black;
+ }
 }

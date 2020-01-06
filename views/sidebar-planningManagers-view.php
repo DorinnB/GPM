@@ -11,15 +11,6 @@
 			<a href="index.php?page=PlanningLab&nbDayPlanned=93&nbDayBefore=5&color=customer">Planning Lab</a>
 		</li>
 		<li>
-			<a href="index.php?page=ListeEssais&startFile=<?=	date("Y")	?>">Test list</a>
-		</li>
-		<li>
-			<a href="index.php?page=WeeklyReport">Weekly Report</a>
-		</li>
-		<li>
-			<a href="index.php?page=WeeklyReportSubC">Weekly Report SubC</a>
-		</li>
-		<li>
 			<a href="../ticket/">Issues Tracker</a>
 		</li>
 	</ul>

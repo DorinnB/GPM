@@ -51,6 +51,9 @@ foreach ($planningValidated as $key => $value) {
 }
 
 
+foreach ($planningAwaiting as $key => $value) {
+  $planningUnconfirmed[$value['datemodif']][$value['id_user']]=array("quantity" => $value['quantity'], "type" => $value['id_type']);
+}
 
 
 ?>

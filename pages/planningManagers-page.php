@@ -78,7 +78,7 @@
 
 	</div>
 </div>
-<script type="text/javascript" src="js/planningUsers.js"></script>
+<script type="text/javascript" src="js/planningManagers.js"></script>
 <?php
 require('views/login-view.php');
 ?>

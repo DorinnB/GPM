@@ -13,7 +13,7 @@ $(document).ready(function() {
 
   editor = new $.fn.dataTable.Editor( {
     ajax: {
-      url : "controller/editor-planningmodifUsers.php",
+      url : "controller/editor-planningmodifManagers.php",
       type: "POST"
     },
     table: "#table_planningModif",
@@ -62,7 +62,7 @@ $(document).ready(function() {
   var table = $('#table_planningModif').DataTable( {
     dom: "Bfrtip",
     ajax: {
-      url : "controller/editor-planningmodifUsers.php",
+      url : "controller/editor-planningmodifManagers.php",
       type: "POST"
     },
     columns: [
@@ -105,7 +105,51 @@ $(document).ready(function() {
   paging: false,
   select: true,
   buttons: [
-    { extend: "create", editor: editor, className: 'createSpace'}
+    { extend: "create", editor: editor, className: 'createSpace'},
+    {
+      extend: "selected",
+      text: 'Disapprovation',
+      action: function ( e, dt, node, config ) {
+        var rows = table.rows( {selected: true} ).indexes();
+        editor
+        .hide( editor.fields() )
+        .one( 'close', function () {
+          setTimeout( function () { // Wait for animation
+            editor.show( editor.fields() );
+          }, 500 );
+        } )
+        .edit( rows, {
+          title: 'Disapprobation',
+          message: rows.length === 1 ?
+          'Are you sure you wish to disapprove this row?' :
+          'Are you sure you wish to disapprove these '+rows.length+' rows',
+          buttons: 'Disapprove'
+        } )
+        .val( 'planning_modif.id_validator', -iduser ).val( 'planning_modif.datevalidation', datevalidation );
+      }
+    },
+    {
+      extend: "selected",
+      text: 'Validation',
+      action: function ( e, dt, node, config ) {
+        var rows = table.rows( {selected: true} ).indexes();
+        editor
+        .hide( editor.fields() )
+        .one( 'close', function () {
+          setTimeout( function () { // Wait for animation
+            editor.show( editor.fields() );
+          }, 500 );
+        } )
+        .edit( rows, {
+          title: 'Validation',
+          message: rows.length === 1 ?
+          'Are you sure you wish to validate this row?' :
+          'Are you sure you wish to validate these '+rows.length+' rows',
+          buttons: 'Validate'
+        } )
+        .val( 'planning_modif.id_validator', iduser ).val( 'planning_modif.datevalidation', datevalidation );
+      }
+    }
   ]
 } );
 

@@ -43,8 +43,8 @@ include('controller/weeklyReport-controller.php');
 							<tr style="height:100%;">
 								<td rowspan="<?=	count($infoJobs[$value['id_info_job']])+1	?>">
 									<?=	(trim($value['po_number'])!='' )?'PO: '.$value['po_number'].'<br/>':""	?>
-										<?=	(trim($value['devis'])!='' )?'Quote: '.$value['devis'].'<br/>':""	?>
-											<?=	$value['instruction']	?>
+									<?=	(trim($value['devis'])!='' )?'Quote: '.$value['devis'].'<br/>':""	?>
+									<?=	$value['instruction']	?>
 								</td>
 								<td rowspan="<?=	count($infoJobs[$value['id_info_job']])+1	?>"><?=	$value['ref_matiere']	?></td>
 								<td rowspan="<?=	count($infoJobs[$value['id_info_job']])+1	?>"><?=	$value['job']	?></td>
@@ -72,9 +72,12 @@ include('controller/weeklyReport-controller.php');
 					</tbody>
 				</table>
 			</div>
-			<div style="height:7%; width:100%; padding:10px 0px;">
-			<input type="submit" value="SAVE & PRINT" style="width:100%;" >
-		</div>
+			<div class="col-md-4 " style="height:7%; padding:10px 0px;">
+				<a href="controller/createLightReports-controller.php?customer=<?= $customer['id_entreprise'] ?>" class="btn btn-info" role="button" style="width:100%;color:black;">Ne pas cliquer</a>
+			</div>
+			<div class="col-md-7 col-md-offset-1" style="height:7%; padding:10px 0px;">
+				<input type="submit" value="SAVE & PRINT" class="btn btn-default" style="width:100%;" >
+			</div>
 		</form>
 	</div>
 </div>
