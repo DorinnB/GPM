@@ -48,7 +48,7 @@ class PlanningUsersModel
     public function getAllUsers() {
       $req='SELECT id_technicien, technicien
 			FROM `techniciens`
-      WHERE technicien_actif=1;';
+      WHERE id_technicien != 1 AND technicien_actif=1;';
 
 //echo $req;
         return $this->db->getAll($req);
