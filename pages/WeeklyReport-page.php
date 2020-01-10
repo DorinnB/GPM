@@ -73,7 +73,7 @@ include('controller/weeklyReport-controller.php');
 				</table>
 			</div>
 			<div class="col-md-4 " style="height:7%; padding:10px 0px;">
-				<a href="controller/createLightReports-controller.php?customer=<?= $customer['id_entreprise'] ?>" class="btn btn-info" role="button" style="width:100%;color:black;">Ne pas cliquer</a>
+				<a href="controller/createWeeklyReport_Reports-controller.php?customer=<?= $customer['id_entreprise'] ?>" class="btn btn-info" role="button" style="width:100%;color:black;">GENERATE ALL THE REPORT</a>
 			</div>
 			<div class="col-md-7 col-md-offset-1" style="height:7%; padding:10px 0px;">
 				<input type="submit" value="SAVE & PRINT" class="btn btn-default" style="width:100%;" >

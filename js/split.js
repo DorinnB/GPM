@@ -102,7 +102,7 @@ function createReport(type='Annexe',language='FR',specific='Std') {
 
 $("#report").click(function(e) {
   //alert('merci de faire un click droit');
-  createReport('Short','FR','Std');
+  createReport('Report','USA','Std');
 });
 
 //menu contextuel pour la langue du rapport

@@ -40,7 +40,7 @@ foreach ($infoJobs as $key => $value) {
 foreach ($value as $k => $v) {
 if (is_numeric($v['split'])) {
   echo '
-    setTimeout(function() {window.open("createReport-controller.php?id_tbljob='.$v['id_tbljob'].'&type=Short&language=FR&specific=Std", "'.$v['id_tbljob'].'", "width=200, height=100");
+    setTimeout(function() {window.open("createReport-controller.php?id_tbljob='.$v['id_tbljob'].'&type=Report&language=USA&specific=Std", "'.$v['id_tbljob'].'", "width=200, height=100");
       ';
     }
   }
