@@ -33,6 +33,8 @@ Editor::inst( $db, 'badges' )
   Field::inst( 'badges.out2'),
   Field::inst( 'badges.validation')
   ->setFormatter( 'Format::ifEmpty', null ),
+  Field::inst( 'badges.validation2')
+  ->setFormatter( 'Format::ifEmpty', null ),
   Field::inst( 'badges.comments')
   ->setFormatter( 'Format::ifEmpty', null ),
   Field::inst( 'badges.id_validator')
@@ -51,6 +53,7 @@ Editor::inst( $db, 'badges' )
 
   ->where( function ( $q ) {
     $q->where('ba.id_manager',(isset($_COOKIE['id_user'])?$_COOKIE['id_user']:0));
+    $q->where('techniciens.badge','1');
     //$q->or_where('id_user',(isset($_COOKIE['id_user'])?$_COOKIE['id_user']:0));
   })
 

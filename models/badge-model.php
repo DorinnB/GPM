@@ -25,10 +25,8 @@ class BadgeModel
       WHERE id_technicien='.$_COOKIE['id_user'].';';
 
       $return = $this->db->getOne($req);
-      if ($return['badge']==1) {
-        return 1;
-      }
-      else return 0;
+
+      return $return['badge'];
     }
     else {
       return 0;
@@ -38,7 +36,8 @@ class BadgeModel
   public function getClockState() {
 
     $req='SELECT `id_badge`, `id_user`, `in1`, `out1`, `in2`, `out2`, `validation`, `comments`, `id_validator`,
-    IF(in1 IS NULL OR (in2 IS NULL AND out1 IS NOT NULL),1,0) AS unclocked
+    IF(in1 IS NULL OR (in2 IS NULL AND out1 IS NOT NULL),1,0) AS unclocked,
+    IF(in1 IS NULL OR ((DATE_ADD(NOW(), INTERVAL -5 HOUR) > in1) AND out2 IS NOT NULL),1,0) AS unclocked2
     FROM badges
     WHERE id_user='.$_COOKIE['id_user'].'
     AND TO_DAYS(NOW()) =  TO_DAYS(date)
