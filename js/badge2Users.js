@@ -28,7 +28,9 @@ $(document).ready(function() {
             //return Math.ceil((((this - onejan) / 86400000) + onejan.getDay()+1)/7);
             return Math.ceil((((this - onejan) / 86400000) + onejan.getDay())/7);
           }
-          return day.getWeek();
+          week=day.getWeek();
+          filtre=day.getFullYear() + '-' + ((week<10)?"0":"") + week;
+          return filtre;
         }
       },
       { data: "badges.date" },
@@ -83,13 +85,13 @@ $(document).ready(function() {
     //return Math.ceil((((this - onejan) / 86400000) + onejan.getDay()+1)/7);
     return Math.ceil((((this - onejan) / 86400000) + onejan.getDay())/7);
   }
-  filtre=day.getWeek()-1;
+  week=day.getWeek()-1;
+  filtre=day.getFullYear() + '-' + ((week<10)?"0":"") + week;
 
   table
   .column( '0' )
   .search( filtre, true, false )
   .draw();
-
 
 
   $('#container').css('display', 'block');
