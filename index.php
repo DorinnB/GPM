@@ -40,6 +40,7 @@ Require("connection.php");
 	<link href="csstemporaire.css" rel="stylesheet">
 </head>
 <body>
+	
 	<!--Navbar-->
 	<?php	include('controller/navbar-controller.php');	?>
 
