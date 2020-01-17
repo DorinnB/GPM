@@ -34,18 +34,6 @@
 		<img type="image" src="img/badge.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">
 	</a>
 
-	<?php date_default_timezone_set('Europe/Paris'); $today = getdate();?>
 	<label id="timer"><?= date('H:i:s')?></label>
 
 </div>
-
-
-
-<script>
-var d = new Date(<?php echo $today['year'].",".$today['mon'].",".$today['mday'].",".$today['hours'].",".$today['minutes'].",".$today['seconds']; ?>);
-console.log(d);
-setInterval(function() {
-	d.setSeconds(d.getSeconds() + 1);
-	$('#timer').text((d.getHours() +':' + d.getMinutes() + ':' + d.getSeconds() ));
-}, 1000);
-</script>

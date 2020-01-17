@@ -20,13 +20,13 @@ class BadgeModel
   public function isBadge() {
 
     if (isset($_COOKIE['id_user'])) {
-      $req='SELECT badge
-      FROM techniciens
-      WHERE id_technicien='.$_COOKIE['id_user'].';';
+      $req='SELECT badge_type
+      FROM badge_HR
+      WHERE id_user='.$_COOKIE['id_user'].';';
 
       $return = $this->db->getOne($req);
 
-      return $return['badge'];
+      return $return['badge_type'];
     }
     else {
       return 0;
@@ -37,7 +37,7 @@ class BadgeModel
 
     $req='SELECT `id_badge`, `id_user`, `in1`, `out1`, `in2`, `out2`, `validation`, `comments`, `id_validator`,
     IF(in1 IS NULL OR (in2 IS NULL AND out1 IS NOT NULL),1,0) AS unclocked,
-    IF(in1 IS NULL OR ((DATE_ADD(NOW(), INTERVAL -5 HOUR) > in1) AND out2 IS NOT NULL),1,0) AS unclocked2
+    IF(in1 IS NULL OR ((DATE_ADD(NOW(), INTERVAL -5 HOUR) > in1) AND in2 IS NULL),1,0) AS unclocked2
     FROM badges
     WHERE id_user='.$_COOKIE['id_user'].'
     AND TO_DAYS(NOW()) =  TO_DAYS(date)
