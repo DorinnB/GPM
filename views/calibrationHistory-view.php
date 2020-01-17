@@ -48,7 +48,7 @@
           <td><?= $history[$k]['checker'] ?></td>
           <td><?= $history[$k]['adjustment'] ?></td>
           <td><?= $history[$k]['cancelprevious'] ?></td>
-          <td><?= $history[$k]['compliant'] ?></td>
+          <td class="compliant_<?= $history[$k]['compliant'] ?>"><?= $history[$k]['compliant'] ?></td>
           <td>
             <?php if ($history[$k]['compliant']==2 AND isset($_COOKIE['id_user']) AND $_COOKIE['id_user']!=0 AND $_COOKIE['id_user']!=$history[$k]['operator']) : ?>
             <button type="button" class="btn btn-default btn-block btn-sm check" data-id="<?= $history[$k]['id_calibration'] ?>">

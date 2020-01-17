@@ -2,7 +2,7 @@
 <link href="lib/dropdown-with-search-using-jquery/select2.min.css" rel="stylesheet" />
 <script src="lib/dropdown-with-search-using-jquery/select2.min.js"></script>
 
-<link href="css/gestionPoste.css" rel="stylesheet">
+<link href="css/calibration.css" rel="stylesheet">
 <?php
 include('controller/calibration-controller.php');
 ?>
