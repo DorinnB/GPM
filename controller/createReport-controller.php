@@ -330,7 +330,7 @@ $styleCell = array(
 
 
 
-If ($split['test_type_abbr']=="Str" AND $type=="Report")	{
+If (($split['test_type_abbr']=="Str" OR $split['test_type_abbr']=="TMF" )AND $type=="Report")	{
 
     $objPHPExcel = $objReader->load("../templates/Report ".$split['test_type_abbr'].$language.$specific.".xlsm");
 
