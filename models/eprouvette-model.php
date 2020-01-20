@@ -841,7 +841,7 @@ public function getEstimatedCycle(){
   AND ifnull(c_type_3_val,"*") = (SELECT ifnull(c_type_3_val,"*") FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
   AND ifnull(c_type_4_val,"*") = (SELECT ifnull(c_type_4_val,"*") FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
   AND ifnull(c_type_5_val,"*") = (SELECT ifnull(c_type_5_val,"*") FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
-  AND ifnull(c_temperature,"*") = (SELECT ifnull(c_temperature,"*") FROM eprouvettes WHERE id_eprouvette=45817)
+  AND ifnull(c_temperature,"*") = (SELECT ifnull(c_temperature,"*") FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
   AND ((cycle_final IS NOT NULL AND d_checked>0) OR (cycle_estime IS NOT NULL) OR (runout is not null))
   AND eprouvettes.eprouvette_actif=1
   GROUP by id_job, c_type_1_val, c_type_2_val, c_type_3_val, c_type_4_val, c_type_5_val';
