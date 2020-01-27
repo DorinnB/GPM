@@ -7,7 +7,7 @@
 
 		<link href="css/planningUsers.css" rel="stylesheet">
 
-		<div class="col-md-12" style="height:45%; overflow-y:auto;">
+		<div class="col-md-12" style="height:40%; overflow-y:auto;">
 			<table id="table_planningUser" class="table table-condensed table-striped table-hover table-bordered" cellspacing="0" width="100%"  style="height:100%; white-space:nowrap;">
 				<thead>
 					<tr>
@@ -29,9 +29,8 @@
 						<tr>
 							<td><?= $oUser['technicien'] ?></td>
 							<?php foreach ($period as $key => $value) : ?>
-								<td class="<?= (($value->format("l")=="Sunday" OR $value->format("l")=="Saturday") AND (!isset($planning[$value->format("Y-m-d")][$oUser['id_technicien']]) OR $planning[$value->format("Y-m-d")][$oUser['id_technicien']]['quantity']==0))?'notWorkable':''	?> type_<?= isset($planning[$value->format("Y-m-d")][$oUser['id_technicien']])?$planning[$value->format("Y-m-d")][$oUser['id_technicien']]['type']:''	?>
-									unconfirmed_<?= isset($planningUnconfirmed[$value->format("Y-m-d")][$oUser['id_technicien']])?$planningUnconfirmed[$value->format("Y-m-d")][$oUser['id_technicien']]['type']:''	?>">
-									<?= isset($planning[$value->format("Y-m-d")][$oUser['id_technicien']])?$planning[$value->format("Y-m-d")][$oUser['id_technicien']]['quantity']:''	?>
+								<td class="<?=   $td[$oUser['id_technicien']][$value->format("Y-m-d")]['class'] ?>" <?= $td[$oUser['id_technicien']][$value->format("Y-m-d")]['tooltip'] ?>>
+									<?=   $td[$oUser['id_technicien']][$value->format("Y-m-d")]['value'] ?>
 								</td>
 							<?php endforeach ?>
 						</tr>
@@ -40,41 +39,72 @@
 			</table>
 		</div>
 
-		<div class="col-md-12" style="height:55%; overflow-y:auto; padding: 15px 0px;">
-			<table id="table_planningModif" class="table table-condensed table-striped table-hover table-bordered" cellspacing="0" width="100%"  style="height:100%; white-space:nowrap;">
-				<thead>
-					<tr>
-						<th>Modification Number</th>
-						<th>Applicant</th>
-						<th>Date de la demande</th>
-						<th>User</th>
-						<th>Jour à modifier</th>
-						<th>Type de modification</th>
-						<th>Quantity (j / hrs)</th>
-						<th>Commentaire</th>
-						<th>Status</th>
-						<th>Date Reponse</th>
-					</tr>
-				</thead>
-				<tfoot>
-					<tr>
-						<th>N° Demande</th>
-						<th>demandeur</th>
-						<th>Date de la demande</th>
-						<th>user</th>
-						<th>Jour à modifier</th>
-						<th>new type</th>
-						<th>quantity</th>
-						<th>comments</th>
-						<th>Status</th>
-						<th>Date Reponse</th>
-					</tr>
-				</tfoot>
-			</table>
+		<div class="col-md-12" style="height:60%;">
+			<div class="col-md-2" style="overflow-y:auto;">
+				<table class="table table-condensed table-striped table-hover table-bordered" cellspacing="0" width="100%"  style="height:100%; white-space:nowrap;">
+
+					<thead>
+						<tr>
+							<th>User</th>
+							<th>Work</th>
+							<th>CP</th>
+							<th><abr title="RRT or Absence">Abs.</abbr></th>
+							<th>Mal.</th>
+							<th>Fer.</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<?php foreach ($lstUsersManaged as $oUser) : ?>
+							<tr>
+								<td><?= $oUser['technicien'] ?></td>
+								<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['C1'] ?>"> <?= $lstSummary[$oUser['id_technicien'] ]['Q1'] ?></abbr></td>
+								<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['Q2'] ?>"> <?= $lstSummary[$oUser['id_technicien'] ]['C2'] ?></abbr></td>
+								<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['Q3'] ?>"> <?= $lstSummary[$oUser['id_technicien'] ]['C3'] ?></abbr></td>
+								<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['Q4'] ?>"> <?= $lstSummary[$oUser['id_technicien'] ]['C4'] ?></abbr></td>
+								<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['Q5'] ?>"> <?= $lstSummary[$oUser['id_technicien'] ]['C5'] ?></abbr></td>
+							</tr>
+						<?php endforeach ?>
+					</tbody>
+				</table>
+			</div>
 
 
+			<div class="col-md-10" style="overflow-y:auto; padding: 15px 0px;">
+				<table id="table_planningModif" class="table table-condensed table-striped table-hover table-bordered" cellspacing="0" width="100%"  style="height:100%; white-space:nowrap;">
+					<thead>
+						<tr>
+							<th>Modification Number</th>
+							<th>Applicant</th>
+							<th>Date de la demande</th>
+							<th>User</th>
+							<th>Jour à modifier</th>
+							<th>Type de modification</th>
+							<th>Quantity (j / hrs)</th>
+							<th>Commentaire</th>
+							<th>Status</th>
+							<th>Date Reponse</th>
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<th>N° Demande</th>
+							<th>demandeur</th>
+							<th>Date de la demande</th>
+							<th>user</th>
+							<th>Jour à modifier</th>
+							<th>new type</th>
+							<th>quantity</th>
+							<th>comments</th>
+							<th>Status</th>
+							<th>Date Reponse</th>
+						</tr>
+					</tfoot>
+				</table>
+
+
+			</div>
 		</div>
-
 
 	</div>
 </div>

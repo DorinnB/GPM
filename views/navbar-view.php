@@ -19,7 +19,7 @@
 					<span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu dropdownhover">
-					<li><a href="index.php?page=followupJob&filtreFollowup=100">Follow UP JOB</a></li>
+					<li><a href="index.php?page=followupJob&filtreFollowup=300">Follow UP JOB</a></li>
 					<li><a href="index.php?page=followup">Follow UP LAB</a></li>
 					<li><a href="index.php?page=followupSubC&filtreFollowup=SubC">Follow UP SubC</a></li>
 				</ul>
