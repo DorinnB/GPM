@@ -66,7 +66,6 @@ Editor::inst( $db, 'planning_modif' )
   ->leftJoin( 'techniciens as modifier',     'modifier.id_technicien',          '=', 'planning_modif.id_modifier' )
   ->leftJoin( 'techniciens as validator',     'validator.id_technicien',          '=', 'abs(planning_modif.id_validator)' )
   ->leftJoin( 'techniciens as user',     'user.id_technicien',          '=', 'planning_modif.id_user' )
-  ->leftJoin( 'badge_access as ba',     'ba.id_managed',          '=', 'planning_modif.id_user' )
 
   ->where( function ( $q ) {
     $q->where('user.id_technicien',(isset($_COOKIE['id_user'])?$_COOKIE['id_user']:0));

@@ -11,6 +11,9 @@ var editor; // use a global for the submit and return data rendering in the exam
 
 $(document).ready(function() {
 
+  $('[data-toggle="tooltip"]').tooltip();
+  $('[data-toggle="tooltip2"]').tooltip();
+
   editor = new $.fn.dataTable.Editor( {
     ajax: {
       url : "controller/editor-planningmodifUsers.php",
@@ -105,7 +108,22 @@ $(document).ready(function() {
   paging: false,
   select: true,
   buttons: [
-    { extend: "create", editor: editor, className: 'createSpace'}
+    { extend: "create", editor: editor, className: 'createSpace'},
+    { extend: "selected", text: "Copy",
+         enabled: false,
+         className: 'buttons-copy btn-primary',
+         action: function ( e, d, node, config ) {
+
+           var mode = editor.mode();
+           console.log( 'Editor form displayed for a '+mode+' action' );
+
+               editor.edit( table.rows( {selected: true} ).indexes(), {
+                       title: 'Copy Request',
+                       buttons: 'Save'
+                   } );
+               editor.mode( 'create' );
+           }
+       }
   ]
 } );
 

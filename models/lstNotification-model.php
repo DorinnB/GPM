@@ -130,7 +130,7 @@ class NotificationModel
   }
 
   public function newNotification(){
-    var_dump($this);
+    //var_dump($this);
     $req='INSERT INTO `notifications`
     (id_transmitter, id_receiver_user, id_receiver_frame, subject, notification)
     VALUES

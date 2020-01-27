@@ -11,12 +11,16 @@ var editor; // use a global for the submit and return data rendering in the exam
 
 $(document).ready(function() {
 
+  $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="tooltip2"]').tooltip();
+
   editor = new $.fn.dataTable.Editor( {
     ajax: {
       url : "controller/editor-planningmodifManagers.php",
       type: "POST"
     },
     table: "#table_planningModif",
+    submit: 'allIfChanged',
     fields: [
 
       { label: "Applicant", name: "planning_modif.id_modifier", type:  "select", placeholder : "You"  },
@@ -45,7 +49,9 @@ $(document).ready(function() {
     var index = $(this).index();
 
     if ( index === 7 ) {
-      editor.bubble( this );
+      editor.bubble( this , {
+            submit: 'allIfChanged'
+        });
     }
 
   } );
@@ -157,9 +163,8 @@ document.getElementById("table_planningModif_filter").style.display = "none";
 
 
 
-editor.on( 'postEdit', function ( e, json, data ) {
-  console.log(data['planning_modif']['id_validator']);
-
+editor.on( 'postEdit', function ( e, json, data ) { //recalcul de la class après modif (validé ou non)
+  //console.log(data['planning_modif']['id_validator']);
 
   $('#'+data['DT_RowId']).removeClass("refused");
   $('#'+data['DT_RowId']).removeClass("validated");
