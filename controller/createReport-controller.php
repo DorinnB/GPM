@@ -1641,50 +1641,50 @@ ElseIf (($split['test_type_abbr']=="Loa" OR $split['test_type_abbr']=="LoS" OR $
     $pvEssais->setCellValueByColumnAndRow(1+$col, 23, str_replace(array("True","Tapered"), "", strtoupper($value['c_waveform'])));
 
     if (isset($value['denomination']['denomination_1'])) {
-        $pvEssais->setCellValueByColumnAndRow(1+$col, 22, $value['dim1']);
-        $pvEssais->setCellValueByColumnAndRow(1+1, 22, $value['denomination']['denomination_1']);
+        $pvEssais->setCellValueByColumnAndRow(1+$col, 24, $value['dim1']);
+        $pvEssais->setCellValueByColumnAndRow(1+1, 24, $value['denomination']['denomination_1']);
         if ($value['dilatation']>1) {
-          $pvEssais->setCellValueByColumnAndRow(1+$col, 26, $value['dim1']*$value['dilatation']);
-          $pvEssais->setCellValueByColumnAndRow(1+1, 26, $value['denomination']['denomination_1']);
-        }
-        else {
-          array_push($hide_row, 26);
-        }
-      }
-      else {
-        array_push($hide_row, 22);
-        array_push($hide_row, 26);
-      }
-      if (isset($value['denomination']['denomination_2'])) {
-        $pvEssais->setCellValueByColumnAndRow(1+$col, 23, $value['dim2']);
-        $pvEssais->setCellValueByColumnAndRow(1+1, 23, $value['denomination']['denomination_2']);
-        if ($value['dilatation']>1) {
-          $pvEssais->setCellValueByColumnAndRow(1+$col, 27, $value['dim2']*$value['dilatation']);
-          $pvEssais->setCellValueByColumnAndRow(1+1, 27, $value['denomination']['denomination_2']);
+          $pvEssais->setCellValueByColumnAndRow(1+$col, 27, $value['dim1']*$value['dilatation']);
+          $pvEssais->setCellValueByColumnAndRow(1+1, 27, $value['denomination']['denomination_1']);
         }
         else {
           array_push($hide_row, 27);
         }
-
       }
       else {
-        array_push($hide_row, 23);
+        array_push($hide_row, 24);
         array_push($hide_row, 27);
       }
-      if (isset($value['denomination']['denomination_3'])) {
-        $pvEssais->setCellValueByColumnAndRow(1+$col, 24, $value['dim3']);
-        $pvEssais->setCellValueByColumnAndRow(1+1, 24, $value['denomination']['denomination_3']);
+      if (isset($value['denomination']['denomination_2'])) {
+        $pvEssais->setCellValueByColumnAndRow(1+$col, 25, $value['dim2']);
+        $pvEssais->setCellValueByColumnAndRow(1+1, 25, $value['denomination']['denomination_2']);
         if ($value['dilatation']>1) {
-          $pvEssais->setCellValueByColumnAndRow(1+$col, 28, $value['dim3']*$value['dilatation']);
-          $pvEssais->setCellValueByColumnAndRow(1+1, 28, $value['denomination']['denomination_3']);
+          $pvEssais->setCellValueByColumnAndRow(1+$col, 28, $value['dim2']*$value['dilatation']);
+          $pvEssais->setCellValueByColumnAndRow(1+1, 28, $value['denomination']['denomination_2']);
         }
         else {
           array_push($hide_row, 28);
         }
+
       }
       else {
-        array_push($hide_row, 24);
+        array_push($hide_row, 25);
         array_push($hide_row, 28);
+      }
+      if (isset($value['denomination']['denomination_3'])) {
+        $pvEssais->setCellValueByColumnAndRow(1+$col, 26, $value['dim3']);
+        $pvEssais->setCellValueByColumnAndRow(1+1, 26, $value['denomination']['denomination_3']);
+        if ($value['dilatation']>1) {
+          $pvEssais->setCellValueByColumnAndRow(1+$col, 29, $value['dim3']*$value['dilatation']);
+          $pvEssais->setCellValueByColumnAndRow(1+1, 29, $value['denomination']['denomination_3']);
+        }
+        else {
+          array_push($hide_row, 29);
+        }
+      }
+      else {
+        array_push($hide_row, 26);
+        array_push($hide_row, 29);
       }
 
 
