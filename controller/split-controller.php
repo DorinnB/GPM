@@ -56,18 +56,20 @@ else{
 //Changement de la VUE-EPROUVETTES chargé selon le menu choisi
 $eprouvetteConsigne=(isset($_GET['modif']) AND $_GET['modif']=="eprouvetteConsigne")?"Consigne":"";
 $eprouvetteValue=(isset($_GET['modif']) AND $_GET['modif']=="eprouvetteValue")?"Value":"";
+$eprouvetteEstimation=(isset($_GET['modif']) AND $_GET['modif']=="eprouvetteEstimation")?"Estimation":"";
+
 
 // Affichage des EPROUVETTES selon le type de test
-$filenameEPView = 'views/splitEprouvette'.$eprouvetteConsigne.$eprouvetteValue.'_'.$split['test_type_abbr'].'-view.php';
+$filenameEPView = 'views/splitEprouvette'.$eprouvetteConsigne.$eprouvetteValue.$eprouvetteEstimation.'_'.$split['test_type_abbr'].'-view.php';
 if (file_exists($filenameEPView)) {
   $splitEp_View=$filenameEPView;
 }
 else{
     if ($split['ST']==1) {
-  $splitEp_View= 'views/splitEprouvette'.$eprouvetteConsigne.$eprouvetteValue.'_.default-view.php';
+  $splitEp_View= 'views/splitEprouvette'.$eprouvetteConsigne.$eprouvetteValue.$eprouvetteEstimation.'_.default-view.php';
     }
     else {
-  $splitEp_View= 'views/splitEprouvette'.$eprouvetteConsigne.$eprouvetteValue.'_default-view.php';
+  $splitEp_View= 'views/splitEprouvette'.$eprouvetteConsigne.$eprouvetteValue.$eprouvetteEstimation.'_default-view.php';
     }
 
 }

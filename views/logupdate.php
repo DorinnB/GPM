@@ -2,6 +2,7 @@
   GPM's update list
 </h3>
 <p style="color:white;">
+  Feb 2020 -> Add change cycle estimation and priority without unchecking test<br />
   Nov&Dec 2019 -> LabMonitoring, starting calibration with TempLine<br />
   Aug 2019 -> change specification quality folder (instruction GPM) and added to $ini<br />
   Jul 2019 -> planning Tech & badging. Check if data on trans<br />

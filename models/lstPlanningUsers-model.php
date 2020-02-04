@@ -106,19 +106,29 @@ class PlanningUsersModel
 */
     $req='SELECT
     planning_users.id_user,
-    SUM(if(ifnull(id_type, type)=1,1,0)) AS C1, SUM(if(ifnull(id_type, type)=1,ifnull(planning_modif.quantity, planning_users.quantity),0)) AS Q1,
-    SUM(if(ifnull(id_type, type)=2,1,0)) AS C2, SUM(if(ifnull(id_type, type)=2,ifnull(planning_modif.quantity, planning_users.quantity),0)) AS Q2,
-    SUM(if(ifnull(id_type, type)=3,1,0)) AS C3, SUM(if(ifnull(id_type, type)=3,ifnull(planning_modif.quantity, planning_users.quantity),0)) AS Q3,
-    SUM(if(ifnull(id_type, type)=4,1,0)) AS C4, SUM(if(ifnull(id_type, type)=4,ifnull(planning_modif.quantity, planning_users.quantity),0)) AS Q4,
-    SUM(if(ifnull(id_type, type)=5,1,0)) AS C5, SUM(if(ifnull(id_type, type)=5,ifnull(planning_modif.quantity, planning_users.quantity),0)) AS Q5,
-    SUM(if((ifnull(id_type, type)=1 AND DAYOFWEEK(dateplanned)=7) ,1,0)) AS CSaturdayON
+    SUM(if(ifnull(id_type, type)=1 OR ifnull(id_type, type)=6,1,0)) AS C1,
+    SUM(if(ifnull(id_type, type)=1 OR ifnull(id_type, type)=6,ifnull((TIME_TO_SEC(badges.validation)/3600),ifnull(badges.validation2,(ifnull(planning_modif.quantity, planning_users.quantity)))),0)) AS Q1,
+    SUM(if(ifnull(id_type, type)=2,1,0)) AS C2,
+    SUM(if(ifnull(id_type, type)=2,ifnull(planning_modif.quantity, planning_users.quantity),0)) AS Q2,
+    SUM(if(ifnull(id_type, type)=3,1,0)) AS C3,
+    SUM(if(ifnull(id_type, type)=3,ifnull(planning_modif.quantity, planning_users.quantity),0)) AS Q3,
+    SUM(if(ifnull(id_type, type)=4,1,0)) AS C4,
+    SUM(if(ifnull(id_type, type)=4,ifnull(planning_modif.quantity, planning_users.quantity),0)) AS Q4,
+    SUM(if(ifnull(id_type, type)=5,1,0)) AS C5,
+    SUM(if(ifnull(id_type, type)=5,ifnull(planning_modif.quantity, planning_users.quantity),0)) AS Q5,
+    SUM(if(((ifnull(id_type, type)=1 OR ifnull(id_type, type)=6) AND DAYOFWEEK(dateplanned)=7) ,1,0)) AS QSaturdayON, SUM(if(((ifnull(id_type, type)=1 OR ifnull(id_type, type)=6) AND DAYOFWEEK(dateplanned)=7),ifnull(planning_modif.quantity, planning_users.quantity),0)) AS CSaturdayON
 
     FROM planning_users
     LEFT JOIN planning_modif ON (planning_modif.datemodif=planning_users.dateplanned AND
       id_planning_modif IN (
-        SELECT max(pm.id_planning_modif) from planning_modif AS pm WHERE pm.id_validator>0 GROUP BY pm.datemodif
+        SELECT max(pm.id_planning_modif)
+        FROM planning_modif AS pm
+        WHERE pm.id_validator>0 AND pm.id_user=planning_users.id_user
+        GROUP BY pm.datemodif
       )
     )
+    LEFT JOIN badges ON badges.id_user=planning_users.id_user AND badges.date=planning_users.dateplanned AND badges.id_validator>0
+
     WHERE dateplanned>= '.$this->db->quote($getBegin).' AND dateplanned< '.$this->db->quote($getEnd).'
     GROUP BY planning_users.id_user;';
 
@@ -126,7 +136,29 @@ class PlanningUsersModel
     return $this->db->getAll($req);
   }
 
+  public function getAllPlanningModifSummary($getBegin,$getEnd) {
+    $req='SELECT
+    planning_users.id_user,
+    SUM(if(id_type=1,1,0))- SUM(if(type=1,1,0)) AS C1,
+    SUM(if(id_type=1,planning_modif.quantity,0)) - SUM(if(type=1 ,planning_users.quantity,0)) AS Q1,
+    SUM(if(id_type=2,1,0))- SUM(if(type=2,1,0)) AS C2,
+    SUM(if(id_type=2,planning_modif.quantity,0)) - SUM(if(type=2,planning_users.quantity,0)) AS Q2,
+    SUM(if(id_type=3,1,0))- SUM(if(type=3,1,0)) AS C3,
+    SUM(if(id_type=3,planning_modif.quantity,0)) - SUM(if(type=3,planning_users.quantity,0)) AS Q3,
+    SUM(if(id_type=5,1,0))- SUM(if(type=5,1,0)) AS C5,
+    SUM(if(id_type=5,planning_modif.quantity,0)) - SUM(if(type=5,planning_users.quantity,0)) AS Q5,
+    SUM(if(id_type=6,1,0))- SUM(if(type=6,1,0)) AS C6,
+    SUM(if(id_type=6,planning_modif.quantity,0)) - SUM(if(type=6,planning_users.quantity,0)) AS Q6,
+    SUM(if(id_type=7,1,0))- SUM(if(type=7,1,0)) AS C7,
+    SUM(if(id_type=7,planning_modif.quantity,0)) - SUM(if(type=7,planning_users.quantity,0)) AS Q7
 
+    FROM planning_modif
+    LEFT JOIN planning_users ON planning_modif.datemodif=planning_users.dateplanned AND planning_modif.id_user=planning_users.id_user
+    WHERE planning_modif.id_validator IS NULL AND dateplanned>= '.$this->db->quote($getBegin).' AND dateplanned< '.$this->db->quote($getEnd).'
+    GROUP BY planning_users.id_user;';
+    //echo $req;
+    return $this->db->getAll($req);
+  }
 
 
 

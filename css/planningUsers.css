@@ -143,7 +143,9 @@ td[data-toggle="tooltip2"]  {
   }
 }
 .type_6 {     /* Déplacement  */
-
+  background-color: sienna;
+  opacity: 0.5;
+  color:white;
 }
 .unconfirmed_6 {
   animation: blinker6 1s linear infinite;
@@ -187,4 +189,9 @@ td[data-toggle="tooltip2"]  {
   background-color: black;
   opacity : 1;
   color:black;
+}
+.border {
+  border:1px;
+  border-style: solid;
+  border-radius: .25em;
 }

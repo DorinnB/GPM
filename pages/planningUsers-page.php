@@ -37,6 +37,8 @@
 					<?php endforeach ?>
 				</tbody>
 			</table>
+
+
 		</div>
 
 		<div class="col-md-12" style="height:60%;">
@@ -52,36 +54,41 @@
 					</thead>
 
 					<tbody>
-							<tr>
-								<td>Work</td>
-									<td> <?= $lstSummary[$_COOKIE['id_user']]['Q1'] ?></td>
-									<td> <?= $lstSummary[$_COOKIE['id_user']]['C1'] ?></td>
-							</tr>
-							<tr>
-								<td>CP</td>
-									<td> <?= $lstSummary[$_COOKIE['id_user']]['Q2'] ?></td>
-									<td> <?= $lstSummary[$_COOKIE['id_user']]['C2'] ?></td>
-							</tr>
-							<tr>
-								<td>RTT/Abs</td>
-									<td> <?= $lstSummary[$_COOKIE['id_user']]['Q3'] ?></td>
-									<td> <?= $lstSummary[$_COOKIE['id_user']]['C3'] ?></td>
-							</tr>
-							<tr>
-								<td>Maladie</td>
-									<td> <?= $lstSummary[$_COOKIE['id_user']]['Q4'] ?></td>
-									<td> <?= $lstSummary[$_COOKIE['id_user']]['C4'] ?></td>
-							</tr>
-							<tr>
-								<td>Férié</td>
-									<td> <?= $lstSummary[$_COOKIE['id_user']]['Q5'] ?></td>
-									<td> <?= $lstSummary[$_COOKIE['id_user']]['C5'] ?></td>
-							</tr>
+						<tr>
+							<td>Work</td>
+							<td> <?= round($lstSummary[$_COOKIE['id_user']]['Q1'],2) ?></td>
+							<td> <?= $lstSummary[$_COOKIE['id_user']]['C1'] ?></td>
+						</tr>
+						<tr>
+							<td>CP</td>
+							<td> <?= $lstSummary[$_COOKIE['id_user']]['Q2'] ?></td>
+							<td> <?= $lstSummary[$_COOKIE['id_user']]['C2'] ?></td>
+						</tr>
+						<tr>
+							<td>Maladie</td>
+							<td> <?= $lstSummary[$_COOKIE['id_user']]['Q5'] ?></td>
+							<td> <?= $lstSummary[$_COOKIE['id_user']]['C5'] ?></td>
+						</tr>
+						<tr>
+							<td>Sat.</td>
+							<td> <?= $lstSummary[$_COOKIE['id_user']]['CSaturdayON'] ?></td>
+							<td> <?= $lstSummary[$_COOKIE['id_user']]['QSaturdayON'] ?></td>
+						</tr>
 					</tbody>
 				</table>
+
+				<h4>
+					<p class="type_1 border">Work <span class="badge"><?= (isset($lstModifSummary[$_COOKIE['id_user']]['C1'])?$lstModifSummary[$_COOKIE['id_user']]['C1']:"") ?></span></p>
+					<p class="type_6 border">Déplacement <span class="badge"><?= (isset($lstModifSummary[$_COOKIE['id_user']]['C6'])?$lstModifSummary[$_COOKIE['id_user']]['C6']:"") ?></span></p>
+					<p class="type_2 border">CP <span class="badge"><?= (isset($lstModifSummary[$_COOKIE['id_user']]['C2'])?$lstModifSummary[$_COOKIE['id_user']]['C2']:"") ?></span></p>
+					<p class="type_3 border">Absence <span class="badge"><?= (isset($lstModifSummary[$_COOKIE['id_user']]['C3'])?$lstModifSummary[$_COOKIE['id_user']]['C3']:"") ?></span></p>
+					<p class="type_5 border">Maladie <span class="badge"><?= (isset($lstModifSummary[$_COOKIE['id_user']]['C5'])?$lstModifSummary[$_COOKIE['id_user']]['C5']:"") ?></span></p>
+					<p class="notWorkable border" style="color:white;">Closed <span class="badge"><?= (isset($lstModifSummary[$_COOKIE['id_user']]['C7'])?$lstModifSummary[$_COOKIE['id_user']]['C7']:"") ?></span></p>
+				</h4>
+
 			</div>
 
-			<div class="col-md-10" style="overflow-y:auto; padding: 15px 0px;">
+			<div class="col-md-10" style="overflow-y:auto;">
 				<table id="table_planningModif" class="table table-condensed table-striped table-hover table-bordered" cellspacing="0" width="100%"  style="height:100%; white-space:nowrap;">
 					<thead>
 						<tr>

@@ -37,6 +37,7 @@
 					<?php endforeach ?>
 				</tbody>
 			</table>
+
 		</div>
 
 		<div class="col-md-12" style="height:60%;">
@@ -48,29 +49,37 @@
 							<th>User</th>
 							<th>Work</th>
 							<th>CP</th>
-							<th><abr title="RRT or Absence">Abs.</abbr></th>
 							<th>Mal.</th>
-							<th>Fer.</th>
+							<th>Sat.</th>
 						</tr>
 					</thead>
 
 					<tbody>
-						<?php foreach ($lstUsersManaged as $oUser) : ?>
+						<?php foreach ($lstUsers as $oUser) : //$lstUsers $lstUsersManaged?>
 							<tr>
 								<td><?= $oUser['technicien'] ?></td>
-								<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['C1'] ?>"> <?= $lstSummary[$oUser['id_technicien'] ]['Q1'] ?></abbr></td>
+								<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['C1'] ?>"> <?= round($lstSummary[$oUser['id_technicien'] ]['Q1'],2) ?></abbr></td>
 								<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['Q2'] ?>"> <?= $lstSummary[$oUser['id_technicien'] ]['C2'] ?></abbr></td>
-								<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['Q3'] ?>"> <?= $lstSummary[$oUser['id_technicien'] ]['C3'] ?></abbr></td>
-								<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['Q4'] ?>"> <?= $lstSummary[$oUser['id_technicien'] ]['C4'] ?></abbr></td>
-								<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['Q5'] ?>"> <?= $lstSummary[$oUser['id_technicien'] ]['C5'] ?></abbr></td>
+								<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['C5'] ?>"> <?= $lstSummary[$oUser['id_technicien'] ]['Q5'] ?></abbr></td>
+								<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['CSaturdayON'] ?>"> <?= $lstSummary[$oUser['id_technicien'] ]['QSaturdayON'] ?></abbr></td>
 							</tr>
 						<?php endforeach ?>
 					</tbody>
 				</table>
+
+				<h4>
+					<p class="type_1 border">Work</p>
+					<p class="type_6 border">Déplacement</p>
+					<p class="type_2 border">CP</p>
+					<p class="type_3 border">Absence</p>
+					<p class="type_5 border">Maladie</p>
+					<p class="notWorkable border" style="color:white;">Closed</p>
+				</h4>
+
 			</div>
 
 
-			<div class="col-md-10" style="overflow-y:auto; padding: 15px 0px;">
+			<div class="col-md-10" style="overflow-y:auto;">
 				<table id="table_planningModif" class="table table-condensed table-striped table-hover table-bordered" cellspacing="0" width="100%"  style="height:100%; white-space:nowrap;">
 					<thead>
 						<tr>

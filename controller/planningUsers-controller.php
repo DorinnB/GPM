@@ -242,4 +242,9 @@ $lstSummary[$value['id_user']]=$value;
 
 //var_dump($lstSummary);
 
+$planningModifSummary=$oPlanningUser->getAllPlanningModifSummary($getBegin,$getEnd);
+foreach ($planningModifSummary as $key => $value) {
+$lstModifSummary[$value['id_user']]=$value;
+
+}
 ?>

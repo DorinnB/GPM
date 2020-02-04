@@ -107,7 +107,7 @@ Field::inst( 'planning_modif.datevalidation')
   if ($values['planning_modif']['id_validator']>0) {
     $statut="Validated";
   }
-  elseif ($values['planning_modif']['id_validator']>0) {
+  elseif ($values['planning_modif']['id_validator']<0) {
     $statut="Refused";
   }
   else {

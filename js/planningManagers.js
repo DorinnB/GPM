@@ -106,7 +106,7 @@ $(document).ready(function() {
       $(row).addClass('validated')
     }
   },
-  scrollY: '30vh',
+  scrollY: '40vh',
   scrollCollapse: true,
   paging: false,
   select: true,

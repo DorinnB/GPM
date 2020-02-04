@@ -103,13 +103,13 @@ $(document).ready(function() {
       $(row).addClass('validated')
     }
   },
-  scrollY: '30vh',
+  scrollY: '40vh',
   scrollCollapse: true,
   paging: false,
   select: true,
   buttons: [
     { extend: "create", editor: editor, className: 'createSpace'},
-    { extend: "selected", text: "Copy",
+/*    { extend: "selected", text: "Copy",
          enabled: false,
          className: 'buttons-copy btn-primary',
          action: function ( e, d, node, config ) {
@@ -124,6 +124,7 @@ $(document).ready(function() {
                editor.mode( 'create' );
            }
        }
+*/
   ]
 } );
 
