@@ -18,30 +18,48 @@
   </div>
 
 
-  <ul class="nav nav-pills" id="splitConsVal" style="width:100%;">
-    <li style="width:30%;">
-      <a href="index.php?page=split&id_tbljob=<?= $split['id_tbljob'] ?>&modif=dataInput" onclick="<?php if (isset($_COOKIE['id_user'])): ?>
-        <?php if ($split['checked']>0): ?>
-          var confirmation = confirm('Do you really want to update an already checked Split ?');
-        <?php endif ?>
-      <?php else: ?>alert('Please Login then refresh the browser');<?php endif; ?>">
-        Split
-      </a>
-    </li>
-    <li style="width:30%;">
-      <a href="index.php?page=split&id_tbljob=<?= $split['id_tbljob'] ?>&modif=eprouvetteConsigne">
-        Cons
-      </a>
-    </li>
-    <li style="width:30%;">
-      <a href="index.php?page=split&id_tbljob=<?= $split['id_tbljob'] ?>&modif=eprouvetteValue">
-        Value
-      </a>
-    </li>
-  </ul>
+  <div class="" id="splitConsVal" style="width:100%;">
 
-  <script type="text/javascript" src="js/splitStatut.js"></script>
-  <link href="css/statut.css" rel="stylesheet">
-  <!--Bug sur les dropdown a cause de bootstrap, ajout de la commande js pour les autoriser-->
-  <script>$('.dropdown-toggle').dropdown()</script>
+    <a class="btn btn-default" role="button" href="index.php?page=split&id_tbljob=<?= $split['id_tbljob'] ?>&modif=dataInput" onclick="<?php if (isset($_COOKIE['id_user'])): ?>
+      <?php if ($split['checked']>0): ?>
+        return confirm('Do you really want to update an already checked Split ?');
+      <?php endif ?>
+    <?php else: ?>alert('Please Login then refresh the browser');<?php endif; ?>">
+      Split
+    </a>
+
+    <a href="index.php?page=split&id_tbljob=<?= $split['id_tbljob'] ?>&modif=eprouvetteConsigne" class="btn btn-default" role="button">Consigne</a>
+    <a href="index.php?page=split&id_tbljob=<?= $split['id_tbljob'] ?>&modif=eprouvetteEstimation" class="btn btn-info" role="button">Esti.</a>
+    <a href="index.php?page=split&id_tbljob=<?= $split['id_tbljob'] ?>&modif=eprouvetteValue" class="btn btn-warning" role="button">Value</a>
+
+
+  </div>
+
+  <!--
+  <ul class="nav nav-pills" id="splitConsVal" style="width:100%;">
+  <li style="width:30%;">
+  <a href="index.php?page=split&id_tbljob=<?= $split['id_tbljob'] ?>&modif=dataInput" onclick="<?php if (isset($_COOKIE['id_user'])): ?>
+  <?php if ($split['checked']>0): ?>
+  var confirmation = confirm('Do you really want to update an already checked Split ?');
+<?php endif ?>
+<?php else: ?>alert('Please Login then refresh the browser');<?php endif; ?>">
+Split
+</a>
+</li>
+<li style="width:30%;">
+<a href="index.php?page=split&id_tbljob=<?= $split['id_tbljob'] ?>&modif=eprouvetteConsigne">
+Cons
+</a>
+</li>
+<li style="width:30%;">
+<a href="index.php?page=split&id_tbljob=<?= $split['id_tbljob'] ?>&modif=eprouvetteValue">
+Value
+</a>
+</li>
+</ul>
+-->
+<script type="text/javascript" src="js/splitStatut.js"></script>
+<link href="css/statut.css" rel="stylesheet">
+<!--Bug sur les dropdown a cause de bootstrap, ajout de la commande js pour les autoriser-->
+<script>$('.dropdown-toggle').dropdown()</script>
 </div>
