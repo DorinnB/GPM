@@ -106,8 +106,8 @@ class PlanningUsersModel
 */
     $req='SELECT
     planning_users.id_user,
-    SUM(if(ifnull(id_type, type)=1 OR ifnull(id_type, type)=6,1,0)) AS C1,
-    SUM(if(ifnull(id_type, type)=1 OR ifnull(id_type, type)=6,ifnull((TIME_TO_SEC(badges.validation)/3600),ifnull(badges.validation2,(ifnull(planning_modif.quantity, planning_users.quantity)))),0)) AS Q1,
+    SUM(if(ifnull(id_type, type)=1 OR ifnull(id_type, type)=6 OR ifnull(id_type, type)=5,1,0)) AS C1,
+    SUM(if(ifnull(id_type, type)=1 OR ifnull(id_type, type)=6 OR ifnull(id_type, type)=5,ifnull((TIME_TO_SEC(badges.validation)/3600),ifnull(badges.validation2,(ifnull(planning_modif.quantity, planning_users.quantity)))),0)) AS Q1,
     SUM(if(ifnull(id_type, type)=2,1,0)) AS C2,
     SUM(if(ifnull(id_type, type)=2,ifnull(planning_modif.quantity, planning_users.quantity),0)) AS Q2,
     SUM(if(ifnull(id_type, type)=3,1,0)) AS C3,

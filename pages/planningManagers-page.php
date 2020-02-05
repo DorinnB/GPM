@@ -60,7 +60,7 @@
 								<td><?= $oUser['technicien'] ?></td>
 								<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['C1'] ?>"> <?= round($lstSummary[$oUser['id_technicien'] ]['Q1'],2) ?></abbr></td>
 								<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['Q2'] ?>"> <?= $lstSummary[$oUser['id_technicien'] ]['C2'] ?></abbr></td>
-								<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['C5'] ?>"> <?= $lstSummary[$oUser['id_technicien'] ]['Q5'] ?></abbr></td>
+								<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['Q5'] ?>"> <?= $lstSummary[$oUser['id_technicien'] ]['C5'] ?></abbr></td>
 								<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['CSaturdayON'] ?>"> <?= $lstSummary[$oUser['id_technicien'] ]['QSaturdayON'] ?></abbr></td>
 							</tr>
 						<?php endforeach ?>
