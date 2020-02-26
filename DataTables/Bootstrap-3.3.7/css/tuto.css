@@ -9,3 +9,11 @@ body {
   line-height: 40px;*/
   text-align: center;
 }
+div.row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+div.dataTables_scrollBody {
+  background: transparent !important;
+}
