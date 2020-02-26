@@ -16,7 +16,7 @@ Require("connection.php");
 
 	<!-- Bootstrap Core CSS -->
 
-	<link href="DataTables\Bootstrap-3.3.7/css/tuto.css" rel="stylesheet">
+
 
 	<!-- Custom CSS -->
 	<link href="DataTables\Bootstrap-3.3.7/css/simple-sidebar.css" rel="stylesheet">
@@ -31,16 +31,18 @@ Require("connection.php");
 
 
 	<link rel="stylesheet" type="text/css" href="DataTables/datatables.css"/>
-
+	<link href="DataTables\Bootstrap-3.3.7/css/tuto.css" rel="stylesheet">
 	<script type="text/javascript" charset="utf8" src="DataTables/dataTables.js"></script>
 	<script src="lib/Circular-Countdown-Clock-Plugin-For-jQuery-CircularCountDownJs/circular-countdown.js"></script>
+	<script src="DataTables/Select2-4.0.1/js/select2.min.js"></script>
+		<link href="DataTables/Select2-4.0.1/css/select2.min.css" rel="stylesheet">
 	<script type="text/javascript" src="js/index.js"></script>
 
 	<!--CSS TEMPORAIRE-->
 	<link href="csstemporaire.css" rel="stylesheet">
 </head>
 <body>
-	
+
 	<!--Navbar-->
 	<?php	include('controller/navbar-controller.php');	?>
 

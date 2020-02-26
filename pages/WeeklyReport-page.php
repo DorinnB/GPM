@@ -75,7 +75,15 @@ include('controller/weeklyReport-controller.php');
 			<div class="col-md-4 " style="height:7%; padding:10px 0px;">
 				<a href="controller/createWeeklyReport_Reports-controller.php?customer=<?= $customer['id_entreprise'] ?>" class="btn btn-info" role="button" style="width:100%;color:black;">GENERATE ALL THE REPORT</a>
 			</div>
-			<div class="col-md-7 col-md-offset-1" style="height:7%; padding:10px 0px;">
+			<div class="col-md-1" id="email" style="height:7%">
+				<acronym title="Send Email to Customers">
+					<a href="
+					<?php include 'views/weeklyReportEmail-view.php'; ?>
+					">
+					<img type="image" src="img/new-email.png" style="max-width:100%; max-height:100%; padding:5px 0px;display: block; margin: auto;" /></a>
+				</acronym>
+			</div>
+			<div class="col-md-7" style="height:7%; padding:10px 0px;">
 				<input type="submit" value="SAVE & PRINT" class="btn btn-default" style="width:100%;" >
 			</div>
 		</form>

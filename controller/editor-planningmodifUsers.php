@@ -1,6 +1,6 @@
 <?php
 // DataTables PHP library
-include( "../DataTables/Editor-1.6.1/php/DataTables.php" );
+include( "../DataTables/Editor-PHP-1.9.2/lib/DataTables.php" );
 
 
 

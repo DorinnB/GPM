@@ -13,7 +13,7 @@ class PlanningUsersModel
 
     FROM `planning_users`
     LEFT JOIN planning_types ON planning_types.id_planning_type=planning_users.type
-    WHERE dateplanned >= '.$this->db->quote($getBegin).' AND dateplanned <= '.$this->db->quote($getEnd).';';
+    WHERE dateplanned >= '.$this->db->quote($getBegin).' AND dateplanned < '.$this->db->quote($getEnd).';';
 
     //echo $req;
     return $this->db->getAll($req);
@@ -26,7 +26,7 @@ class PlanningUsersModel
       SELECT max(id_planning_modif) FROM `planning_modif` WHERE id_validator >0
       GROUP BY datemodif, id_user
     )
-    AND datemodif >= '.$this->db->quote($getBegin).' AND datemodif <= '.$this->db->quote($getEnd).'
+    AND datemodif >= '.$this->db->quote($getBegin).' AND datemodif < '.$this->db->quote($getEnd).'
     ORDER BY id_planning_modif ASC;';
     //echo $req;
     return $this->db->getAll($req);
@@ -39,7 +39,7 @@ class PlanningUsersModel
       SELECT max(id_planning_modif) FROM `planning_modif` WHERE id_validator IS NULL
       GROUP BY datemodif, id_user
     )
-    AND datemodif >= '.$this->db->quote($getBegin).' AND datemodif <= '.$this->db->quote($getEnd).'
+    AND datemodif >= '.$this->db->quote($getBegin).' AND datemodif < '.$this->db->quote($getEnd).'
     ORDER BY id_planning_modif ASC;';
     //echo $req;
     return $this->db->getAll($req);
@@ -49,7 +49,7 @@ class PlanningUsersModel
     $req='SELECT date, id_user, ((HOUR(validation)*60)+ MINUTE(validation))/60 as validation, validation2
     FROM badges
     WHERE (validation IS NOT NULL OR validation2 IS NOT NULL)
-    AND  date >= '.$this->db->quote($getBegin).' AND date <= '.$this->db->quote($getEnd).'
+    AND  date >= '.$this->db->quote($getBegin).' AND date < '.$this->db->quote($getEnd).'
     ORDER BY date ASC;';
     //echo $req;
     return $this->db->getAll($req);
@@ -59,7 +59,8 @@ class PlanningUsersModel
     $req='SELECT id_technicien, technicien
     FROM badge_HR
     LEFT JOIN techniciens on badge_HR.id_user=techniciens.id_technicien
-    WHERE id_technicien != 1 AND technicien_actif=1;';  // !=1 pour ignorer le compte GPM
+    WHERE id_technicien != 1 AND technicien_actif=1
+    ORDER BY id_technicien;';  // !=1 pour ignorer le compte GPM
 
     //echo $req;
     return $this->db->getAll($req);
@@ -106,8 +107,8 @@ class PlanningUsersModel
 */
     $req='SELECT
     planning_users.id_user,
-    SUM(if(ifnull(id_type, type)=1 OR ifnull(id_type, type)=6 OR ifnull(id_type, type)=5,1,0)) AS C1,
-    SUM(if(ifnull(id_type, type)=1 OR ifnull(id_type, type)=6 OR ifnull(id_type, type)=5,ifnull((TIME_TO_SEC(badges.validation)/3600),ifnull(badges.validation2,(ifnull(planning_modif.quantity, planning_users.quantity)))),0)) AS Q1,
+    SUM(if(ifnull(id_type, type)=1 OR ifnull(id_type, type)=6, 1, 0)) AS C1,
+    SUM(if(ifnull(id_type, type)=1 OR ifnull(id_type, type)=6, ifnull((TIME_TO_SEC(badges.validation)/3600),ifnull(badges.validation2,(ifnull(planning_modif.quantity, planning_users.quantity)))), 0)) AS Q1,
     SUM(if(ifnull(id_type, type)=2,1,0)) AS C2,
     SUM(if(ifnull(id_type, type)=2,ifnull(planning_modif.quantity, planning_users.quantity),0)) AS Q2,
     SUM(if(ifnull(id_type, type)=3,1,0)) AS C3,
@@ -129,7 +130,7 @@ class PlanningUsersModel
     )
     LEFT JOIN badges ON badges.id_user=planning_users.id_user AND badges.date=planning_users.dateplanned AND badges.id_validator>0
 
-    WHERE dateplanned>= '.$this->db->quote($getBegin).' AND dateplanned< '.$this->db->quote($getEnd).'
+    WHERE dateplanned >= '.$this->db->quote($getBegin).' AND dateplanned < '.$this->db->quote($getEnd).'
     GROUP BY planning_users.id_user;';
 
     //echo $req;
@@ -154,7 +155,7 @@ class PlanningUsersModel
 
     FROM planning_modif
     LEFT JOIN planning_users ON planning_modif.datemodif=planning_users.dateplanned AND planning_modif.id_user=planning_users.id_user
-    WHERE planning_modif.id_validator IS NULL AND dateplanned>= '.$this->db->quote($getBegin).' AND dateplanned< '.$this->db->quote($getEnd).'
+    WHERE planning_modif.id_validator IS NULL AND dateplanned >= '.$this->db->quote($getBegin).' AND dateplanned < '.$this->db->quote($getEnd).'
     GROUP BY planning_users.id_user;';
     //echo $req;
     return $this->db->getAll($req);

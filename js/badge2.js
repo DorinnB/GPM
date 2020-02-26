@@ -84,6 +84,7 @@ $(document).ready(function() {
     scrollY: '65vh',
     scrollCollapse: true,
     paging: false,
+    fixedColumns:   {leftColumns: 3},
     autoFill: {
       columns: [6, 7],
       editor:  editor

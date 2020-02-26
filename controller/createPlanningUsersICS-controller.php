@@ -58,50 +58,48 @@ $ics .= "PRODID:-//hacksw/handcal//NONSGML v1.0//EN\n";
 
 foreach ($period as $key => $value) {
 
-if (isset($planning[$value->format("Y-m-d")][$_COOKIE['id_user']])) { //entrée dans l'agenda GPM
+  if (isset($planning[$value->format("Y-m-d")][$_COOKIE['id_user']])) { //entrée dans l'agenda GPM
 
 
+    if ($planning[$value->format("Y-m-d")][$_COOKIE['id_user']]['workable']==1 OR $planning[$value->format("Y-m-d")][$_COOKIE['id_user']]['workable']==6) {  //travaillé
 
+      $objet = $planning[$value->format("Y-m-d")][$_COOKIE['id_user']]['type'].' - '.$planning[$value->format("Y-m-d")][$_COOKIE['id_user']]['quantity'];
 
-if ($planning[$value->format("Y-m-d")][$_COOKIE['id_user']]['workable']==1) {  //travaillé
-  $objet = $planning[$value->format("Y-m-d")][$_COOKIE['id_user']]['type'];
+      $ics .= "BEGIN:VEVENT\n";
+      $ics .= "X-WR-TIMEZONE:Europe/Paris\n";
+      $ics .= "DTSTART:".$value->format("Ymd")."\n";
+      $ics .= "DTEND:".$value->format("Ymd")."\n";
+      $ics .= "SUMMARY:".$objet."\n";
+      $ics .= "UID:GPM".$value->format("Ymd")."@google.com\n";
+      $ics .= "STATUS:CONFIRMED\n";
+      $ics .= "END:VEVENT\n";
+    }
+    else {  //non travaillé
+      //  echo $value->format("Y-m-d").' - '.$planning[$value->format("Y-m-d")][$_COOKIE['id_user']]['workable'].' - '.($planning[$value->format("Y-m-d")][$_COOKIE['id_user']]['workable']==1).'</br>';
 
-$ics .= "BEGIN:VEVENT\n";
-$ics .= "X-WR-TIMEZONE:Europe/Paris\n";
-$ics .= "DTSTART:".$value->format("Ymd")."\n";
-$ics .= "DTEND:".$value->format("Ymd")."\n";
-$ics .= "SUMMARY:".$objet."\n";
-$ics .= "UID:GPM".$value->format("Ymd")."@google.com\n";
-$ics .= "STATUS:CONFIRMED\n";
-$ics .= "END:VEVENT\n";
-}
-else {  //non travaillé
-//  echo $value->format("Y-m-d").' - '.$planning[$value->format("Y-m-d")][$_COOKIE['id_user']]['workable'].' - '.($planning[$value->format("Y-m-d")][$_COOKIE['id_user']]['workable']==1).'</br>';
+      $ics .= "BEGIN:VEVENT\n";
+      $ics .= "METHOD:CANCEL\n";
+      $ics .= "X-WR-TIMEZONE:Europe/Paris\n";
+      $ics .= "DTSTART:".$value->format("Ymd")."\n";
+      $ics .= "DTEND:".$value->format("Ymd")."\n";
+      $ics .= "SUMMARY:non travaillé\n";
+      $ics .= "UID:GPM".$value->format("Ymd")."@google.com\n";
+      $ics .= "STATUS:CANCELLED\n";
+      $ics .= "END:VEVENT\n";
+    }
 
-  $ics .= "BEGIN:VEVENT\n";
-  $ics .= "METHOD:CANCEL\n";
-  $ics .= "X-WR-TIMEZONE:Europe/Paris\n";
-  $ics .= "DTSTART:".$value->format("Ymd")."\n";
-  $ics .= "DTEND:".$value->format("Ymd")."\n";
-  $ics .= "SUMMARY:non travaillé\n";
-  $ics .= "UID:GPM".$value->format("Ymd")."@google.com\n";
-  $ics .= "STATUS:CANCELLED\n";
-  $ics .= "END:VEVENT\n";
-}
-
-
-}
-else {    //date manquante dans l'agenda GPM
-  $ics .= "BEGIN:VEVENT\n";
-  $ics .= "METHOD:CANCEL\n";
-  $ics .= "X-WR-TIMEZONE:Europe/Paris\n";
-  $ics .= "DTSTART:".$value->format("Ymd")."\n";
-  $ics .= "DTEND:".$value->format("Ymd")."\n";
-  $ics .= "SUMMARY:absent\n";
-  $ics .= "UID:GPM".$value->format("Ymd")."@google.com\n";
-  $ics .= "STATUS:CANCELLED\n";
-  $ics .= "END:VEVENT\n";
-}
+  }
+  else {    //date manquante dans l'agenda GPM
+    $ics .= "BEGIN:VEVENT\n";
+    $ics .= "METHOD:CANCEL\n";
+    $ics .= "X-WR-TIMEZONE:Europe/Paris\n";
+    $ics .= "DTSTART:".$value->format("Ymd")."\n";
+    $ics .= "DTEND:".$value->format("Ymd")."\n";
+    $ics .= "SUMMARY:absent\n";
+    $ics .= "UID:GPM".$value->format("Ymd")."@google.com\n";
+    $ics .= "STATUS:CANCELLED\n";
+    $ics .= "END:VEVENT\n";
+  }
 
 
 }

@@ -79,6 +79,7 @@ $(document).ready(function() {
         test=data+"a";
         return type === 'display' && test.length > 5 ?data.substr(0,5) + '[...]' : data;
       }},
+      { data: "eprouvettes.c_checked" },
       { data: "eprouvettes.n_essai" },
       { data: "enregistrementessais.n_fichier" },
       { data: "eprouvettes.Cycle_final" }
@@ -94,6 +95,17 @@ $(document).ready(function() {
         "targets": [ 0 ],
         "visible": false,
         "searchable": false
+      },
+      {
+        targets: 14,
+        createdCell: function (td, cellData, rowData, row, col) {
+          if ( cellData < 0 ) {
+            $(td).css('background-color', 'darkred');
+          }
+          else {
+            $(td).css('background-color', 'darkgreen');
+          }
+        }
       }
     ],
     autoFill: {

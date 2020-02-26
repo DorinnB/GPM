@@ -358,7 +358,14 @@ class LstJobsModel
       if(contacts2.prenom is not null, concat("\r", LEFT(contacts2.prenom , 1), " ",contacts2.nom),""),
       if(contacts3.prenom is not null, concat("\r", LEFT(contacts3.prenom , 1), " ",contacts3.nom),""),
       if(contacts4.prenom is not null, concat("\r", LEFT(contacts4.prenom , 1), " ",contacts4.nom),"")
-    )as contactsXLS
+    )as contactsXLS,
+    GROUP_CONCAT(DISTINCT
+      if(contacts.email is not null, concat(contacts.email, ";"),""),
+      if(contacts2.email is not null, concat(contacts2.email, ";"),""),
+      if(contacts3.email is not null, concat(contacts3.email, ";"),""),
+      if(contacts4.email is not null, concat(contacts4.email, ";"),"")
+      SEPARATOR "; "
+    )as contactsEmail
 
     FROM info_jobs
     LEFT JOIN contacts ON contacts.id_contact=info_jobs.id_contact

@@ -60,7 +60,7 @@
 
       <div class="col-md-12" style="margin-top: 100px;margin-bottom: 20px;">
         <div style="background-color:;border: 1px solid black;">Frame (<?= $planned['nb'] ?> Planned)</div>
-        <?= (isset(array_count_values($runStop)['RUN'])?'<div style="background-color:darkgreen;border: 1px solid black;"> Running : '.array_count_values($runStop)['RUN'].'</div>':'') ?>
+        <?= (isset(array_count_values($runStop)['RUN'])?'<div style="background-color:darkgreen;border: 1px solid black;"> Running : '.array_count_values($runStop)['RUN'].' ('.round(array_count_values($runStop)['RUN']/count($runStop)*100,1).'%)</div>':'') ?>
         <?= (isset(array_count_values($runStop)['WIP'])?'<div style="background-color:Sienna;border: 1px solid black;"> WIP : '.array_count_values($runStop)['WIP'].'</div>':'') ?>
       </div>
       <div class="col-md-12">

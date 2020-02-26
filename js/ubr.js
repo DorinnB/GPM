@@ -8,7 +8,7 @@ $(document).ready(function() {
       url : "controller/editor-payables.php",
       type: "POST"
     },
-    table: "#table_payables",
+    table: "#table_ubr",
     fields: [
       { label: "supplier", name: "payables.supplier"  },
       { label: "payable", name: "payables.payable"  },
@@ -30,66 +30,28 @@ $(document).ready(function() {
   } );
 
   // Setup - add a text input to each footer cell
-  $('#table_payables tfoot th').each( function (i) {
-    var title = $('#table_payables thead th').eq( $(this).index() ).text();
+  $('#table_ubr tfoot th').each( function (i) {
+    var title = $('#table_ubr thead th').eq( $(this).index() ).text();
     $(this).html( '<input type="text" placeholder="'+title+'" data-index="'+i+'" style="width:100%;"/>' );
   } );
 
 
 
-  var table = $('#table_payables').DataTable( {
+  var table = $('#table_ubr').DataTable( {
     dom: "Bfrtip",
     ajax: {
-      url : "controller/editor-payables.php",
+      url : "controller/editor-ubr.php",
       type: "POST"
     },
     order: [[ 0, "asc" ],[5,"asc"]],
     columns: [
-      { data: "payables.id_payable","visible": false  },
-      { data: "payables.supplier"  },
-      { data: "payables.payable"  },
-      { data: "payable_lists.payable_list" },
-      { data: "payables.capitalize"  },
-      { data: "payables.date_due"  },
-      { data: "payables.date_invoice"  },
-      { data: "payables.postedDate"  },
-      { data: "payables.invoice"  },
-      { data: "payables.job"  },
-      { data: "payables.USD"  },
-      { data: "payables.dontMach"  },
-      { data: "payables.taux"  },
-      { data: "payables.HT"  },
-      { data: "payables.TVA"  },
-      { data: function ( row, type, val, meta ) {
-        dollar=(row.payables.USD*row.payables.taux).toFixed(2);
-        euro=(row.payables.HT*1+row.payables.TVA*1).toFixed(2);
-//selon si c'est en dollar ou euro, et si le champ TTC est rempli, on compare TTC et le calcul
-          if (row.payables.USD > 0) {
-            if (row.payables.TTC>0 && row.payables.TTC==dollar) {
-              return row.payables.TTC;
-            }
-            else if ((row.payables.TTC>0 && row.payables.TTC!=dollar)) {
-              return row.payables.TTC+"*";
-            }
-            else {
-              return (row.payables.USD*row.payables.taux).toFixed(2);
-            }
-          }
-          else {
-            if (row.payables.TTC>0 && row.payables.TTC==euro) {
-              return row.payables.TTC;
-            }
-            else if ((row.payables.TTC>0 && row.payables.TTC!=euro)) {
-              return row.payables.TTC+"*";
-            }
-            else {
-              return (row.payables.HT*1+row.payables.TVA*1).toFixed(2);
-            }
-
-          }
-        }
-      },
-      { data: "payables.date_payable"  },
+      { data: "ubr.id_ubr","visible": false  },
+      { data: "ubr.date_UBR"  },
+      { data: "ubr.date_creation"  },
+      { data: "info_jobs.job"  },
+      { data: "payables_job.type2"  },
+      { data: "ubr.UBR_GPM"  },
+      { data: "ubr.UBR" },
     ],
     scrollY: '65vh',
     scrollCollapse: true,
@@ -150,5 +112,5 @@ var transitionEvent = whichTransitionEvent();
 $("#wrapper").addClass("toggled");
 $("#wrapper").one(transitionEvent,
   function(event) {
-    $('#table_payables').DataTable().draw();
+    $('#table_ubr').DataTable().draw();
   });

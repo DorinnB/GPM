@@ -23,31 +23,9 @@ $(document).ready(function() {
     table: "#table_ep",
     template: '#customForm',
     fields: [
-      {       label: "eprouvettes.id_eprouvette",       name: "eprouvettes.id_eprouvette"     },
-      {       label: "master_eprouvettes.prefixe",       name: "master_eprouvettes.prefixe"     },
-      {       label: "master_eprouvettes.nom_eprouvette",       name: "master_eprouvettes.nom_eprouvette"     },
-      {       label: "eprouvettes.n_essai",       name: "eprouvettes.n_essai"     },
-      {       label: "eprouvettes.c_temperature",       name: "eprouvettes.c_temperature"     },
-      {       label: "eprouvettes.c_frequence",       name: "eprouvettes.c_frequence"     },
-      {       label: "eprouvettes.c_cycle_STL",       name: "eprouvettes.c_cycle_STL"     },
-      {       label: "eprouvettes.c_frequence_STL",       name: "eprouvettes.c_frequence_STL"     },
-      {       label: "eprouvettes.c_type_1_val",       name: "eprouvettes.c_type_1_val"     },
-      {       label: "eprouvettes.c_type_2_val",       name: "eprouvettes.c_type_2_val"     },
-      {       label: "eprouvettes.stepcase_type",       name: "eprouvettes.stepcase_type", type:"select"     },
-      {       label: "eprouvettes.stepcase_val",       name: "eprouvettes.stepcase_val"     },
-      {       label: "eprouvettes.Cycle_min",       name: "eprouvettes.Cycle_min"     },
-      {       label: "eprouvettes.runout",       name: "eprouvettes.runout"     },
       {       label: "eprouvettes.cycle_estime",       name: "eprouvettes.cycle_estime"     },
       {       label: "eprouvettes.priority",       name: "eprouvettes.priority"     },
-      {       label: "",       name: "eprouvettes.c_commentaire", type:  "textarea",     },
-      {       label: "eprouvettes.c_checked",       name: "eprouvettes.c_checked"     },
-      {       label: "enregistrementessais.n_fichier",       name: "enregistrementessais.n_fichier"     },
-      {       label: "machines.machine",       name: "machines.machine"     },
-      {       label: "enregistrementessais.date",       name: "enregistrementessais.date"     },
-      {       label: "eprouvettes.waveform",       name: "eprouvettes.waveform"     },
-      {       label: "eprouvettes.Cycle_final",       name: "eprouvettes.Cycle_final"     },
-      {       label: "eprouvettes.Rupture",       name: "eprouvettes.Rupture"     },
-      {       label: "eprouvettes.Fracture",       name: "eprouvettes.Fracture"     }
+      {       label: "",       name: "eprouvettes.c_commentaire", type:  "textarea",     }
     ]
   } );
 
@@ -95,6 +73,17 @@ $(document).ready(function() {
         "targets": [ 0 ],
         "visible": false,
         "searchable": false
+      },
+      {
+        targets: 16,
+        createdCell: function (td, cellData, rowData, row, col) {
+          if ( cellData < 0 ) {
+            $(td).css('background-color', 'darkred');
+          }
+          else {
+            $(td).css('background-color', 'darkgreen');
+          }
+        }
       }
     ],
     autoFill: {

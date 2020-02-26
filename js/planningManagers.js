@@ -12,7 +12,7 @@ var editor; // use a global for the submit and return data rendering in the exam
 $(document).ready(function() {
 
   $('[data-toggle="tooltip"]').tooltip();
-    $('[data-toggle="tooltip2"]').tooltip();
+  $('[data-toggle="tooltip2"]').tooltip();
 
   editor = new $.fn.dataTable.Editor( {
     ajax: {
@@ -50,8 +50,8 @@ $(document).ready(function() {
 
     if ( index === 7 ) {
       editor.bubble( this , {
-            submit: 'allIfChanged'
-        });
+        submit: 'allIfChanged'
+      });
     }
 
   } );
@@ -81,7 +81,6 @@ $(document).ready(function() {
       { data: "planning_modif.quantity" },
       { data: "planning_modif.comments" },
       { data: null, render: function ( data, type, row ) {
-        // Combine the first and last names into a single table field
         if (data.planning_modif.id_validator==null) {
           return 'Awaiting';
         }
@@ -91,27 +90,42 @@ $(document).ready(function() {
         else {
           return '&nbsp;&nbsp;'+data.validator.technicien
         }
+      } },
+      { data: "planning_modif.datevalidation" }
+    ],
+    createdRow: function( row, data, dataIndex ) {
+      if ( data.planning_modif.id_validator  == null ) {
+        $(row).addClass('awaiting');
+      }
+      else if (data.planning_modif.id_validator.startsWith('-')) {
+        $(row).addClass('refused');
+      }
+      else {
+        $(row).addClass('validated');
       }
     },
-    { data: "planning_modif.datevalidation" }
-  ],
-  createdRow: function( row, data, dataIndex ) {
-    if ( data.planning_modif.id_validator  == null ) {
-      $(row).addClass('awaiting')
-    }
-    else if (data.planning_modif.id_validator.startsWith('-')) {
-      $(row).addClass('refused')
-    }
-    else {
-      $(row).addClass('validated')
-    }
-  },
-  scrollY: '40vh',
-  scrollCollapse: true,
-  paging: false,
-  select: true,
-  buttons: [
-    { extend: "create", editor: editor, className: 'createSpace'},
+    scrollY: '40vh',
+    scrollCollapse: true,
+    paging: false,
+    select: true,
+    buttons:
+    [
+      { extend: "create", editor: editor, className: 'createSpace'},
+      { extend: "selected", text: "Copy",
+      enabled: false,
+      className: 'buttons-copy btn-primary createSpace',
+      action: function ( e, d, node, config ) {
+
+        var mode = editor.mode();
+        console.log( 'Editor form displayed for a '+mode+' action' );
+
+        editor.edit( table.rows( {selected: true} ).indexes(), {
+          title: 'Copy Request',
+          buttons: 'Save'
+        } );
+        editor.mode( 'create' );
+      }
+    },
     {
       extend: "selected",
       text: 'Disapprovation',
@@ -137,7 +151,7 @@ $(document).ready(function() {
     {
       extend: "selected",
       text: 'Validation',
-      action: function ( e, dt, node, config ) {
+      action: function ( e, dt, node, config )    {
         var rows = table.rows( {selected: true} ).indexes();
         editor
         .hide( editor.fields() )
@@ -155,70 +169,96 @@ $(document).ready(function() {
         } )
         .val( 'planning_modif.id_validator', iduser ).val( 'planning_modif.datevalidation', datevalidation );
       }
+    }]
+  } );
+
+  document.getElementById("table_planningModif_filter").style.display = "none";
+
+
+
+  editor.on( 'postEdit', function ( e, json, data ) { //recalcul de la class après modif (validé ou non)
+    //console.log(data['planning_modif']['id_validator']);
+
+    $('#'+data['DT_RowId']).removeClass("refused");
+    $('#'+data['DT_RowId']).removeClass("validated");
+    $('#'+data['DT_RowId']).removeClass("awaiting");
+
+    if (data['planning_modif']['id_validator']>0) {
+      $('#'+data['DT_RowId']).addClass("validated");
     }
-  ]
-} );
-
-document.getElementById("table_planningModif_filter").style.display = "none";
-
-
-
-editor.on( 'postEdit', function ( e, json, data ) { //recalcul de la class après modif (validé ou non)
-  //console.log(data['planning_modif']['id_validator']);
-
-  $('#'+data['DT_RowId']).removeClass("refused");
-  $('#'+data['DT_RowId']).removeClass("validated");
-  $('#'+data['DT_RowId']).removeClass("awaiting");
-
-  if (data['planning_modif']['id_validator']>0) {
-    $('#'+data['DT_RowId']).addClass("validated");
-  }
-  else if (data['planning_modif']['id_validator']<0) {
-    $('#'+data['DT_RowId']).addClass("refused");
-  }
-  else {
-    $('#'+data['DT_RowId']).addClass("awaiting");
-  }
+    else if (data['planning_modif']['id_validator']<0) {
+      $('#'+data['DT_RowId']).addClass("refused");
+    }
+    else {
+      $('#'+data['DT_RowId']).addClass("awaiting");
+    }
 
 
-} );
+  } );
 
 
-table
-.column( '8' )
-.search( 'Awaiting' )
-.draw();
-
-
-$('#container').css('display', 'block');
-table.columns.adjust().draw();
-
-// Filter event handler
-$( table.table().container() ).on( 'keyup', 'tfoot input', function () {
   table
-  .column( $(this).data('index') )
-  .search( this.value )
+  .column( '8' )
+  .search( 'Awaiting' )
   .draw();
-} );
-
-//table.columns.adjust().draw();
 
 
+  $('#container').css('display', 'block');
+  table.columns.adjust().draw();
+
+  // Filter event handler
+  $( table.table().container() ).on( 'keyup', 'tfoot input', function () {
+    table
+    .column( $(this).data('index') )
+    .search( this.value )
+    .draw();
+  } );
+
+  //table.columns.adjust().draw();
 
 
-// DataTable
-var table2 = $('#table_planningUser').DataTable( {
-
-  scrollX:        true,
-  scrollCollapse: true,
-  paging:         false,
-  info: false,
-  ordering: false,
-  fixedColumns:   {leftColumns: 1}
-} );
 
 
-document.getElementById("table_planningUser_filter").style.display = "none";
+  // DataTable
+  var table2 = $('#table_planningUser').DataTable( {
+
+    scrollX:        true,
+    scrollCollapse: true,
+    paging:         false,
+    info: false,
+    ordering: false,
+    fixedColumns:   {leftColumns: 1}
+  } );
+
+
+  document.getElementById("table_planningUser_filter").style.display = "none";
+
+
+  //déplacement et mise en couleur de la date de changement demandée
+  $('#table_planningModif tbody').on( 'mouseover', 'td', function () {
+    if (table.cell( this ).index() != null) {
+      if (table.cell( this ).index().column==4) {
+        row = table.row( this ).data();
+        date = row.planning_modif.datemodif;
+        cellule=$('#'+date);
+
+        $('div.dataTables_scrollBody').scrollLeft(cellule.position().left-$( window ).width()/4) ;
+        $(cellule).toggleClass('highlight');
+      }
+    }
+  } );
+  $('#table_planningModif tbody').on( 'mouseleave', 'td', function () {
+    if (table.cell( this ).index() != null) {
+      if (table.cell( this ).index().column==4) {
+        row = table.row( this ).data();
+        date = row.planning_modif.datemodif;
+        cellule=$('#'+date);
+
+        $(cellule).toggleClass('highlight');
+      }
+    }
+  } );
+
 
 
 } );

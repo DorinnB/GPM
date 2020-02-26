@@ -19,7 +19,7 @@
 					<tr>
 						<th>Users</th>
 						<?php foreach ($period as $key => $value) : ?>
-							<th><?= $value->format("d M") ?></th>
+							<th id="<?= $value->format("Y-m-d") ?>" class="<?= ($value->format("Y-m-d")==date("Y-m-d")?'today':'')?>"><?= $value->format("d M") ?></th>
 						<?php endforeach ?>
 					</tr>
 				</thead>
@@ -27,9 +27,9 @@
 				<tbody>
 					<?php foreach ($lstUsers as $oUser) : ?>
 						<tr>
-							<td><?= $oUser['technicien'] ?></td>
+							<td class="<?= ($oUser['id_technicien']==$_COOKIE['id_user'])?"user":""?>"><?= $oUser['technicien'] ?></td>
 							<?php foreach ($period as $key => $value) : ?>
-								<td class="<?=   $td[$oUser['id_technicien']][$value->format("Y-m-d")]['class'] ?>" <?= $td[$oUser['id_technicien']][$value->format("Y-m-d")]['tooltip'] ?>>
+								<td class="<?=   $td[$oUser['id_technicien']][$value->format("Y-m-d")]['class'] ?> <?= ($oUser['id_technicien']==$_COOKIE['id_user'])?"user":""?>" <?= $td[$oUser['id_technicien']][$value->format("Y-m-d")]['tooltip'] ?>>
 									<?=   $td[$oUser['id_technicien']][$value->format("Y-m-d")]['value'] ?>
 								</td>
 							<?php endforeach ?>
@@ -38,6 +38,10 @@
 				</tbody>
 			</table>
 
+			<a href="index.php?page=planningUsers&begin=<?= date("Y-m-d", strtotime("first day of previous month")) ?>&end=<?= date("Y-m-d", strtotime('+1 day ', strtotime("last day of previous month"))) ?>" class="btn btn-default glyphicon glyphicon-step-backward"> Last Month</a>
+			<a class="btn btn-default glyphicon glyphicon-screenshot" onClick="date = '<?= date("Y-m-d"); ?>'; $('div.dataTables_scrollBody').scrollLeft($('#'+date).position().left-$( window ).width()/4) ;"> TODAY</a>
+			<a href="index.php?page=planningUsers&begin=<?= date("Y-m-d", strtotime('+1 day ', strtotime("last day of previous month"))) ?>&end=<?= date("Y-m-d", strtotime("first day of next month")) ?>" class="btn btn-default glyphicon glyphicon-circle-arrow-down"> This Month</a>
+			<a href="index.php?page=planningUsers" class="btn btn-default glyphicon glyphicon-circle-arrow-down"> This Year</a>
 
 		</div>
 
@@ -56,8 +60,8 @@
 					<tbody>
 						<tr>
 							<td>Work</td>
-							<td> <?= round($lstSummary[$_COOKIE['id_user']]['Q1'],2) ?></td>
-							<td> <?= $lstSummary[$_COOKIE['id_user']]['C1'] ?></td>
+							<td> <?= round($lstSummary[$_COOKIE['id_user']]['Q1']+$lstSummary[$_COOKIE['id_user']]['Q5'],2) ?></td>
+							<td> <?= $lstSummary[$_COOKIE['id_user']]['C1'] + $lstSummary[$_COOKIE['id_user']]['C5'] ?></td>
 						</tr>
 						<tr>
 							<td>CP</td>
@@ -85,6 +89,10 @@
 					<p class="type_5 border">Maladie <span class="badge"><?= (isset($lstModifSummary[$_COOKIE['id_user']]['C5'])?$lstModifSummary[$_COOKIE['id_user']]['C5']:"") ?></span></p>
 					<p class="notWorkable border" style="color:white;">Closed <span class="badge"><?= (isset($lstModifSummary[$_COOKIE['id_user']]['C7'])?$lstModifSummary[$_COOKIE['id_user']]['C7']:"") ?></span></p>
 				</h4>
+
+<a href="controller/createPlanningUsersICS-controller.php?begin=<?= $getBegin ?>&end=<?= $getEnd ?>" class="btn btn-default glyphicon glyphicon-calendar"> ICS</a>
+<a href="controller/createPlanningUsersICSinv-controller.php?begin=<?= $getBegin ?>&end=<?= $getEnd ?>" class="btn btn-default glyphicon glyphicon-calendar"> ICSinv</a>
+<a href="controller/createPlanningXLS-controller.php?begin=<?= $getBegin ?>&end=<?= $getEnd ?>" class="btn btn-default glyphicon glyphicon-list-alt"> XLS</a>
 
 			</div>
 

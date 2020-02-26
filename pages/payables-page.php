@@ -12,40 +12,43 @@
         <thead>
           <tr>
             <th></th>
-            <th><acronym title="Nominal1">Payable</acronym></th>
-            <th><acronym title="Nominal1">Type</acronym></th>
-            <th><acronym title="Nominal1">Capitalize</acronym></th>
-            <th><acronym title="Nominal1">Date Due</acronym></th>
-            <th><acronym title="Nominal1">Date Invoice</acronym></th>
-            <th><acronym title="Nominal1">Inv n°</acronym></th>
-            <th><acronym title="Nominal1">Description</acronym></th>
-            <th><acronym title="Nominal1">N° Job</acronym></th>
-            <th><acronym title="Nominal1">Amount USD</acronym></th>
-            <th><acronym title="Nominal1">USD Rate</acronym></th>
-            <th><acronym title="Nominal1">HT EUR</acronym></th>
-            <th><acronym title="Nominal1">TVA</acronym></th>
-            <th><acronym title="Nominal1">TTC EUR</acronym></th>
-            <th><acronym title="Nominal1">Date Paid</acronym></th>
-
+            <th>Supplier</th>
+            <th>Payable</th>
+            <th>Type</th>
+            <th>Capitalize</th>
+            <th>Date Due</th>
+            <th>Date Invoice</th>
+            <th>Posted Date</th>
+            <th>Inv n°</th>
+            <th>N° Job</th>
+            <th>Amount USD</th>
+            <th>Dont Mach</th>
+            <th>USD Rate</th>
+            <th>HT EUR</th>
+            <th>TVA</th>
+            <th>TTC EUR</th>
+            <th>Date Paid</th>
           </tr>
         </thead>
         <tfoot>
           <tr>
             <th></th>
-            <th><acronym title="Nominal1">Nom</acronym></th>
-            <th><acronym title="Nominal1">Nom</acronym></th>
-            <th><acronym title="Nominal1">Nom</acronym></th>
-            <th><acronym title="Nominal1">Nom</acronym></th>
-            <th><acronym title="Nominal1">Nom</acronym></th>
-            <th><acronym title="Nominal1">Nom</acronym></th>
-            <th><acronym title="Nominal1">Nom</acronym></th>
-            <th><acronym title="Nominal1">Nom</acronym></th>
-            <th><acronym title="Nominal1">Nom</acronym></th>
-            <th><acronym title="Nominal1">Nom</acronym></th>
-            <th><acronym title="Nominal1">Nom</acronym></th>
-            <th><acronym title="Nominal1">Nom</acronym></th>
-            <th><acronym title="Nominal1">Nom</acronym></th>
-            <th><acronym title="Nominal1">Nom</acronym></th>
+            <th>Supplier</th>
+            <th>Payable</th>
+            <th>Type</th>
+            <th>Capitalize</th>
+            <th>Date Due</th>
+            <th>Date Invoice</th>
+            <th>Posted Date</th>
+            <th>Inv n°</th>
+            <th>N° Job</th>
+            <th>Amount USD</th>
+            <th>Dont Mach</th>
+            <th>USD Rate</th>
+            <th>HT EUR</th>
+            <th>TVA</th>
+            <th>TTC EUR</th>
+            <th>Date Paid</th>
           </tr>
         </tfoot>
       </table>

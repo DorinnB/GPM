@@ -19,7 +19,7 @@
 					<tr>
 						<th>Users</th>
 						<?php foreach ($period as $key => $value) : ?>
-							<th><?= $value->format("d M") ?></th>
+							<th id="<?= $value->format("Y-m-d") ?>" class="<?= ($value->format("Y-m-d")==date("Y-m-d")?'today':'')?>"><?= $value->format("d M") ?></th>
 						<?php endforeach ?>
 					</tr>
 				</thead>
@@ -37,6 +37,11 @@
 					<?php endforeach ?>
 				</tbody>
 			</table>
+
+			<a href="index.php?page=planningManagers&begin=<?= date("Y-m-d", strtotime("first day of previous month")) ?>&end=<?= date("Y-m-d", strtotime('+1 day ', strtotime("last day of previous month"))) ?>" class="btn btn-default glyphicon glyphicon-step-backward"> Last Month</a>
+			<a class="btn btn-default glyphicon glyphicon-screenshot" onClick="date = '<?= date("Y-m-d"); ?>'; $('div.dataTables_scrollBody').scrollLeft($('#'+date).position().left-$( window ).width()/4) ;"> TODAY</a>
+			<a href="index.php?page=planningManagers&begin=<?= date("Y-m-d", strtotime('+1 day ', strtotime("last day of previous month"))) ?>&end=<?= date("Y-m-d", strtotime("first day of next month")) ?>" class="btn btn-default glyphicon glyphicon-circle-arrow-down"> This Month</a>
+			<a href="index.php?page=planningManagers" class="btn btn-default glyphicon glyphicon-circle-arrow-down"> This Year</a>
 
 		</div>
 
@@ -58,7 +63,7 @@
 						<?php foreach ($lstUsers as $oUser) : //$lstUsers $lstUsersManaged?>
 							<tr>
 								<td><?= $oUser['technicien'] ?></td>
-								<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['C1'] ?>"> <?= round($lstSummary[$oUser['id_technicien'] ]['Q1'],2) ?></abbr></td>
+								<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['C1'] + $lstSummary[$oUser['id_technicien'] ]['C5'] ?>"> <?= round($lstSummary[$oUser['id_technicien'] ]['Q1'] + $lstSummary[$oUser['id_technicien'] ]['Q5'] ,2) ?></abbr></td>
 								<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['Q2'] ?>"> <?= $lstSummary[$oUser['id_technicien'] ]['C2'] ?></abbr></td>
 								<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['Q5'] ?>"> <?= $lstSummary[$oUser['id_technicien'] ]['C5'] ?></abbr></td>
 								<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['CSaturdayON'] ?>"> <?= $lstSummary[$oUser['id_technicien'] ]['QSaturdayON'] ?></abbr></td>
@@ -68,13 +73,15 @@
 				</table>
 
 				<h4>
-					<p class="type_1 border">Work</p>
+					<p class="type_1 border dateHighlight">Work</p>
 					<p class="type_6 border">Déplacement</p>
 					<p class="type_2 border">CP</p>
 					<p class="type_3 border">Absence</p>
 					<p class="type_5 border">Maladie</p>
 					<p class="notWorkable border" style="color:white;">Closed</p>
 				</h4>
+
+				<a href="controller/createPlanningXLS-controller.php?begin=<?= $getBegin ?>&end=<?= $getEnd ?>" class="btn btn-default glyphicon glyphicon-list-alt"> XLS</a>
 
 			</div>
 

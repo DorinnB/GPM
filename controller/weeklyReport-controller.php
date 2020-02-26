@@ -31,12 +31,15 @@ $oJob = new LstJobsModel($db);
 $lstJobCust=$oJob->getWeeklyReportCust($_GET['customer']);
 
 
-
+$lstContactsString =""; //déclaration
 foreach ($lstJobCust as $key => $value) {
   $infoJobs[$value['id_info_job']]=$oJob->getWeeklyReportJob($value['id_info_job']);
+$lstContactsString .= $value['contactsEmail'];
 }
 
+$lstContactsArray = explode(";", $lstContactsString);
+
+$lstContact = implode(";", array_unique($lstContactsArray));
+
 //var_dump($infoJobs);
-
-
-    ?>
+?>

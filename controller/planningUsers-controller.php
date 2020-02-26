@@ -8,10 +8,10 @@ $june = strtotime("1st June");
 
 if ($now > $june) {
   $getBegin=date("y-m-d", strtotime('+0 year', $june));
-  $getEnd=date("y-m-d", strtotime('+1 year -1 day', $june));
+  $getEnd=date("y-m-d", strtotime('+1 year ', $june));
 }
 else {
-  $getBegin=date("y-m-d", strtotime('-1 year -1 day', $june));
+  $getBegin=date("y-m-d", strtotime('-1 year ', $june));
   $getEnd=date("y-m-d", strtotime('0 year', $june));
 }
 

@@ -6,7 +6,9 @@
   color:black;
 }
 
-
+.highlight  {
+  background-color: darkgreen !important;
+}
 .table-hover tbody tr:hover , .table-hover tbody tr:hover th {
   background-color: #5B9BD5;
 }
@@ -72,7 +74,9 @@ td[data-toggle="tooltip2"]  {
 }
 
 
-
+.today {
+  background-color : purple;
+}
 
 
 .type_1 {     /* travail  */
@@ -84,20 +88,6 @@ td[data-toggle="tooltip2"]  {
   50% {
     border-width: 0 20px 0 20px;
     border-color : darkblue;
-  }
-}
-.type_2 {     /* Congé  */
-  background-color: yellow;
-  opacity: 0.5;
-  color:black;
-}
-.unconfirmed_2 {
-  animation: blinker2 1s linear infinite;
-}
-@keyframes blinker2 {
-  50% {
-    border-width: 0 20px 0 20px;
-    border-color : yellow;
   }
 }
 .type_3 {     /* RTT  */
@@ -190,8 +180,31 @@ td[data-toggle="tooltip2"]  {
   opacity : 1;
   color:black;
 }
+
+
+.type_2 {     /* Congé  placé après le not workable (prioritaire)*/
+  background-color: yellow;
+  opacity: 0.5;
+  color:black;
+}
+.unconfirmed_2 {
+  animation: blinker2 1s linear infinite;
+}
+@keyframes blinker2 {
+  50% {
+    border-width: 0 20px 0 20px;
+    border-color : yellow;
+  }
+}
+
+
 .border {
   border:1px;
   border-style: solid;
   border-radius: .25em;
+}
+
+.user {
+  border-top: 3px solid yellow !important;
+    border-bottom: 3px solid yellow !important;
 }

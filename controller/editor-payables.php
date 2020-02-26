@@ -1,6 +1,6 @@
 <?php
 // DataTables PHP library
-include( "../DataTables/Editor-1.6.1/php/DataTables.php" );
+include( "../DataTables/Editor-PHP-1.9.2/lib/DataTables.php" );
 
 
 
@@ -28,13 +28,17 @@ Editor::inst( $db, 'payables' )
     ->validator( 'Validate::notEmpty' ),
   Field::inst( 'payables.date_invoice')
     ->validator( 'Validate::notEmpty' ),
+  Field::inst( 'payables.postedDate'),
   Field::inst( 'payables.invoice')
     ->validator( 'Validate::notEmpty' ),
-  Field::inst( 'payables.description')
+  Field::inst( 'payables.supplier')
     ->validator( 'Validate::notEmpty' ),
   Field::inst( 'payables.job')
     ->setFormatter( 'Format::ifEmpty', null ),
   Field::inst( 'payables.USD')
+    ->validator( 'Validate::numeric' )
+    ->setFormatter( 'Format::ifEmpty', null ),
+  Field::inst( 'payables.dontMach')
     ->validator( 'Validate::numeric' )
     ->setFormatter( 'Format::ifEmpty', null ),
   Field::inst( 'payables.taux')
