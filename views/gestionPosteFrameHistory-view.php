@@ -140,8 +140,8 @@
           <td><?= $history[$k]['cell_displacement_serial'] ?></td>
           <td><?= $history[$k]['cell_load_serial'] ?></td>
           <td><?= $history[$k]['extensometre'] ?></td>
-          <td><?= $history[$k]['outillage_top'] ?></td>
-          <td><?= $history[$k]['outillage_bot'] ?></td>
+          <td><?= $history[$k]['outillage_top'] ?><br/>(<?= $history[$k]['outillage_matiere_top'] ?>)</td>
+          <td><?= $history[$k]['outillage_bot'] ?><br/><?= $history[$k]['outillage_matiere_bot'] ?>)</td>
           <td><?= $history[$k]['enregistreur'] ?></td>
           <td><?= $history[$k]['chauffage'] ?></td>
           <td><?= $history[$k]['ind_temp_top'] ?></td>

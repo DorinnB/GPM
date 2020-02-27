@@ -57,7 +57,7 @@ class PosteModel
           GROUP_CONCAT(DISTINCT ref_matiere SEPARATOR " ") as matiere,
 
           cell_displacement_serial, cell_load_serial,
-          cartouche_stroke, cartouche_load, cartouche_strain, enregistreur, extensometre, o1.outillage as outillage_top, o2.outillage as outillage_bot, chauffage, i1.ind_temp as ind_temp_top, i2.ind_temp as ind_temp_strap, i3.ind_temp as ind_temp_bot,
+          cartouche_stroke, cartouche_load, cartouche_strain, enregistreur, extensometre, o1.outillage as outillage_top, o1.matiere as outillage_matiere_top, o2.outillage as outillage_bot, o1.matiere as outillage_matiere_bot, chauffage, i1.ind_temp as ind_temp_top, i2.ind_temp as ind_temp_strap, i3.ind_temp as ind_temp_bot,
           IF( compresseur = 1,  '.'"&#10004;"'.',  "" ) as compresseur, postes.date,
           Disp_P,	Disp_i,	Disp_D,	Disp_Conv,	Disp_Sens,	Load_P,	Load_i,	Load_D,	Load_Conv,	Load_Sens,	Strain_P,	Strain_i,	Strain_D,	Strain_Conv,	Strain_Sens,
           s1.servovalve as servovalve1, s2.servovalve as servovalve2,
