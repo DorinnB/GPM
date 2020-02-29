@@ -95,6 +95,9 @@ padding: 6px 12px;
 .contact:before  {
   content: "CONTACT";
 }
+.date:before  {
+  content: "DATE";
+}
 .activity:before  {
   content: "ACTIVITY";
 }

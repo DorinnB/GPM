@@ -157,7 +157,7 @@ $(document).ready(function() {
       }
       else if($(this).html()==1){
         $(this).html(0);
-                $(this).removeClass('color-1').addClass( "color-0" );
+        $(this).removeClass('color-1').addClass( "color-0" );
         //$(this).css('background-color', '#1F4E79');
         //$(this).css('color', '#1F4E79');
       }
@@ -165,17 +165,17 @@ $(document).ready(function() {
 
 
 
-//pour chaque colonne ayant un id (row-xxx) on cherche les class identique et on fait la somme des ep.
+    //pour chaque colonne ayant un id (row-xxx) on cherche les class identique et on fait la somme des ep.
     $.param($('th[id]').each(function() {
       if ($(this).index()>=4){
-         var sum=0;
-         var test='.'+this.id;
-         $(test).each(function(){
-           if ($(this).text()>0)  {
-             sum +=1;
-           }
-         });
-         $('#'+this.id).text(sum);
+        var sum=0;
+        var test='.'+this.id;
+        $(test).each(function(){
+          if ($(this).text()>0)  {
+            sum +=1;
+          }
+        });
+        $('#'+this.id).text(sum);
       }
     }))
 
@@ -260,7 +260,7 @@ $("#table_id >tbody > tr").click(function(e) {
 
 $( function() {
 
-  $( "#available_expected" ).datepicker({
+  $( "#datecreation" ).datepicker({
     showWeek: true,
     firstDay: 1,
     showOtherMonths: true,
@@ -272,10 +272,10 @@ $( function() {
 
 
 
-    $(document).ready(function() {
-      var country = [];
-      $("#id_matiere_std").select2({
-        data: country
-      });
+$(document).ready(function() {
+  var country = [];
+  $("#id_matiere_std").select2({
+    data: country
+  });
 
-    });
+});

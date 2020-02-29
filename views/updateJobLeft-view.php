@@ -71,7 +71,12 @@
           </div>
         </div>
       </div>
-
+      <div class="bs-example date" data-example-id="basic-forms">
+        <div class="form-group">
+          <label for="Spec">Creation Date :</label>
+          <input type="text" class="form-control" id="datecreation" name="datecreation" value="<?= $job['datecreation'] ?>">
+        </div>
+      </div>
     </div>
     <div class="col-sm-6">
 
@@ -112,6 +117,16 @@
           <label for="Spec">Quote Ref :</label>
           <input type="text" class="form-control" name="devis" value="<?= $job['devis'] ?>">
         </div>
+
+        <div class="form-group">
+          <label for="Spec">Order Amount (€/$) :</label>
+          <input type="text" class="form-control" name="montant_commande" value="<?= $job['montant_commande'] ?>">
+        </div>
+        <div class="form-group">
+          <label for="Spec">Estimated Order (€/$) :</label>
+          <input type="text" class="form-control" name="montant_estimation" value="<?= $job['montant_estimation'] ?>">
+        </div>
+
       </div>
 
     </div>

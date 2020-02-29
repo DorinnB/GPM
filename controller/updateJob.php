@@ -49,6 +49,9 @@ $db = new db(); // create a new object, class db()
 	$oJob->specific_test=$_POST['specific_test'];
 	$oJob->instruction=$_POST['instruction'];
 	$oJob->commentaire=$_POST['commentaire'];
+	$oJob->datecreation=$_POST['datecreation'];
+	$oJob->montant_commande=$_POST['montant_commande'];
+	$oJob->montant_estimation=$_POST['montant_estimation'];
 	$oJob->info_job_actif=1;
 
 

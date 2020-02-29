@@ -39,7 +39,8 @@ class InfoJob
     activity_type, specific_test,
     instruction, commentaire, info_job_actif,
     available_expected,
-    info_job_date, info_job_rev, info_job_report_Q, info_job_report_TM, info_job_send
+    info_job_date, info_job_rev, info_job_report_Q, info_job_report_TM, info_job_send,
+    DATE_FORMAT(datecreation, "%Y-%m-%d") as datecreation, montant_commande, montant_estimation
 
     FROM info_jobs
     LEFT JOIN tbljobs ON tbljobs.id_info_job=info_jobs.id_info_job
@@ -67,15 +68,18 @@ class InfoJob
     `id_contact2` = '.$this->id_contact2.',
     `id_contact3` = '.$this->id_contact3.',
     `id_contact4` = '.$this->id_contact4.',
-    ref_matiere='.$this->ref_matiere.',
-    id_matiere_std='.$this->id_matiere_std.',
-    pricing='.$this->pricing.',
+    `ref_matiere` = '.$this->ref_matiere.',
+    `id_matiere_std`= '.$this->id_matiere_std.',
+    `pricing` = '.$this->pricing.',
     `po_number` = '.$this->po_number.',
     `devis` = '.$this->devis.',
     `activity_type` = '.$this->activity_type.',
     `specific_test` = '.$this->specific_test.',
     `instruction` = '.$this->instruction.',
     `commentaire` = '.$this->commentaire.',
+    `datecreation` = '.$this->datecreation.',
+    `montant_commande` = '.$this->montant_commande.',
+    `montant_estimation` = '.$this->montant_estimation.',
     `info_job_actif` = '.$this->info_job_actif.'
     WHERE id_info_job = '.$this->getInfoJob()['id_info_job'].';';
     //echo $reqUpdate;

@@ -15,7 +15,7 @@ include('controller/updateJob-controller.php');
 		</div>
 		<div class="col-md-12" style="height:94%;">
 			<div class="row" style="height:100%;">
-				<div class="col-md-3" style="height:100%;">
+				<div class="col-md-3" style="height:100%; overflow-y: auto;">
 					<?php
 					include('views/updateJobLeft-view.php');
 					?>
