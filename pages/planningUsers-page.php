@@ -27,9 +27,9 @@
 				<tbody>
 					<?php foreach ($lstUsers as $oUser) : ?>
 						<tr>
-							<td class="<?= ($oUser['id_technicien']==$_COOKIE['id_user'])?"user":""?>"><?= $oUser['technicien'] ?></td>
+							<td class="<?= (isset($_COOKIE['id_user']) AND $oUser['id_technicien']==$_COOKIE['id_user'])?"user":""?>"><?= $oUser['technicien'] ?></td>
 							<?php foreach ($period as $key => $value) : ?>
-								<td class="<?=   $td[$oUser['id_technicien']][$value->format("Y-m-d")]['class'] ?> <?= ($oUser['id_technicien']==$_COOKIE['id_user'])?"user":""?>" <?= $td[$oUser['id_technicien']][$value->format("Y-m-d")]['tooltip'] ?>>
+								<td class="<?=   $td[$oUser['id_technicien']][$value->format("Y-m-d")]['class'] ?> <?= (isset($_COOKIE['id_user']) AND $oUser['id_technicien']==$_COOKIE['id_user'])?"user":""?>" <?= $td[$oUser['id_technicien']][$value->format("Y-m-d")]['tooltip'] ?>>
 									<?=   $td[$oUser['id_technicien']][$value->format("Y-m-d")]['value'] ?>
 								</td>
 							<?php endforeach ?>
@@ -45,93 +45,97 @@
 
 		</div>
 
-		<div class="col-md-12" style="height:60%;">
-			<div class="col-md-2" style="overflow-y:auto;">
-				<table class="table table-condensed table-striped table-hover table-bordered" cellspacing="0" width="100%"  style="height:100%; white-space:nowrap;">
 
-					<thead>
-						<tr>
-							<th>Type</th>
-							<th><abbr title="Days or Hours">D./Hrs</abbr></th>
-							<th><abbr title="Days">Days</abbr></th>
-						</tr>
-					</thead>
 
-					<tbody>
-						<tr>
-							<td>Work</td>
-							<td> <?= round($lstSummary[$_COOKIE['id_user']]['Q1']+$lstSummary[$_COOKIE['id_user']]['Q5'],2) ?></td>
-							<td> <?= $lstSummary[$_COOKIE['id_user']]['C1'] + $lstSummary[$_COOKIE['id_user']]['C5'] ?></td>
-						</tr>
-						<tr>
-							<td>CP</td>
-							<td> <?= $lstSummary[$_COOKIE['id_user']]['Q2'] ?></td>
-							<td> <?= $lstSummary[$_COOKIE['id_user']]['C2'] ?></td>
-						</tr>
-						<tr>
-							<td>Maladie</td>
-							<td> <?= $lstSummary[$_COOKIE['id_user']]['Q5'] ?></td>
-							<td> <?= $lstSummary[$_COOKIE['id_user']]['C5'] ?></td>
-						</tr>
-						<tr>
-							<td>Sat.</td>
-							<td> <?= $lstSummary[$_COOKIE['id_user']]['CSaturdayON'] ?></td>
-							<td> <?= $lstSummary[$_COOKIE['id_user']]['QSaturdayON'] ?></td>
-						</tr>
-					</tbody>
-				</table>
+		<?php if (isset($_COOKIE['id_user'])) :	?>
+			<div class="col-md-12" style="height:60%;">
+				<div class="col-md-2" style="overflow-y:auto;">
+					<table class="table table-condensed table-striped table-hover table-bordered" cellspacing="0" width="100%"  style="height:100%; white-space:nowrap;">
 
-				<h4>
-					<p class="type_1 border">Work <span class="badge"><?= (isset($lstModifSummary[$_COOKIE['id_user']]['C1'])?$lstModifSummary[$_COOKIE['id_user']]['C1']:"") ?></span></p>
-					<p class="type_6 border">Déplacement <span class="badge"><?= (isset($lstModifSummary[$_COOKIE['id_user']]['C6'])?$lstModifSummary[$_COOKIE['id_user']]['C6']:"") ?></span></p>
-					<p class="type_2 border">CP <span class="badge"><?= (isset($lstModifSummary[$_COOKIE['id_user']]['C2'])?$lstModifSummary[$_COOKIE['id_user']]['C2']:"") ?></span></p>
-					<p class="type_3 border">Absence <span class="badge"><?= (isset($lstModifSummary[$_COOKIE['id_user']]['C3'])?$lstModifSummary[$_COOKIE['id_user']]['C3']:"") ?></span></p>
-					<p class="type_5 border">Maladie <span class="badge"><?= (isset($lstModifSummary[$_COOKIE['id_user']]['C5'])?$lstModifSummary[$_COOKIE['id_user']]['C5']:"") ?></span></p>
-					<p class="notWorkable border" style="color:white;">Closed <span class="badge"><?= (isset($lstModifSummary[$_COOKIE['id_user']]['C7'])?$lstModifSummary[$_COOKIE['id_user']]['C7']:"") ?></span></p>
-				</h4>
+						<thead>
+							<tr>
+								<th>Type</th>
+								<th><abbr title="Days or Hours">D./Hrs</abbr></th>
+								<th><abbr title="Days">Days</abbr></th>
+							</tr>
+						</thead>
 
-<a href="controller/createPlanningUsersICS-controller.php?begin=<?= $getBegin ?>&end=<?= $getEnd ?>" class="btn btn-default glyphicon glyphicon-calendar"> ICS</a>
-<a href="controller/createPlanningUsersICSinv-controller.php?begin=<?= $getBegin ?>&end=<?= $getEnd ?>" class="btn btn-default glyphicon glyphicon-calendar"> ICSinv</a>
-<a href="controller/createPlanningXLS-controller.php?begin=<?= $getBegin ?>&end=<?= $getEnd ?>" class="btn btn-default glyphicon glyphicon-list-alt"> XLS</a>
+						<tbody>
+							<tr>
+								<td>Work</td>
+								<td> <?= round($lstSummary[$_COOKIE['id_user']]['Q1']+$lstSummary[$_COOKIE['id_user']]['Q5'],2) ?></td>
+								<td> <?= $lstSummary[$_COOKIE['id_user']]['C1'] + $lstSummary[$_COOKIE['id_user']]['C5'] ?></td>
+							</tr>
+							<tr>
+								<td>CP</td>
+								<td> <?= $lstSummary[$_COOKIE['id_user']]['Q2'] ?></td>
+								<td> <?= $lstSummary[$_COOKIE['id_user']]['C2'] ?></td>
+							</tr>
+							<tr>
+								<td>Maladie</td>
+								<td> <?= $lstSummary[$_COOKIE['id_user']]['Q5'] ?></td>
+								<td> <?= $lstSummary[$_COOKIE['id_user']]['C5'] ?></td>
+							</tr>
+							<tr>
+								<td>Sat.</td>
+								<td> <?= $lstSummary[$_COOKIE['id_user']]['CSaturdayON'] ?></td>
+								<td> <?= $lstSummary[$_COOKIE['id_user']]['QSaturdayON'] ?></td>
+							</tr>
+						</tbody>
 
+					</table>
+
+					<h4>
+						<p class="type_1 border">Work <span class="badge"><?= (isset($lstModifSummary[$_COOKIE['id_user']]['C1'])?$lstModifSummary[$_COOKIE['id_user']]['C1']:"") ?></span></p>
+						<p class="type_6 border">Déplacement <span class="badge"><?= (isset($lstModifSummary[$_COOKIE['id_user']]['C6'])?$lstModifSummary[$_COOKIE['id_user']]['C6']:"") ?></span></p>
+						<p class="type_2 border">CP <span class="badge"><?= (isset($lstModifSummary[$_COOKIE['id_user']]['C2'])?$lstModifSummary[$_COOKIE['id_user']]['C2']:"") ?></span></p>
+						<p class="type_3 border">Absence <span class="badge"><?= (isset($lstModifSummary[$_COOKIE['id_user']]['C3'])?$lstModifSummary[$_COOKIE['id_user']]['C3']:"") ?></span></p>
+						<p class="type_5 border">Maladie <span class="badge"><?= (isset($lstModifSummary[$_COOKIE['id_user']]['C5'])?$lstModifSummary[$_COOKIE['id_user']]['C5']:"") ?></span></p>
+						<p class="notWorkable border" style="color:white;">Closed <span class="badge"><?= (isset($lstModifSummary[$_COOKIE['id_user']]['C7'])?$lstModifSummary[$_COOKIE['id_user']]['C7']:"") ?></span></p>
+					</h4>
+
+					<a href="controller/createPlanningUsersICS-controller.php?begin=<?= $getBegin ?>&end=<?= $getEnd ?>" class="btn btn-default glyphicon glyphicon-calendar"> ICS</a>
+					<a href="controller/createPlanningUsersICSinv-controller.php?begin=<?= $getBegin ?>&end=<?= $getEnd ?>" class="btn btn-default glyphicon glyphicon-calendar"> ICSinv</a>
+					<a href="controller/createPlanningXLS-controller.php?begin=<?= $getBegin ?>&end=<?= $getEnd ?>" class="btn btn-default glyphicon glyphicon-list-alt"> XLS</a>
+
+				</div>
+
+				<div class="col-md-10" style="overflow-y:auto;">
+					<table id="table_planningModif" class="table table-condensed table-striped table-hover table-bordered" cellspacing="0" width="100%"  style="height:100%; white-space:nowrap;">
+						<thead>
+							<tr>
+								<th>Modification Number</th>
+								<th>Applicant</th>
+								<th>Date de la demande</th>
+								<th>User</th>
+								<th>Jour à modifier</th>
+								<th>Type de modification</th>
+								<th>Quantity (j / hrs)</th>
+								<th>Commentaire</th>
+								<th>Status</th>
+								<th>Date Reponse</th>
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<th>N° Demande</th>
+								<th>demandeur</th>
+								<th>Date de la demande</th>
+								<th>user</th>
+								<th>Jour à modifier</th>
+								<th>new type</th>
+								<th>quantity</th>
+								<th>comments</th>
+								<th>Status</th>
+								<th>Date Reponse</th>
+							</tr>
+						</tfoot>
+					</table>
+
+
+				</div>
 			</div>
-
-			<div class="col-md-10" style="overflow-y:auto;">
-				<table id="table_planningModif" class="table table-condensed table-striped table-hover table-bordered" cellspacing="0" width="100%"  style="height:100%; white-space:nowrap;">
-					<thead>
-						<tr>
-							<th>Modification Number</th>
-							<th>Applicant</th>
-							<th>Date de la demande</th>
-							<th>User</th>
-							<th>Jour à modifier</th>
-							<th>Type de modification</th>
-							<th>Quantity (j / hrs)</th>
-							<th>Commentaire</th>
-							<th>Status</th>
-							<th>Date Reponse</th>
-						</tr>
-					</thead>
-					<tfoot>
-						<tr>
-							<th>N° Demande</th>
-							<th>demandeur</th>
-							<th>Date de la demande</th>
-							<th>user</th>
-							<th>Jour à modifier</th>
-							<th>new type</th>
-							<th>quantity</th>
-							<th>comments</th>
-							<th>Status</th>
-							<th>Date Reponse</th>
-						</tr>
-					</tfoot>
-				</table>
-
-
-			</div>
-		</div>
-
+		<?php endif ?>
 	</div>
 </div>
 <script type="text/javascript" src="js/planningUsers.js"></script>

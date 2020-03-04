@@ -74,6 +74,9 @@ foreach ($_POST as $posts) {
 			$oInvoice->id_info_job=$datapost['id_info_job'];
 			$oInvoice->id_tbljob=$datapost['id_tbljob'];
 
+			$oInvoice->prodCode=$datapost['prodCode'];
+						$oInvoice->OpnCode=$datapost['OpnCode'];
+									$oInvoice->type=$datapost['type'];
 			$oInvoice->pricingList=$datapost['pricingList'];
 			$oInvoice->qteUser=$datapost['qteUser'];
 			$oInvoice->priceUnit=$datapost['priceUnit'];

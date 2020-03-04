@@ -23,6 +23,7 @@ $(document).ready(function() {
     var value = $('option:selected', this).attr('value');
     var prodCode = $('option:selected', this).attr('data-prodCode');
     var OpnCode = $('option:selected', this).attr('data-OpnCode');
+    var type = $('option:selected', this).attr('data-type');
     var id_pricingList = $('option:selected', this).attr('data-id_pricingList');
     var pricingList = $('option:selected', this).attr('data-pricingList');
 
@@ -54,6 +55,9 @@ $(document).ready(function() {
     b.find('.id_info_job').val(id_info_job);
     b.find('.id_tbljob').val(id_tbljob);
     b.find('.id_pricingList').val(id_pricingList);
+    b.find('.prodCode').val(prodCode);
+    b.find('.OpnCode').val(OpnCode);
+    b.find('.type').val(type);
     b.find('.code').find('input').val((prodCode=="" ? "" : prodCode+"-") + OpnCode);
     b.find('.pricingList').find('input').val(pricingList);
     b.find('.priceUnit').find('input').val(price);

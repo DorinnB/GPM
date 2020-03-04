@@ -175,7 +175,7 @@
 											<select class="form-control addInvLine" data-id_info_job="<?=	$split['id_info_job']	?>" data-id_tbljob="<?=	$value['id_tbljob']	?>">
 												<option value="No" data-code ="" data-pricingListUS="Add an Invoice Line" data-pricingListFR="Add an Invoice Line">Add an Invoice Line</option>
 												<?php foreach ($oInvoices->getAllInvoiceList($value['id_tbljob']) as $row): ?>
-													<option value="<?= $row['id_pricingList'] ?>" data-id_pricingList="<?= $row['id_pricingList'] ?>" data-code="<?= $row['prodCode'].'-'.$row['OpnCode'] ?>" data-prodCode="<?= $row['prodCode'] ?>" data-OpnCode="<?= $row['OpnCode'] ?>" data-pricingListUS="<?= $row['pricingListUS'] ?>" data-pricingListFR="<?= $row['pricingListFR'] ?>" data-usd="<?= $row['USD'] ?>" data-euro="<?= $row['EURO'] ?>"><?=  $row['prodCode'].'-'.$row['OpnCode'].' '.$row['pricingList'] ?></option>
+													<option value="<?= $row['id_pricingList'] ?>" data-id_pricingList="<?= $row['id_pricingList'] ?>" data-code="<?= $row['prodCode'].'-'.$row['OpnCode'] ?>" data-prodCode="<?= $row['prodCode'] ?>" data-OpnCode="<?= $row['OpnCode'] ?>" data-type="<?= $row['type'] ?>" data-pricingListUS="<?= $row['pricingListUS'] ?>" data-pricingListFR="<?= $row['pricingListFR'] ?>" data-usd="<?= $row['USD'] ?>" data-euro="<?= $row['EURO'] ?>"><?=  $row['prodCode'].'-'.$row['OpnCode'].' '.$row['pricingList'] ?></option>
 												<?php endforeach ?>
 											</select>
 										</div>
@@ -220,6 +220,9 @@
 											<input class="id_info_job" name="id_info_job" value="<?= $invoicelines['id_info_job'] ?>" type="hidden">
 											<input class="id_tbljob" name="id_tbljob" value="<?= $invoicelines['id_tbljob'] ?>" type="hidden">
 											<input class="id_pricingList" name="id_pricingList" value="<?= $invoicelines['id_pricingList'] ?>" type="hidden">
+											<input class="prodCode" name="prodCode" value="<?= $invoicelines['prodCode'] ?>" type="hidden">
+											<input class="OpnCode" name="OpnCode" value="<?= $invoicelines['OpnCode'] ?>" type="hidden">
+											<input class="type" name="type" value="<?= $invoicelines['type'] ?>" type="hidden">
 											<div class="col-md-1 code"><input class="form-control" name="code" value="<?= (($invoicelines['prodCode']=="")?"":$invoicelines['prodCode']."-").$invoicelines['OpnCode'] ?>" type="text" disabled></div>
 											<div class="col-md-6 pricingList"><input class="form-control" name="pricingList" value="<?= $invoicelines['pricingList'] ?>" type="text" <?= ($invoicelines['id_pricingList']>0)?"readonly":"" ?>></div>
 											<div class="col-md-1 qteGPM"><input class="form-control decimal0" name="qteGPM" value="" type="text" disabled></div>
@@ -249,7 +252,7 @@
 										<select class="form-control addInvLine" data-id_info_job="<?=	$split['id_info_job']	?>" data-id_tbljob="">
 											<option value="No" data-code ="" data-pricingListUS="Add an Invoice Line" data-pricingListFR="Add an Invoice Line">Add an Invoice Line</option>
 											<?php foreach ($oInvoices->getAllInvoiceList() as $row): ?>
-												<option value="<?= $row['id_pricingList'] ?>" data-id_pricingList="<?= $row['id_pricingList'] ?>" data-code="<?= $row['prodCode'].'-'.$row['OpnCode'] ?>" data-prodCode="<?= $row['prodCode'] ?>" data-OpnCode="<?= $row['OpnCode'] ?>" data-pricingListUS="<?= $row['pricingListUS'] ?>" data-pricingListFR="<?= $row['pricingListFR'] ?>" data-usd="<?= $row['USD'] ?>" data-euro="<?= $row['EURO'] ?>"><?=  $row['prodCode'].'-'.$row['OpnCode'].' '.$row['pricingList'] ?></option>
+												<option value="<?= $row['id_pricingList'] ?>" data-id_pricingList="<?= $row['id_pricingList'] ?>" data-code="<?= $row['prodCode'].'-'.$row['OpnCode'] ?>" data-prodCode="<?= $row['prodCode'] ?>" data-OpnCode="<?= $row['OpnCode'] ?>" data-type="<?= $row['type'] ?>" data-pricingListUS="<?= $row['pricingListUS'] ?>" data-pricingListFR="<?= $row['pricingListFR'] ?>" data-usd="<?= $row['USD'] ?>" data-euro="<?= $row['EURO'] ?>"><?=  $row['prodCode'].'-'.$row['OpnCode'].' '.$row['pricingList'] ?></option>
 											<?php endforeach ?>
 										</select>
 									</div>
@@ -271,7 +274,7 @@
 						</a>
 					</div>
 					<div class="col-md-12" id="saveInvoiceJob" style="height:100%; padding:0px; display:none;">
-						<a href="controller/openOnenote-controller?id_tbljob=<?=	$_GET['id_tbljob']	?>" class="btn btn-default btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
+						<a href="" class="btn btn-default btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
 							<p style="font-size:small;height:100%;">
 								<img type="image" src="img/save.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
 							</p>
@@ -297,6 +300,9 @@
 	<form>
 		<input class="newEntry" name="newEntry" value="" type="hidden">
 		<input class="id_invoiceLine" name="id_invoiceLine" value="" type="hidden">
+		<input class="prodCode" name="prodCode" value="" type="hidden">
+		<input class="OpnCode" name="OpnCode" value="" type="hidden">
+		<input class="type" name="type" value="" type="hidden">
 		<input class="id_info_job" name="id_info_job" value="" type="hidden">
 		<input class="id_tbljob" name="id_tbljob" value="" type="hidden">
 		<input class="id_pricingList" name="id_pricingList" value="" type="hidden">

@@ -30,7 +30,11 @@
 
           </div>
         </div>
-
+        <div class="col-md-2">
+          <div class="col-md-12 titre">
+            Modif Planning
+          </div>
+        </div>
       </div>
       <div class="row bandeauVal" style="height:70%;overflow-y:scroll;">
         <div class="col-md-2">
@@ -57,7 +61,11 @@
 
         </div>
         <div class="col-md-2">
-
+          <?php foreach ($nbModifPlanning as $key => $value) : ?>
+            <a href="index.php?page=planningManagers" class="col-md-12 valeur">
+              <?= $value['technicien'].' ('.$value['nb'].')'  ?>
+            </a>
+          <?php endforeach  ?>
         </div>
       </div>
     </div>

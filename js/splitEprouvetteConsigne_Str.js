@@ -26,7 +26,6 @@ $(document).ready(function() {
       {       label: "eprouvettes.id_eprouvette",       name: "eprouvettes.id_eprouvette"     },
       {       label: "master_eprouvettes.prefixe",       name: "master_eprouvettes.prefixe"     },
       {       label: "master_eprouvettes.nom_eprouvette",       name: "master_eprouvettes.nom_eprouvette"     },
-      {       label: "eprouvettes.n_essai",       name: "eprouvettes.n_essai"     },
       {       label: "eprouvettes.c_temperature",       name: "eprouvettes.c_temperature"     },
       {       label: "eprouvettes.c_frequence",       name: "eprouvettes.c_frequence"     },
       {       label: "eprouvettes.c_cycle_STL",       name: "eprouvettes.c_cycle_STL"     },
@@ -38,15 +37,7 @@ $(document).ready(function() {
       {       label: "eprouvettes.cycle_estime",       name: "eprouvettes.cycle_estime"     },
       {       label: "eprouvettes.priority",       name: "eprouvettes.priority"     },
       {       label: "",       name: "eprouvettes.c_commentaire", type:  "textarea",     },
-      {       label: "eprouvettes.c_checked",       name: "eprouvettes.c_checked"     },
-      {       label: "enregistrementessais.n_fichier",       name: "enregistrementessais.n_fichier"     },
-      {       label: "machines.machine",       name: "machines.machine"     },
-      {       label: "enregistrementessais.date",       name: "enregistrementessais.date"     },
-      {       label: "eprouvettes.waveform",       name: "eprouvettes.waveform"     },
-      {       label: "eprouvettes.Cycle_STL",       name: "eprouvettes.Cycle_STL"     },
-      {       label: "eprouvettes.Cycle_final",       name: "eprouvettes.Cycle_final"     },
-      {       label: "eprouvettes.Rupture",       name: "eprouvettes.Rupture"     },
-      {       label: "eprouvettes.Fracture",       name: "eprouvettes.Fracture"     }
+      {       label: "eprouvettes.c_checked",       name: "eprouvettes.c_checked"     }
     ]
   } );
 
@@ -106,7 +97,7 @@ $(document).ready(function() {
       }
     ],
     autoFill: {
-      columns: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      columns: [3,4, 5, 6, 7, 8, 9, 10, 11, 12],
       editor:  editor
     },
     keys: {

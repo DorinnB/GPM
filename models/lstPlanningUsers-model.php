@@ -70,7 +70,7 @@ class PlanningUsersModel
     $req='SELECT id_technicien, technicien
     FROM badge_access
     LEFT JOIN techniciens on badge_access.id_managed=techniciens.id_technicien
-    WHERE id_manager = '.$this->db->quote($_COOKIE['id_user']).'
+    WHERE id_manager = '.$this->db->quote((isset($_COOKIE['id_user'])?$_COOKIE['id_user']:0)).'
     ORDER BY id_technicien ASC;';
 
     //echo $req;
@@ -81,6 +81,18 @@ class PlanningUsersModel
     $req='SELECT *
     FROM `planning_types`
     WHERE planning_type_actif=1;';
+
+    //echo $req;
+    return $this->db->getAll($req);
+  }
+
+  public function getAllManagedAwaiting() {
+    $req='SELECT technicien, count(*) as nb
+    FROM badge_access
+    LEFT JOIN planning_modif ON planning_modif.id_user=badge_access.id_managed
+    LEFT JOIN techniciens ON techniciens.id_technicien=planning_modif.id_user
+    WHERE planning_modif.id_validator IS NULL AND id_manager = '.$this->db->quote((isset($_COOKIE['id_user'])?$_COOKIE['id_user']:0)).'
+    GROUP BY technicien;';
 
     //echo $req;
     return $this->db->getAll($req);
@@ -97,14 +109,14 @@ class PlanningUsersModel
 
     FROM planning_users
     LEFT JOIN planning_modif ON (planning_modif.datemodif=planning_users.dateplanned AND
-      id_planning_modif IN (
-        SELECT max(pm.id_planning_modif) from planning_modif AS pm WHERE pm.id_validator>0 GROUP BY pm.datemodif
-      )
+    id_planning_modif IN (
+    SELECT max(pm.id_planning_modif) from planning_modif AS pm WHERE pm.id_validator>0 GROUP BY pm.datemodif
+    )
     )
     WHERE dateplanned>= '.$this->db->quote($getBegin).' AND dateplanned<= '.$this->db->quote($getEnd).'
 
     GROUP BY planning_users.id_user, IFNULL(id_type, type);';
-*/
+    */
     $req='SELECT
     planning_users.id_user,
     SUM(if(ifnull(id_type, type)=1 OR ifnull(id_type, type)=6, 1, 0)) AS C1,

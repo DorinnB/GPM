@@ -106,31 +106,31 @@ $(document).ready(function() {
     if ( index === 14 ) {
       editor.bubble( this,
         ['eprouvettes.c_commentaire'],
-        { title: 'Order Comments :' ,
-        submitOnBlur: true,
-        buttons: false
-      }
-    );
-  }
-}
-);
+        {
+          title: 'Order Comments :' ,
+          submitOnBlur: true,
+          buttons: false
+        }
+      );
+    }
+  });
 
 
 
 
 
-$('#container').css('display', 'block');
-table.columns.adjust().draw();
+  $('#container').css('display', 'block');
+  table.columns.adjust().draw();
 
-// Filter event handler
-$( table.table().container() ).on( 'keyup', 'tfoot input', function () {
-  table
-  .column( $(this).data('index') )
-  .search( this.value )
-  .draw();
-} );
+  // Filter event handler
+  $( table.table().container() ).on( 'keyup', 'tfoot input', function () {
+    table
+    .column( $(this).data('index') )
+    .search( this.value )
+    .draw();
+  } );
 
-document.getElementById("table_ep_filter").style.display = "none";
+  document.getElementById("table_ep_filter").style.display = "none";
 
 
 } );

@@ -15,25 +15,19 @@ class InvoiceModel
   public function getAllInvoiceList($id_tbljob="null") {
 
     if ($id_tbljob=="null") {
-      /*
-      $req='SELECT pricinglists.id_pricingList, pricingList, pricingListFR, pricingListUS, prodCode, OpnCode, USD, EURO, pricingList_actif, id_test_type
-      FROM `pricinglists`
-      INNER JOIN test_type_pricinglists ON test_type_pricinglists.id_pricinglist=pricinglists.id_pricinglist
-      WHERE id_test_type=0
-      ORDER BY pricinglists.id_pricingList';
-      */
-      $req='SELECT pricinglists.id_pricingList, pricingList, pricingListFR, pricingListUS, prodCode, OpnCode, USD, EURO, pricingList_actif
+
+      $req='SELECT pricinglists.id_pricingList, pricingList, pricingListFR, pricingListUS, pricinglists.prodCode, pricinglists.OpnCode, type, USD, EURO, pricingList_actif
       FROM `pricinglists`
 
-      ORDER BY prodCode, OpnCode';
+      ORDER BY pricinglists.prodCode, pricinglists.OpnCode';
     }
     else {
-      $req='SELECT pricinglists.id_pricingList, pricingList, pricingListFR, pricingListUS, prodCode, OpnCode, USD, EURO, pricingList_actif
+      $req='SELECT pricinglists.id_pricingList, pricingList, pricingListFR, pricingListUS, pricinglists.prodCode, pricinglists.OpnCode, type, USD, EURO, pricingList_actif
       FROM `tbljobs`
       INNER JOIN test_type_pricinglists ON test_type_pricinglists.id_test_type=tbljobs.id_type_essai
       INNER JOIN pricinglists ON pricinglists.id_pricingList=test_type_pricinglists.id_pricingList
       WHERE id_tbljob='.$id_tbljob.'
-      ORDER BY prodCode, OpnCode';
+      ORDER BY pricinglists.prodCode, pricinglists.OpnCode';
     }
 
 
@@ -44,13 +38,14 @@ class InvoiceModel
 
     //calcul du nombre d'essai ou du temps d'heures sup (arrondi superieur)
     $req='SELECT
-    pricinglists.id_pricingList,
+    id_pricingList,
     id_invoiceline,
     id_info_job,
     id_tbljob,
     prodCode,
     OpnCode,
-    invoicelines.pricingList,
+    type,
+    pricingList,
     qteUser,
     if(
       type=1,
@@ -120,7 +115,6 @@ class InvoiceModel
 
 
     FROM `invoicelines`
-    LEFT JOIN pricinglists ON pricinglists.id_pricingList=invoicelines.id_pricinglist
     LEFT JOIN eprouvettes on eprouvettes.id_job=invoicelines.id_tbljob
     LEFT JOIN eprouvettes_temp ON eprouvettes_temp.id_eprouvettes_temp=eprouvettes.id_eprouvette
     LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
@@ -128,7 +122,7 @@ class InvoiceModel
     AND eprouvette_actif=1
     AND valid!=0
     GROUP BY id_invoiceline
-    ORDER BY pricinglists.id_pricingList
+    ORDER BY id_pricingList
     ';
 
 
@@ -139,13 +133,14 @@ class InvoiceModel
   public function getInvoiceListJob($id_tbljob) {
 
     $req='SELECT
-    pricinglists.id_pricingList,
+    id_pricingList,
     id_invoiceline,
     id_info_job,
     id_tbljob,
     prodCode,
     OpnCode,
-    invoicelines.pricingList,
+    type,
+    pricingList,
     qteUser,
 
     priceUnit,
@@ -153,11 +148,10 @@ class InvoiceModel
 
 
     FROM `invoicelines`
-    LEFT JOIN pricinglists ON pricinglists.id_pricingList=invoicelines.id_pricinglist
     WHERE id_info_job=(SELECT id_info_job FROM tbljobs WHERE id_tbljob='.$this->db->quote($id_tbljob).')
     AND id_tbljob IS NULL
     GROUP BY id_invoiceline
-    ORDER BY pricinglists.id_pricingList
+    ORDER BY id_pricingList
     ';
 
 
@@ -190,8 +184,8 @@ class InvoiceModel
   public function addNewEntry() {
 
     $req = 'INSERT INTO invoicelines
-    (id_pricinglist, pricingList, qteUser, priceUnit,  id_info_job, id_tbljob)
-    VALUES ('.$this->id_pricingList.', '.$this->pricingList.', '.$this->qteUser.', '.$this->priceUnit.', '.$this->id_info_job.', '.$this->id_tbljob.');';
+    (id_pricinglist, pricingList, qteUser, priceUnit, prodCode, OpnCode, type,  id_info_job, id_tbljob)
+    VALUES ('.$this->id_pricingList.', '.$this->pricingList.', '.$this->qteUser.', '.$this->priceUnit.', '.$this->prodCode.', '.$this->OpnCode.', '.$this->type.', '.$this->id_info_job.', '.$this->id_tbljob.');';
 
     //echo $req;
     $this->db->execute($req);

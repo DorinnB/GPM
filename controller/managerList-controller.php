@@ -17,7 +17,10 @@ $uncheckedStartedJob=$oQualite->getUncheckedStartedJob();
 $flag=$oQualite->getFlagJob();
 
 
-
+// Rendre votre modèle accessible
+include_once 'models/lstPlanningUsers-model.php';
+$oPlanningUsers = new PlanningUsersModel($db);
+$nbModifPlanning=$oPlanningUsers->getAllManagedAwaiting();
 
 // Affichage du résultat
 include 'views/managerList-view.php';
