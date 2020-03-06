@@ -70,6 +70,7 @@ var table = $('#table_dessins').DataTable( {
   scrollY: '65vh',
   scrollCollapse: true,
   paging: false,
+    fixedColumns:   {leftColumns: 1},
   keys: {
     columns: [4,5,6,7,8,9,10,11,12,13],
     editor:  editor

@@ -57,7 +57,7 @@ Editor::inst( $db, 'servovalves' )
     $oPoste = new PosteModel($db, 0);
 
     $oPoste->itemValue=$id;
-    $oPoste->id_machine=29;
+    $oPoste->id_machine=100;
     $oPoste->id_operateur=$_COOKIE['id_user'];
 
     $oPoste->newPosteOther("id_servovalve1");

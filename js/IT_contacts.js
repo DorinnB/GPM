@@ -58,6 +58,7 @@ $(document).ready(function() {
     scrollY: '65vh',
     scrollCollapse: true,
     paging: false,
+    fixedColumns:   {leftColumns: 4},
     keys: {
       columns: [4,5,6,7,8,9,10,11,12],
       editor:  editor
