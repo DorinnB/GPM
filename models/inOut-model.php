@@ -306,6 +306,7 @@ class INOUT
     LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
     LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
     WHERE etape='.$this->db->quote($step).'
+    AND split > 0
     AND info_job_actif=1
     AND tbljob_actif=1
     AND invoice_type!=2

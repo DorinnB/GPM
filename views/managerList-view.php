@@ -12,12 +12,12 @@
         </div>
         <div class="col-md-2">
           <div class="col-md-12 titre">
-
+            Last Condition
           </div>
         </div>
         <div class="col-md-2">
           <div class="col-md-12 titre">
-            Last Condition
+            Awaiting Condition
           </div>
         </div>
         <div class="col-md-2">
@@ -41,10 +41,14 @@
 
         </div>
         <div class="col-md-2">
-
+          <?php foreach ($oInOut->stepStatut(51) as $key => $value) : ?>
+            <a href="index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
+              <?= $value['job'].'-'.$value['split']  ?>
+            </a>
+          <?php endforeach  ?>
         </div>
         <div class="col-md-2">
-          <?php foreach ($oInOut->stepStatut(53) as $key => $value) : ?>
+          <?php foreach ($oInOut->stepStatut(30) as $key => $value) : ?>
             <a href="index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
               <?= $value['job'].'-'.$value['split']  ?>
             </a>
