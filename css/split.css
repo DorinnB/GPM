@@ -142,3 +142,7 @@
   opacity: 0.5;
   background: #CCC;
 }
+
+div[data-toggle="tooltip"]  {
+background:url("../img/changed.png") top right /15px no-repeat;
+}

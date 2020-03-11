@@ -55,19 +55,23 @@ $ref_customerST=$lstCustomer->getAllref_customer();
           if (isset($split[$key]) and count($tbljobHisto[$key])>0) {
             //initialisation du tooltip
             $tbljobHisto2[$key]='<img class="histoData" src="img/changed.png" style="height:15px;" data-toggle="tooltip" title="';
+            $tbljobHisto3[$key]=' data-toggle="tooltip" title="';
 
             //pour chaque element, on ajoute le texte au tooltip
             foreach ($tbljobHisto[$key] as $ke => $va) {
               $tbljobHisto2[$key].=$va." | ";
+                $tbljobHisto3[$key].=$va." | ";
             }
             //finalisation du tooltip
             $tbljobHisto2[$key].='">';
+            $tbljobHisto3[$key].='"';
           }
         }
       }
       //on vient preparer le css dans le cas ou il n'y a pas d'historique
       foreach ($split as $key => $value) {
         $tbljobHisto2[$key]=(isset($tbljobHisto2[$key]))?$tbljobHisto2[$key]:"";
+        $tbljobHisto3[$key]=(isset($tbljobHisto3[$key]))?$tbljobHisto3[$key]:"";
       }
 
 

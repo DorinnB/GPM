@@ -44,7 +44,7 @@
 					<img type="image" src="img/calendar_<?=	($split['planning']<=0)?'no.png':'yes.png'	?>" style="max-width:100%; max-height:100%;padding:5px 0px;display: block; margin: auto;" />
 				</acronym>
 			</div>
-			<div class="col-md-4 check<?=	$split['checked']	?>" id="check" style="height:33%">
+			<div class="col-md-4 check<?=	$split['checked']	?>" id="check" style="height:33%" <?= $tbljobHisto3['checked'] ?>>
 				<acronym title="Split Check (<?= $split['checked']?>)">
 					<img type="image" src="img/<?=	($split['checked']==0)?'cross.png':'check.png'	?>" style="max-width:100%; max-height:100%;padding:5px 0px;display: block; margin: auto;" />
 				</acronym>
