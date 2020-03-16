@@ -44,7 +44,9 @@
 				<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="Amount">
 					<p class="title">
 						<span class="name">PO Amount :</span>
-						<span class="value"></span>
+						<span class="value">
+							<input type="text" class="form-control" name="montant_commande" id="montant_commande" value="<?= $split['montant_commande']	?>" style="padding: 0px; text-align: right;">
+						</span>
 					</p>
 					<p class="title">
 						<span class="name">Invoice Total :</span>
@@ -69,7 +71,7 @@
 					<?php foreach ($oInvoices->getAllPayablesJob($split['id_tbljob']) as $payable) : ?>
 						<p class="title">
 							<span class="name"><?=	$payable['payable']	?></span>
-							<span class="value"><?= (($payable['USD']>0)?$payable['USD']*$payable['taux']:$payable['HT']+$payable['TVA']) ?></span>
+							<span class="value"><?= (($payable['USD']>0)?$payable['USD']*$payable['taux']:$payable['HT']) ?></span>
 						</p>
 					<?php endforeach ?>
 				</div>

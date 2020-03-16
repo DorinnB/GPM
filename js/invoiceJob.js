@@ -62,13 +62,7 @@ $(document).ready(function() {
     b.find('.pricingList').find('input').val(pricingList);
     b.find('.priceUnit').find('input').val(price);
 
-    //si la ligne est 0 "Others" on autorise le changement de description
-    /*
-    if (prodCode=='') {
-      b.find('.pricingList').find('input').prop("readonly", false);
-    }
-    */
-    //on autorise le changement de Description
+
     b.find('.pricingList').find('input').prop("readonly", false);
 
     //on reinitialise les select de new invoice line
@@ -195,6 +189,7 @@ $(document).ready(function() {
     });
 
     //On ajoute aussi langue, currency et invoice_commentaire
+    $("#invoiceJob").append('<input type="hidden" name="montant_commande" value="'+$('#montant_commande').val()+'"></input>');
     $("#invoiceJob").append('<input type="hidden" name="invoice_lang" value="'+$('#invoice_lang').parents().hasClass('off')+'"></input>');  //a cause de bootstrapToggle, on doit chercher la div au dessus si elle a la class off (ou rien)
     $("#invoiceJob").append('<input type="hidden" name="invoice_currency" value="'+$('#invoice_currency').parents().hasClass('off')+'"></input>');
     $("#invoiceJob").append('<input type="hidden" name="invoice_commentaire" value="'+$('#invoice_commentaire').val()+'"></input>');

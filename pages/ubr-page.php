@@ -15,7 +15,7 @@
             <th>date ubr</th>
             <th>date creation</th>
             <th>job</th>
-            <th>type2</th>
+            <th>type2 (MRI)</th>
             <th>ubr gpm</th>
             <th>ubr</th>
           </tr>

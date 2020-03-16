@@ -19,11 +19,12 @@ unset($_POST['invoice_lang']);
 $invoice_currency=($_POST['invoice_currency']=="true")?0:1;
 unset($_POST['invoice_currency']);
 
-
+$montant_commande=$_POST['montant_commande'];
+unset($_POST['montant_commande']);
 $invoice_commentaire=$_POST['invoice_commentaire'];
 unset($_POST['invoice_commentaire']);
 $oInvoice = new InvoiceModel($db);
-$oInvoice->updateInvoiceComments($invoice_lang,$invoice_currency,$invoice_commentaire, $id_tbljob);
+$oInvoice->updateInvoiceComments($montant_commande, $invoice_lang,$invoice_currency,$invoice_commentaire, $id_tbljob);
 
 
 
