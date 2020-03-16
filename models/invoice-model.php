@@ -193,9 +193,11 @@ class InvoiceModel
 
   public function updateInvoiceComments($montant_commande, $invoice_lang,$invoice_currency,$comments, $id_tbljob) {
 
+$montant_cmd=($montant_commande=="")?"NULL":($this->db->quote($montant_commande));
+
     $reqUpdate = 'UPDATE info_jobs
     SET
-    montant_commande='.$this->db->quote($montant_commande).',
+    montant_commande='.$montant_cmd.',
     invoice_lang='.$this->db->quote($invoice_lang).',
     invoice_currency='.$this->db->quote($invoice_currency).',
     invoice_commentaire='.$this->db->quote($comments).'
