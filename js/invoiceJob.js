@@ -109,14 +109,43 @@ $(document).ready(function() {
 
   //fonction de calcul auto du totalinvoice
   function calculAuto() {
+
     invoiceTotal=0;
-    $('.totalUser').find('input').each( function (i) {
-      var num = parseFloat(this.value);
-      if (!isNaN(num)) {
-        invoiceTotal=num+invoiceTotal;
+    invoice_val=0;
+    invoice_val_subc=0;
+
+    $('.totalUser').parents().find(".splitInfo").each(function(i) {
+
+      if ($(this).data('st')==1) {
+        $(this).find('.totalUser').find('input').each( function (i) {
+          var num = parseFloat(this.value);
+          if (!isNaN(num)) {
+            invoice_val_subc=num+invoice_val_subc;
+          }
+        });
+      }
+      else {
+        $(this).find('.totalUser').find('input').each( function (i) {
+
+          var num = parseFloat(this.value);
+          if (!isNaN(num)) {
+            invoice_val=num+invoice_val;
+          }
+        });
       }
     });
-    $('#invoiceTotal').text(invoiceTotal.toFixed(2));
+
+
+    $('#invoice_val').text(invoice_val.toFixed(2));
+    $('#invoice_val_subc').text(invoice_val_subc.toFixed(2));
+
+    if(invoice_val > $('#order_val').val()) {
+      $('#invoice_val').css("background-color", "darkred");
+    }
+    if(invoice_val_subc > $('#order_val_subc').val()) {
+      $('#invoice_val_subc').css("background-color", "darkred");
+    }
+
   }
 
   //calcul automatique des sommes après changement
@@ -189,6 +218,8 @@ $(document).ready(function() {
     });
 
     //On ajoute aussi langue, currency et invoice_commentaire
+    $("#invoiceJob").append('<input type="hidden" name="order_val" value="'+$('#order_val').val()+'"></input>');
+    $("#invoiceJob").append('<input type="hidden" name="order_val_subc" value="'+$('#order_val_subc').val()+'"></input>');
     $("#invoiceJob").append('<input type="hidden" name="montant_commande" value="'+$('#montant_commande').val()+'"></input>');
     $("#invoiceJob").append('<input type="hidden" name="invoice_lang" value="'+$('#invoice_lang').parents().hasClass('off')+'"></input>');  //a cause de bootstrapToggle, on doit chercher la div au dessus si elle a la class off (ou rien)
     $("#invoiceJob").append('<input type="hidden" name="invoice_currency" value="'+$('#invoice_currency').parents().hasClass('off')+'"></input>');

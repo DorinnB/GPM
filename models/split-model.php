@@ -74,7 +74,7 @@ class LstSplitModel
     //ADD AFFICHAGE DESSIN en concat
     $req = 'SELECT  tbljobs.id_tbljob, tbljobs.id_info_job,
     customer, job, split, po_number, devis, info_jobs.instruction as info_jobs_instruction, info_jobs.commentaire as info_jobs_commentaire, inOut_recommendation,schedule_recommendation,
-    activity_type, specific_test, montant_commande,
+    activity_type, specific_test, order_val, order_val_subc, order_est, order_est_subc,
     contacts.genre, contacts.prenom, contacts.nom, contacts.email as email, contacts.telephone as telephone, contacts.prenom, contacts.nom, contacts.departement, contacts.rue1, contacts.rue2, contacts.ville, contacts.pays,
     contacts2.genre as genre2, contacts2.prenom as prenom2, contacts2.nom as nom2, contacts2.email as email2, contacts2.telephone as telephone2,
     contacts3.genre as genre3, contacts3.prenom as prenom3, contacts3.nom as nom3, contacts3.email as email3, contacts3.telephone as telephone3,

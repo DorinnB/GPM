@@ -9,23 +9,29 @@ include '../models/invoice-model.php';
 
 //var_dump($_POST);
 
-//on extrait id_tbljob et le commentaire invoiceJob
-$id_tbljob=$_POST['id_tbljob'];
-unset($_POST['id_tbljob']);
-//on met a jour le commentaire invoice
+$oInvoice = new InvoiceModel($db);
 
-$montant_commande=$_POST['montant_commande'];
+//on extrait les POST et on les supprime pour pouvoir faire une boucle sur les post restant (les lignes d'invoice)
+$oInvoice->id_tbljob=$_POST['id_tbljob'];
+unset($_POST['id_tbljob']);
+
+$oInvoice->order_val=$_POST['order_val'];
+unset($_POST['order_val']);
+$oInvoice->order_val_subc=$_POST['order_val_subc'];
+unset($_POST['order_val_subc']);
+$oInvoice->montant_commande=$_POST['montant_commande'];
 unset($_POST['montant_commande']);
 
-$invoice_lang=($_POST['invoice_lang']=="true")?0:1;
+$oInvoice->invoice_lang=($_POST['invoice_lang']=="true")?0:1;
 unset($_POST['invoice_lang']);
-$invoice_currency=($_POST['invoice_currency']=="true")?0:1;
+$oInvoice->invoice_currency=($_POST['invoice_currency']=="true")?0:1;
 unset($_POST['invoice_currency']);
 
-$invoice_commentaire=$_POST['invoice_commentaire'];
+
+$oInvoice->invoice_commentaire=$_POST['invoice_commentaire'];
 unset($_POST['invoice_commentaire']);
-$oInvoice = new InvoiceModel($db);
-$oInvoice->updateInvoiceComments($montant_commande, $invoice_lang,$invoice_currency,$invoice_commentaire, $id_tbljob);
+
+$oInvoice->updateInvoiceComments();
 
 
 

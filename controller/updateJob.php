@@ -50,8 +50,10 @@ $db = new db(); // create a new object, class db()
 	$oJob->instruction=$_POST['instruction'];
 	$oJob->commentaire=$_POST['commentaire'];
 	$oJob->datecreation=$_POST['datecreation'];
-	$oJob->montant_commande=$_POST['montant_commande'];
-	$oJob->montant_estimation=$_POST['montant_estimation'];
+	$oJob->order_val=$_POST['order_val'];
+	$oJob->order_val_subc=$_POST['order_val_subc'];
+	$oJob->order_est=$_POST['order_est'];
+	$oJob->order_est_subc=$_POST['order_est_subc'];
 	$oJob->info_job_actif=1;
 
 

@@ -99,7 +99,8 @@
         </div>
       </div>
 
-      <div class="bs-example accounting" data-example-id="basic-forms">
+      <div class="bs-example accounting" data-example-id="basic-forms" style="height:340px;">
+        <div style="height:310px;overflow-y:auto; margin-right:-15px;">
         <div class="form-group">
           <label for="Spec">PO Ref :</label>
           <input type="text" class="form-control" name="po_number" value="<?= $job['po_number'] ?>">
@@ -120,13 +121,21 @@
 
         <div class="form-group">
           <label for="Spec">Order Amount (€/$) :</label>
-          <input type="text" class="form-control" name="montant_commande" value="<?= $job['montant_commande'] ?>">
+          <input type="text" class="form-control" name="order_val" value="<?= $job['order_val'] ?>">
+        </div>
+        <div class="form-group">
+          <label for="Spec">Order Amount SubC (€/$) :</label>
+          <input type="text" class="form-control" name="order_val_subc" value="<?= $job['order_val_subc'] ?>">
         </div>
         <div class="form-group">
           <label for="Spec">Estimated Order (€/$) :</label>
-          <input type="text" class="form-control" name="montant_estimation" value="<?= $job['montant_estimation'] ?>">
+          <input type="text" class="form-control" name="order_est" value="<?= $job['order_est'] ?>">
         </div>
-
+        <div class="form-group">
+          <label for="Spec">Est. Order SubC (€/$) :</label>
+          <input type="text" class="form-control" name="order_est_subc" value="<?= $job['order_est_subc'] ?>">
+        </div>
+      </div>
       </div>
 
     </div>

@@ -9,7 +9,12 @@ class InvoiceModel
   }
 
   public function __set($property,$value) {
-    $this->$property = ($value=="")? "NULL" : $this->db->quote($value);
+    if (is_numeric($value)){
+      $this->$property = $value;
+    }
+    else {
+      $this->$property = ($value=="")? "NULL" : $this->db->quote($value);
+    }
   }
 
   public function getAllInvoiceList($id_tbljob="null") {
@@ -191,17 +196,18 @@ class InvoiceModel
     $this->db->execute($req);
   }
 
-  public function updateInvoiceComments($montant_commande, $invoice_lang,$invoice_currency,$comments, $id_tbljob) {
+  public function updateInvoiceComments() {
 
-$montant_cmd=($montant_commande=="")?"NULL":($this->db->quote($montant_commande));
+
 
     $reqUpdate = 'UPDATE info_jobs
     SET
-    montant_commande='.$montant_cmd.',
-    invoice_lang='.$this->db->quote($invoice_lang).',
-    invoice_currency='.$this->db->quote($invoice_currency).',
-    invoice_commentaire='.$this->db->quote($comments).'
-    WHERE id_info_job=(SELECT id_info_job FROM tbljobs WHERE id_tbljob='.$this->db->quote($id_tbljob).');';
+    order_val='.$this->order_val.',
+    order_val_subc='.$this->order_val_subc.',
+    invoice_lang='.$this->invoice_lang.',
+    invoice_currency='.$this->invoice_currency.',
+    invoice_commentaire='.$this->invoice_commentaire.'
+    WHERE id_info_job=(SELECT id_info_job FROM tbljobs WHERE id_tbljob='.$this->id_tbljob.');';
 
     //echo $reqUpdate;
     $this->db->query($reqUpdate);

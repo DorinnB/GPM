@@ -24,8 +24,6 @@ $(document).ready(function() {
     template: '#customForm',
     fields: [
       {       label: "eprouvettes.id_eprouvette",       name: "eprouvettes.id_eprouvette"     },
-      {       label: "master_eprouvettes.prefixe",       name: "master_eprouvettes.prefixe"     },
-      {       label: "master_eprouvettes.nom_eprouvette",       name: "master_eprouvettes.nom_eprouvette"     },
       {       label: "eprouvettes.c_temperature",       name: "eprouvettes.c_temperature"     },
       {       label: "eprouvettes.c_frequence",       name: "eprouvettes.c_frequence"     },
       {       label: "eprouvettes.c_type_1_val",       name: "eprouvettes.c_type_1_val",

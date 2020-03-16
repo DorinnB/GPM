@@ -24,8 +24,6 @@ $(document).ready(function() {
     template: '#customForm',
     fields: [
       {       label: "eprouvettes.id_eprouvette",       name: "eprouvettes.id_eprouvette"     },
-      {       label: "master_eprouvettes.prefixe",       name: "master_eprouvettes.prefixe"     },
-      {       label: "master_eprouvettes.nom_eprouvette",       name: "master_eprouvettes.nom_eprouvette"     },
       {       label: "eprouvettes.priority",       name: "eprouvettes.priority"     },
       {       label: "eprouvettes.c_temperature",       name: "eprouvettes.c_temperature"     },
       {       label: "eprouvettes.c_frequence",       name: "eprouvettes.c_frequence"     },
@@ -36,7 +34,7 @@ $(document).ready(function() {
       {       label: "eprouvettes.Cycle_min",       name: "eprouvettes.Cycle_min"     },
       {       label: "eprouvettes.runout",       name: "eprouvettes.runout"     },
       {       label: "eprouvettes.cycle_estime",       name: "eprouvettes.cycle_estime"     },
-      {       label: "",       name: "eprouvettes.c_commentaire", type:  "textarea",     }
+      {       label: "eprouvettes.c_commentaire",       name: "eprouvettes.c_commentaire", type:  "textarea",     }
     ]
   } );
 

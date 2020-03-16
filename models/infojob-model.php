@@ -40,7 +40,8 @@ class InfoJob
     instruction, commentaire, info_job_actif,
     available_expected,
     info_job_date, info_job_rev, info_job_report_Q, info_job_report_TM, info_job_send,
-    DATE_FORMAT(datecreation, "%Y-%m-%d") as datecreation, montant_commande, montant_estimation
+    DATE_FORMAT(datecreation, "%Y-%m-%d") as datecreation,
+    order_val, order_val_subc, order_est, order_est_subc
 
     FROM info_jobs
     LEFT JOIN tbljobs ON tbljobs.id_info_job=info_jobs.id_info_job
@@ -78,8 +79,10 @@ class InfoJob
     `instruction` = '.$this->instruction.',
     `commentaire` = '.$this->commentaire.',
     `datecreation` = '.$this->datecreation.',
-    `montant_commande` = '.$this->montant_commande.',
-    `montant_estimation` = '.$this->montant_estimation.',
+    `order_val` = '.$this->order_val.',
+    `order_val_subc` = '.$this->order_val_subc.',
+    `order_est` = '.$this->order_est.',
+    `order_est_subc` = '.$this->order_est_subc.',
     `info_job_actif` = '.$this->info_job_actif.'
     WHERE id_info_job = '.$this->getInfoJob()['id_info_job'].';';
     //echo $reqUpdate;

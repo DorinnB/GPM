@@ -41,18 +41,22 @@
 						<span class="value"><?= $split['info_jobs_instruction']	?></span>
 					</p>
 				</div>
+
+
+
 				<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="Amount">
 					<p class="title">
-						<span class="name">PO Amount :</span>
-						<span class="value">
-							<input type="text" class="form-control" name="montant_commande" id="montant_commande" value="<?= $split['montant_commande']	?>" style="padding: 0px; text-align: right;">
-						</span>
+						<div style="text-align:left;">PO Amount (MRSAS / SubC) :</div>
+							<input type="text" class="form-control" name="order_val" id="order_val" value="<?= $split['order_val']	?>" style="display:inline; width:45%; padding: 0px; text-align: right;">
+							<input type="text" class="form-control" name="order_val_subc" id="order_val_subc" value="<?= $split['order_val_subc']	?>" style="display:inline; width:45%; padding: 0px; text-align: right;">
 					</p>
 					<p class="title">
-						<span class="name">Invoice Total :</span>
-						<span class="value" id="invoiceTotal"></span>
+							<div style="text-align:left;">Invoice Total (MRSAS / SubC) :</div>
+							<span id="invoice_val" style="display:inline-block; width:45%; padding: 0px; text-align: right;"></span>
+							<span id="invoice_val_subc" style="display:inline-block; width:45%; padding: 0px; text-align: right;"></span>
 					</p>
 				</div>
+
 				<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="Internationalization">
 					<p class="title">
 						<span class="name">Invoice Language :</span>
@@ -114,7 +118,7 @@
 			<div class="col-md-10" style="height:100%">
 				<div style="height:93%; overflow:auto; width:100%;">
 					<?php foreach ($splits as $key => $value) :?>
-						<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="<?=	$value['split'].'-'.$value['test_type_abbr'].' ('.$value['nbep'].' specimen(s) - '.$value['statut'].')'	?>">
+						<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="<?=	$value['split'].'-'.$value['test_type_abbr'].' ('.$value['nbep'].' specimen(s) - '.$value['statut'].')'	?>" data-ST="<?=	$value['ST'] ?>">
 							<p class="title">
 								<div class="splitInvLine">
 									<div class="row titre">
@@ -187,7 +191,7 @@
 						</div >
 					<?php endforeach ?>
 
-					<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="OTHERS">
+					<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="OTHERS" data-ST="1">
 						<p class="title">
 							<div class="splitInvLine">
 								<div class="row">
