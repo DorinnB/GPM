@@ -159,9 +159,135 @@ class InvoiceModel
     ORDER BY id_pricingList
     ';
 
+    return $this->db->getAll($req);
+  }
+
+
+  public function getInvoiceTotal($customer) {
+
+    $req='SELECT
+    id_info_job, SUM(IF(st=1,prix,0)) AS invSubC, SUM(IF(st=0,prix,0)) AS invMetcut
+
+    FROM     (
+      SELECT
+      ST, info_jobs.id_info_job, job,
+      IFNULL(qteUser,IF(
+        type=1,
+        SUM(IF((d_checked > 0) OR (n_fichier IS NOT NULL),1,0)),
+        IF(
+          type=2,
+          SUM(
+            ceil(
+              IF(
+                IF(
+                  temps_essais IS NULL,
+                  IF(
+                    IF(Cycle_final IS NULL,Cycle_final_temp, cycle_final) >0 AND c_frequence IS NOT NULL AND c_frequence !=0,
+                    IF(
+                      Cycle_STL IS NULL AND c_cycle_STL IS NULL,
+                      IF(Cycle_final IS NULL,Cycle_final_temp, cycle_final)/eprouvettes.c_frequence/3600,
+                      IF(
+                        Cycle_STL IS NULL,
+                        IF(IF(Cycle_final IS NULL,Cycle_final_temp, cycle_final)>c_cycle_STL,(c_cycle_STL/c_frequence+(IF(Cycle_final IS NULL,Cycle_final_temp, cycle_final)-c_cycle_STL)/c_frequence_STL)/3600,
+                        (IF(Cycle_final IS NULL,Cycle_final_temp, cycle_final)/c_frequence)/3600
+                      )
+                      ,IF(
+                        IF(Cycle_final IS NULL,Cycle_final_temp, cycle_final)>cycle_STL,
+                        (cycle_STL/c_frequence+(IF(Cycle_final IS NULL,Cycle_final_temp, cycle_final)-cycle_STL)/c_frequence_STL)/3600,
+                        (IF(Cycle_final IS NULL,Cycle_final_temp, cycle_final)/c_frequence)/3600
+                      )
+                    )
+                  )
+                  ,
+                  ""
+                )
+                ,temps_essais
+              )>24,
+              IF(
+                temps_essais IS NULL,
+                IF(
+                  IF(Cycle_final IS NULL,Cycle_final_temp, cycle_final) >0 AND c_frequence IS NOT NULL AND c_frequence !=0,
+                  IF(
+                    Cycle_STL IS NULL AND c_cycle_STL IS NULL,
+                    IF(Cycle_final IS NULL,Cycle_final_temp, cycle_final)/eprouvettes.c_frequence/3600,
+                    IF(
+                      Cycle_STL IS NULL,
+                      IF(
+                        IF(Cycle_final IS NULL,Cycle_final_temp, cycle_final)>c_cycle_STL,
+                        (c_cycle_STL/c_frequence+(IF(Cycle_final IS NULL,Cycle_final_temp, cycle_final)-c_cycle_STL)/c_frequence_STL)/3600,
+                        (IF(Cycle_final IS NULL,Cycle_final_temp, cycle_final)/c_frequence)/3600
+                      ),
+                      IF(
+                        IF(Cycle_final IS NULL,Cycle_final_temp, cycle_final)>cycle_STL,
+                        (cycle_STL/c_frequence+(IF(Cycle_final IS NULL,Cycle_final_temp, cycle_final)-cycle_STL)/c_frequence_STL)/3600,
+                        (IF(Cycle_final IS NULL,Cycle_final_temp, cycle_final)/c_frequence)/3600
+                      )
+                    )
+                  ),
+                  "")
+                  ,temps_essais
+                )-24,
+                0
+              )
+            )
+          )
+          ,""
+        )
+      ))*priceUnit AS prix
+
+      FROM info_jobs
+      LEFT JOIN tbljobs on tbljobs.id_info_job=info_jobs.id_info_job
+      LEFT JOIN invoicelines invS on invs.id_tbljob=tbljobs.id_tbljob
+      LEFT JOIN test_type on test_type.id_test_type=tbljobs.id_type_essai
+      LEFT JOIN eprouvettes on eprouvettes.id_job=invS.id_tbljob
+      LEFT JOIN eprouvettes_temp ON eprouvettes_temp.id_eprouvettes_temp=eprouvettes.id_eprouvette
+      LEFT JOIN enregistrementessais ON enregistrementessais.id_eprouvette=eprouvettes.id_eprouvette
+
+      WHERE eprouvettes.eprouvette_actif=1
+
+      AND tbljobs.tbljob_actif=1
+      AND invoice_type!=2
+      AND job>13300
+      AND customer='.$this->db->quote($customer).'
+      GROUP BY info_jobs.id_info_job, ST, id_invoiceline
+    ) AS test
+    GROUP BY id_info_job;';
 
     //echo $req;
-    return $this->db->getAll($req);
+    $invSplit = $this->db->getAll($req);
+
+
+    $req='SELECT info_jobs.id_info_job, SUM(qteUser * priceUnit) AS invSubC
+    FROM invoicelines
+    LEFT JOIN info_jobs ON (info_jobs.id_info_job=invoicelines.id_info_job AND invoicelines.id_tbljob IS NULL)
+    WHERE invoice_type!=2
+    AND job>13300
+    AND id_tbljob IS NULL
+    AND customer='.$this->db->quote($customer).'
+    GROUP BY info_jobs.id_info_job;
+    ';
+
+    $invJob = $this->db->getAll($req);
+
+    $invPO = array();
+    foreach ($invSplit as $key => $value) {
+      $invPO[$value['id_info_job']]['invSubC']=isset($value['invSubC'])?$value['invSubC']:0;
+      $invPO[$value['id_info_job']]['invMetcut']=isset($value['invMetcut'])?$value['invMetcut']:0;
+    }
+    unset($invSplit);
+
+    foreach ($invJob as $key => $value) {
+      if (isset($invPO[$value['id_info_job']]['invSubC'])) {
+        $invPO[$value['id_info_job']]['invSubC']+=$value['invSubC'];
+      }
+      else {
+      $invPO[$value['id_info_job']]['invSubC']=$value['invSubC'];
+      }
+    }
+    unset($invJob);
+
+    return $invPO;
+
   }
 
   public function deleteInvoiceLine() {

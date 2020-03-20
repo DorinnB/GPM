@@ -42,4 +42,16 @@ $lstContactsArray = explode(";", $lstContactsString);
 $lstContact = implode(";", array_unique($lstContactsArray));
 
 //var_dump($infoJobs);
+
+
+// Rendre votre modèle accessible
+include 'models/invoice-model.php';
+$oInvoices = new InvoiceModel($db);
+$invPO=$oInvoices->getInvoiceTotal($_GET['customer']);
+
+foreach ($lstJobCust as $key => $value) {
+$lstJobCust[$key]['invMetcut']=(isset($invPO[$value['id_info_job']]['invMetcut']))?$invPO[$value['id_info_job']]['invMetcut']:0;
+$lstJobCust[$key]['invSubC']=(isset($invPO[$value['id_info_job']]['invSubC']))?$invPO[$value['id_info_job']]['invSubC']:0;
+}
+
 ?>
