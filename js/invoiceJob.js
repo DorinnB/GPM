@@ -116,7 +116,7 @@ $(document).ready(function() {
 
     $('.totalUser').parents().find(".splitInfo").each(function(i) {
 
-      if ($(this).data('st')==1) {    //SubC
+      if ($(this).data('st')==1) {
         $(this).find('.totalUser').find('input').each( function (i) {
           var num = parseFloat(this.value);
           if (!isNaN(num)) {
@@ -124,8 +124,9 @@ $(document).ready(function() {
           }
         });
       }
-      else {                          //MRSAS
+      else {
         $(this).find('.totalUser').find('input').each( function (i) {
+
           var num = parseFloat(this.value);
           if (!isNaN(num)) {
             invoice_val=num+invoice_val;

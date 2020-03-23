@@ -118,7 +118,7 @@
 			<div class="col-md-10" style="height:100%">
 				<div style="height:93%; overflow:auto; width:100%;">
 					<?php foreach ($splits as $key => $value) :?>
-						<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="<?=	$value['split'].'-'.$value['test_type_abbr'].' ('.$value['nbep'].' specimen(s) - '.$value['statut'].')'	?>" data-ST="<?=	$value['ST'] ?>">
+						<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="<?=	$value['split'].'-'.$value['test_type_abbr'].' ('.$value['nbep'].' specimen(s) - '.$value['statut'].')'	?>" data-ST="<?= $value['ST']?>">
 							<p class="title">
 								<div class="splitInvLine">
 									<div class="row titre">
@@ -191,7 +191,7 @@
 						</div >
 					<?php endforeach ?>
 
-					<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="OTHERS" data-ST="1">
+					<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="OTHERS"  data-ST="1">
 						<p class="title">
 							<div class="splitInvLine">
 								<div class="row">

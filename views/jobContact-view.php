@@ -7,7 +7,7 @@
 			<acronym title="Send Email to Customer(s)">
 				<a href="
 				mailto: <?= $split['email']	?>
-				?subject=Job : <?= $split['customer'].'&nbsp;-&nbsp;'.$split['job'] ?>
+				?subject=Job : <?= $split['customer'].'&nbsp;-&nbsp;'.$split['job'] ?> - <?= $split['info_jobs_instruction'] ?>
 				&cc=<?= $split['email2']	?>;<?= $split['email3']	?>;<?= $split['email4']	?>
 				&body=
 				">
