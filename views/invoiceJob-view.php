@@ -55,6 +55,11 @@
 							<span id="invoice_val" style="display:inline-block; width:45%; padding: 0px; text-align: right;"></span>
 							<span id="invoice_val_subc" style="display:inline-block; width:45%; padding: 0px; text-align: right;"></span>
 					</p>
+					<p class="title">
+							<div style="text-align:left;">UBR/Due (MRSAS / SubC) :</div>
+							<span id="ubr_val" style="display:inline-block; width:45%; padding: 0px; text-align: right;"></span>
+							<span id="ubr_val_subc" style="display:inline-block; width:45%; padding: 0px; text-align: right;"></span>
+					</p>
 				</div>
 
 				<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="Internationalization">

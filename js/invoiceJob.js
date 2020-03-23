@@ -110,46 +110,60 @@ $(document).ready(function() {
   //fonction de calcul auto du totalinvoice
   function calculAuto() {
 
-    invoiceTotal=0;
+    order_val=parseFloat($('#order_val').val());
+    order_val_subc=parseFloat($('#order_val_subc').val());
+
     invoice_val=0;
     invoice_val_subc=0;
+    ubr_val=0;
+    ubr_val_subc=0;
 
     $('.totalUser').parents().find(".splitInfo").each(function(i) {
-
-      if ($(this).data('st')==1) {
+      if ($(this).data('st')==1) {                  //SubC
         $(this).find('.totalUser').find('input').each( function (i) {
           var num = parseFloat(this.value);
           if (!isNaN(num)) {
-            invoice_val_subc=num+invoice_val_subc;
+            ubr_val_subc=num+ubr_val_subc;
+            if (num>0) {
+              invoice_val_subc=num+invoice_val_subc;
+            }
           }
         });
       }
-      else {
+      else if ($(this).data('st')==0) {                  //MRSAS
         $(this).find('.totalUser').find('input').each( function (i) {
-
           var num = parseFloat(this.value);
           if (!isNaN(num)) {
-            invoice_val=num+invoice_val;
+            ubr_val=num+ubr_val;
+            if (num>0) {
+              invoice_val=num+invoice_val;
+            }
           }
         });
       }
     });
 
-
     $('#invoice_val').text(invoice_val.toFixed(2));
     $('#invoice_val_subc').text(invoice_val_subc.toFixed(2));
+    $('#ubr_val').text(ubr_val.toFixed(2));
+    $('#ubr_val_subc').text(ubr_val_subc.toFixed(2));
 
-    if(invoice_val > $('#order_val').val()) {
+    if((invoice_val - order_val)>0) {
       $('#invoice_val').css("background-color", "darkred");
+    }    else {
+      $('#invoice_val').css("background-color", "inherit");
     }
-    if(invoice_val_subc > $('#order_val_subc').val()) {
+    if((invoice_val_subc - order_val_subc)>0) {
       $('#invoice_val_subc').css("background-color", "darkred");
+    }
+    else {
+      $('#invoice_val_subc').css("background-color", "inherit");
     }
 
   }
 
   //calcul automatique des sommes après changement
-  $(".qteUser, .priceUnit").change(function(e){
+  $(".qteUser, .priceUnit, #order_val, #order_val_subc").change(function(e){
     qteUser=$(this).closest('form').find('.qteUser').find('input').val();
     qteGPM=$(this).closest('form').find('.qteGPM').find('input').val();
     priceUnit=$(this).closest('form').find('.priceUnit').find('input').val();
