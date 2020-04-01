@@ -17,11 +17,10 @@ unset($_POST['id_tbljob']);
 
 $oInvoice->order_val=$_POST['order_val'];
 unset($_POST['order_val']);
-$oInvoice->order_val_subc=$_POST['order_val_subc'];
-unset($_POST['order_val_subc']);
-$oInvoice->montant_commande=$_POST['montant_commande'];
-unset($_POST['montant_commande']);
-
+$oInvoice->order_est=$_POST['order_est'];
+unset($_POST['order_est']);
+$oInvoice->order_est_subc=$_POST['order_est_subc'];
+unset($_POST['order_est_subc']);
 $oInvoice->invoice_lang=($_POST['invoice_lang']=="true")?0:1;
 unset($_POST['invoice_lang']);
 $oInvoice->invoice_currency=($_POST['invoice_currency']=="true")?0:1;

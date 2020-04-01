@@ -1,4 +1,75 @@
+var editor; // use a global for the submit and return data rendering in the examples
+
+
 $(document).ready(function() {
+
+
+  editor = new $.fn.dataTable.Editor( {
+    ajax: "controller/editor-invoices.php",        template: '#customForm',
+    fields: [
+      {
+        label: "Invoice Number:",
+        name:  "inv_number"
+      },
+      {
+        label: "Job:",
+        name:  "inv_job",
+        def: function() {
+          return $("#job").val();
+        },
+        type:  "readonly"
+      },
+      {
+        label: "MRSAS:",
+        name:  "inv_mrsas",
+        def: function() {
+          return $('#notInv_val').text();
+        }
+      },
+      {
+        label: "SubC:",
+        name:  "inv_subc",
+        def: function() {
+          return $('#notInv_val_subc').text();
+        }
+      },
+      {
+        label: "Invoice Date:",
+        name: "inv_date",
+        def: function () { return new Date(); },
+        type: "datetime"
+      },
+      {
+        label: "Invoice Total:",
+        name: "inv_total",
+        type:  "readonly"
+      }
+    ]
+  } );
+
+  $('#createInvoice').on( 'click', function () {
+    editor
+    .buttons( {
+      label: "New invoice",
+      fn: function () { this.submit(); }
+    } )
+    .create();
+  } );
+
+  //mise a jour de la somme total
+  editor.dependent( 'inv_mrsas', function ( val, data, callback ) {
+    inv_total=parseFloat(data['values']['inv_mrsas'])+parseFloat(data['values']['inv_subc']);
+    $('#DTE_Field_inv_total').val(inv_total);
+  } );
+  editor.dependent( 'inv_subc', function ( val, data, callback ) {
+    inv_total=parseFloat(data['values']['inv_mrsas'])+parseFloat(data['values']['inv_subc']);
+    $('#DTE_Field_inv_total').val(inv_total);
+  } );
+
+
+
+
+
 
   //changement de l'icone print en save
   $(document).on('input', function() {
@@ -24,7 +95,6 @@ $(document).ready(function() {
     var prodCode = $('option:selected', this).attr('data-prodCode');
     var OpnCode = $('option:selected', this).attr('data-OpnCode');
     var type = $('option:selected', this).attr('data-type');
-    var id_pricingList = $('option:selected', this).attr('data-id_pricingList');
     var pricingList = $('option:selected', this).attr('data-pricingList');
 
     if ($('#invoice_lang').parents().hasClass('off')) { //off = euro
@@ -54,7 +124,6 @@ $(document).ready(function() {
     b.find('.newEntry').val(newEntry);
     b.find('.id_info_job').val(id_info_job);
     b.find('.id_tbljob').val(id_tbljob);
-    b.find('.id_pricingList').val(id_pricingList);
     b.find('.prodCode').val(prodCode);
     b.find('.OpnCode').val(OpnCode);
     b.find('.type').val(type);
@@ -110,20 +179,17 @@ $(document).ready(function() {
   //fonction de calcul auto du totalinvoice
   function calculAuto() {
 
-    order_val=parseFloat($('#order_val').val());
-    order_val_subc=parseFloat($('#order_val_subc').val());
-
     invoice_val=0;
     invoice_val_subc=0;
-    ubr_val=0;
-    ubr_val_subc=0;
+    notInv_val=0;
+    notInv_val_subc=0;
 
     $('.totalUser').parents().find(".splitInfo").each(function(i) {
       if ($(this).data('st')==1) {                  //SubC
         $(this).find('.totalUser').find('input').each( function (i) {
           var num = parseFloat(this.value);
           if (!isNaN(num)) {
-            ubr_val_subc=num+ubr_val_subc;
+            notInv_val_subc=num+notInv_val_subc;
             if (num>0) {
               invoice_val_subc=num+invoice_val_subc;
             }
@@ -134,7 +200,7 @@ $(document).ready(function() {
         $(this).find('.totalUser').find('input').each( function (i) {
           var num = parseFloat(this.value);
           if (!isNaN(num)) {
-            ubr_val=num+ubr_val;
+            notInv_val=num+notInv_val;
             if (num>0) {
               invoice_val=num+invoice_val;
             }
@@ -143,27 +209,51 @@ $(document).ready(function() {
       }
     });
 
+
+    $('.inv_mrsas').each( function (i) {
+      notInv_val-=parseFloat($(this).text());
+    });
+    $('.inv_subc').each( function (i) {
+      notInv_val_subc-=parseFloat($(this).text());
+    });
+
+
     $('#invoice_val').text(invoice_val.toFixed(2));
     $('#invoice_val_subc').text(invoice_val_subc.toFixed(2));
-    $('#ubr_val').text(ubr_val.toFixed(2));
-    $('#ubr_val_subc').text(ubr_val_subc.toFixed(2));
+    $('#notInv_val').text(notInv_val.toFixed(2));
+    $('#notInv_val_subc').text(notInv_val_subc.toFixed(2));
+    $('#UBRMRSAS').text(notInv_val.toFixed(2));
 
-    if((invoice_val - order_val)>0) {
-      $('#invoice_val').css("background-color", "darkred");
-    }    else {
-      $('#invoice_val').css("background-color", "inherit");
-    }
-    if((invoice_val_subc - order_val_subc)>0) {
-      $('#invoice_val_subc').css("background-color", "darkred");
+    order_val=parseFloat($('#order_val').val());
+    order_est=parseFloat($('#order_est').val());
+    order_est_subc=parseFloat($('#order_est_subc').val());
+    UBRMRSAS=parseFloat($('#UBRMRSAS').text());
+    sumPayables=parseFloat($('#sumPayables').text());
+
+    if((invoice_val+invoice_val_subc - order_val)>0) {
+      $('#order_val').addClass('outTolerance');
     }
     else {
-      $('#invoice_val_subc').css("background-color", "inherit");
+      $('#order_val').removeClass('outTolerance');
+    }
+
+    if((UBRMRSAS - order_est)>0) {
+      $('#order_est').addClass('outTolerance');
+    }
+    else {
+      $('#order_est').removeClass('outTolerance');
+    }
+    if((sumPayables - order_est_subc)>0) {
+      $('#order_est_subc').addClass('outTolerance');
+    }
+    else {
+      $('#order_est_subc').removeClass('outTolerance');
     }
 
   }
 
   //calcul automatique des sommes après changement
-  $(".qteUser, .priceUnit, #order_val, #order_val_subc").change(function(e){
+  $(".qteUser, .priceUnit, #order_val, #order_est, #order_est_subc").change(function(e){
     qteUser=$(this).closest('form').find('.qteUser').find('input').val();
     qteGPM=$(this).closest('form').find('.qteGPM').find('input').val();
     priceUnit=$(this).closest('form').find('.priceUnit').find('input').val();
@@ -233,8 +323,8 @@ $(document).ready(function() {
 
     //On ajoute aussi langue, currency et invoice_commentaire
     $("#invoiceJob").append('<input type="hidden" name="order_val" value="'+$('#order_val').val()+'"></input>');
-    $("#invoiceJob").append('<input type="hidden" name="order_val_subc" value="'+$('#order_val_subc').val()+'"></input>');
-    $("#invoiceJob").append('<input type="hidden" name="montant_commande" value="'+$('#montant_commande').val()+'"></input>');
+    $("#invoiceJob").append('<input type="hidden" name="order_est" value="'+$('#order_est').val()+'"></input>');
+    $("#invoiceJob").append('<input type="hidden" name="order_est_subc" value="'+$('#order_est_subc').val()+'"></input>');
     $("#invoiceJob").append('<input type="hidden" name="invoice_lang" value="'+$('#invoice_lang').parents().hasClass('off')+'"></input>');  //a cause de bootstrapToggle, on doit chercher la div au dessus si elle a la class off (ou rien)
     $("#invoiceJob").append('<input type="hidden" name="invoice_currency" value="'+$('#invoice_currency').parents().hasClass('off')+'"></input>');
     $("#invoiceJob").append('<input type="hidden" name="invoice_commentaire" value="'+$('#invoice_commentaire').val()+'"></input>');

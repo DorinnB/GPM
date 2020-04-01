@@ -47,7 +47,7 @@ include('controller/weeklyReport-controller.php');
 									<?=	(trim($value['devis'])!='' )?'Quote: '.$value['devis'].'<br/>':""	?>
 									<?=	$value['instruction']	?>
 								</td>
-								<td rowspan="<?=	count($infoJobs[$value['id_info_job']])+1	?>" class="<?= ($value['invMetcut']+$value['invSubC'] > $value['order_val']+$value['order_val_subc'])?'overOrder':'' ?>">I : <?=	$value['invMetcut']+$value['invSubC']	?></br>O : <?= $value['order_val']+$value['order_val_subc'] ?></td>
+								<td rowspan="<?=	count($infoJobs[$value['id_info_job']])+1	?>" class="<?= ($value['invMetcut']+$value['invSubC'] > $value['order_val'])?'overOrder':'' ?>">I : <?=	$value['invMetcut']+$value['invSubC']	?></br>O : <?= $value['order_val'] ?></td>
 								<td rowspan="<?=	count($infoJobs[$value['id_info_job']])+1	?>"><?=	$value['ref_matiere']	?></td>
 								<td rowspan="<?=	count($infoJobs[$value['id_info_job']])+1	?>"><?=	$value['job']	?></td>
 								<td>0</td>

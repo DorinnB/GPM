@@ -290,6 +290,22 @@ class InvoiceModel
 
   }
 
+  public function getAllInvoiceRecorded($id_tbljob) {
+
+      $req='SELECT inv_number, inv_mrsas, inv_subc
+      FROM invoices
+      WHERE inv_job=(
+        SELECT job
+        FROM tbljobs
+        LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
+        WHERE id_tbljob='.$this->db->quote($id_tbljob).'
+      )
+      ORDER BY inv_number ASC;';
+
+
+    return $this->db->getAll($req);
+  }
+
   public function deleteInvoiceLine() {
 
     $reqDelete = 'DELETE FROM invoicelines
@@ -324,12 +340,11 @@ class InvoiceModel
 
   public function updateInvoiceComments() {
 
-
-
     $reqUpdate = 'UPDATE info_jobs
     SET
     order_val='.$this->order_val.',
-    order_val_subc='.$this->order_val_subc.',
+    order_est='.$this->order_est.',
+    order_est_subc='.$this->order_est_subc.',
     invoice_lang='.$this->invoice_lang.',
     invoice_currency='.$this->invoice_currency.',
     invoice_commentaire='.$this->invoice_commentaire.'

@@ -346,7 +346,7 @@ class LstJobsModel
 
   public function getWeeklyReportCust($customer) {
     $req = 'SELECT MAX(info_jobs.id_info_job) as id_info_job, MAX(customer) as customer, job, MAX(ref_matiere) as ref_matiere, MAX(po_number) as po_number, MAX(devis) as devis, max(weeklyComment) as weeklyComment, max(instruction) as instruction,
-    max(order_val) as order_val, MAX(order_val_subc) as order_val_subc,
+    max(order_val) as order_val,
     count(DISTINCT case when master_eprouvette_inOut_A is not null then master_eprouvettes.id_master_eprouvette end) AS nbreceived, count(DISTINCT master_eprouvettes.id_master_eprouvette) as nbep, min(master_eprouvette_inOut_A) as firstReceived, max(available_expected) as available_expected,
     GROUP_CONCAT(DISTINCT
       if(contacts.prenom is not null, concat(LEFT(contacts.prenom , 1), "&nbsp;",contacts.nom),""),

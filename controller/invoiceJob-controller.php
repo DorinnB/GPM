@@ -48,8 +48,10 @@ if (isset($split['billing_pays'])) {
 //var_dump($split);
 
 //var_dump($splits);
-
-
+$sumPayables=0;
+foreach ($oInvoices->getAllPayablesJob($split['id_tbljob']) as $payable) {
+  $sumPayables+=(($payable['USD']>0)?$payable['USD']*$payable['taux']:$payable['HT']);
+}
 
 
 // Affichage du résultat
