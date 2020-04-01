@@ -19,6 +19,15 @@ foreach ($lstJobCust as $key => $value) {
 }
 
 
+// Rendre votre modèle accessible
+include '../models/invoice-model.php';
+$oInvoices = new InvoiceModel($db);
+$invPO=$oInvoices->getInvoiceTotal($_GET['customer']);
+
+foreach ($lstJobCust as $key => $value) {
+$lstJobCust[$key]['invMetcut']=(isset($invPO[$value['id_info_job']]['invMetcut']))?$invPO[$value['id_info_job']]['invMetcut']:0;
+$lstJobCust[$key]['invSubC']=(isset($invPO[$value['id_info_job']]['invSubC']))?$invPO[$value['id_info_job']]['invSubC']:0;
+}
 
 
 
@@ -114,7 +123,7 @@ $row = 3; // 1-based index
 foreach ($lstJobCust as $key => $value) {
 
   //on copie le style de pour chaque job
-  for ($colEnTete = 0; $colEnTete <= 10; $colEnTete++) {
+  for ($colEnTete = 0; $colEnTete <= 11; $colEnTete++) {
     $style = $page->getStyleByColumnAndrow(1+$colEnTete, 3);
     $dstCell = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(1+$colEnTete) . (string)($row);
     $page->duplicateStyle($style, $dstCell);
@@ -126,51 +135,52 @@ $po_number=(trim($value['po_number'])!='')?'PO: '.$value['po_number']."\n":'';
 $quote=(trim($value['devis'])!='')?'Quote: '.$value['devis']."\n":'';
 
   $page->setCellValueByColumnAndRow(1+0, $row, $po_number.$quote.$value['instruction']);
-  $page->setCellValueByColumnAndRow(1+1, $row, $value['ref_matiere']);
-  $page->setCellValueByColumnAndRow(1+2, $row, $value['job']);
-  $page->setCellValueByColumnAndRow(1+3, $row, 0);
-  $page->setCellValueByColumnAndRow(1+4, $row, 'Material Receipt');
-  $page->setCellValueByColumnAndRow(1+5, $row, $value['nbreceived']);
-  $page->setCellValueByColumnAndRow(1+6, $row, $value['nbep']);
-  $page->setCellValueByColumnAndRow(1+7, $row, (isset($value['firstReceived'])?'Receipt '.$value['firstReceived']:' Not Received'));
-  $page->setCellValueByColumnAndRow(1+8, $row, $value['available_expected']);
-  $page->setCellValueByColumnAndRow(1+9, $row, $value['weeklyComment']);
-  $page->setCellValueByColumnAndRow(1+10, $row, $value['contactsXLS']);
-  $page->getStyleByColumnAndRow(10,$row)->getAlignment()->setWrapText(true);
+  $page->setCellValueByColumnAndRow(1+1, $row, ($value['invMetcut']+$value['invSubC']).' / '.$value['order_val']);
+  $page->setCellValueByColumnAndRow(1+2, $row, $value['ref_matiere']);
+  $page->setCellValueByColumnAndRow(1+3, $row, $value['job']);
+  $page->setCellValueByColumnAndRow(1+4, $row, 0);
+  $page->setCellValueByColumnAndRow(1+5, $row, 'Material Receipt');
+  $page->setCellValueByColumnAndRow(1+6, $row, $value['nbreceived']);
+  $page->setCellValueByColumnAndRow(1+7, $row, $value['nbep']);
+  $page->setCellValueByColumnAndRow(1+8, $row, (isset($value['firstReceived'])?'Receipt '.$value['firstReceived']:' Not Received'));
+  $page->setCellValueByColumnAndRow(1+9, $row, $value['available_expected']);
+  $page->setCellValueByColumnAndRow(1+10, $row, $value['weeklyComment']);
+  $page->setCellValueByColumnAndRow(1+11, $row, $value['contactsXLS']);
+  $page->getStyleByColumnAndRow(11,$row)->getAlignment()->setWrapText(true);
 
   $row++;
 
   foreach ($infoJobs[$value['id_info_job']] as $k => $v) {
 
     //on copie le style de pour chaque split
-    for ($colEnTete = 1; $colEnTete <= 10; $colEnTete++) {
+    for ($colEnTete = 1; $colEnTete <= 11; $colEnTete++) {
       $style = $page->getStyleByColumnAndrow(1+$colEnTete, 4);
       $dstCell = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex(1+$colEnTete) . (string)($row);
       $page->duplicateStyle($style, $dstCell);
     }
 
-    $page->setCellValueByColumnAndRow(1+3, $row, $v['split']);
-    $page->setCellValueByColumnAndRow(1+4, $row, $v['test_type_cust']);
-    $page->setCellValueByColumnAndRow(1+5, $row, $v['nbtest']);
-    $page->setCellValueByColumnAndRow(1+6, $row, $v['nbtestplanned']);
-    $page->setCellValueByColumnAndRow(1+7, $row, $v['statut_client']);
-    $page->setCellValueByColumnAndRow(1+8, $row, $v['DyT_Cust']);
+    $page->setCellValueByColumnAndRow(1+4, $row, $v['split']);
+    $page->setCellValueByColumnAndRow(1+5, $row, $v['test_type_cust']);
+    $page->setCellValueByColumnAndRow(1+6, $row, $v['nbtest']);
+    $page->setCellValueByColumnAndRow(1+7, $row, $v['nbtestplanned']);
+    $page->setCellValueByColumnAndRow(1+8, $row, $v['statut_client']);
+    $page->setCellValueByColumnAndRow(1+9, $row, $v['DyT_Cust']);
 
 
     if ($v['statut_client']=="In Progress") {
-      $page->getStyle('D'.$row.':I'.$row)->applyFromArray( $style_InProgress );
+      $page->getStyle('E'.$row.':J'.$row)->applyFromArray( $style_InProgress );
     }
     elseif ($v['statut_client']=="Completed") {
-      $page->getStyle('D'.$row.':I'.$row)->applyFromArray( $style_Completed );
+      $page->getStyle('E'.$row.':J'.$row)->applyFromArray( $style_Completed );
     }
     elseif ($v['statut_client']=="Awaiting Instructions") {
-      $page->getStyle('D'.$row.':I'.$row)->applyFromArray( $style_AwaitingInstructions );
+      $page->getStyle('E'.$row.':J'.$row)->applyFromArray( $style_AwaitingInstructions );
     }
     elseif ($v['statut_client']=="Report Edition") {
-      $page->getStyle('D'.$row.':I'.$row)->applyFromArray( $style_ReportEdition );
+      $page->getStyle('E'.$row.':J'.$row)->applyFromArray( $style_ReportEdition );
     }
     else {
-      $page->getStyle('D'.$row.':I'.$row)->applyFromArray( $style_Normal );
+      $page->getStyle('E'.$row.':J'.$row)->applyFromArray( $style_Normal );
     }
 
     $row++;
@@ -179,10 +189,11 @@ $quote=(trim($value['devis'])!='')?'Quote: '.$value['devis']."\n":'';
   $page->mergeCells('A'.$firstLine.':A'.($row-1));
   $page->mergeCells('B'.$firstLine.':B'.($row-1));
   $page->mergeCells('C'.$firstLine.':C'.($row-1));
-  $page->mergeCells('j'.$firstLine.':j'.($row-1));
-  $page->mergeCells('k'.$firstLine.':k'.($row-1));
+  $page->mergeCells('D'.$firstLine.':D'.($row-1));
+  $page->mergeCells('K'.$firstLine.':K'.($row-1));
+  $page->mergeCells('L'.$firstLine.':L'.($row-1));
 
-  $page->getStyle('A'.$row.':K'.$row)->applyFromArray( $style_interligne );
+  $page->getStyle('A'.$row.':L'.$row)->applyFromArray( $style_interligne );
   $row++;
 }
 

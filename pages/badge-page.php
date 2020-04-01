@@ -13,24 +13,6 @@
 					<tr>
 						<th><acronym title="Week Number">W.</acronym></th>
 						<th><acronym title="Date">Date</acronym></th>
-						<th><acronym title="Technician">T.</acronym></th>
-
-						<th><acronym title="First In">In</acronym></th>
-						<th><acronym title="First Out">Out</acronym></th>
-						<th><acronym title="Second In">In</acronym></th>
-						<th><acronym title="Second Out">Out</acronym></th>
-
-						<th><acronym title="In-Site Time">I.T.</acronym></th>
-						<th><acronym title="Working Time">W.T.</acronym></th>
-						<th><acronym title="Adjusted Time">Ad.T.</acronym></th>
-						<th><acronym title="Validation Time">V.T.</acronym></th>
-						<th><acronym title="Comments">Comments</acronym></th>
-						<th><acronym title="Validating User">V.U.</acronym></th>
-					</tr>
-				</thead>
-				<tfoot>
-					<tr>
-						<th><acronym title="Week Number">W.</acronym></th>
 						<th><acronym title="Date">Date</acronym></th>
 						<th><acronym title="Technician">T.</acronym></th>
 
@@ -43,6 +25,28 @@
 						<th><acronym title="Working Time">W.T.</acronym></th>
 						<th><acronym title="Adjusted Time">Ad.T.</acronym></th>
 						<th><acronym title="Validation Time">V.T.</acronym></th>
+						<th><acronym title="Planning Time">P.T.</acronym></th>
+						<th><acronym title="Comments">Comments</acronym></th>
+						<th><acronym title="Validating User">V.U.</acronym></th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<th><acronym title="Week Number">W.</acronym></th>
+						<th><acronym title="Date">Date</acronym></th>
+						<th><acronym title="Date">Date</acronym></th>
+						<th><acronym title="Technician">T.</acronym></th>
+
+						<th><acronym title="First In">In</acronym></th>
+						<th><acronym title="First Out">Out</acronym></th>
+						<th><acronym title="Second In">In</acronym></th>
+						<th><acronym title="Second Out">Out</acronym></th>
+
+						<th><acronym title="In-Site Time">I.T.</acronym></th>
+						<th><acronym title="Working Time">W.T.</acronym></th>
+						<th><acronym title="Adjusted Time">Ad.T.</acronym></th>
+						<th><acronym title="Validation Time">V.T.</acronym></th>
+						<th><acronym title="Planning Time">P.T.</acronym></th>
 						<th><acronym title="Comments">Comments</acronym></th>
 						<th><acronym title="Validating User">V.U.</acronym></th>
 					</tr>
