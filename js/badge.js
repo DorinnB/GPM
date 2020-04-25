@@ -10,10 +10,10 @@ $(document).ready(function() {
     },
     table: "#table_badge",
     fields: [
-      { label: "Date", name: "badgeplanning.date"  },
-      { label: "id_user", name: "badgeplanning.id_user"  },
-      { label: "validation", name: "badgeplanning.validation"  },
-      { label: "comments", name: "badgeplanning.comments"  }
+      { label: "Date", name: "badges.date"  },
+      { label: "id_user", name: "badges.id_user"  },
+      { label: "validation", name: "badges.validation"  },
+      { label: "comments", name: "badges.comments"  }
     ]
   } );
 
@@ -34,7 +34,7 @@ $(document).ready(function() {
     columns: [
       {  data: null,
         render: function ( data, type, row ) {
-          day=new Date(data.badgeplanning.date);
+          day=new Date(data.badges.date);
           Date.prototype.getWeek = function() {
             var onejan = new Date(this.getFullYear(),0,1);
             //return Math.ceil((((this - onejan) / 86400000) + onejan.getDay()+1)/7);
@@ -43,10 +43,10 @@ $(document).ready(function() {
           return day.getWeek();
         }
       },
-      { data: "badgeplanning.date" },
+      { data: "badges.date" },
       {  data: null,
         render: function ( data, type, row ) {
-          day=new Date(data.badgeplanning.date);
+          day=new Date(data.badges.date);
           var tab_jour=new Array("Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi");
           return tab_jour[day.getDay()];
         }
@@ -54,7 +54,7 @@ $(document).ready(function() {
       { data: "techniciens.technicien" },
       { data: null,
         render: function ( data, type, row ) {
-          var date=data.badgeplanning.in1;
+          var date=data.badges.in1;
           if (date) {
             return date.split(' ')[1];
           }
@@ -63,7 +63,7 @@ $(document).ready(function() {
       },
       { data: null,
         render: function ( data, type, row ) {
-          var date=data.badgeplanning.out1;
+          var date=data.badges.out1;
           if (date) {
             return date.split(' ')[1];
           }
@@ -72,7 +72,7 @@ $(document).ready(function() {
       },
       { data: null,
         render: function ( data, type, row ) {
-          var date=data.badgeplanning.in2;
+          var date=data.badges.in2;
           if (date) {
             return date.split(' ')[1];
           }
@@ -81,7 +81,7 @@ $(document).ready(function() {
       },
       { data: null,
         render: function ( data, type, row ) {
-          var date=data.badgeplanning.out2;
+          var date=data.badges.out2;
           if (date) {
             return date.split(' ')[1];
           }
@@ -93,15 +93,15 @@ $(document).ready(function() {
 
           var diff2=0;
           var diff1=0;
-          in1=new Date(data.badgeplanning.in1);
-          out1=new Date(data.badgeplanning.out1);
-          in2=new Date(data.badgeplanning.in2);
-          out2=new Date(data.badgeplanning.out2);
+          in1=new Date(data.badges.in1);
+          out1=new Date(data.badges.out1);
+          in2=new Date(data.badges.in2);
+          out2=new Date(data.badges.out2);
 
-          if (data.badgeplanning.out2) {
+          if (data.badges.out2) {
             diff2=out2-in2;
           }
-          if (data.badgeplanning.out1) {
+          if (data.badges.out1) {
             diff1=out1-in1;
           }
           date=new Date(diff2+diff1);
@@ -123,16 +123,16 @@ $(document).ready(function() {
 
           var diff2=0;
           var diff1=0;
-          in1=new Date(data.badgeplanning.in1);
-          out1=new Date(data.badgeplanning.out1);
-          in2=new Date(data.badgeplanning.in2);
-          out2=new Date(data.badgeplanning.out2);
+          in1=new Date(data.badges.in1);
+          out1=new Date(data.badges.out1);
+          in2=new Date(data.badges.in2);
+          out2=new Date(data.badges.out2);
           var resthours=$('#resthours').attr('data-value');
 
-          if (data.badgeplanning.out2) {
+          if (data.badges.out2) {
             diff2=out2-in2-resthours*1000*3600/2;
           }
-          if (data.badgeplanning.out1) {
+          if (data.badges.out1) {
             diff1=out1-in1-resthours*1000*3600/2;
           }
           date=new Date(diff2+diff1);
@@ -155,18 +155,20 @@ $(document).ready(function() {
 
           var diff2=0;
           var diff1=0;
-          in1=new Date(data.badgeplanning.in1);
-          out1=new Date(data.badgeplanning.out1);
-          in2=new Date(data.badgeplanning.in2);
-          out2=new Date(data.badgeplanning.out2);
-          var dayhours=$('#dayhours').attr('data-value');
+          in1=new Date(data.badges.in1);
+          out1=new Date(data.badges.out1);
+          in2=new Date(data.badges.in2);
+          out2=new Date(data.badges.out2);
+
+          //var dayhours=$('#dayhours').attr('data-value');
+          var dayhours=data.badgeplanning.quantity;
           var resthours=$('#resthours').attr('data-value');
           malus=0;
 
-          if (data.badgeplanning.out2) {
+          if (data.badges.out2) {
             diff2=out2-in2;
           }
-          if (data.badgeplanning.out1) {
+          if (data.badges.out1) {
             diff1=out1-in1;
           }
 
@@ -194,13 +196,104 @@ $(document).ready(function() {
           return formattedTime;
         }
       },
-      { data: "badgeplanning.validation" },
-      { data: "badgeplanning.quantity" },
+      { data: "badges.validation" ,
+      createdCell: function (td, cellData, rowData, row, col) {
+
+        var diff2=0;
+        var diff1=0;
+        in1=new Date(rowData.badges.in1);
+        out1=new Date(rowData.badges.out1);
+        in2=new Date(rowData.badges.in2);
+        out2=new Date(rowData.badges.out2);
+
+        var dayhours=rowData.badgeplanning.quantity;
+        var resthours=$('#resthours').attr('data-value');
+
+        if (rowData.badges.out2) {
+          diff2=out2-in2;
+        }
+        if (rowData.badges.out1) {
+          diff1=out1-in1;
+        }
+
+        if((diff2+diff1)/1000 < dayhours*3600) {
+          diff=Math.max(diff2+diff1-resthours*1000*3600,0);
+        }
+        else if ((diff2+diff1)/1000 >= dayhours*3600 && (diff2+diff1)/1000 <= dayhours*3600+resthours*3600) {
+          diff=dayhours*3600*1000;
+        }
+        else {
+          diff=diff2+diff1-resthours*1000*3600;
+        }
+
+
+
+        if (cellData) {
+          $(td).addClass('validatedBadge');
+        }
+        else if (diff/3600/1000-dayhours==0) {
+          $(td).addClass('asPlanned');
+        }
+        else  {
+          $(td).addClass('notPLanned');
+        }
+
+      }    },
       { data: null,
         render: function (data,type,row) {
-          return null;
+
+          var diff2=0;
+          var diff1=0;
+          in1=new Date(data.badges.in1);
+          out1=new Date(data.badges.out1);
+          in2=new Date(data.badges.in2);
+          out2=new Date(data.badges.out2);
+
+          //var dayhours=$('#dayhours').attr('data-value');
+          var dayhours=data.badgeplanning.quantity;
+          var resthours=$('#resthours').attr('data-value');
+          malus=0;
+
+          if (data.badges.out2) {
+            diff2=out2-in2;
+          }
+          if (data.badges.out1) {
+            diff1=out1-in1;
+          }
+
+          if((diff2+diff1)/1000 < dayhours*3600) {
+            diff=Math.max(diff2+diff1-resthours*1000*3600,0);
+          }
+          else if ((diff2+diff1)/1000 >= dayhours*3600 && (diff2+diff1)/1000 <= dayhours*3600+resthours*3600) {
+            diff=dayhours*3600*1000;
+          }
+          else {
+            diff=diff2+diff1-resthours*1000*3600;
+          }
+
+
+
+          if (data.badges.validation) {
+            return "Valid";
+          }
+          else if (diff/3600/1000-dayhours==0) {
+            return "OK";
+          }
+          else if (diff/3600/1000-dayhours>0) {
+            return "Delta ↑";
+          }
+          else if (diff/3600/1000-dayhours<0) {
+            return "Delta ↓";
+          }
+          else  {
+            return "ERROR";
+          }
+
+
         }
       },
+      { data: "badgeplanning.quantity" },
+      { data: "badges.comments" },
       { data: "t2.technicien" }
     ],
     scrollY: '65vh',
@@ -208,11 +301,11 @@ $(document).ready(function() {
     paging: false,
     fixedColumns:   {leftColumns: 3},
     autoFill: {
-      columns: [11, 13],
+      columns: [11, 14],
       editor:  editor
     },
     keys: {
-      columns: [11, 13],
+      columns: [11, 14],
       editor:  editor
     },
     select: {
@@ -223,8 +316,8 @@ $(document).ready(function() {
 
 
   table
-  .column( '11' )
-  .search( '^$', true, false )
+  .column( '12' )
+  .search( 'Delta', true, false )
   .draw();
 
 

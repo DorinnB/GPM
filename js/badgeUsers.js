@@ -34,6 +34,13 @@ $(document).ready(function() {
         }
       },
       { data: "badges.date" },
+      {  data: null,
+        render: function ( data, type, row ) {
+          day=new Date(data.badges.date);
+          var tab_jour=new Array("Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi");
+          return tab_jour[day.getDay()];
+        }
+      },
       { data: "techniciens.technicien" },
       { data: null,
         render: function ( data, type, row ) {
@@ -177,7 +184,103 @@ $(document).ready(function() {
           return formattedTime;
         }
       },
-      { data: "badges.validation" },
+      { data: "badges.validation" ,
+      createdCell: function (td, cellData, rowData, row, col) {
+
+        var diff2=0;
+        var diff1=0;
+        in1=new Date(rowData.badges.in1);
+        out1=new Date(rowData.badges.out1);
+        in2=new Date(rowData.badges.in2);
+        out2=new Date(rowData.badges.out2);
+
+        var dayhours=rowData.badgeplanning.quantity;
+        var resthours=$('#resthours').attr('data-value');
+
+        if (rowData.badges.out2) {
+          diff2=out2-in2;
+        }
+        if (rowData.badges.out1) {
+          diff1=out1-in1;
+        }
+
+        if((diff2+diff1)/1000 < dayhours*3600) {
+          diff=Math.max(diff2+diff1-resthours*1000*3600,0);
+        }
+        else if ((diff2+diff1)/1000 >= dayhours*3600 && (diff2+diff1)/1000 <= dayhours*3600+resthours*3600) {
+          diff=dayhours*3600*1000;
+        }
+        else {
+          diff=diff2+diff1-resthours*1000*3600;
+        }
+
+
+
+        if (cellData) {
+          $(td).addClass('validatedBadge');
+        }
+        else if (diff/3600/1000-dayhours==0) {
+          $(td).addClass('asPlanned');
+        }
+        else  {
+          $(td).addClass('notPLanned');
+        }
+
+      }    },
+      { data: null,
+        render: function (data,type,row) {
+
+          var diff2=0;
+          var diff1=0;
+          in1=new Date(data.badges.in1);
+          out1=new Date(data.badges.out1);
+          in2=new Date(data.badges.in2);
+          out2=new Date(data.badges.out2);
+
+          //var dayhours=$('#dayhours').attr('data-value');
+          var dayhours=data.badgeplanning.quantity;
+          var resthours=$('#resthours').attr('data-value');
+          malus=0;
+
+          if (data.badges.out2) {
+            diff2=out2-in2;
+          }
+          if (data.badges.out1) {
+            diff1=out1-in1;
+          }
+
+          if((diff2+diff1)/1000 < dayhours*3600) {
+            diff=Math.max(diff2+diff1-resthours*1000*3600,0);
+          }
+          else if ((diff2+diff1)/1000 >= dayhours*3600 && (diff2+diff1)/1000 <= dayhours*3600+resthours*3600) {
+            diff=dayhours*3600*1000;
+          }
+          else {
+            diff=diff2+diff1-resthours*1000*3600;
+          }
+
+
+
+          if (data.badges.validation) {
+            return "Valid";
+          }
+          else if (diff/3600/1000-dayhours==0) {
+            return "OK";
+          }
+          else if (diff/3600/1000-dayhours>0) {
+            return "Delta ↑";
+          }
+          else if (diff/3600/1000-dayhours<0) {
+            return "Delta ↓";
+          }
+          else  {
+            return "ERROR";
+          }
+
+
+        }
+      },
+      { data: "badgeplanning.quantity" },
       { data: "badges.comments" },
       { data: "t2.technicien" }
     ],
@@ -199,8 +302,8 @@ $(document).ready(function() {
   filtre=day.getFullYear() + '-' + ((week<10)?"0":"") + week;
 
   table
-  .column( '0' )
-  .search( filtre, true, false )
+  .column( '12' )
+  .search( 'Delta', true, false )
   .draw();
 
 

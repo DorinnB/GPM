@@ -16,42 +16,43 @@ DataTables\Editor\Validate;
 
 // Build our Editor instance and process the data coming from _POST
 Editor::inst( $db, 'badges' )
-    ->readTable('badgeplanning') // The VIEW to read data from
-  ->pkey( 'badgeplanning.id_badge' )
+    ->readTable('badges') // The VIEW to read data from
+  ->pkey( 'badges.id_badge' )
   ->fields(
-    Field::inst( 'badgeplanning.date'),
-    Field::inst( 'badgeplanning.id_user' )
-    ->options( Options::inst()
-    ->table( 'techniciens' )
-    ->value( 'id_technicien' )
-    ->label( 'id_technicien' )
-  ),
-  Field::inst( 'techniciens.id_technicien'),
-  Field::inst( 'techniciens.technicien'),
-  Field::inst( 'badgeplanning.in1'),
-  Field::inst( 'badgeplanning.out1'),
-  Field::inst( 'badgeplanning.in2'),
-  Field::inst( 'badgeplanning.out2'),
-  Field::inst( 'badgeplanning.validation')
-  ->setFormatter( 'Format::ifEmpty', null ),
-  Field::inst( 'badgeplanning.validation2')
-  ->setFormatter( 'Format::ifEmpty', null ),
-  Field::inst( 'badgeplanning.comments')
-  ->setFormatter( 'Format::ifEmpty', null ),
-  Field::inst( 'badgeplanning.id_validator')
-  ->options( Options::inst()
-  ->table( 'techniciens' )
-  ->value( 'id_technicien' )
-  ->label( 'id_technicien' )
-  ),
-  Field::inst( 't2.technicien'),
-  Field::inst( 'ba.id_manager'),
-  Field::inst( 'badgeplanning.quantity')
+    Field::inst( 'badges.date'),
+    Field::inst( 'badges.id_user' )
+      ->options( Options::inst()
+      ->table( 'techniciens' )
+      ->value( 'id_technicien' )
+      ->label( 'id_technicien' )
+    ),
+    Field::inst( 'techniciens.id_technicien'),
+    Field::inst( 'techniciens.technicien'),
+    Field::inst( 'badges.in1'),
+    Field::inst( 'badges.out1'),
+    Field::inst( 'badges.in2'),
+    Field::inst( 'badges.out2'),
+    Field::inst( 'badges.validation')
+      ->setFormatter( 'Format::ifEmpty', null ),
+    Field::inst( 'badges.validation2')
+      ->setFormatter( 'Format::ifEmpty', null ),
+    Field::inst( 'badges.comments')
+      ->setFormatter( 'Format::ifEmpty', null ),
+    Field::inst( 'badges.id_validator')
+      ->options( Options::inst()
+      ->table( 'techniciens' )
+      ->value( 'id_technicien' )
+      ->label( 'id_technicien' )
+    ),
+    Field::inst( 't2.technicien'),
+    Field::inst( 'ba.id_manager'),
+    Field::inst( 'badgeplanning.quantity')
   )
 
-  ->leftJoin( 'techniciens',     'techniciens.id_technicien',          '=', 'badgeplanning.id_user' )
-  ->leftJoin( 'techniciens as t2',     't2.id_technicien',          '=', 'badgeplanning.id_validator' )
-  ->leftJoin( 'badge_access as ba',     'ba.id_managed',          '=', 'badgeplanning.id_user' )
+  ->leftJoin( 'techniciens',     'techniciens.id_technicien',          '=', 'badges.id_user' )
+  ->leftJoin( 'techniciens as t2',     't2.id_technicien',          '=', 'badges.id_validator' )
+  ->leftJoin( 'badge_access as ba',     'ba.id_managed',          '=', 'badges.id_user' )
+  ->leftJoin( 'badgeplanning',     'badgeplanning.id_badge',          '=', 'badges.id_badge' )
 
 
 
@@ -64,7 +65,7 @@ Editor::inst( $db, 'badges' )
   //enregistrement du user effectuant l'update
   ->on( 'preEdit', function ( $editor, $values ) {
     $editor
-    ->field( 'badgeplanning.id_validator' )
+    ->field( 'badges.id_validator' )
     ->setValue( $_COOKIE['id_user'] );
   } )
 
