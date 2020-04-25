@@ -1,0 +1,142 @@
+
+table#table_badge.dataTable tbody td.asPlanned > .sorting_1 {
+    background-color: darkgreen  ;
+}
+table#table_badge.dataTable tbody td.asPlanned {
+    background-color: darkgreen  ;
+}
+table#table_badge.dataTable tbody td.validatedBadge > .sorting_1 {
+    background-color: sienna;
+}
+table#table_badge.dataTable tbody td.validatedBadge {
+    background-color: sienna;
+}
+table#table_badge.dataTable tbody td.notPLanned > .sorting_1 {
+    background-color: darkred  ;
+}
+table#table_badge.dataTable tbody td.notPLanned {
+    background-color: darkred  ;
+}
+
+
+
+
+
+#page-content-wrapper div{
+  color:white;
+  background-color: rgb(68, 84, 106);
+}
+#page-content-wrapper .btn-group  {
+  color:black;
+}
+
+
+.form-group input, .form-group select{
+color:black;
+border-radius: 10px;
+}
+
+.list-group-item {
+margin:3px;
+}
+
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.popover  {
+  max-width: 100%;
+}
+
+.bs-example {
+  position: relative;
+  padding: 35px 15px 15px;
+  border-color: #e5e5e5 #eee #eee;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 1px;
+  margin: 5px;
+  -webkit-box-shadow: inset 0 3px 6px rgba(0,0,0,.05);
+          box-shadow: inset 0 3px 6px rgba(0,0,0,.05);
+}
+/* Echo out a label for the example */
+.bs-example:after {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  font-size: 12px;
+  font-weight: bold;
+  color: lightblue;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.bs-example-padded-bottom {
+  padding-bottom: 24px;
+}
+
+/* Tweak display of the code snippets when following an example */
+.bs-example + .highlight,
+.bs-example + .zero-clipboard + .highlight {
+  margin: -15px -15px 15px;
+  border-width: 0 0 1px;
+  border-radius: 0;
+}
+
+.sensors:after  {
+  content: "SENSORS";
+}
+.PiD:after  {
+  content: "PiD / PVC";
+}
+.tooling:after  {
+  content: "TOOLING";
+}
+.heating:after  {
+  content: "HEATING";
+}
+.preTest:after  {
+  content: "PRE-TEST";
+}
+.job:after  {
+  content: "JOB";
+}
+.date:after  {
+  content: "DATE";
+}
+.reason:after  {
+  content: "CHANGE REASON";
+}
+.commentaire:after  {
+  content: "FRAME ISSUES";
+}
+
+
+.PiD div{
+  padding-right: 0px;
+padding-left: 0px;
+}
+.PiD input{
+  padding: 3px 3px;
+  font-size: x-small;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    height: inherit;
+  }
+  .input-sm {
+      padding: 5px 0px;
+    }
+
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #5B9BD5;
+}
+input,  select{
+color:black;
+}
+a {
+  color:white;
+}
