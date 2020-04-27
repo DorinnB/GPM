@@ -27,7 +27,7 @@
                       <p>
                         <span class="from">From : <?= $value['transmitter'] ?></span>
                         <?= ($value['notification_state']==2)?'<img type="image" src="img/notification.png" style="max-width:100%; max-height:1.5em;" />':'&nbsp;' ?>
-                        <span class="datetime"><?= date("Y-m-d", strtotime($value['notification_date'])) ?></span>
+                        <span class="datetime"><?= $value['notification_date'] ?></span>
                       </p>
                       <p class="subject"><?= $value['subject'] ?></p>
                     </a>
@@ -44,7 +44,7 @@
                       <p>
                         <span class="from">To : <?= $value['receiver_user'] ?></span>
                         <?= ($value['notification_state']==2)?'<img type="image" src="img/notification.png" style="max-width:100%; max-height:1.5em;" />':'&nbsp;' ?>
-                        <span class="datetime"><?= date("Y-m-d", strtotime($value['notification_date'])) ?></span>
+                        <span class="datetime"><?= $value['notification_date'] ?></span>
                       </p>
                       <p class="subject"><?= $value['subject'] ?></p>
                     </a>
@@ -61,7 +61,7 @@
                       <p>
                         <span class="from">From : <?= $value['transmitter'] ?></span>
                         <?= ($value['notification_state']==2)?'<img type="image" src="img/notification.png" style="max-width:100%; max-height:1.5em;" />':'&nbsp;' ?>
-                        <span class="datetime"><?= date("Y-m-d", strtotime($value['notification_date'])) ?></span>
+                        <span class="datetime"><?= $value['notification_date'] ?></span>
                       </p>
                       <p class="subject"><?= $value['subject'] ?></p>
                     </a>
@@ -78,7 +78,7 @@
                       <p>
                         <span class="from">To : <?= $value['receiver_user'] ?></span>
                         <?= ($value['notification_state']==2)?'<img type="image" src="img/notification.png" style="max-width:100%; max-height:1.5em;" />':'&nbsp;' ?>
-                        <span class="datetime"><?= date("Y-m-d", strtotime($value['notification_date'])) ?></span>
+                        <span class="datetime"><?= $value['notification_date'] ?></span>
                       </p>
                       <p class="subject"><?= $value['subject'] ?></p>
                     </a>
@@ -151,7 +151,7 @@
                   </div>
                   <div class="form-group col-md-4 boxed">
                     <label class="labelTitle">Date</label>
-                    <label class="labelValue"><?= date("Y-m-d", strtotime($value['notification_date'])) ?></label>
+                    <label class="labelValue"><?= $value['notification_date'] ?></label>
                   </div>
                 </div>
                 <div class="form-group">
@@ -203,7 +203,7 @@
                   </div>
                   <div class="form-group col-md-4 boxed">
                     <label class="labelTitle">Date</label>
-                    <label class="labelValue"><?= date("Y-m-d", strtotime($value['notification_date'])) ?></label>
+                    <label class="labelValue"><?= $value['notification_date'] ?></label>
                   </div>
                 </div>
                 <div class="form-group">
