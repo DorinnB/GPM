@@ -13,6 +13,11 @@ $checkRupture=$oTest->getCheckRuptureList();
 $checkDataValue=$oTest->getCheckDataValueList();
 $awaitingTechnician=$oTest->getAwaitingTechnicianList();
 
+// Rendre votre modèle accessible
+include_once 'models/lstPlanningUsers-model.php';
+$oPlanningUsers = new PlanningUsersModel($db);
+$nbModifPlanning=$oPlanningUsers->getAllManagedAwaiting();
+
 // Affichage du résultat
 include 'views/checkList-view.php';
 ?>

@@ -11,8 +11,8 @@ var editor; // use a global for the submit and return data rendering in the exam
 
 $(document).ready(function() {
 
-  $('[data-toggle="tooltip"]').tooltip();
-  $('[data-toggle="tooltip2"]').tooltip();
+  $('[data-toggle="tooltipChanged"]').tooltip();
+  $('[data-toggle="tooltipNOK"]').tooltip();
 
   editor = new $.fn.dataTable.Editor( {
     ajax: {

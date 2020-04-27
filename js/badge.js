@@ -10,7 +10,10 @@ $(document).ready(function() {
     },
     table: "#table_badge",
     fields: [
-      { label: "Date", name: "badges.date"  },
+      { label: "Date", name: "badges.date",
+      type:  'date',
+      def:   function () { return new Date(); }
+  },
       { label: "id_user", name: "badges.id_user"  },
       { label: "validation", name: "badges.validation"  },
       { label: "comments", name: "badges.comments"  }
@@ -26,6 +29,7 @@ $(document).ready(function() {
 
 
   var table = $('#table_badge').DataTable( {
+    dom: "Bfrtip",
     ajax: {
       url : "controller/editor-badge.php",
       type: "POST"
@@ -311,7 +315,10 @@ $(document).ready(function() {
     select: {
       style:    'os',
       blurable: true
-    }
+    },
+    buttons: [
+    { extend: "create", editor: editor }
+]
   } );
 
 

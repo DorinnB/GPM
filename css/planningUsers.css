@@ -39,20 +39,18 @@ a {
 }
 
 
-td[data-toggle="tooltip"]  {
-  background-image : url("../img/check.png");
-  background-position : top right;
-  background-size: 15px;
-  background-repeat: no-repeat;
-
-}
-td[data-toggle="tooltip2"]  {
+td[data-toggle="tooltipChanged"]  {
   background-image : url("../img/changed.png");
   background-position : top right;
   background-size: 15px;
   background-repeat: no-repeat;
 }
-
+td[data-toggle="tooltipNOK"]  {
+  background-image : url("../img/reddot.png");
+  background-position : top right;
+  background-size: 15px;
+  background-repeat: no-repeat;
+}
 
 
 .refused {     /* attente validation */

@@ -41,29 +41,18 @@ $oPlanningUser = new PlanningUsersModel($db);
 $lstUsers=$oPlanningUser->getAllUsers();
 $lstUsersManaged=$oPlanningUser->getAllUsersManaged();
 $lstPlanningTypes=$oPlanningUser->getAllPlanningTypes();
-$planningUser=$oPlanningUser->getAllPlanningUsers($getBegin,$getEnd);
-$planningValidated=$oPlanningUser->getAllPlanningModifValidated($getBegin,$getEnd);
 $planningAwaiting=$oPlanningUser->getAllPlanningModifAwaiting($getBegin,$getEnd);
 
-$planningDone=$oPlanningUser->getAllPlanningDone($getBegin,$getEnd);
 
-foreach ($planningUser as $key => $value) {
-  $planning[$value['dateplanned']][$value['id_user']]=array("quantity" => $value['quantity'], "type" => $value['type'], "planning_type" => $value['planning_type']);
-}
-foreach ($planningValidated as $key => $value) {
-  $planning[$value['datemodif']][$value['id_user']]=array("quantity" => $value['quantity'], "type" => $value['id_type'], "planning_type" => $value['planning_type']);
-}
+$planningUpdated=$oPlanningUser->getAllPlanningUpdated($getBegin,$getEnd);
 
+foreach ($planningUpdated as $key => $value) {
+  $planning[$value['dateplanned']][$value['id_user']]=array("quantity" => $value['quantity'], "id_type" => $value['id_type'], "val" => $value['val'], "calculGPM" => $value['calculGPM']);
+}
 
 foreach ($planningAwaiting as $key => $value) {
-  $planningUnconfirmed[$value['datemodif']][$value['id_user']]=array("quantity" => $value['quantity'], "type" => $value['id_type'], "planning_type" => $value['planning_type']);
+  $planningUnconfirmed[$value['datemodif']][$value['id_user']]=array("quantity" => $value['quantity'], "id_type" => $value['id_type']);
 }
-
-foreach ($planningDone as $key => $value) {
-  $heureDecimal=($value['validation'])?round($value['validation'],1):$value['validation2'];
-  $planningDone[$value['date']][$value['id_user']]=array("quantity" => $heureDecimal);
-}
-
 
 
 
@@ -172,61 +161,42 @@ $ferie=array_merge($ferie,jours_feries($end->format("Y")));
 
 //formatage données table
 foreach ($lstUsers as $oUser) {
-  $count[$oUser['id_technicien']]['planning_type']= array(); //declaration array
   $count[$oUser['id_technicien']]['nb']= array(); //declaration array
 
 
   foreach ($period as $key => $value) {
 
     $workable=(($value->format("l")=="Sunday" OR $value->format("l")=="Saturday" OR in_array($value->format("Y-m-d"), $ferie)) AND (!isset($planning[$value->format("Y-m-d")][$oUser['id_technicien']]) OR $planning[$value->format("Y-m-d")][$oUser['id_technicien']]['quantity']==0))?'notWorkable':'';
-
-
-    $type= ' type_'.(isset($planning[$value->format("Y-m-d")][$oUser['id_technicien']])?$planning[$value->format("Y-m-d")][$oUser['id_technicien']]['type']:'');
-    $unconfirmed=' unconfirmed_'.(isset($planningUnconfirmed[$value->format("Y-m-d")][$oUser['id_technicien']])?$planningUnconfirmed[$value->format("Y-m-d")][$oUser['id_technicien']]['type']:'');
+    $type= ' type_'.(isset($planning[$value->format("Y-m-d")][$oUser['id_technicien']])?$planning[$value->format("Y-m-d")][$oUser['id_technicien']]['id_type']:'');
+    $unconfirmed=' unconfirmed_'.(isset($planningUnconfirmed[$value->format("Y-m-d")][$oUser['id_technicien']])?$planningUnconfirmed[$value->format("Y-m-d")][$oUser['id_technicien']]['id_type']:'');
 
     $td[$oUser['id_technicien']][$value->format("Y-m-d")]['class']=$workable.$type.$unconfirmed;
 
-
-    if (isset($planning[$value->format("Y-m-d")][$oUser['id_technicien']]) AND isset($planningDone[$value->format("Y-m-d")][$oUser['id_technicien']]['quantity']) AND $planningDone[$value->format("Y-m-d")][$oUser['id_technicien']]['quantity']==$planning[$value->format("Y-m-d")][$oUser['id_technicien']]['quantity']) {
-      $iconeTooltip='tooltip';
-    }
-    else {
-      $iconeTooltip='tooltip2';
-    }
-    $td[$oUser['id_technicien']][$value->format("Y-m-d")]['tooltip']=isset($planningDone[$value->format("Y-m-d")][$oUser['id_technicien']])?'data-toggle="'.$iconeTooltip.'" title="'.$planningDone[$value->format("Y-m-d")][$oUser['id_technicien']]['quantity'].'"':'';
-
+    //default value for table
+    $td[$oUser['id_technicien']][$value->format("Y-m-d")]['tooltip']="";
     $td[$oUser['id_technicien']][$value->format("Y-m-d")]['value']=isset($planning[$value->format("Y-m-d")][$oUser['id_technicien']])?$planning[$value->format("Y-m-d")][$oUser['id_technicien']]['quantity']:'';
 
-
-
-    //calcul temps présence
-    if (isset($planningDone[$value->format("Y-m-d")][$oUser['id_technicien']])) {
-      if (isset($count[$oUser['id_technicien']]['nb'][$planning[$value->format("Y-m-d")][$oUser['id_technicien']]['planning_type']])) {
-        $count[$oUser['id_technicien']]['nb'][$planning[$value->format("Y-m-d")][$oUser['id_technicien']]['planning_type']]+=$planningDone[$value->format("Y-m-d")][$oUser['id_technicien']]['quantity'];
+    if (strtotime($value->format("Y-m-d"))< strtotime('now')) { //incon only before today
+      if ($oUser['badge_type']==1) {  //icon only for tech
+        if ($planning[$value->format("Y-m-d")][$oUser['id_technicien']]['quantity']==$planning[$value->format("Y-m-d")][$oUser['id_technicien']]['calculGPM']) {
+          $iconeTooltip='';
+        }
+        elseif ($planning[$value->format("Y-m-d")][$oUser['id_technicien']]['quantity']==0 AND $planning[$value->format("Y-m-d")][$oUser['id_technicien']]['calculGPM']==0) {
+          $iconeTooltip='';
+        }
+        elseif (isset($planning[$value->format("Y-m-d")][$oUser['id_technicien']]['val'])) {
+          $iconeTooltip='tooltipChanged';
+          $td[$oUser['id_technicien']][$value->format("Y-m-d")]['tooltip']='data-toggle="'.$iconeTooltip.'" title="Validated: '.number_format($planning[$value->format("Y-m-d")][$oUser['id_technicien']]['val'],2).'"';
+        }
+        else {
+          $iconeTooltip='tooltipNOK';
+          $td[$oUser['id_technicien']][$value->format("Y-m-d")]['tooltip']='data-toggle="'.$iconeTooltip.'" title="Calcul GPM: '.number_format($planning[$value->format("Y-m-d")][$oUser['id_technicien']]['calculGPM'],2).'"';
+        }
       }
-      else {
-        $count[$oUser['id_technicien']]['nb'][$planning[$value->format("Y-m-d")][$oUser['id_technicien']]['planning_type']]=$planningDone[$value->format("Y-m-d")][$oUser['id_technicien']]['quantity'];
-      }
-      array_push($count[$oUser['id_technicien']]['planning_type'],$planning[$value->format("Y-m-d")][$oUser['id_technicien']]['planning_type']); // comptage jour planning_type
-    }
-    elseif (isset($planning[$value->format("Y-m-d")][$oUser['id_technicien']]['planning_type'])) {
-      if (isset($count[$oUser['id_technicien']]['nb'][$planning[$value->format("Y-m-d")][$oUser['id_technicien']]['planning_type']])) {
-        $count[$oUser['id_technicien']]['nb'][$planning[$value->format("Y-m-d")][$oUser['id_technicien']]['planning_type']]+=$planning[$value->format("Y-m-d")][$oUser['id_technicien']]['quantity'];
-      }
-      else {
-        $count[$oUser['id_technicien']]['nb'][$planning[$value->format("Y-m-d")][$oUser['id_technicien']]['planning_type']]=$planning[$value->format("Y-m-d")][$oUser['id_technicien']]['quantity'];
-      }
-      array_push($count[$oUser['id_technicien']]['planning_type'],$planning[$value->format("Y-m-d")][$oUser['id_technicien']]['planning_type']); // comptage jour type
     }
 
 
   }
-  /*
-  //  echo $oUser['id_technicien'];
-  //var_dump($count[$oUser['id_technicien']]['nb']);
-  var_dump(array_count_values($count[$oUser['id_technicien']]['planning_type']));
-  echo (array_count_values($count[$oUser['id_technicien']]['planning_type'])['Férié']);
-  */
 }
 
 
@@ -234,7 +204,7 @@ foreach ($lstUsers as $oUser) {
 $planningSummary=$oPlanningUser->getAllPlanningSummary($getBegin,$getEnd);
 
 foreach ($planningSummary as $key => $value) {
-$lstSummary[$value['id_user']]=$value;
+  $lstSummary[$value['id_user']]=$value;
 
 }
 
@@ -244,7 +214,7 @@ $lstSummary[$value['id_user']]=$value;
 
 $planningModifSummary=$oPlanningUser->getAllPlanningModifSummary($getBegin,$getEnd);
 foreach ($planningModifSummary as $key => $value) {
-$lstModifSummary[$value['id_user']]=$value;
+  $lstModifSummary[$value['id_user']]=$value;
 
 }
 ?>

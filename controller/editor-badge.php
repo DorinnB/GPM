@@ -53,12 +53,13 @@ Editor::inst( $db, 'badges' )
   ->leftJoin( 'techniciens as t2',     't2.id_technicien',          '=', 'badges.id_validator' )
   ->leftJoin( 'badge_access as ba',     'ba.id_managed',          '=', 'badges.id_user' )
   ->leftJoin( 'badgeplanning',     'badgeplanning.id_badge',          '=', 'badges.id_badge' )
+  ->leftJoin( 'badge_hr',     'badge_hr.id_user',          '=', 'badges.id_user' )
 
 
 
   ->where( function ( $q ) {
     $q->where('ba.id_manager',(isset($_COOKIE['id_user'])?$_COOKIE['id_user']:0));
-    $q->where('techniciens.badge','1');
+    $q->where('badge_hr.badge_type','1');
     //$q->or_where('id_user',(isset($_COOKIE['id_user'])?$_COOKIE['id_user']:0));
   })
 
