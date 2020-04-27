@@ -30,8 +30,6 @@ $(document).ready(function() {
       {       label: "eprouvettes.c_frequence_STL",       name: "eprouvettes.c_frequence_STL"     },
       {       label: "eprouvettes.c_type_1_val",       name: "eprouvettes.c_type_1_val"     },
       {       label: "eprouvettes.c_type_2_val",       name: "eprouvettes.c_type_2_val"     },
-      {       label: "eprouvettes.stepcase_type",       name: "eprouvettes.stepcase_type", type:"select"     },
-      {       label: "eprouvettes.stepcase_val",       name: "eprouvettes.stepcase_val"     },
       {       label: "eprouvettes.Cycle_min",       name: "eprouvettes.Cycle_min"     },
       {       label: "eprouvettes.runout",       name: "eprouvettes.runout"     },
       {       label: "eprouvettes.cycle_estime",       name: "eprouvettes.cycle_estime"     },
