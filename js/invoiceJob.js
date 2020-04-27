@@ -224,6 +224,9 @@ $(document).ready(function() {
     $('#notInv_val_subc').text(notInv_val_subc.toFixed(2));
     $('#UBRMRSAS').text(notInv_val.toFixed(2));
 
+$('#invMRSAS').text(invoice_val.toFixed(2)-notInv_val.toFixed(2));
+$('#invSubC').text(notInv_val_subc.toFixed(2));
+
     order_val=parseFloat($('#order_val').val());
     order_est=parseFloat($('#order_est').val());
     order_est_subc=parseFloat($('#order_est_subc').val());

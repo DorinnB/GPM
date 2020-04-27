@@ -77,8 +77,8 @@
 -->
 <p class="title">
 	<span class="name"><abbr title="MRSAS / Payables">Invoice</abbr></span>
-	<span class="value2" >6050</span>
-	<span class="value2" >5400</span> <!-- moins deja payé-->
+	<span class="value2" id="invMRSAS"></span>
+	<span class="value2" id="invSubC"></span> <!-- moins deja payé-->
 </p>
 				</div>
 
