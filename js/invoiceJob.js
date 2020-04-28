@@ -183,6 +183,7 @@ $(document).ready(function() {
     invoice_val_subc=0;
     notInv_val=0;
     notInv_val_subc=0;
+    inv_subc=0;
 
     $('.totalUser').parents().find(".splitInfo").each(function(i) {
       if ($(this).data('st')==1) {                  //SubC
@@ -214,6 +215,7 @@ $(document).ready(function() {
       notInv_val-=parseFloat($(this).text());
     });
     $('.inv_subc').each( function (i) {
+      inv_subc+=parseFloat($(this).text());
       notInv_val_subc-=parseFloat($(this).text());
     });
 
@@ -225,7 +227,7 @@ $(document).ready(function() {
     $('#UBRMRSAS').text(notInv_val.toFixed(2));
 
 $('#invMRSAS').text(invoice_val.toFixed(2)-notInv_val.toFixed(2));
-$('#invSubC').text(notInv_val_subc.toFixed(2));
+$('#invSubC').text(inv_subc.toFixed(2));
 
     order_val=parseFloat($('#order_val').val());
     order_est=parseFloat($('#order_est').val());
@@ -233,20 +235,20 @@ $('#invSubC').text(notInv_val_subc.toFixed(2));
     UBRMRSAS=parseFloat($('#UBRMRSAS').text());
     sumPayables=parseFloat($('#sumPayables').text());
 
-    if((invoice_val+invoice_val_subc - order_val)>0) {
+    if((order_est+order_est_subc - order_val)>0) {  //estimated > po
       $('#order_val').addClass('outTolerance');
     }
     else {
       $('#order_val').removeClass('outTolerance');
     }
 
-    if((UBRMRSAS - order_est)>0) {
+    if((invoice_val - order_est)>0) {  //reached > estimated MRSAS
       $('#order_est').addClass('outTolerance');
     }
     else {
       $('#order_est').removeClass('outTolerance');
     }
-    if((sumPayables - order_est_subc)>0) {
+    if((invoice_val_subc - order_est_subc)>0) {  //reached > estimated SubC
       $('#order_est_subc').addClass('outTolerance');
     }
     else {

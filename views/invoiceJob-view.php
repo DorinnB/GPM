@@ -58,28 +58,20 @@
 						<span class="value2"><input type="text" class="form-control" name="order_est_subc" id="order_est_subc" value="<?= $split['order_est_subc']	?>" style="text-align: right;padding: 0px;"></span>
 					</p>
 					<p class="title">
-						<span class="name"><abbr title="MRSAS / SubC">Reached Amount:</abbr></span>
+						<span class="name"><abbr title="Sum invoiced and to be invoiced : MRSAS / SubC">Reached Amount :</abbr></span>
 						<span class="value2" id="invoice_val"></span>
 						<span class="value2" id="invoice_val_subc"></span>
 					</p>
-
 					<p class="title">
-						<span class="name"><abbr title="MRSAS / Payables">Invoicable :</abbr></span>
+						<span class="name"><abbr title="Sum that could be invoice or partialy invoiced : MRSAS / Payables">Invoicable :</abbr></span>
 						<span class="value2" id="UBRMRSAS"> </span>
 						<span class="value2" id="notInv_val_subc"></span>
 					</p>
-<!--
-					<p class="title" style="border-bottom: dotted 1px;">
-						<span class="name"><abbr title="MRSAS / SubC">Not Invoice :</abbr></span>
-						<span class="value2" id="notInv_val"></span>
-						<span class="value2" id="notInv_val_subc"></span>
+					<p class="title">
+						<span class="name"><abbr title="Sum already invoiced : MRSAS / Payables">Invoice :</abbr></span>
+						<span class="value2" id="invMRSAS"></span>
+						<span class="value2" id="invSubC"></span> <!-- moins deja payé-->
 					</p>
--->
-<p class="title">
-	<span class="name"><abbr title="MRSAS / Payables">Invoice</abbr></span>
-	<span class="value2" id="invMRSAS"></span>
-	<span class="value2" id="invSubC"></span> <!-- moins deja payé-->
-</p>
 				</div>
 
 				<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="Invoices">
@@ -376,16 +368,16 @@
 
 
 <div id="customForm">
-						<fieldset class="informations">
-								<legend>Informations</legend>
-								<editor-field name="inv_number"></editor-field>
-								<editor-field name="inv_job"></editor-field>
-								<editor-field name="inv_date"></editor-field>
-						</fieldset>
-						<fieldset class="amount">
-								<legend>Amount</legend>
-								<editor-field name="inv_mrsas"></editor-field>
-								<editor-field name="inv_subc"></editor-field>
-								<editor-field name="inv_total"></editor-field>
-						</fieldset>
-				</div>
+	<fieldset class="informations">
+		<legend>Informations</legend>
+		<editor-field name="inv_number"></editor-field>
+		<editor-field name="inv_job"></editor-field>
+		<editor-field name="inv_date"></editor-field>
+	</fieldset>
+	<fieldset class="amount">
+		<legend>Amount</legend>
+		<editor-field name="inv_mrsas"></editor-field>
+		<editor-field name="inv_subc"></editor-field>
+		<editor-field name="inv_total"></editor-field>
+	</fieldset>
+</div>
