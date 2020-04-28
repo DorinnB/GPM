@@ -43,14 +43,21 @@ $planningUser=$oPlanningUser->getAllPlanningUsers($getBegin,$getEnd);
 $planningValidated=$oPlanningUser->getAllPlanningModifValidated($getBegin,$getEnd);
 $planningAwaiting=$oPlanningUser->getAllPlanningModifAwaiting($getBegin,$getEnd);
 
+$planningUpdated=$oPlanningUser->getAllPlanningUpdated($getBegin,$getEnd);
 
+
+foreach ($planningUpdated as $key => $value) {
+  $planning[$value['dateplanned']][$value['id_user']]=array("quantity" => $value['quantity'], "id_planning_type" => $value['id_type'], "workable" => $value['workable'], "val" => $value['val'], "calculGPM" => $value['calculGPM']);
+}
+
+/*
 foreach ($planningUser as $key => $value) {
   $planning[$value['dateplanned']][$value['id_user']]=array("quantity" => $value['quantity'], "type" => $value['planning_type'], "id_planning_type" => $value['id_planning_type'], "workable" => $value['workable']);
 }
 foreach ($planningValidated as $key => $value) {
   $planning[$value['datemodif']][$value['id_user']]=array("quantity" => $value['quantity'], "type" => $value['planning_type'], "id_planning_type" => $value['id_planning_type'], "workable" => $value['workable']);
 }
-
+*/
 
 
 
@@ -90,6 +97,15 @@ $planningxls['space3'][]="";
 $planningxls['space4'][]="";
 $planningxls['space5'][]="";
 foreach ($lstUsers as $oUser)  {
+  $planningxls['d'.$oUser['technicien']][] = $oUser['id_technicien'];
+  $planningxls['d'.$oUser['technicien']][] = $oUser['technicien'];
+}
+$planningxls['space6'][]="";
+$planningxls['space7'][]="";
+$planningxls['space8'][]="";
+$planningxls['space9'][]="";
+$planningxls['space10'][]="";
+foreach ($lstUsers as $oUser)  {
   $planningxls['t'.$oUser['technicien']][] = $oUser['id_technicien'];
   $planningxls['t'.$oUser['technicien']][] = $oUser['technicien'];
 }
@@ -102,6 +118,11 @@ foreach ($period as $key => $value) {
   $planningxls['date'][]= $excelDateValue;
   foreach ($lstUsers as $oUser)  {
     $planningxls['q'.$oUser['technicien']][] = isset($planning[$value->format("Y-m-d")][$oUser['id_technicien']])?$planning[$value->format("Y-m-d")][$oUser['id_technicien']]['quantity']:'';
+    $planningxls['d'.$oUser['technicien']][] = isset($planning[$value->format("Y-m-d")][$oUser['id_technicien']])?
+    (($planning[$value->format("Y-m-d")][$oUser['id_technicien']]['val']>0)?
+    $planning[$value->format("Y-m-d")][$oUser['id_technicien']]['val']:
+      $planning[$value->format("Y-m-d")][$oUser['id_technicien']]['quantity'])
+      :'';
     $planningxls['t'.$oUser['technicien']][] = isset($planning[$value->format("Y-m-d")][$oUser['id_technicien']])?$planning[$value->format("Y-m-d")][$oUser['id_technicien']]['id_planning_type']:'';
   }
 }
@@ -121,7 +142,7 @@ $objPHPExcel->getActiveSheet()
 ->fromArray(
   $oPlanningUser->getAllPlanningTypes(),  // The data to set
   NULL,        // Array values with this value will not be set
-  'A28'         // Top left coordinate of the worksheet range where
+  'A41'         // Top left coordinate of the worksheet range where
   //    we want to set these values (default is A1)
 );
 
@@ -129,7 +150,7 @@ $objPHPExcel->getActiveSheet()
 ->fromArray(
   $lstUsers,  // The data to set
   NULL,        // Array values with this value will not be set
-  'J29'         // Top left coordinate of the worksheet range where
+  'I41'         // Top left coordinate of the worksheet range where
   //    we want to set these values (default is A1)
 );
 
@@ -152,8 +173,8 @@ foreach ($lstUsers as $oUser)  {
         $rowCount++;
         $rowType++;
 }
-
 */
+
 
 
 $objWriter = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($objPHPExcel, 'Xlsx');
@@ -178,81 +199,5 @@ readfile($file);
 
 exit;
 
-
-
-
-
-
-
-
-
-
-
-
-$ics = "BEGIN:VCALENDAR\n";
-$ics .= "VERSION:2.0\n";
-$ics .= "PRODID:-//hacksw/handcal//NONSGML v1.0//EN\n";
-
-
-foreach ($period as $key => $value) {
-
-  if (isset($planning[$value->format("Y-m-d")][$_COOKIE['id_user']])) { //entrée dans l'agenda GPM
-
-
-    if ($planning[$value->format("Y-m-d")][$_COOKIE['id_user']]['workable']==1 OR $planning[$value->format("Y-m-d")][$_COOKIE['id_user']]['workable']==6) {  //travaillé
-
-      $objet = $planning[$value->format("Y-m-d")][$_COOKIE['id_user']]['type'].' - '.$planning[$value->format("Y-m-d")][$_COOKIE['id_user']]['quantity'];
-
-      $ics .= "BEGIN:VEVENT\n";
-      $ics .= "X-WR-TIMEZONE:Europe/Paris\n";
-      $ics .= "DTSTART:".$value->format("Ymd")."\n";
-      $ics .= "DTEND:".$value->format("Ymd")."\n";
-      $ics .= "SUMMARY:".$objet."\n";
-      $ics .= "UID:GPM".$value->format("Ymd")."@google.com\n";
-      $ics .= "STATUS:CONFIRMED\n";
-      $ics .= "END:VEVENT\n";
-    }
-    else {  //non travaillé
-      //  echo $value->format("Y-m-d").' - '.$planning[$value->format("Y-m-d")][$_COOKIE['id_user']]['workable'].' - '.($planning[$value->format("Y-m-d")][$_COOKIE['id_user']]['workable']==1).'</br>';
-
-      $ics .= "BEGIN:VEVENT\n";
-      $ics .= "METHOD:CANCEL\n";
-      $ics .= "X-WR-TIMEZONE:Europe/Paris\n";
-      $ics .= "DTSTART:".$value->format("Ymd")."\n";
-      $ics .= "DTEND:".$value->format("Ymd")."\n";
-      $ics .= "SUMMARY:non travaillé\n";
-      $ics .= "UID:GPM".$value->format("Ymd")."@google.com\n";
-      $ics .= "STATUS:CANCELLED\n";
-      $ics .= "END:VEVENT\n";
-    }
-
-  }
-  else {    //date manquante dans l'agenda GPM
-    $ics .= "BEGIN:VEVENT\n";
-    $ics .= "METHOD:CANCEL\n";
-    $ics .= "X-WR-TIMEZONE:Europe/Paris\n";
-    $ics .= "DTSTART:".$value->format("Ymd")."\n";
-    $ics .= "DTEND:".$value->format("Ymd")."\n";
-    $ics .= "SUMMARY:absent\n";
-    $ics .= "UID:GPM".$value->format("Ymd")."@google.com\n";
-    $ics .= "STATUS:CANCELLED\n";
-    $ics .= "END:VEVENT\n";
-  }
-
-
-}
-$ics .= "END:VCALENDAR\n";
-
-
-
-$filename = "planning_id".$_COOKIE['id_user'].".ics";
-$f = fopen('../temp/'.$filename, 'w+');
-fputs($f, $ics);
-
-$file_url = '../temp/'.$filename;
-header('Content-Type: application/octet-stream');
-header("Content-Transfer-Encoding: Binary");
-header("Content-disposition: attachment; filename=\"" . basename($file_url) . "\"");
-readfile($file_url);
 
 ?>

@@ -191,7 +191,7 @@ class PlanningUsersModel
     $req='SELECT
 
     planning_users.id_user, dateplanned, ifnull(planning_modif.quantity, planning_users.quantity) as quantity, ifnull(planning_modif.id_type, planning_users.type) as id_type,
-    validation, resthours,
+    validation, resthours, workable,
     hour(validation)+minute(validation)/60+second(validation)/3600 as val,
 
     if(
