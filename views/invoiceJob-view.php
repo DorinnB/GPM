@@ -70,7 +70,7 @@
 					<p class="title">
 						<span class="name"><abbr title="Sum already invoiced : MRSAS / Payables">Invoice :</abbr></span>
 						<span class="value2" id="invMRSAS"></span>
-						<span class="value2" id="invSubC"></span> <!-- moins deja payé-->
+						<span class="value2" id="invSubC"></span>
 					</p>
 				</div>
 
