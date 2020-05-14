@@ -23,14 +23,14 @@ $(document).ready(function() {
         label: "MRSAS:",
         name:  "inv_mrsas",
         def: function() {
-          return $('#notInv_val').text();
+          return parseFloat(0+$('#notInv_val').text()).toFixed(2);
         }
       },
       {
         label: "SubC:",
         name:  "inv_subc",
         def: function() {
-          return $('#notInv_val_subc').text();
+          return parseFloat(0+$('#notInv_val_subc').text()).toFixed(2);
         }
       },
       {
@@ -59,11 +59,11 @@ $(document).ready(function() {
   //mise a jour de la somme total
   editor.dependent( 'inv_mrsas', function ( val, data, callback ) {
     inv_total=parseFloat(data['values']['inv_mrsas'])+parseFloat(data['values']['inv_subc']);
-    $('#DTE_Field_inv_total').val(inv_total);
+    $('#DTE_Field_inv_total').val(inv_total.toFixed(2));
   } );
   editor.dependent( 'inv_subc', function ( val, data, callback ) {
     inv_total=parseFloat(data['values']['inv_mrsas'])+parseFloat(data['values']['inv_subc']);
-    $('#DTE_Field_inv_total').val(inv_total);
+    $('#DTE_Field_inv_total').val(inv_total.toFixed(2));
   } );
 
 
