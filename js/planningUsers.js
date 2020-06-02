@@ -124,7 +124,10 @@ $(document).ready(function() {
     ]
   } );
 
-  document.getElementById("table_planningModif_filter").style.display = "none";
+var table_planningModif=document.getElementById("table_planningModif_filter");
+if (table_planningModif) {
+  table_planningModif.style.display = "none";
+}
 
 
 

@@ -287,9 +287,6 @@ foreach ($splits as $key => $value) {
 
       $page->setCellValueByColumnAndRow(9, $row, $invoicelines['qteGPM']);
 
-      /*$page->getStyle("F".$row)->getNumberFormat()->setFormatCode($currencyFormat);
-      $page->getStyle("G".$row)->getNumberFormat()->setFormatCode($currencyFormat);
-      */
       $row++;
       $nbLines++;
       $nCode++;
@@ -308,27 +305,88 @@ foreach ($splits as $key => $value) {
 }
 
 //pour le job
-//pour chaque invoiceLine du split
-foreach ($oInvoices->getInvoiceListJob($_GET['id_tbljob']) as $invoicelines) {
+if ($oInvoices->getInvoiceListJob($_GET['id_tbljob'])) {
 
-  //s'ily a une une quantité ou si UBR
-  if ($invoicelines['qteUser']>0) {
+    //on ecrit l'intitulé du split
+    $page->setCellValueByColumnAndRow(1+1, $row, '0 - Others');
+    $page->getStyle('B'.$row.':D'.$row)->applyFromArray($styleSplit);
 
+    $intituleSplit=$row;
+    $row++;
+
+    $nbLines=0; //comptage s'il y a des invoicelines dans ce split
+
+  foreach ($oInvoices->getInvoiceListJob($_GET['id_tbljob']) as $invoicelines) {
+
+    //s'ily a une une quantité ou si UBR
+    if ($invoicelines['qteUser']>0) {
+
+      copyRange($page, 'A'.$rowTemplate.':G'.$rowTemplate, Coordinate::stringFromColumnIndex(1).$row);
+
+      $page->setCellValueByColumnAndRow(1+0, $row, $nCode);
+      $page->setCellValueByColumnAndRow(1+1, $row, $invoicelines['pricingList']);
+      $page->setCellValueByColumnAndRow(1+4, $row, $invoicelines['qteUser']);
+      $page->setCellValueByColumnAndRow(1+5, $row, $invoicelines['priceUnit']);
+      $page->setCellValueByColumnAndRow(1+6, $row, '=E'.$row.'*F'.$row);
+
+      $row++;
+      $nbLines++;
+      $nCode++;
+    }
+  }
+
+
+    if ($nbLines>0) { //1 ligne de separation avec le split suivant
+      $row++;
+    }
+    else { //sinon on masque la ligne d'intitulé de split
+      $page->getRowDimension($intituleSplit)->setVisible(false);
+    }
+
+}
+
+
+
+
+
+
+//partial invoice
+
+
+    //on ecrit l'intitulé du split
+    $page->setCellValueByColumnAndRow(1+1, $row, 'Partial Invoice');
+    $page->getStyle('B'.$row.':D'.$row)->applyFromArray($styleSplit);
+
+    $intituleSplit=$row;
+    $row++;
+
+    $nbLines=0; //comptage s'il y a des invoicelines dans ce split
+
+  foreach ($oInvoices->getAllInvoiceRecorded($split['id_tbljob']) as $inv) {
     copyRange($page, 'A'.$rowTemplate.':G'.$rowTemplate, Coordinate::stringFromColumnIndex(1).$row);
 
-    $page->setCellValueByColumnAndRow(1+0, $row, $nCode);
-    $page->setCellValueByColumnAndRow(1+1, $row, $invoicelines['pricingList']);
-    $page->setCellValueByColumnAndRow(1+4, $row, $invoicelines['qteUser']);
-    $page->setCellValueByColumnAndRow(1+5, $row, $invoicelines['priceUnit']);
+      $page->setCellValueByColumnAndRow(1+0, $row, $nCode);
+    $page->setCellValueByColumnAndRow(1+1, $row, 'Invoice : '.$inv['inv_number']);
+    $page->setCellValueByColumnAndRow(1+4, $row, '1');
+    $page->setCellValueByColumnAndRow(1+5, $row, -$inv['inv_mrsas']-$inv['inv_subc']);
     $page->setCellValueByColumnAndRow(1+6, $row, '=E'.$row.'*F'.$row);
 
-    /*   $page->getStyle("F".$row)->getNumberFormat()->setFormatCode($currencyFormat);
-    $page->getStyle("G".$row)->getNumberFormat()->setFormatCode($currencyFormat);
-    */
     $row++;
+    $nbLines++;
     $nCode++;
   }
-}
+
+    if ($nbLines>0) { //1 ligne de separation avec le split suivant
+      $row++;
+    }
+    else { //sinon on masque la ligne d'intitulé de split
+      $page->getRowDimension($intituleSplit)->setVisible(false);
+    }
+
+
+
+
+
 
 
 

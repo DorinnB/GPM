@@ -70,7 +70,8 @@ $(document).ready(function() {
       blurable: true
     },
     buttons: [
-      { extend: "create", editor: editor }
+      { extend: "create", editor: editor },
+      { extend: "edit",   editor: editor }
     ]
   } );
 

@@ -10,22 +10,12 @@ $(document).ready(function() {
     },
     table: "#table_ubr",
     fields: [
-      { label: "supplier", name: "payables.supplier"  },
-      { label: "payable", name: "payables.payable"  },
-      { label: "type", name: "payables.id_payable_list", type: "select" },
-      { label: "capitalize", name: "payables.capitalize"  },
-      { label: "date_due", name: "payables.date_due", type:  'datetime'},
-      { label: "date_invoice", name: "payables.date_invoice", type:  'datetime'},
-      { label: "postedDate", name: "payables.postedDate", type:  'datetime'},
-      { label: "invoice", name: "payables.invoice"  },
-      { label: "job", name: "payables.job"  },
-      { label: "USD", name: "payables.USD"  },
-      { label: "USD", name: "payables.dontMach"  },
-      { label: "taux", name: "payables.taux"  },
-      { label: "HT", name: "payables.HT"  },
-      { label: "TVA", name: "payables.TVA"  },
-      { label: "TTC", name: "payables.TTC"  },
-      { label: "date_payable", name: "payables.date_payable", type:  'datetime'},
+      { label: "date_UBR (please write last day of a month)", name: "ubr.date_UBR" , type:  'datetime' },
+      { label: "date_creation", name: "ubr.date_creation" , type:  'datetime',   def:   function () { return new Date(); } },
+      { label: "Job", name: "info_jobs.job"},
+      { label: "type2", name: "payables_job.type2"  },
+      { label: "ubr.UBR_GPM", name: "ubr.UBR_GPM"},
+      { label: "ubr.UBR", name: "ubr.UBR"}
     ]
   } );
 

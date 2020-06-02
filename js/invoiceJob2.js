@@ -242,12 +242,16 @@ $(document).ready(function() {
 
     $('#invoice_val').text(invoice_val.toFixed(2));
     $('#invoice_val_subc').text(invoice_val_subc.toFixed(2));
+    $('#invoice_val_total').text((invoice_val+invoice_val_subc).toFixed(2));
+
     $('#notInv_val').text(notInv_val.toFixed(2));
     $('#notInv_val_subc').text(notInv_val_subc.toFixed(2));
     $('#UBRMRSAS').text(notInv_val.toFixed(2));
+    $('#ubr_total').text((notInv_val+notInv_val_subc).toFixed(2));
 
-    $('#invMRSAS').text(invoice_val.toFixed(2)-notInv_val.toFixed(2));
+    $('#invMRSAS').text((invoice_val-notInv_val).toFixed(2));
     $('#invSubC').text(inv_subc.toFixed(2));
+    $('#inv_total').text((invoice_val-notInv_val+inv_subc).toFixed(2));
 
     order_val=parseFloat($('#order_val').val());
     order_est=parseFloat($('#order_est').val());
@@ -255,7 +259,6 @@ $(document).ready(function() {
     UBRMRSAS=parseFloat($('#UBRMRSAS').text());
     sumPayables=parseFloat($('#sumPayables').text());
 
-    sum=$("#amount").attr('data-content', 'Amount : ' + ( invoice_val + invoice_val_subc).toFixed(2));
 
     if((order_est+order_est_subc - order_val)>0) {  //estimated > po
       $('#order_val').addClass('outTolerance');

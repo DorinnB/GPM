@@ -150,7 +150,7 @@ $objPHPExcel->getActiveSheet()
 ->fromArray(
   $lstUsers,  // The data to set
   NULL,        // Array values with this value will not be set
-  'I41'         // Top left coordinate of the worksheet range where
+  'I42'         // Top left coordinate of the worksheet range where
   //    we want to set these values (default is A1)
 );
 

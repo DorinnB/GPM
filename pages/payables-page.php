@@ -22,7 +22,7 @@
             <th>Inv n°</th>
             <th>N° Job</th>
             <th>Amount USD</th>
-            <th>Dont Mach</th>
+          <!--  <th>Dont Mach</th>  -->
             <th>USD Rate</th>
             <th>HT EUR</th>
             <th>TVA</th>
@@ -43,7 +43,7 @@
             <th>Inv n°</th>
             <th>N° Job</th>
             <th>Amount USD</th>
-            <th>Dont Mach</th>
+          <!--  <th>Dont Mach</th>  -->
             <th>USD Rate</th>
             <th>HT EUR</th>
             <th>TVA</th>

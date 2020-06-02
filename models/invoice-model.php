@@ -281,7 +281,7 @@ class InvoiceModel
         $invPO[$value['id_info_job']]['invSubC']+=$value['invSubC'];
       }
       else {
-      $invPO[$value['id_info_job']]['invSubC']=$value['invSubC'];
+        $invPO[$value['id_info_job']]['invSubC']=$value['invSubC'];
       }
     }
     unset($invJob);
@@ -292,15 +292,15 @@ class InvoiceModel
 
   public function getAllInvoiceRecorded($id_tbljob) {
 
-      $req='SELECT inv_number, inv_mrsas, inv_subc
-      FROM invoices
-      WHERE inv_job=(
-        SELECT job
-        FROM tbljobs
-        LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
-        WHERE id_tbljob='.$this->db->quote($id_tbljob).'
-      )
-      ORDER BY inv_number ASC;';
+    $req='SELECT inv_number, inv_mrsas, inv_subc, inv_date
+    FROM invoices
+    WHERE inv_job=(
+      SELECT job
+      FROM tbljobs
+      LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
+      WHERE id_tbljob='.$this->db->quote($id_tbljob).'
+    )
+    ORDER BY inv_number ASC;';
 
 
     return $this->db->getAll($req);
@@ -358,7 +358,15 @@ class InvoiceModel
 
     $req='SELECT *
     FROM payables
-    WHERE job=(SELECT job FROM tbljobs LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job WHERE id_tbljob='.$this->db->quote($id_tbljob).');';
+    LEFT JOIN payable_lists ON payable_lists.id_payable_list=payables.id_payable_list
+    WHERE payable_lists.ubrable=1
+    AND job=(
+      SELECT job
+      FROM tbljobs
+      LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
+      WHERE id_tbljob='.$this->db->quote($id_tbljob).'
+    )
+    ;';
 
     return $this->db->getAll($req);
   }

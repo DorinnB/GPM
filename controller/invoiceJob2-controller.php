@@ -48,9 +48,11 @@ if (isset($split['billing_pays'])) {
 //var_dump($split);
 
 //var_dump($splits);
-$sumInvoices=0;
+$sumInvoicesMRSAS=0;
+$sumInvoicesSubC=0;
 foreach ($oInvoices->getAllInvoiceRecorded($split['id_tbljob']) as $inv) {
-  $sumInvoices+=$inv['inv_mrsas']+$inv['inv_subc'];
+  $sumInvoicesMRSAS+=$inv['inv_mrsas'];
+  $sumInvoicesSubC+=$inv['inv_subc'];
 }
 $sumPayables=0;
 foreach ($oInvoices->getAllPayablesJob($split['id_tbljob']) as $payable) {
@@ -59,4 +61,4 @@ foreach ($oInvoices->getAllPayablesJob($split['id_tbljob']) as $payable) {
 
 
 // Affichage du résultat
-include 'views/invoiceJob-view.php';
+include 'views/invoiceJob2-view.php';
