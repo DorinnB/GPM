@@ -81,11 +81,16 @@ width:1000px;
   text-align: right;
   display:inline-block;
 }
+.amount {
+  text-align: right;
+}
+
 
 input.form-control, input.form-control[readonly], input.form-control[disabled], textarea.form-control {
   color:white;
   background-color:inherit;
   border : 0px;
+  height:inherit;
 }
 input.form-control {
   border-bottom: 1px dashed ;

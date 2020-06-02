@@ -15,6 +15,7 @@
 						<?=	$split['entreprise']	?>
 					</div>
 				</H1>
+
 				<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="Numbers">
 					<p class="title">
 						<span class="name">Invoice :</span>
@@ -44,53 +45,96 @@
 					</p>
 				</div>
 
+				<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="Amount">
 
 
-				<div class="bs-example splitInfo" id="amount" data-example-id="basic-forms" data-content="Amount">
+					<div class="row">
+						<div class="col-md-6" style="text-align: left;">PO Amount
+						</div>
+						<div class="col-md-6"><input type="text" class="form-control" name="order_val" id="order_val" value="<?= $split['order_val']	?>" style="text-align: right;padding: 0px;">
+						</div>
+					</div>
 
-					<p class="title">
-						<span class="name">PO Amount:</span>
-						<span class="value"><input type="text" class="form-control" name="order_val" id="order_val" value="<?= $split['order_val']	?>" style="text-align: right;padding: 0px;"></span>
-					</p>
-					<p class="title">
-						<span class="name"><abbr title="MRSAS / SubC">Estimated :</abbr></span>
-						<span class="value2"><input type="text" class="form-control" name="order_est" id="order_est" value="<?= $split['order_est']	?>" style="text-align: right;padding: 0px;"></span>
-						<span class="value2"><input type="text" class="form-control" name="order_est_subc" id="order_est_subc" value="<?= $split['order_est_subc']	?>" style="text-align: right;padding: 0px;"></span>
-					</p>
-					<p class="title">
-						<span class="name"><abbr title="Sum invoiced and to be invoiced : MRSAS / SubC">Reached Amount :</abbr></span>
-						<span class="value2" id="invoice_val"></span>
-						<span class="value2" id="invoice_val_subc"></span>
-					</p>
-					<p class="title">
-						<span class="name"><abbr title="Sum that could be invoice or partialy invoiced : MRSAS / Payables">Invoicable :</abbr></span>
-						<span class="value2" id="UBRMRSAS"> </span>
-						<span class="value2" id="notInv_val_subc"></span>
-					</p>
-					<p class="title">
-						<span class="name"><abbr title="Sum already invoiced : MRSAS / Payables">Invoice :</abbr></span>
-						<span class="value2" id="invMRSAS"></span>
-						<span class="value2" id="invSubC"></span>
-					</p>
+
+					<div class="row" style="font-size:x-small;">
+						<div class="col-md-6" style="text-align: left;"></div>
+						<div class="col-md-2">MRSAS</div>
+						<div class="col-md-2">SubC</div>
+						<div class="col-md-2">Total</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6" style="text-align: left;">Estimated</div>
+						<div class="col-md-2"><input type="text" class="form-control" name="order_est" id="order_est" value="<?= $split['order_est']	?>" style="text-align: right;padding: 0px;"></div>
+						<div class="col-md-2"><input type="text" class="form-control" name="order_est_subc" id="order_est_subc" value="<?= $split['order_est_subc']	?>" style="text-align: right;padding: 0px;"></div>
+						<div class="col-md-2" id="order_est_total"></div>
+					</div>
+					<div class="row" style="font-weight: bold;">
+						<div class="col-md-6" style="text-align: left;">Reached Amount</div>
+						<div class="col-md-2 amount" id="invoice_val"></div>
+						<div class="col-md-2 amount" id="invoice_val_subc"></div>
+						<div class="col-md-2 amount" id="invoice_val_total"></div>
+					</div>
+					<div class="row">
+						<div class="col-md-6" style="text-align: left;"><abbr title="Sum that could be invoice or partialy invoiced : MRSAS / Payables">Invoice</abbr></div>
+						<div class="col-md-2 amount" id="UBRMRSAS"></div>
+						<div class="col-md-2 amount" id="notInv_val_subc"></div>
+						<div class="col-md-2 amount" id="ubr_total"></div>
+					</div>
+					<div class="row">
+						<div class="col-md-6" style="text-align: left;"><abbr title="Sum already invoiced : MRSAS / Payables">Invoicable</abbr></div>
+						<div class="col-md-2 amount" id="invMRSAS"></div>
+						<div class="col-md-2 amount" id="invSubC"></div>
+						<div class="col-md-2 amount" id="inv_total"></div>
+					</div>
+
+
 				</div>
 
-				<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="Invoices : <?= $sumInvoices ?>">
+				<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="Invoices">
+					<div class="row" style="font-weight: bold;">
+						<div class="col-md-6" style="text-align: left;">TOTAL</div>
+						<div class="col-md-2"><?=	number_format($sumInvoicesMRSAS,2,'.','')	?></div>
+						<div class="col-md-2"><?=	number_format($sumInvoicesSubC,2,'.','')	?></div>
+						<div class="col-md-2"><?=	number_format($sumInvoicesMRSAS+$sumInvoicesSubC,2,'.','')	?></div>
+					</div>
+					<div class="row" style="font-size:x-small;">
+						<div class="col-md-6" style="text-align: left;"></div>
+						<div class="col-md-2">MRSAS</div>
+						<div class="col-md-2">SubC</div>
+						<div class="col-md-2">Total</div>
+					</div>
 					<?php foreach ($oInvoices->getAllInvoiceRecorded($split['id_tbljob']) as $inv) : ?>
-						<p class="title">
-							<span class="name"><?=	$inv['inv_number']	?></span>
-							<span class="value2 inv_mrsas"><?=	$inv['inv_mrsas']	?></span>
-							<span class="value2 inv_subc"><?=	$inv['inv_subc']	?></span>
-						</p>
+						<div class="row">
+							<div class="col-md-6" style="text-align: left;"><?=	$inv['inv_number'].' / '.$inv['inv_date']	?></div>
+							<div class="col-md-2"><?=	$inv['inv_mrsas']	?></div>
+							<div class="col-md-2"><?=	$inv['inv_subc']	?></div>
+							<div class="col-md-2"><?=	number_format(($inv['inv_mrsas']+$inv['inv_subc']),2,'.','')	?></div>
+						</div>
 					<?php endforeach ?>
 				</div>
 
-				<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="Payables : <?= $sumPayables	?>">
+				<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="Payables">
 					<div id="sumPayables" style="display:none;"><?= $sumPayables	?></div>
+					<div class="row" style="font-weight: bold;">
+						<div class="col-md-6" style="text-align: left;">TOTAL</div>
+						<div class="col-md-2"></div>
+						<div class="col-md-2"></div>
+						<div class="col-md-2"><?=	number_format($sumPayables,2,'.','')	?></div>
+					</div>
+					<div class="row" style="font-size:x-small;">
+						<div class="col-md-6" style="text-align: left;"></div>
+						<div class="col-md-2">Applied</div>
+						<div class="col-md-2"></div>
+						<div class="col-md-2">Total</div>
+					</div>
 					<?php foreach ($oInvoices->getAllPayablesJob($split['id_tbljob']) as $payable) : ?>
-						<p class="title">
-							<span class="name"><?=	$payable['payable']	?></span>
-							<span class="value"><?= round((($payable['USD']>0)?$payable['USD']*$payable['taux']:$payable['HT']),2) ?></span>
-						</p>
+						<div class="row">
+							<div class="col-md-6" style="text-align: left;"><?=	$payable['payable']	?></div>
+							<div class="col-md-2"><input type="checkbox" value=""></div>
+							<div class="col-md-2"></div>
+							<div class="col-md-2"><?=	number_format((($payable['USD']>0)?$payable['USD']*$payable['taux']:$payable['HT']),2)	?></div>
+						</div>
+
 					<?php endforeach ?>
 				</div>
 
