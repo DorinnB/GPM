@@ -28,8 +28,7 @@ Editor::inst( $db, 'invoices' )
   Field::inst( 'inv_subc'),
   Field::inst( 'inv_TVA'),
   Field::inst( 'USDRate'),
-  Field::inst( 'inv_date'),
-  Field::inst( 'savePayables')
+  Field::inst( 'inv_date')
   )
 
 

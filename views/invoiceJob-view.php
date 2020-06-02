@@ -75,13 +75,13 @@
 						<div class="col-md-2 amount" id="invoice_val_total"></div>
 					</div>
 					<div class="row">
-						<div class="col-md-6" style="text-align: left;"><abbr title="Sum that could be invoice or partialy invoiced : MRSAS / Payables">Invoice</abbr></div>
+						<div class="col-md-6" style="text-align: left;"><abbr title="Sum already invoiced : MRSAS / Payables">Invoice</abbr></div>
 						<div class="col-md-2 amount" id="UBRMRSAS"></div>
 						<div class="col-md-2 amount" id="notInv_val_subc"></div>
 						<div class="col-md-2 amount" id="ubr_total"></div>
 					</div>
 					<div class="row">
-						<div class="col-md-6" style="text-align: left;"><abbr title="Sum already invoiced : MRSAS / Payables">Invoicable</abbr></div>
+						<div class="col-md-6" style="text-align: left;"><abbr title="Sum that could be invoice or partialy invoiced : MRSAS / Payables">Invoicable</abbr></div>
 						<div class="col-md-2 amount" id="invMRSAS"></div>
 						<div class="col-md-2 amount" id="invSubC"></div>
 						<div class="col-md-2 amount" id="inv_total"></div>
@@ -132,7 +132,7 @@
 							<div class="col-md-6" style="text-align: left;"><?=	$payable['payable']	?></div>
 							<div class="col-md-2"><input type="checkbox" class="payables_applied" name="<?=	$payable['id_payable']	?>" value="1" <?= ($payable['applied']==1)?"checked":"" ?>></div>
 							<div class="col-md-2"></div>
-							<div class="col-md-2"><?=	number_format((($payable['USD']>0)?$payable['USD']*$payable['taux']:$payable['HT']),2)	?></div>
+							<div class="col-md-2"><?=	number_format((($payable['USD']>0)?$payable['USD']*$payable['taux']:$payable['HT']),2,'.','')	?></div>
 						</div>
 
 					<?php endforeach ?>

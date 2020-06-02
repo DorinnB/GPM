@@ -5,8 +5,7 @@
 		<thead>
 			<tr>
 				<th colspan="5">Info</th>
-				<th colspan="3">UBR</th>
-				<th colspan="4">Inv.</th>
+				<th colspan="3">Inv.</th>
 				<th colspan="6">INV. USD</th>
 				<th colspan="5">INV. EUR</th>
 				<th colspan="1"></th>
@@ -17,10 +16,6 @@
 				<th><acronym title="Job Number">Job</acronym></th>
 				<th><acronym title="PO Amount">PO</acronym></th>
 				<th><acronym title="Estimated MRSAS">Est.MRSAS</acronym></th>
-				<th><acronym title="Test SubC">TestSubC</acronym></th>
-				<th><acronym title="Test MRSAS">Test MRSAS</acronym></th>
-				<th><acronym title="Total">Total</acronym></th>
-				<th><acronym title="Postage">Postage</acronym></th>
 				<th><acronym title="Invoice N°">Inv N°</acronym></th>
 				<th><acronym title="Invoice Date">Inv Date</acronym></th>
 				<th><acronym title="Invoice Due Date">Due Date</acronym></th>
@@ -45,10 +40,6 @@
 				<th><acronym title="Job Number">Job</acronym></th>
 				<th><acronym title="PO Amount">PO</acronym></th>
 				<th><acronym title="Estimated MRSAS">Est.MRSAS</acronym></th>
-				<th><acronym title="Test SubC">TestSubC</acronym></th>
-				<th><acronym title="Test MRSAS">Test MRSAS</acronym></th>
-				<th><acronym title="Total">Total</acronym></th>
-				<th><acronym title="Postage">Postage</acronym></th>
 				<th><acronym title="Invoice N°">Inv N°</acronym></th>
 				<th><acronym title="Invoice Date">Inv Date</acronym></th>
 				<th><acronym title="Invoice Due Date">Due Date</acronym></th>
@@ -75,10 +66,6 @@
 					<td><?= $value['job'] ?></td>
 					<td><?= $value['order_val'] ?></td>
 					<td><?= $value['order_est'] ?></td>
-					<td><?= $value['UBRSubC'] ?></td>
-					<td><?= $value['UBR'] ?></td>
-					<td><?= $value['totalUBR'] ?></td>
-					<td>*</td>
 					<td><?= $value['inv_number'] ?></td>
 					<td><?= $value['inv_date'] ?></td>
 					<td><?= $value['dueDate'] ?></td>
@@ -98,6 +85,6 @@
 			<?php endforeach ?>
 		</tbody>
 	</table>
-<script type="text/javascript" src="js/accounting.js"></script>
+<script type="text/javascript" src="js/invoice.js"></script>
 
 </div>

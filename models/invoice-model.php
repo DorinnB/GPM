@@ -396,4 +396,53 @@ class InvoiceModel
     //echo $reqUpdate;
     $this->db->query($reqUpdate);
   }
+
+  public function getAllAccounting($limit=1000) {
+
+    $filtreLimit=(is_numeric($limit))?$limit:$this->db->quote($limit);
+
+    $req='SELECT info_jobs.customer, info_jobs.job, info_jobs.order_val, info_jobs.order_est, info_jobs.invoice_currency,
+    CASE
+    WHEN (invoices.inv_subc) + (invoices.inv_mrsas) > 0 THEN "UBR"
+    WHEN info_jobs.invoice_type = 1 THEN "PART."
+    WHEN info_jobs.invoice_type = 2 THEN "INV."
+    ELSE "Not"
+    END AS invoice_type,
+
+    invoices.inv_mrsas AS invMRSAS,
+    invoices.inv_subc AS invSubC,
+    invoices.inv_number AS inv_number,
+    invoices.inv_date AS inv_date,
+    invoices.inv_date + INTERVAL 30 DAY as dueDate,
+
+    USDRate AS USDRate,
+
+    IF(info_jobs.invoice_currency=1,invoices.inv_subc, NULL) as invSubCUSD,
+    IF(info_jobs.invoice_currency=1,invoices.inv_mrsas, NULL) as invMRSASUSD,
+    IF(info_jobs.invoice_currency=1,invoices.inv_subc + invoices.inv_mrsas, NULL) as invHTUSD,
+    IF(info_jobs.invoice_currency=1,invoices.inv_tva, NULL) as invTVAUSD,
+    IF(info_jobs.invoice_currency=1,invoices.inv_subc + invoices.inv_mrsas + invoices.inv_tva, NULL) as invTTCUSD,
+
+    IF(info_jobs.invoice_currency=0,invoices.inv_subc, NULL) as invSubCEUR,
+    IF(info_jobs.invoice_currency=0,invoices.inv_mrsas, NULL) as invMRSASEUR,
+    IF(info_jobs.invoice_currency=0,invoices.inv_subc + invoices.inv_mrsas, NULL) as invHTEUR,
+    IF(info_jobs.invoice_currency=0,invoices.inv_tva, NULL) as invTVAEUR,
+    IF(info_jobs.invoice_currency=0,invoices.inv_subc + invoices.inv_mrsas + invoices.inv_tva, NULL) as invTTCEUR
+
+    FROM info_jobs
+
+    LEFT JOIN invoices ON invoices.inv_job=info_jobs.job
+
+
+
+
+
+
+    ORDER BY info_jobs.job DESC
+    LIMIT '.$filtreLimit.'
+    ;';
+
+    //echo $req;
+    return $this->db->getAll($req);
+  }
 }

@@ -4,14 +4,14 @@
 
 <link href="css/calibration.css" rel="stylesheet">
 <?php
-include('controller/accounting-controller.php');
+include('controller/invoice-controller.php');
 ?>
 <!-- Page Content -->
 <div id="page-content-wrapper" style="height:100%">
 	<div class="container-fluid">
 		<div class="row" style="height:100%;">
 			<?php
-			include('views/accounting-view.php');
+			include('views/invoice-view.php');
 			?>
 		</div>
 	</div>

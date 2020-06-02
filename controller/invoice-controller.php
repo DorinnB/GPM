@@ -4,11 +4,11 @@ $db = new db(); // create a new object, class db()
 
 
 // Rendre votre modèle accessible
-include_once 'models/accounting-model.php';
+include_once 'models/invoice-model.php';
 // Création d'une instance
-$oAccountings = new AccountingModel($db);
+$oInvoices = new InvoiceModel($db);
 
-$lstJobs=$oAccountings->getAllAccounting();
+$lstJobs=$oInvoices->getAllAccounting();
 
 //var_dump($lstJobs);
 

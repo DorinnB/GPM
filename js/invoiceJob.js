@@ -53,13 +53,6 @@ $(document).ready(function() {
         label: "Invoice Total:",
         name: "inv_total",
         type:  "readonly"
-      },
-      {
-        label: "savePayables:",
-        name:  "savePayables",
-        def: function() {
-          return parseFloat(0+$('#sumPayables').text()).toFixed(2);
-        }
       }
     ]
   } );
@@ -259,12 +252,26 @@ $(document).ready(function() {
     UBRMRSAS=parseFloat($('#UBRMRSAS').text());
     sumPayables=parseFloat($('#sumPayables').text());
 
+    order_est_total=order_est+order_est_subc;
+    $('#order_est_total').text(order_est_total.toFixed(2));
 
-    if((order_est+order_est_subc - order_val)>0) {  //estimated > po
+    //alarm
+    if((order_est_total - order_val)>0) {  //estimated > po
       $('#order_val').addClass('outTolerance');
+        $('#order_est_total').addClass('outTolerance');
     }
     else {
       $('#order_val').removeClass('outTolerance');
+      $('#order_est_total').removeClass('outTolerance');
+    }
+
+    if((invoice_val+invoice_val_subc)>order_val) {  //estimated > po
+      $('#order_val').addClass('outTolerance');
+        $('#invoice_val_total').addClass('outTolerance2');
+    }
+    else {
+      $('#order_val').removeClass('outTolerance');
+        $('#invoice_val_total').removeClass('outTolerance2');
     }
 
     if((invoice_val - order_est)>0) {  //reached > estimated MRSAS
@@ -273,6 +280,7 @@ $(document).ready(function() {
     else {
       $('#order_est').removeClass('outTolerance');
     }
+
     if((invoice_val_subc - order_est_subc)>0) {  //reached > estimated SubC
       $('#order_est_subc').addClass('outTolerance');
     }

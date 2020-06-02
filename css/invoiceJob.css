@@ -104,10 +104,12 @@ input.form-control {
 }
 
 
-input.outTolerance {
-  background-color: darkred;
+input.outTolerance, div.outTolerance {
+  background-color: darkred !important;
 }
-
+input.outTolerance2, div.outTolerance2 {
+  background-color: darkred !important;
+}
 
 
 .bs-example {
