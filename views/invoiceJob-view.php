@@ -130,7 +130,7 @@
 					<?php foreach ($oInvoices->getAllPayablesJob($split['id_tbljob']) as $payable) : ?>
 						<div class="row">
 							<div class="col-md-6" style="text-align: left;"><?=	$payable['payable']	?></div>
-							<div class="col-md-2"><input type="checkbox" value=""></div>
+							<div class="col-md-2"><input type="checkbox" class="payables_applied" name="<?=	$payable['id_payable']	?>" value="1" <?= ($payable['applied']==1)?"checked":"" ?>></div>
 							<div class="col-md-2"></div>
 							<div class="col-md-2"><?=	number_format((($payable['USD']>0)?$payable['USD']*$payable['taux']:$payable['HT']),2)	?></div>
 						</div>

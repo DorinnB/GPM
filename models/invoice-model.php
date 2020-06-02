@@ -385,4 +385,15 @@ class InvoiceModel
 
     return $this->db->getAll($req);
   }
+
+  public function updateApplied() {
+
+    $reqUpdate = '
+    UPDATE payables
+    SET  applied='.$this->applied.'
+    WHERE id_payable='.$this->id_payable.';';
+
+    //echo $reqUpdate;
+    $this->db->query($reqUpdate);
+  }
 }

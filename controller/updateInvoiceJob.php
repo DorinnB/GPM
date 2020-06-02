@@ -39,61 +39,67 @@ foreach ($_POST as $posts) {
 	$datapost = array();
 	parse_str($posts, $datapost);	//$datapost=l'array
 
-	//var_dump($datapost);
 
-	if ($datapost['id_invoiceLine']>0) {	//update d'une ligne existante
+	if (isset($datapost['id_invoiceLine'])) {
+		if ($datapost['id_invoiceLine']>0) {	//update d'une ligne existante
 
-		if ( $datapost['toDelete']>0) {	//on efface la ligne
+			if ( $datapost['toDelete']>0) {	//on efface la ligne
 
-			$oInvoice = new InvoiceModel($db);
-			$oInvoice->id_invoiceLine=$datapost['id_invoiceLine'];
+				$oInvoice = new InvoiceModel($db);
+				$oInvoice->id_invoiceLine=$datapost['id_invoiceLine'];
 
-			$oInvoice->deleteInvoiceLine();
-			unset($oInvoice);
+				$oInvoice->deleteInvoiceLine();
+				unset($oInvoice);
+			}
+			else {
+				$oInvoice = new InvoiceModel($db);
+				$oInvoice->id_invoiceLine=$datapost['id_invoiceLine'];
+
+				$oInvoice->pricingList=$datapost['pricingList'];
+				$oInvoice->qteUser=$datapost['qteUser'];
+				$oInvoice->priceUnit=$datapost['priceUnit'];
+
+				$oInvoice->updateInvoiceLine();
+				unset($oInvoice);
+			}
+
 		}
-		else {
-			$oInvoice = new InvoiceModel($db);
-			$oInvoice->id_invoiceLine=$datapost['id_invoiceLine'];
+		elseif ($datapost['newEntry']>=0) {	//ajout d'une ligne
 
-			$oInvoice->pricingList=$datapost['pricingList'];
-			$oInvoice->qteUser=$datapost['qteUser'];
-			$oInvoice->priceUnit=$datapost['priceUnit'];
+			if ( $datapost['toDelete']>0) {	//on efface la ligne
 
-			$oInvoice->updateInvoiceLine();
-			unset($oInvoice);
+				$oInvoice = new InvoiceModel($db);
+				$oInvoice->id_invoiceLine=$datapost['id_invoiceLine'];
+
+				$oInvoice->deleteInvoiceLine();
+				unset($oInvoice);
+			}
+			else {
+
+				$oInvoice = new InvoiceModel($db);
+				$oInvoice->id_pricingList=$datapost['id_pricingList'];
+				$oInvoice->id_info_job=$datapost['id_info_job'];
+				$oInvoice->id_tbljob=$datapost['id_tbljob'];
+
+				$oInvoice->prodCode=$datapost['prodCode'];
+				$oInvoice->OpnCode=$datapost['OpnCode'];
+				$oInvoice->type=$datapost['type'];
+				$oInvoice->pricingList=$datapost['pricingList'];
+				$oInvoice->qteUser=$datapost['qteUser'];
+				$oInvoice->priceUnit=$datapost['priceUnit'];
+
+				$oInvoice->addNewEntry();
+				unset($oInvoice);
+			}
 		}
-
 	}
-	elseif ($datapost['newEntry']>=0) {	//ajout d'une ligne
-
-		if ( $datapost['toDelete']>0) {	//on efface la ligne
-
-			$oInvoice = new InvoiceModel($db);
-			$oInvoice->id_invoiceLine=$datapost['id_invoiceLine'];
-
-			$oInvoice->deleteInvoiceLine();
-			unset($oInvoice);
-		}
-		else {
-
-			$oInvoice = new InvoiceModel($db);
-			$oInvoice->id_pricingList=$datapost['id_pricingList'];
-			$oInvoice->id_info_job=$datapost['id_info_job'];
-			$oInvoice->id_tbljob=$datapost['id_tbljob'];
-
-			$oInvoice->prodCode=$datapost['prodCode'];
-						$oInvoice->OpnCode=$datapost['OpnCode'];
-									$oInvoice->type=$datapost['type'];
-			$oInvoice->pricingList=$datapost['pricingList'];
-			$oInvoice->qteUser=$datapost['qteUser'];
-			$oInvoice->priceUnit=$datapost['priceUnit'];
-
-			$oInvoice->addNewEntry();
-			unset($oInvoice);
-		}
+	elseif (isset($datapost['id_payable'])) {
+		$oInvoice = new InvoiceModel($db);
+		$oInvoice->id_payable=$datapost['id_payable'];
+		$oInvoice->applied=($datapost['checked']=="true")?"1":"0";
+		$oInvoice->updateApplied();
+		unset($oInvoice);
 	}
-
-
 
 }
 

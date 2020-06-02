@@ -351,6 +351,12 @@ $(document).ready(function() {
 
     });
 
+    //pour chaque payable
+    $('.payables_applied').each(function(){
+      //on crée un input dans le formulaire d'envoi
+          $("#invoiceJob").append('<input type="hidden" name="payable_'+$(this).attr("name")+'" value="id_payable='+$(this).attr("name")+'&checked='+$(this).is(':checked')+'"></input>');
+    });
+
     //On ajoute aussi langue, currency et invoice_commentaire
     $("#invoiceJob").append('<input type="hidden" name="order_val" value="'+$('#order_val').val()+'"></input>');
     $("#invoiceJob").append('<input type="hidden" name="order_est" value="'+$('#order_est').val()+'"></input>');
