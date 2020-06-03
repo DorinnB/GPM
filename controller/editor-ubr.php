@@ -21,21 +21,23 @@ Editor::inst( $db, 'ubr' )
   Field::inst( 'ubr.id_ubr'),
 
   Field::inst( 'ubr.id_info_job'),
-  Field::inst( 'ubr.UBR_GPM'),
-  Field::inst( 'ubr.UBR'),
+  Field::inst( 'ubr.ubrMRSAS'),
+  Field::inst( 'ubr.ubrSubC'),
   Field::inst( 'ubr.date_creation'),
   Field::inst( 'ubr.date_UBR'),
 
   Field::inst( 'info_jobs.job'),
 
-
-  Field::inst( 'payables_job.type2')
+  Field::inst( 'ubrold.ubrMRSAS'),
+  Field::inst( 'ubrold.ubrSubC'),
+  Field::inst( 'ubrold.date_creation'),
+  Field::inst( 'ubrold.date_UBR')
 )
 
 
   ->leftJoin( 'info_jobs',     'info_jobs.id_info_job',          '=', 'ubr.id_info_job' )
-  ->leftJoin( 'payables_job',     'payables_job.job',          '=', 'info_jobs.job' )
 
+  ->leftJoin('ubr as ubrold', 'ubrold.id_info_job=ubr.id_info_job and ubrold.id_UBR = (select max(u.id_ubr) from ubr u where u.id_info_job=ubrold.id_info_job and u.date_creation<ubr.date_creation group by u.id_info_job)','','')
 
   ->process($_POST)
   ->json();
