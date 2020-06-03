@@ -1,7 +1,7 @@
 
 <div class="col-md-12" style="height:100%">
 
-	<table id="table_accounting" class="table table-condensed table-hover table-bordered" cellspacing="0" width="100%"  style="height:95%; white-space:nowrap;">
+	<table id="table_invoice" class="table table-condensed table-hover table-bordered" cellspacing="0" width="100%"  style="height:95%; white-space:nowrap;">
 		<thead>
 			<tr>
 				<th colspan="5">Info</th>

@@ -8,7 +8,7 @@ include_once 'models/invoice-model.php';
 // Création d'une instance
 $oInvoices = new InvoiceModel($db);
 
-$lstJobs=$oInvoices->getAllAccounting();
+$lstJobs=$oInvoices->getAllInvoice();
 
 //var_dump($lstJobs);
 

@@ -397,7 +397,7 @@ class InvoiceModel
     $this->db->query($reqUpdate);
   }
 
-  public function getAllAccounting($limit=1000) {
+  public function getAllInvoice($limit=1000) {
 
     $filtreLimit=(is_numeric($limit))?$limit:$this->db->quote($limit);
 
@@ -429,13 +429,9 @@ class InvoiceModel
     IF(info_jobs.invoice_currency=0,invoices.inv_tva, NULL) as invTVAEUR,
     IF(info_jobs.invoice_currency=0,invoices.inv_subc + invoices.inv_mrsas + invoices.inv_tva, NULL) as invTTCEUR
 
-    FROM info_jobs
+    FROM invoices
 
-    LEFT JOIN invoices ON invoices.inv_job=info_jobs.job
-
-
-
-
+    LEFT JOIN info_jobs ON invoices.inv_job=info_jobs.job
 
 
     ORDER BY info_jobs.job DESC

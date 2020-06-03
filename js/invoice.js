@@ -1,9 +1,9 @@
 $(document).ready(function() {
 
-  var tableAccounting = $('#table_accounting').DataTable({
+  var tableInvoice = $('#table_invoice').DataTable({
 
 
-  order: [ 2, "DESC" ],
+  order: [ 5, "DESC" ],
   scrollY: '75vh',
   scrollCollapse: true,
   paging: false,
@@ -26,7 +26,7 @@ $(document).ready(function() {
 });
 
 
-tableAccounting
+tableInvoice
 .buttons()
 .container()
 .appendTo( '#button' );
@@ -42,7 +42,7 @@ $(".dataTables_scrollFootInner tfoot th").each(function() {
   $(this).html('<input type="text" placeholder="' + title + '" / style="width:100%">');
 });
 
-tableAccounting.columns().every(function() {
+tableInvoice.columns().every(function() {
   var that = this;
 
   $('input', this.footer()).on('keyup change', function() {
@@ -54,9 +54,9 @@ tableAccounting.columns().every(function() {
   });
 });
 
-document.getElementById("table_accounting_filter").style.display = "none";
+document.getElementById("table_invoice_filter").style.display = "none";
 
 
 
-tableAccounting.columns.adjust().draw();
+tableInvoice.columns.adjust().draw();
 });

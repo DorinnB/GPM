@@ -9,47 +9,28 @@
 
     <div class="col-md-12" style="height:100%">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       <table id="table_ubr" class="table table-condensed table-hover table-bordered dataTable" cellspacing="0" width="100%">
         <caption>UBR LIST</caption>
         <thead>
           <tr>
-            <th></th>
             <th>date ubr</th>
             <th>date creation</th>
             <th>job</th>
             <th>ubr MRSAS</th>
             <th>ubr SubC</th>
             <th>ubr Total</th>
+            <th></th>
           </tr>
         </thead>
         <tfoot>
           <tr>
-            <th></th>
             <th>date ubr</th>
             <th>date creation</th>
             <th>job</th>
             <th>ubr MRSAS</th>
             <th>ubr SubC</th>
             <th>ubr Total</th>
+            <th></th>
           </tr>
         </tfoot>
       </table>

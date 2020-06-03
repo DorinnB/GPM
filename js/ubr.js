@@ -68,14 +68,8 @@ $(document).ready(function() {
       url : "controller/editor-ubr.php",
       type: "POST"
     },
-    order: [[1,"asc"],[3,"asc"]],
+    order: [[1,"desc"],[3,"asc"]],
     columns: [
-      {
-                "className":      'details-control',
-                "orderable":      false,
-                "data":           null,
-                "defaultContent": ''
-            },
       { data: "ubr.date_UBR",
       render: function ( data, type, row ) {
         return ($.datepicker.formatDate('yy mm - MM', new Date(data)));
@@ -90,12 +84,18 @@ $(document).ready(function() {
           return (parseFloat(data.ubr.ubrMRSAS)+parseFloat(data.ubr.ubrSubC)).toFixed(2);
 
         }
-      }
+      },
+      {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+            }
     ],
     scrollY: '65vh',
     scrollCollapse: true,
     paging: false,
-        info:false,
+    info: true,
     select: {
       selector:'td:not(:first-child)',
       style:    'os',
