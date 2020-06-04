@@ -473,4 +473,16 @@ class LstJobsModel
     //echo $reqUpdateWeeklyReport;
     $this->db->query($reqUpdateWeeklyReport);
   }
+
+  public function getFirstSplit($id_infojob) {
+
+    $req = 'SELECT min(id_tbljob) as id_tbljob
+
+    FROM info_jobs
+    LEFT JOIN tbljobs ON tbljobs.id_info_job=info_jobs.id_info_job
+
+    WHERE info_jobs.job = '.$this->db->quote($id_infojob);
+    //echo $req;
+    return $this->db->getOne($req);
+  }
 }

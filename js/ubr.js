@@ -1,37 +1,37 @@
 /* Formatting function for row details - modify as you need */
 function format ( d ) {
-    // `d` is the original data object for the row
-    return '<div class="row">'+
-    '<div class="col-md-6 col-md-offset-3">'+
-      '<table class="table table-condensed table-bordered dataTable" cellspacing="0" width="100%" style="background:rgb(68, 84, 106);">'+
-      '<tr>'+
-        '<td style="font-weight:bold;">Job '+d.info_jobs.job+'</td>'+
-        '<td style="font-weight:bold;">'+$.datepicker.formatDate('yy M', new Date(d.ubrold.date_UBR))+'</td>'+
-        '<td style="font-weight:bold;">'+$.datepicker.formatDate('yy M', new Date(d.ubr.date_UBR))+'</td>'+
-        '<td style="font-weight:bold;">Delta</td>'+
-      '</tr>'+
-          '<tr>'+
-            '<td>MRSAS</td>'+
-            '<td>'+d.ubrold.ubrMRSAS+'</td>'+
-            '<td>'+d.ubr.ubrMRSAS+'</td>'+
-            '<td>'+(d.ubr.ubrMRSAS-d.ubrold.ubrMRSAS)+'</td>'+
-          '</tr>'+
-          '<tr>'+
-            '<td>SubC</td>'+
-            '<td>'+d.ubrold.ubrSubC+'</td>'+
-            '<td>'+d.ubr.ubrSubC+'</td>'+
-            '<td>'+(d.ubr.ubrSubC-d.ubrold.ubrSubC)+'</td>'+
-          '</tr>'+
-          '<tr>'+
-            '<td>TOTAL</td>'+
-            '<td>'+(parseFloat(d.ubrold.ubrMRSAS)+parseFloat(d.ubrold.ubrSubC)).toFixed(2)+'</td>'+
-            '<td>'+(parseFloat(d.ubr.ubrMRSAS)+parseFloat(d.ubr.ubrSubC)).toFixed(2)+'</td>'+
-            '<td>'+(parseFloat(d.ubr.ubrMRSAS)+parseFloat(d.ubr.ubrSubC)-parseFloat(d.ubrold.ubrMRSAS)+parseFloat(d.ubrold.ubrSubC))+'</td>'+
-          '</tr>'+
-        '</tbody>'+
-      '</table>'+
-    '</div>'+
-    '</div>';
+  // `d` is the original data object for the row
+  return '<div class="row">'+
+  '<div class="col-md-6 col-md-offset-3">'+
+    '<table class="table table-condensed table-bordered dataTable" cellspacing="0" width="100%" style="background:rgb(68, 84, 106);">'+
+    '<tr>'+
+      '<td style="font-weight:bold;">Job '+d.info_jobs.job+'</td>'+
+      '<td style="font-weight:bold;">'+$.datepicker.formatDate('yy M', new Date(d.ubrold.date_UBR))+'</td>'+
+      '<td style="font-weight:bold;">'+$.datepicker.formatDate('yy M', new Date(d.ubr.date_UBR))+'</td>'+
+      '<td style="font-weight:bold;">Delta</td>'+
+    '</tr>'+
+        '<tr>'+
+          '<td>MRSAS</td>'+
+          '<td>'+d.ubrold.ubrMRSAS+'</td>'+
+          '<td>'+d.ubr.ubrMRSAS+'</td>'+
+          '<td>'+(d.ubr.ubrMRSAS-d.ubrold.ubrMRSAS)+'</td>'+
+        '</tr>'+
+        '<tr>'+
+          '<td>SubC</td>'+
+          '<td>'+d.ubrold.ubrSubC+'</td>'+
+          '<td>'+d.ubr.ubrSubC+'</td>'+
+          '<td>'+(d.ubr.ubrSubC-d.ubrold.ubrSubC)+'</td>'+
+        '</tr>'+
+        '<tr>'+
+          '<td>TOTAL</td>'+
+          '<td>'+(parseFloat(d.ubrold.ubrMRSAS)+parseFloat(d.ubrold.ubrSubC)).toFixed(2)+'</td>'+
+          '<td>'+(parseFloat(d.ubr.ubrMRSAS)+parseFloat(d.ubr.ubrSubC)).toFixed(2)+'</td>'+
+          '<td>'+(parseFloat(d.ubr.ubrMRSAS)+parseFloat(d.ubr.ubrSubC)-parseFloat(d.ubrold.ubrMRSAS)+parseFloat(d.ubrold.ubrSubC))+'</td>'+
+        '</tr>'+
+      '</tbody>'+
+    '</table>'+
+  '</div>'+
+  '</div>';
 }
 
 
@@ -68,7 +68,7 @@ $(document).ready(function() {
       url : "controller/editor-ubr.php",
       type: "POST"
     },
-    order: [[1,"desc"],[3,"asc"]],
+    order: [[0,"desc"],[2,"asc"]],
     columns: [
       { data: "ubr.date_UBR",
       render: function ( data, type, row ) {
@@ -76,21 +76,23 @@ $(document).ready(function() {
 
       } },
       { data: "ubr.date_creation"  },
-      { data: "info_jobs.job"  },
+      { data: "info_jobs.job",
+    render: function ( data, type, row ) {
+      return '<a href="index.php?page=invoiceJob&id_infojob='+data+'">'+data+'</a>';
+    } },
       { data: "ubr.ubrMRSAS"  },
       { data: "ubr.ubrSubC"  },
       { data: null,
         render: function ( data, type, row ) {
           return (parseFloat(data.ubr.ubrMRSAS)+parseFloat(data.ubr.ubrSubC)).toFixed(2);
-
         }
       },
       {
-                "className":      'details-control',
-                "orderable":      false,
-                "data":           null,
-                "defaultContent": ''
-            }
+        className:      'details-control',
+        orderable:      false,
+        data:           null,
+        defaultContent: ''
+      }
     ],
     scrollY: '65vh',
     scrollCollapse: true,
@@ -111,19 +113,19 @@ $(document).ready(function() {
 
   // Add event listener for opening and closing details
   $('#table_ubr tbody').on('click', 'td.details-control', function () {
-      var tr = $(this).closest('tr');
-      var row = table.row( tr );
+    var tr = $(this).closest('tr');
+    var row = table.row( tr );
 
-      if ( row.child.isShown() ) {
-          // This row is already open - close it
-          row.child.hide();
-          tr.removeClass('shown');
-      }
-      else {
-          // Open this row
-          row.child( format(row.data()) ).show();
-          tr.addClass('shown');
-      }
+    if ( row.child.isShown() ) {
+      // This row is already open - close it
+      row.child.hide();
+      tr.removeClass('shown');
+    }
+    else {
+      // Open this row
+      row.child( format(row.data()) ).show();
+      tr.addClass('shown');
+    }
   } );
 
 
