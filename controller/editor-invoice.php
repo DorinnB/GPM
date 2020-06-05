@@ -24,6 +24,7 @@ Editor::inst( $db, 'invoices' )
   Field::inst( 'info_jobs.order_val'),
   Field::inst( 'info_jobs.order_est'),
   Field::inst( 'info_jobs.invoice_currency'),
+  Field::inst( 'invoices.USDRate'),
   Field::inst( 'invoices.inv_mrsas'),
   Field::inst( 'invoices.inv_subc'),
   Field::inst( 'invoices.inv_number'),
@@ -31,13 +32,12 @@ Editor::inst( $db, 'invoices' )
   Field::inst( 'invoices.USDRate'),
   Field::inst( 'invoices.inv_tva'),
   Field::inst( 'invoices.datepayement')
-  ->setFormatter( 'Format::ifEmpty', null )
   )
 
   ->leftJoin( 'info_jobs', 'info_jobs.job', '=', 'invoices.inv_job' )
 
-
   ->where('invoices.inv_date',$_POST['dateStartInvoice'],'>=')
+
 
   ->process($_POST)
   ->json();

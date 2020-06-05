@@ -5,7 +5,7 @@ $(document).ready(function() {
 
 
   editor = new $.fn.dataTable.Editor( {
-    ajax: "controller/editor-invoices.php",        template: '#customForm',
+    ajax: "controller/editor-invoiceJob.php",        template: '#customForm',
     fields: [
       {
         label: "Invoice Number:",

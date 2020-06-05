@@ -37,7 +37,9 @@ Editor::inst( $db, 'ubr' )
 
   ->leftJoin( 'info_jobs',     'info_jobs.id_info_job',          '=', 'ubr.id_info_job' )
 
-  ->leftJoin('ubr as ubrold', 'ubrold.id_info_job=ubr.id_info_job and ubrold.id_UBR = (select max(u.id_ubr) from ubr u where u.id_info_job=ubrold.id_info_job and u.date_creation<ubr.date_creation group by u.id_info_job)','','')
+  ->leftJoin('ubr as ubrold', 'ubrold.id_info_job=ubr.id_info_job and ubrold.id_UBR = (select u.id_ubr from ubr u where u.id_info_job=ubrold.id_info_job and u.date_UBR<ubr.date_UBR order by date_ubr desc limit 1)','','')
+
+  ->where('ubr.date_UBR',$_POST['dateStartUBR'],'>=')
 
   ->process($_POST)
   ->json();

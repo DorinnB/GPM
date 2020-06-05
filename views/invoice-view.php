@@ -1,15 +1,20 @@
 
 <div class="col-md-12" style="height:100%">
 
-	<table id="table_invoice" class="table table-condensed table-hover table-bordered" cellspacing="0" width="100%"  style="height:95%; white-space:nowrap;">
+	    <link href="css/payables.css" rel="stylesheet">
+
+	<?php
+	if (!isset($_GET['dateStartInvoice'])) {
+		echo "<script type='text/javascript'>document.location.replace('index.php?page=invoice&dateStartInvoice=".date('Y-m-d',strtotime('first day of january'))."');</script>";
+	}
+	?>
+	<div style="display:none;" id="dateStartInvoice"><?= $_GET['dateStartInvoice'] ?></div>
+
+
+
+	<table id="table_invoice" class="table table-condensed table-striped table-hover table-bordered" cellspacing="0" width="100%"  style="height:95%; white-space:nowrap;">
 		<thead>
-			<tr>
-				<th colspan="5">Info</th>
-				<th colspan="3">Inv.</th>
-				<th colspan="6">INV. USD</th>
-				<th colspan="5">INV. EUR</th>
-				<th colspan="1"></th>
-			</tr>
+
 			<tr>
 				<th><acronym title="Statut">Statut</acronym></th>
 				<th><acronym title="Customer">Cust.</acronym></th>
@@ -84,6 +89,7 @@
 				</tr>
 			<?php endforeach ?>
 		</tbody>
+
 	</table>
 <script type="text/javascript" src="js/invoice.js"></script>
 

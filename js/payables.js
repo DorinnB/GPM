@@ -11,7 +11,7 @@ $(document).ready(function() {
     table: "#table_payables",
     fields: [
       { label: "supplier", name: "payables.supplier"  },
-      { label: "payable", name: "payables.payable"  },
+      { label: "Description", name: "payables.payable"  },
       { label: "type", name: "payables.id_payable_list", type: "select" },
       { label: "capitalize", name: "payables.capitalize"  },
       { label: "date_due", name: "payables.date_due", type:  'datetime'},
@@ -23,7 +23,7 @@ $(document).ready(function() {
       { label: "taux", name: "payables.taux"  },
       { label: "HT", name: "payables.HT"  },
       { label: "TVA", name: "payables.TVA"  },
-      { label: "TTC", name: "payables.TTC"  },
+      { label: "TTC", name: "payables.TTC", type: 'readonly'  },
       { label: "date_payable", name: "payables.date_payable", type:  'datetime'},
     ]
   } );
@@ -36,23 +36,25 @@ $(document).ready(function() {
 
 
 
+
   var table = $('#table_payables').DataTable( {
     dom: "Bfrtip",
     ajax: {
       url : "controller/editor-payables.php",
-      type: "POST"
+      type: "POST",
+      data: {"dateStartPayable" : $('#dateStartPayable').text()}
     },
-    order: [[ 0, "asc" ],[5,"asc"]],
+    order: [ 7, "desc" ],
     columns: [
       { data: "payables.id_payable","visible": false  },
+      { data: "payables.invoice"  },
       { data: "payables.supplier"  },
       { data: "payables.payable"  },
       { data: "payable_lists.payable_list" },
       { data: "payables.capitalize"  },
-      { data: "payables.date_due"  },
-      { data: "payables.date_invoice"  },
       { data: "payables.postedDate"  },
-      { data: "payables.invoice"  },
+      { data: "payables.date_invoice"  },
+      { data: "payables.date_due"  },
       { data: "payables.job"  },
       { data: "payables.USD"  },
       { data: "payables.taux"  },
@@ -61,7 +63,7 @@ $(document).ready(function() {
       { data: function ( row, type, val, meta ) {
         dollar=(row.payables.USD*row.payables.taux).toFixed(2);
         euro=(row.payables.HT*1+row.payables.TVA*1).toFixed(2);
-//selon si c'est en dollar ou euro, et si le champ TTC est rempli, on compare TTC et le calcul
+        //selon si c'est en dollar ou euro, et si le champ TTC est rempli, on compare TTC et le calcul
           if (row.payables.USD > 0) {
             if (row.payables.TTC>0 && row.payables.TTC==dollar) {
               return row.payables.TTC;
@@ -92,7 +94,7 @@ $(document).ready(function() {
     scrollY: '65vh',
     scrollCollapse: true,
     paging: false,
-        info:false,
+    info: true,
     select: {
       style:    'os',
       blurable: true
@@ -102,7 +104,32 @@ $(document).ready(function() {
       { extend: "edit",   editor: editor },
       { extend: "remove", editor: editor }
     ]
-  } );
+  ,
+  headerCallback: function ( row, data, start, end, display ) {
+          var api = this.api(), data;
+
+          var intVal = function ( i ) {
+                  return typeof i === 'string' ?
+                          i.replace(/[\$,]/g, '')*1 :
+                          typeof i === 'number' ?
+                                  i : 0;
+          };
+
+          let colsum=["10","11","12","14"];
+          colsum.forEach((col) => {
+            $( api.column( col ).header() ).html(
+              '&Sigma; '+api
+              .column( col, { page: 'current'} )
+              .data()
+              .reduce( function (a, b) {
+                return intVal(a) + intVal(b);
+              }, 0 ).toFixed(2)
+            );
+          });
+  
+  }
+}
+ );
 
 
 

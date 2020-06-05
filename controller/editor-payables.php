@@ -66,6 +66,7 @@ Editor::inst( $db, 'payables' )
   )
   ->leftJoin( 'payable_lists',     'payable_lists.id_payable_list',          '=', 'payables.id_payable_list' )
 
+  ->where('payables.date_invoice',$_POST['dateStartPayable'],'>=')
 
   ->process($_POST)
   ->json();

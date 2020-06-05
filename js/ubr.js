@@ -66,7 +66,8 @@ $(document).ready(function() {
     dom: "Bfrtip",
     ajax: {
       url : "controller/editor-ubr.php",
-      type: "POST"
+      type: "POST",
+      data: {"dateStartUBR" : $('#dateStartUBR').text()}
     },
     order: [[0,"desc"],[2,"asc"]],
     columns: [

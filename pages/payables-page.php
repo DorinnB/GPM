@@ -1,52 +1,73 @@
 <div id="page-content-wrapper" style="height:100%">
   <div class="container-fluid">
 
-
+    <?php
+    if (!isset($_GET['dateStartPayable'])) {
+      echo "<script type='text/javascript'>document.location.replace('index.php?page=payables&dateStartPayable=".date('Y-m-d',strtotime('first day of january'))."');</script>";
+    }
+    ?>
+    <div style="display:none;" id="dateStartPayable"><?= $_GET['dateStartPayable'] ?></div>
 
 
     <link href="css/payables.css" rel="stylesheet">
 
     <div class="col-md-12" style="height:100%">
-      <table id="table_payables" class="table table-condensed table-hover table-bordered dataTable" cellspacing="0" width="100%">
+      <table id="table_payables" class="table table-condensed table-striped nowrap table-hover table-bordered dataTable" cellspacing="0" width="100%">
         <caption>PAYABLES LIST</caption>
         <thead>
           <tr>
             <th></th>
-            <th>Supplier</th>
-            <th>Payable</th>
-            <th>Type</th>
-            <th>Capitalize</th>
-            <th>Date Due</th>
-            <th>Date Invoice</th>
-            <th>Posted Date</th>
             <th>Inv n°</th>
+            <th>Supplier</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Capitalized</th>
+            <th>Posted Date</th>
+            <th>Date Invoice</th>
+            <th>Date Due</th>
             <th>N° Job</th>
             <th>Amount USD</th>
-          <!--  <th>Dont Mach</th>  -->
             <th>USD Rate</th>
             <th>HT EUR</th>
-            <th>TVA</th>
+            <th>TVA EUR</th>
             <th>TTC EUR</th>
             <th>Date Paid</th>
+          </tr>
+          <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tfoot>
           <tr>
             <th></th>
-            <th>Supplier</th>
-            <th>Payable</th>
-            <th>Type</th>
-            <th>Capitalize</th>
-            <th>Date Due</th>
-            <th>Date Invoice</th>
-            <th>Posted Date</th>
             <th>Inv n°</th>
+            <th>Supplier</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Capitalized</th>
+            <th>Posted Date</th>
+            <th>Date Invoice</th>
+            <th>Date Due</th>
             <th>N° Job</th>
             <th>Amount USD</th>
-          <!--  <th>Dont Mach</th>  -->
             <th>USD Rate</th>
             <th>HT EUR</th>
-            <th>TVA</th>
+            <th>TVA EUR</th>
             <th>TTC EUR</th>
             <th>Date Paid</th>
           </tr>
