@@ -1,14 +1,6 @@
 
 var editor; // use a global for the submit and return data rendering in the examples
-$.fn.dataTable.Api.register( 'sum()', function () {
-    var sum = 0;
 
-    for ( var i=0, ien=this.length ; i<ien ; i++ ) {
-        sum += this[i];
-    }
-
-    return sum;
-} );
 
 $(document).ready(function() {
 

@@ -56,10 +56,13 @@ $(document).ready(function() {
       { data: "payables.date_invoice"  },
       { data: "payables.date_due"  },
       { data: "payables.job"  },
-      { data: "payables.USD"  },
+      { data: "payables.USD",
+        className: "sum"  },
       { data: "payables.taux"  },
-      { data: "payables.HT"  },
-      { data: "payables.TVA"  },
+      { data: "payables.HT",
+        className: "sum"  },
+      { data: "payables.TVA",
+        className: "sum"  },
       { data: function ( row, type, val, meta ) {
         dollar=(row.payables.USD*row.payables.taux).toFixed(2);
         euro=(row.payables.HT*1+row.payables.TVA*1).toFixed(2);
@@ -69,7 +72,7 @@ $(document).ready(function() {
               return row.payables.TTC;
             }
             else if ((row.payables.TTC>0 && row.payables.TTC!=dollar)) {
-              return row.payables.TTC+"*";
+              return row.payables.TTC;
             }
             else {
               return (row.payables.USD*row.payables.taux).toFixed(2);
@@ -80,14 +83,15 @@ $(document).ready(function() {
               return row.payables.TTC;
             }
             else if ((row.payables.TTC>0 && row.payables.TTC!=euro)) {
-              return row.payables.TTC+"*";
+              return row.payables.TTC;
             }
             else {
               return (row.payables.HT*1+row.payables.TVA*1).toFixed(2);
             }
 
           }
-        }
+        },
+          className: "sum"
       },
       { data: "payables.date_payable"  },
     ],
@@ -103,31 +107,22 @@ $(document).ready(function() {
       { extend: "create", editor: editor },
       { extend: "edit",   editor: editor },
       { extend: "remove", editor: editor }
-    ]
-  ,
+    ],
   headerCallback: function ( row, data, start, end, display ) {
-          var api = this.api(), data;
+    var api = this.api();
 
-          var intVal = function ( i ) {
-                  return typeof i === 'string' ?
-                          i.replace(/[\$,]/g, '')*1 :
-                          typeof i === 'number' ?
-                                  i : 0;
-          };
-
-          let colsum=["10","11","12","14"];
-          colsum.forEach((col) => {
-            $( api.column( col ).header() ).html(
-              '&Sigma; '+api
-              .column( col, { page: 'current'} )
-              .data()
-              .reduce( function (a, b) {
-                return intVal(a) + intVal(b);
-              }, 0 ).toFixed(2)
-            );
-          });
-  
-  }
+    api.columns('.sum', { page: 'current' }).every(function () {
+      var sum = api
+      .cells( null, this.index(), { page: 'current'} )
+      .render('display')
+      .reduce(function (a, b) {
+        var x = parseFloat(a) || 0;
+        var y = parseFloat(b) || 0;
+        return x + y;
+      }, 0);
+      $(this.header()).html('&Sigma; '+sum.toFixed(2));
+    });
+  },
 }
  );
 
