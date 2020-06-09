@@ -13,8 +13,8 @@ caption {
 }
 
 .form-group input, .form-group select{
-color:black;
-border-radius: 10px;
+  color:black;
+  border-radius: 10px;
 }
 
 .dt-buttons  {
@@ -30,16 +30,20 @@ border-radius: 10px;
 }
 
 input,  select{
-color:black;
+  color:black;
 }
 a {
   color:white;
 }
 
 td.details-control {
-    background: url('../img/details_open.png') no-repeat center center;
-    cursor: pointer;
+  background: url('../img/details_open.png') no-repeat center center;
+  cursor: pointer;
 }
 tr.shown td.details-control {
-    background: url('../img/details_close.png') no-repeat center center;
+  background: url('../img/details_close.png') no-repeat center center;
+}
+
+.btn-default {
+  margin-left: 1em !important;
 }

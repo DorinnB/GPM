@@ -449,6 +449,7 @@ class InvoiceModel
     FROM payables
     LEFT JOIN payable_lists ON payable_lists.id_payable_list=payables.id_payable_list
     WHERE postedDate>='.$this->db->quote($dateStartPayable).'
+    ORDER BY date_invoice ASC
     ;';
 
     return $this->db->getAll($req);
@@ -469,7 +470,7 @@ class InvoiceModel
       LIMIT 1
     )
     WHERE ubr.date_UBR>='.$this->db->quote($dateStartPayable).'
-    ORDER BY date_ubr, job ASC
+    ORDER BY date_ubr ASC, job ASC
     ;';
 
     return $this->db->getAll($req);

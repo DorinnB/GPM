@@ -128,7 +128,11 @@ $(document).ready(function() {
     buttons: [
       { extend: "create", editor: editor },
       { extend: "edit",   editor: editor },
-      { extend: "remove", editor: editor }
+      { extend: "remove", editor: editor },
+      { text: "Accounting File",
+      action: function() {
+        location.assign("controller/createInvoicablePayables-controller.php?dateStart="+$('#dateStartInvoice').text());
+      } }
     ],
     headerCallback: function ( row, data, start, end, display ) {
       var api = this.api();

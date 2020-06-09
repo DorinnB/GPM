@@ -34,3 +34,6 @@ color:black;
 a {
   color:white;
 }
+.btn-default {
+  margin-left: 1em !important;
+}
