@@ -77,7 +77,7 @@ $(document).ready(function() {
       { data: null,
         className: "sum",
         render: function ( data, type, row ) {
-          return (parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas)+parseFloat(row.invoices.inv_tva)).toFixed(2);
+          return (row.info_jobs.invoice_currency==1 ? (parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas)+parseFloat(row.invoices.inv_tva)).toFixed(2) : " " );
         }
       },
       { data: "invoices.USDRate",
@@ -142,7 +142,7 @@ $(document).ready(function() {
           var y = parseFloat(b) || 0;
           return x + y;
         }, 0);
-        $(this.header()).html('&Sigma; '+sum.toFixed(2));
+        $(this.header()).html('&Sigma; '+sum.toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 '));
       });
     },
     columnDefs: [ {

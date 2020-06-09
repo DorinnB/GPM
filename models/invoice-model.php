@@ -441,4 +441,51 @@ class InvoiceModel
     //echo $req;
     return $this->db->getAll($req);
   }
+
+
+  public function getAllPayables($dateStartPayable) {
+
+    $req='SELECT *
+    FROM payables
+    LEFT JOIN payable_lists ON payable_lists.id_payable_list=payables.id_payable_list
+    WHERE postedDate>='.$this->db->quote($dateStartPayable).'
+    ;';
+
+    return $this->db->getAll($req);
+  }
+
+  public function getAllUBR($dateStartPayable) {
+
+    $req='SELECT entreprise, customer, job, invoice_currency, ubr.ubrSubC as ubrSubC, ubr.ubrMRSAS as ubrMRSAS, ubrold.ubrSubC as ubroldSubC, ubrold.ubrMRSAS as ubroldMRSAS, ubr.date_ubr as date_ubr
+    FROM ubr
+    LEFT JOIN info_jobs ON ubr.id_info_job=info_jobs.id_info_job
+    LEFT JOIN entreprises ON entreprises.id_entreprise=info_jobs.customer
+    LEFT JOIN ubr ubrold ON ubrold.id_info_job=ubr.id_info_job AND ubrold.id_ubr=(
+      SELECT u.id_ubr
+      FROM ubr u
+      WHERE u.id_info_job=ubrold.id_info_job
+      AND u.date_UBR<ubr.date_UBR
+      ORDER BY date_ubr DESC
+      LIMIT 1
+    )
+    WHERE ubr.date_UBR>='.$this->db->quote($dateStartPayable).'
+    ORDER BY date_ubr, job ASC
+    ;';
+
+    return $this->db->getAll($req);
+  }
+
+  public function getAllInvoices($dateStartPayable) {
+
+    $req='SELECT *
+    FROM invoices
+    LEFT JOIN info_jobs ON info_jobs.job=invoices.inv_job
+    LEFT JOIN entreprises ON entreprises.id_entreprise=info_jobs.customer
+    WHERE inv_date>='.$this->db->quote($dateStartPayable).'
+    ORDER BY inv_date ASC, inv_number ASC
+    ;';
+
+    return $this->db->getAll($req);
+  }
+
 }
