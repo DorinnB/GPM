@@ -50,9 +50,6 @@ Editor::inst( $db, 'payables' )
   Field::inst( 'payables.TVA')
     ->validator( 'Validate::numeric' )
     ->setFormatter( 'Format::ifEmpty', null ),
-  Field::inst( 'payables.TTC')
-    ->validator( 'Validate::numeric' )
-    ->setFormatter( 'Format::ifEmpty', null ),
   Field::inst( 'payables.date_payable')
     ->setFormatter( 'Format::ifEmpty', null ),
 

@@ -23,7 +23,6 @@ $(document).ready(function() {
       { label: "taux", name: "payables.taux"  },
       { label: "HT", name: "payables.HT"  },
       { label: "TVA", name: "payables.TVA"  },
-      { label: "TTC", name: "payables.TTC", type: 'readonly'  },
       { label: "date_payable", name: "payables.date_payable", type:  'datetime'},
     ]
   } );
@@ -57,57 +56,40 @@ $(document).ready(function() {
       { data: "payables.date_due"  },
       { data: "payables.job"  },
       { data: "payables.USD",
-        className: "sum"  },
+      className: "sum"  },
       { data: "payables.taux"  },
       { data: "payables.HT",
-        className: "sum"  },
+      className: "sum"  },
       { data: "payables.TVA",
-        className: "sum"  },
+      className: "sum"  },
       { data: function ( row, type, val, meta ) {
         dollar=(row.payables.USD*row.payables.taux).toFixed(2);
         euro=(row.payables.HT*1+row.payables.TVA*1).toFixed(2);
         //selon si c'est en dollar ou euro, et si le champ TTC est rempli, on compare TTC et le calcul
-          if (row.payables.USD > 0) {
-            if (row.payables.TTC>0 && row.payables.TTC==dollar) {
-              return row.payables.TTC;
-            }
-            else if ((row.payables.TTC>0 && row.payables.TTC!=dollar)) {
-              return row.payables.TTC;
-            }
-            else {
-              return (row.payables.USD*row.payables.taux).toFixed(2);
-            }
-          }
-          else {
-            if (row.payables.TTC>0 && row.payables.TTC==euro) {
-              return row.payables.TTC;
-            }
-            else if ((row.payables.TTC>0 && row.payables.TTC!=euro)) {
-              return row.payables.TTC;
-            }
-            else {
-              return (row.payables.HT*1+row.payables.TVA*1).toFixed(2);
-            }
-
-          }
-        },
-          className: "sum"
+        if (row.payables.USD > 0) {
+          return (row.payables.USD*row.payables.taux).toFixed(2);
+        }
+        else {
+          return (row.payables.HT*1+row.payables.TVA*1).toFixed(2);
+        }
       },
-      { data: "payables.date_payable"  },
-    ],
-    scrollY: '65vh',
-    scrollCollapse: true,
-    paging: false,
-    info: true,
-    select: {
-      style:    'os',
-      blurable: true
+      className: "sum"
     },
-    buttons: [
-      { extend: "create", editor: editor },
-      { extend: "edit",   editor: editor },
-      { extend: "remove", editor: editor }
-    ],
+    { data: "payables.date_payable"  },
+  ],
+  scrollY: '65vh',
+  scrollCollapse: true,
+  paging: false,
+  info: true,
+  select: {
+    style:    'os',
+    blurable: true
+  },
+  buttons: [
+    { extend: "create", editor: editor },
+    { extend: "edit",   editor: editor },
+    { extend: "remove", editor: editor }
+  ],
   headerCallback: function ( row, data, start, end, display ) {
     var api = this.api();
 
@@ -124,21 +106,21 @@ $(document).ready(function() {
     });
   },
 }
- );
+);
 
 
 
 
-  $('#container').css('display', 'block');
-  table.columns.adjust().draw();
+$('#container').css('display', 'block');
+table.columns.adjust().draw();
 
-  // Filter event handler
-  $( table.table().container() ).on( 'keyup', 'tfoot input', function () {
-    table
-    .column( $(this).data('index') )
-    .search( this.value )
-    .draw();
-  } );
+// Filter event handler
+$( table.table().container() ).on( 'keyup', 'tfoot input', function () {
+  table
+  .column( $(this).data('index') )
+  .search( this.value )
+  .draw();
+} );
 
 
 } );
