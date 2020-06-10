@@ -164,18 +164,18 @@ foreach ($payables as $key => $value) {
   $page->setCellValueByColumnAndRow(1+8, $row, $value['payable_list']);
   $row++;
 
-      if (!isset($payables[$key+1]) OR date("m",strtotime($payables[$key]['date_invoice']))!=date("m",strtotime($payables[$key+1]['date_invoice']))) {
-        $page->setCellValueByColumnAndRow(1+0, $row, date("F",strtotime($value['date_invoice'])).' Payables');
-        $page->setCellValueByColumnAndRow(1+3, $row, date("F",strtotime($value['date_invoice'])).' Payables');
-        $page->setCellValueByColumnAndRow(1+4, $row, '=sum(E'.$startMonth.':E'.($row-1).')');
-        $page->setCellValueByColumnAndRow(1+5, $row, '=sum(F'.$startMonth.':F'.($row-1).')');
+  if (!isset($payables[$key+1]) OR date("m",strtotime($payables[$key]['date_invoice']))!=date("m",strtotime($payables[$key+1]['date_invoice']))) {
+    $page->setCellValueByColumnAndRow(1+0, $row, date("F",strtotime($value['date_invoice'])).' Payables');
+    $page->setCellValueByColumnAndRow(1+3, $row, date("F",strtotime($value['date_invoice'])).' Payables');
+    $page->setCellValueByColumnAndRow(1+4, $row, '=sum(E'.$startMonth.':E'.($row-1).')');
+    $page->setCellValueByColumnAndRow(1+5, $row, '=sum(F'.$startMonth.':F'.($row-1).')');
 
-        $page->getStyle('A'.$row.':I'.$row)->applyFromArray($styleGras);
-        $row++;
-        $page->getStyle('A'.$row.':I'.$row)->applyFromArray($styleColor);
-        $row++;
-        $startMonth=$row;
-      }
+    $page->getStyle('A'.$row.':I'.$row)->applyFromArray($styleGras);
+    $row++;
+    $page->getStyle('A'.$row.':I'.$row)->applyFromArray($styleColor);
+    $row++;
+    $startMonth=$row;
+  }
 }
 
 
@@ -206,24 +206,24 @@ foreach ($invoicables as $key => $value) {
   //$page2->setCellValueByColumnAndRow(1+11, $row, $value['date_ubr']);
   $row++;
 
-    if (!isset($invoicables[$key+1]) OR date("m",strtotime($invoicables[$key]['date_ubr']))!=date("m",strtotime($invoicables[$key+1]['date_ubr']))) {
-      $page2->setCellValueByColumnAndRow(1+0, $row, date("F",strtotime($value['date_ubr'])).' Invoicable');
-      $page2->setCellValueByColumnAndRow(1+3, $row, date("F",strtotime($value['date_ubr'])).' Invoicable');
-      $page2->setCellValueByColumnAndRow(1+3, $row, '=sum(D'.$startMonth.':D'.($row-1).')');
-      $page2->setCellValueByColumnAndRow(1+4, $row, '=sum(E'.$startMonth.':E'.($row-1).')');
-      $page2->setCellValueByColumnAndRow(1+5, $row, '=sum(F'.$startMonth.':F'.($row-1).')');
-      $page2->setCellValueByColumnAndRow(1+6, $row, '=sum(G'.$startMonth.':G'.($row-1).')');
-      $page2->setCellValueByColumnAndRow(1+7, $row, '=sum(H'.$startMonth.':H'.($row-1).')');
-      $page2->setCellValueByColumnAndRow(1+8, $row, '=sum(I'.$startMonth.':I'.($row-1).')');
-      $page2->setCellValueByColumnAndRow(1+9, $row, '=sum(J'.$startMonth.':J'.($row-1).')');
-      $page2->setCellValueByColumnAndRow(1+10, $row, '=sum(K'.$startMonth.':K'.($row-1).')');
+  if (!isset($invoicables[$key+1]) OR date("m",strtotime($invoicables[$key]['date_ubr']))!=date("m",strtotime($invoicables[$key+1]['date_ubr']))) {
+    $page2->setCellValueByColumnAndRow(1+0, $row, date("F",strtotime($value['date_ubr'])).' Invoicable');
+    $page2->setCellValueByColumnAndRow(1+3, $row, date("F",strtotime($value['date_ubr'])).' Invoicable');
+    $page2->setCellValueByColumnAndRow(1+3, $row, '=sum(D'.$startMonth.':D'.($row-1).')');
+    $page2->setCellValueByColumnAndRow(1+4, $row, '=sum(E'.$startMonth.':E'.($row-1).')');
+    $page2->setCellValueByColumnAndRow(1+5, $row, '=sum(F'.$startMonth.':F'.($row-1).')');
+    $page2->setCellValueByColumnAndRow(1+6, $row, '=sum(G'.$startMonth.':G'.($row-1).')');
+    $page2->setCellValueByColumnAndRow(1+7, $row, '=sum(H'.$startMonth.':H'.($row-1).')');
+    $page2->setCellValueByColumnAndRow(1+8, $row, '=sum(I'.$startMonth.':I'.($row-1).')');
+    $page2->setCellValueByColumnAndRow(1+9, $row, '=sum(J'.$startMonth.':J'.($row-1).')');
+    $page2->setCellValueByColumnAndRow(1+10, $row, '=sum(K'.$startMonth.':K'.($row-1).')');
 
-      $page2->getStyle('A'.$row.':K'.$row)->applyFromArray($styleGras);
-      $row++;
-      $page2->getStyle('A'.$row.':K'.$row)->applyFromArray($styleColor);
-      $row++;
-      $startMonth=$row;
-    }
+    $page2->getStyle('A'.$row.':K'.$row)->applyFromArray($styleGras);
+    $row++;
+    $page2->getStyle('A'.$row.':K'.$row)->applyFromArray($styleColor);
+    $row++;
+    $startMonth=$row;
+  }
 }
 
 
@@ -281,6 +281,84 @@ foreach ($invoices as $key => $value) {
 }
 
 $page3->getPageSetup()->setPrintArea('A1:I'.$row);
+
+
+
+$page4=$objPHPExcel->getSheetByName('BALANCE MRI');
+
+$row = 6;
+$startMonth=$row;
+
+foreach ($payables as $key => $value) {
+  if (strtoupper($value['supplier'])=="MRI") {
+
+    $page4->setCellValueByColumnAndRow(1+0, $row, $value['invoice']);
+    $page4->setCellValueByColumnAndRow(1+1, $row, $value['date_invoice']);
+    $page4->setCellValueByColumnAndRow(1+2, $row, $value['customer'].'-'.$value['job']);
+    $page4->setCellValueByColumnAndRow(1+3, $row, $value['payable']);
+    $page4->setCellValueByColumnAndRow(1+4, $row, $value['USD']);
+    $page4->setCellValueByColumnAndRow(1+5, $row, $value['USD']*$value['taux']);
+    $page4->setCellValueByColumnAndRow(1+6, $row, $value['date_payable']);
+    $row++;
+  }
+  if (!isset($payables[$key+1]) OR date("m",strtotime($payables[$key]['date_invoice']))!=date("m",strtotime($payables[$key+1]['date_invoice']))) {
+$startMonth=($startMonth==$row)?$row-1:$startMonth;
+
+    $page4->setCellValueByColumnAndRow(1+3, $row, date("F",strtotime($value['date_invoice'])));
+    $page4->setCellValueByColumnAndRow(1+4, $row, '=sum(E'.$startMonth.':E'.($row-1).')');
+    $page4->setCellValueByColumnAndRow(1+5, $row, '=sum(F'.$startMonth.':F'.($row-1).')');
+
+    $page4->getStyle('A'.$row.':G'.$row)->applyFromArray($styleGras);
+    $row++;
+    $page4->getStyle('A'.$row.':G'.$row)->applyFromArray($styleColor);
+    $row++;
+    $startMonth=$row;
+  }
+
+}
+
+
+$page4->getPageSetup()->setPrintArea('A1:I'.$row);
+
+
+
+
+$page5=$objPHPExcel->getSheetByName('BALANCE CTL');
+
+$row = 6;
+$startMonth=$row;
+
+foreach ($payables as $key => $value) {
+  if (strtoupper($value['supplier'])=="CTL") {
+
+    $page5->setCellValueByColumnAndRow(1+0, $row, $value['invoice']);
+    $page5->setCellValueByColumnAndRow(1+1, $row, $value['date_invoice']);
+    $page5->setCellValueByColumnAndRow(1+2, $row, $value['customer'].'-'.$value['job']);
+    $page5->setCellValueByColumnAndRow(1+3, $row, $value['payable']);
+    $page5->setCellValueByColumnAndRow(1+4, $row, $value['USD']);
+    $page5->setCellValueByColumnAndRow(1+5, $row, $value['USD']*$value['taux']);
+    $page5->setCellValueByColumnAndRow(1+6, $row, $value['date_payable']);
+    $row++;
+  }
+  if (!isset($payables[$key+1]) OR date("m",strtotime($payables[$key]['date_invoice']))!=date("m",strtotime($payables[$key+1]['date_invoice']))) {
+$startMonth=($startMonth==$row)?$row-1:$startMonth;
+    $page5->setCellValueByColumnAndRow(1+3, $row, date("F",strtotime($value['date_invoice'])));
+    $page5->setCellValueByColumnAndRow(1+4, $row, '=sum(E'.$startMonth.':E'.($row-1).')');
+    $page5->setCellValueByColumnAndRow(1+5, $row, '=sum(F'.$startMonth.':F'.($row-1).')');
+
+    $page5->getStyle('A'.$row.':G'.$row)->applyFromArray($styleGras);
+    $row++;
+    $page5->getStyle('A'.$row.':G'.$row)->applyFromArray($styleColor);
+    $row++;
+    $startMonth=$row;
+  }
+
+}
+
+
+$page5->getPageSetup()->setPrintArea('A1:I'.$row);
+
+
 
 
 

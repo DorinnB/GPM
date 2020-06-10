@@ -448,6 +448,7 @@ class InvoiceModel
     $req='SELECT *
     FROM payables
     LEFT JOIN payable_lists ON payable_lists.id_payable_list=payables.id_payable_list
+    LEFT JOIN info_jobs ON info_jobs.job=payables.job
     WHERE postedDate>='.$this->db->quote($dateStartPayable).'
     ORDER BY date_invoice ASC
     ;';

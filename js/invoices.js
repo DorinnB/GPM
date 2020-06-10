@@ -7,7 +7,8 @@ $(document).ready(function() {
   editor = new $.fn.dataTable.Editor( {
     ajax: {
       url : "controller/editor-invoices.php",
-      type: "POST"
+      type: "POST",
+      data: {"dateStartInvoice" : $('#dateStartInvoice').text()}
     },
     table: "#table_invoices",
     fields: [
