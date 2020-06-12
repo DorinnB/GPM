@@ -52,33 +52,33 @@ $(document).ready(function() {
         }
       },
       { data: "invoices.inv_subc",
-        className: "sum",
+        className: "sumDol",
         render: function ( data, type, row ) {
-          return (row.info_jobs.invoice_currency==1 ? row.invoices.inv_subc : " " );
+          return (row.info_jobs.invoice_currency==1 ? '$'+row.invoices.inv_subc.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ') : " " );
         }
       },
       { data: "invoices.inv_mrsas",
-        className: "sum",
+        className: "sumDol",
         render: function ( data, type, row ) {
-          return (row.info_jobs.invoice_currency==1 ? row.invoices.inv_mrsas : " " );
+          return (row.info_jobs.invoice_currency==1 ? '$'+row.invoices.inv_mrsas : " " ).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ');
         }
       },
       { data: null,
-        className: "sum",
+        className: "sumDol",
         render: function ( data, type, row ) {
-          return (row.info_jobs.invoice_currency==1 ? (parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas)).toFixed(2) : " " );
+          return (row.info_jobs.invoice_currency==1 ? '$'+(parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas)).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ') : " " );
         }
       },
       { data: "invoices.inv_tva",
-        className: "sum",
+        className: "sumDol",
         render: function ( data, type, row ) {
-          return (row.info_jobs.invoice_currency==1 ? row.invoices.inv_tva : " " );
+          return (row.info_jobs.invoice_currency==1 ? '$'+row.invoices.inv_tva.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ') : " " );
         }
       },
       { data: null,
-        className: "sum",
+        className: "sumDol",
         render: function ( data, type, row ) {
-          return (row.info_jobs.invoice_currency==1 ? (parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas)+parseFloat(row.invoices.inv_tva)).toFixed(2) : " " );
+          return (row.info_jobs.invoice_currency==1 ? '$'+(parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas)+parseFloat(row.invoices.inv_tva)).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ') : " " );
         }
       },
       { data: "invoices.USDRate",
@@ -87,33 +87,33 @@ $(document).ready(function() {
         }
       },
       { data: "invoices.inv_subc",
-        className: "sum",
+        className: "sumEur",
         render: function ( data, type, row ) {
-          return (row.info_jobs.invoice_currency==0 ? row.invoices.inv_subc : (row.invoices.inv_subc*row.invoices.USDRate).toFixed(2) );
+          return (row.info_jobs.invoice_currency==0 ? row.invoices.inv_subc.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' : (row.invoices.inv_subc*row.invoices.USDRate).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' );
         }
       },
       { data: "invoices.inv_mrsas",
-        className: "sum",
+        className: "sumEur",
         render: function ( data, type, row ) {
-          return (row.info_jobs.invoice_currency==0 ? row.invoices.inv_mrsas : (row.invoices.inv_mrsas*row.invoices.USDRate).toFixed(2) );
+          return (row.info_jobs.invoice_currency==0 ? row.invoices.inv_mrsas.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' : (row.invoices.inv_mrsas*row.invoices.USDRate).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' );
         }
       },
       { data: null,
-        className: "sum",
+        className: "sumEur",
         render: function ( data, type, row ) {
-          return (row.info_jobs.invoice_currency==0 ? (parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas)).toFixed(2) :  ((parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas))*row.invoices.USDRate).toFixed(2) );
+          return (row.info_jobs.invoice_currency==0 ? (parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas)).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' :  ((parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas))*row.invoices.USDRate).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' );
         }
       },
       { data: "invoices.inv_tva",
-        className: "sum",
+        className: "sumEur",
         render: function ( data, type, row ) {
-          return (row.info_jobs.invoice_currency==0 ? row.invoices.inv_tva : (row.invoices.inv_tva*row.invoices.USDRate).toFixed(2) );
+          return (row.info_jobs.invoice_currency==0 ? row.invoices.inv_tva.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' : (row.invoices.inv_tva*row.invoices.USDRate).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' );
         }
       },
       { data: null,
-        className: "sum",
+        className: "sumEur",
         render: function ( data, type, row ) {
-          return (row.info_jobs.invoice_currency==0 ? (parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas)+parseFloat(row.invoices.inv_tva)).toFixed(2) : ((parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas)+parseFloat(row.invoices.inv_tva))*row.invoices.USDRate).toFixed(2) ) ;
+          return (row.info_jobs.invoice_currency==0 ? (parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas)+parseFloat(row.invoices.inv_tva)).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' : ((parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas)+parseFloat(row.invoices.inv_tva))*row.invoices.USDRate).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' ) ;
         }
       },
       { data: "invoices.datepayement"  }
@@ -138,16 +138,27 @@ $(document).ready(function() {
     headerCallback: function ( row, data, start, end, display ) {
       var api = this.api();
 
-      api.columns('.sum', { page: 'current' }).every(function () {
+      api.columns('.sumDol', { page: 'current' }).every(function () {
         var sum = api
         .cells( null, this.index(), { page: 'current'} )
         .render('display')
         .reduce(function (a, b) {
           var x = parseFloat(a) || 0;
-          var y = parseFloat(b) || 0;
+          var y = parseFloat(b.replace(/[$ €]+/g, '')) || 0;
           return x + y;
         }, 0);
-        $(this.header()).html('&Sigma; '+sum.toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 '));
+        $(this.header()).html('$'+sum.toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 '));
+      });
+      api.columns('.sumEur', { page: 'current' }).every(function () {
+        var sum = api
+        .cells( null, this.index(), { page: 'current'} )
+        .render('display')
+        .reduce(function (a, b) {
+          var x = parseFloat(a) || 0;
+          var y = parseFloat(b.replace(/[$ €]+/g, '')) || 0;
+          return x + y;
+        }, 0);
+        $(this.header()).html(sum.toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €');
       });
     },
     columnDefs: [ {
@@ -174,7 +185,6 @@ $(document).ready(function() {
   } );
 
 
-console.log(table.column( 9 ).data().sum());
 
 } );
 

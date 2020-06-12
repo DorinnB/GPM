@@ -83,13 +83,29 @@ $(document).ready(function() {
         return '<a href="index.php?page=invoiceJob&id_infojob='+data+'">'+data+'</a>';
       } },
       { data: "ubr.ubrMRSAS",
-      className: "sum"  },
+      className: "sum",
+      render: function ( data, type, row ) {
+        if (data>0) {
+          return '$'+data.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €';
+        }
+        else {
+          return '';
+        }
+      }  },
       { data: "ubr.ubrSubC",
-      className: "sum"  },
+      className: "sum",
+      render: function ( data, type, row ) {
+        if (data>0) {
+          return '$'+data.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €';
+        }
+        else {
+          return '';
+        }
+      }  },
       { data: null,
         className: "sum",
         render: function ( data, type, row ) {
-          return (parseFloat(data.ubr.ubrMRSAS)+parseFloat(data.ubr.ubrSubC)).toFixed(2);
+          return (parseFloat(data.ubr.ubrMRSAS)+parseFloat(data.ubr.ubrSubC)).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €';
         }
       },
       {
@@ -126,10 +142,10 @@ $(document).ready(function() {
         .render('display')
         .reduce(function (a, b) {
           var x = parseFloat(a) || 0;
-          var y = parseFloat(b) || 0;
+          var y = parseFloat(b.replace(/[$ €]+/g, '')) || 0;
           return x + y;
         }, 0);
-        $(this.header()).html('&Sigma; '+sum.toFixed(2));
+        $(this.header()).html(sum.toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €');
       });
     },
     "columnDefs": [

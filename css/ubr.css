@@ -47,3 +47,7 @@ tr.shown td.details-control {
 .btn-default {
   margin-left: 1em !important;
 }
+
+th  {
+  text-align: center;
+}
