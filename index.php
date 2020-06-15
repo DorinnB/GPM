@@ -12,8 +12,11 @@ Require("connection.php");
 	<meta name="description" content="Gestion de Production">
 	<meta name="author" content="Pierrick Gonnet">
 	<link rel="icon" type="image/png" href="logo.ico" />
+	<?php if (isset($_GET['page'])) : ?>
+<title>GPM : <?= ucfirst($_GET['page']) ?></title>
+	<?php else : ?>
 	<title>Gestion Production Metcut</title>
-
+<?php endif ?>
 	<!-- Bootstrap Core CSS -->
 
 
