@@ -15,15 +15,38 @@
         <caption>BACKLOG LIST</caption>
         <thead>
           <tr>
+
+            <th colspan="5">Job</th>
+            <th colspan="4">MRSAS</th>
+
+            <th colspan="4">SubC</th>
+
+          </tr>
+          <tr>
+            <th>INV</th>
             <th>Customer</th>
             <th>Job</th>
             <th>PO Amount</th>
-            <th>Estimated</th>
-            <th>UBR</th>
-            <th>Invoices</th>
             <th>Backlog</th>
+
+            <th>Estimated MRSAS</th>
+            <th>Invoices MRSAS</th>
+            <th>UBR MRSAS</th>
+            <th>Backlog MRSAS</th>
+
+            <th>Estimated SubC</th>
+            <th>Invoices SubC</th>
+            <th>UBR SubC</th>
+            <th>Backlog SubC</th>
+
           </tr>
           <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
             <th></th>
             <th></th>
             <th></th>
@@ -35,13 +58,19 @@
         </thead>
         <tfoot>
           <tr>
-            <th>Customer</th>
-            <th>Job</th>
-            <th>PO Amount</th>
-            <th>Estimated</th>
-            <th>UBR</th>
-            <th>Invoices</th>
-            <th>Backlog</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
           </tr>
         </tfoot>
       </table>

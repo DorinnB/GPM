@@ -5,7 +5,15 @@ if (isset($_GET['id_infojob'])) {
   include 'models/lstJobs-model.php';
   // Création d'une instance
   $oJob = new LstJobsModel($db);
-  $split=$oJob->getFirstSplit($_GET['id_infojob']);
+  $split=$oJob->getFirstSplitIdJob($_GET['id_infojob']);
+  echo "<script type='text/javascript'>document.location.replace('index.php?page=invoiceJob&id_tbljob=".$split['id_tbljob']."');</script>";
+}
+elseif (isset($_GET['job'])) {
+  // Rendre votre modèle accessible
+  include 'models/lstJobs-model.php';
+  // Création d'une instance
+  $oJob = new LstJobsModel($db);
+  $split=$oJob->getFirstSplitJob($_GET['job']);
   echo "<script type='text/javascript'>document.location.replace('index.php?page=invoiceJob&id_tbljob=".$split['id_tbljob']."');</script>";
 }
 elseif (!isset($_GET['id_tbljob'])) {

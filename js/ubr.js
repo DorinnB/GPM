@@ -131,6 +131,18 @@ $(document).ready(function() {
       { text: "Accounting File",
       action: function() {
         location.assign("controller/createInvoicablePayables-controller.php?dateStart="+$('#dateStartUBR').text());
+      } },
+      { text: "Payables",
+      action: function() {
+        location.assign("index.php?page=payables");
+      } },
+      { text: "Invoices",
+      action: function() {
+        location.assign("index.php?page=invoices");
+      } },
+      { text: "Backlog",
+      action: function() {
+        location.assign("index.php?page=backlog");
       } }
     ],
     headerCallback: function ( row, data, start, end, display ) {

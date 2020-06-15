@@ -9,7 +9,9 @@
 		<div class="row" style="height:100%">
 			<div class="col-md-3" style="height:100%; overflow:auto;">
 				<H1>
+					<a href="index.php?page=split&id_tbljob=<?=	$split['id_tbljob']	?>" style="color:white;">
 					<?=	$split['customer'].'-'.$split['job']	?>
+				</a>
 					<br/>
 					<div style="font-size:initial">
 						<?=	$split['entreprise']	?>
