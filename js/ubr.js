@@ -85,7 +85,7 @@ $(document).ready(function() {
       { data: "ubr.ubrMRSAS",
       className: "sum",
       render: function ( data, type, row ) {
-        if (data>0) {
+      if (data>0 || data <0) {
           return '$'+data.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €';
         }
         else {
@@ -95,7 +95,7 @@ $(document).ready(function() {
       { data: "ubr.ubrSubC",
       className: "sum",
       render: function ( data, type, row ) {
-        if (data>0) {
+      if (data>0 || data <0) {
           return '$'+data.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €';
         }
         else {
