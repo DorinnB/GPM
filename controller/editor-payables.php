@@ -52,6 +52,8 @@ Editor::inst( $db, 'payables' )
     ->setFormatter( 'Format::ifEmpty', null ),
   Field::inst( 'payables.date_payable')
     ->setFormatter( 'Format::ifEmpty', null ),
+  Field::inst( 'payables.applied')
+    ->validator( 'Validate::numeric' ),
 
   Field::inst( 'payables.id_payable_list' )
       ->options( Options::inst()

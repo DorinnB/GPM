@@ -26,6 +26,7 @@
             <th>Date Invoice</th>
             <th>Date Due</th>
             <th>N° Job</th>
+            <th>Applied</th>
             <th>Amount USD</th>
             <th>USD Rate</th>
             <th>HT EUR</th>
@@ -34,6 +35,7 @@
             <th>Date Paid</th>
           </tr>
           <tr>
+            <th></th>
             <th></th>
             <th></th>
             <th></th>
@@ -64,6 +66,7 @@
             <th>Date Invoice</th>
             <th>Date Due</th>
             <th>N° Job</th>
+            <th>Applied</th>
             <th>Amount USD</th>
             <th>USD Rate</th>
             <th>HT EUR</th>

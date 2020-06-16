@@ -36,17 +36,21 @@ $(document).ready(function() {
     },
     order: [ 7, "desc" ],
     columns: [
-      { data: null,
-        render: function ( data, type, row ) {
-          return "*";
-        }
-      },
-      { data: "info_jobs.customer"  },
-      { data: "info_jobs.job",
+      { data: 'info_jobs.invoice_type',
       render: function ( data, type, row ) {
-        return '<a href="index.php?page=invoiceJob&job='+data+'">'+data+'</a>';
+        if (data==2) {
+          return "INV.";
+        }
+        else {
+          return "Part.";
+        }
       }
     },
+    { data: "info_jobs.customer"  },
+    { data: "info_jobs.job",
+    render: function ( data, type, row ) {
+      return '<a href="index.php?page=invoiceJob&job='+data+'">'+data+'</a>';
+    }  },
     { data: "info_jobs.order_val"  },
     { data: "info_jobs.order_est"  },
     { data: "invoices.inv_number"  },
@@ -62,132 +66,124 @@ $(document).ready(function() {
     className: "sumDol",
     render: function ( data, type, row ) {
       return (row.info_jobs.invoice_currency==1 ? '$'+row.invoices.inv_subc.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ') : " " );
-    }
+    }  },
+    { data: "invoices.inv_mrsas",
+    className: "sumDol",
+    render: function ( data, type, row ) {
+      return (row.info_jobs.invoice_currency==1 ? '$'+row.invoices.inv_mrsas : " " ).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ');
+    } },
+    { data: null,
+      className: "sumDol",
+      render: function ( data, type, row ) {
+        return (row.info_jobs.invoice_currency==1 ? '$'+(parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas)).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ') : " " );
+      }
+    },
+    { data: "invoices.inv_tva",
+    className: "sumDol",
+    render: function ( data, type, row ) {
+      return (row.info_jobs.invoice_currency==1 ? '$'+row.invoices.inv_tva.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ') : " " );
+    } },
+    { data: null,
+      className: "sumDol",
+      render: function ( data, type, row ) {
+        return (row.info_jobs.invoice_currency==1 ? '$'+(parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas)+parseFloat(row.invoices.inv_tva)).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ') : " " );
+      }
+    },
+    { data: "invoices.USDRate",
+    render: function ( data, type, row ) {
+      return (row.info_jobs.invoice_currency==1 ? data : " " );
+    }      },
+    { data: "invoices.inv_subc",
+    className: "sumEur",
+    render: function ( data, type, row ) {
+      return (row.info_jobs.invoice_currency==0 ? row.invoices.inv_subc.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' : (row.invoices.inv_subc*row.invoices.USDRate).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' );
+    }  },
+    { data: "invoices.inv_mrsas",
+    className: "sumEur",
+    render: function ( data, type, row ) {
+      return (row.info_jobs.invoice_currency==0 ? row.invoices.inv_mrsas.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' : (row.invoices.inv_mrsas*row.invoices.USDRate).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' );
+    }},
+    { data: null,
+      className: "sumEur",
+      render: function ( data, type, row ) {
+        return (row.info_jobs.invoice_currency==0 ? (parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas)).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' :  ((parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas))*row.invoices.USDRate).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' );
+      }
+    },
+    { data: "invoices.inv_tva",
+    className: "sumEur",
+    render: function ( data, type, row ) {
+      return (row.info_jobs.invoice_currency==0 ? row.invoices.inv_tva.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' : (row.invoices.inv_tva*row.invoices.USDRate).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' );
+    } },
+    { data: null,
+      className: "sumEur",
+      render: function ( data, type, row ) {
+        return (row.info_jobs.invoice_currency==0 ? (parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas)+parseFloat(row.invoices.inv_tva)).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' : ((parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas)+parseFloat(row.invoices.inv_tva))*row.invoices.USDRate).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' ) ;
+      }
+    },
+    { data: "invoices.datepayement"  }
+  ],
+  scrollY: '65vh',
+  scrollCollapse: true,
+  paging: false,
+  info: true,
+  select: {
+    style:    'os',
+    blurable: true
   },
-  { data: "invoices.inv_mrsas",
-  className: "sumDol",
-  render: function ( data, type, row ) {
-    return (row.info_jobs.invoice_currency==1 ? '$'+row.invoices.inv_mrsas : " " ).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ');
-  }
-},
-{ data: null,
-  className: "sumDol",
-  render: function ( data, type, row ) {
-    return (row.info_jobs.invoice_currency==1 ? '$'+(parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas)).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ') : " " );
-  }
-},
-{ data: "invoices.inv_tva",
-className: "sumDol",
-render: function ( data, type, row ) {
-  return (row.info_jobs.invoice_currency==1 ? '$'+row.invoices.inv_tva.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ') : " " );
-}
-},
-{ data: null,
-  className: "sumDol",
-  render: function ( data, type, row ) {
-    return (row.info_jobs.invoice_currency==1 ? '$'+(parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas)+parseFloat(row.invoices.inv_tva)).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ') : " " );
-  }
-},
-{ data: "invoices.USDRate",
-render: function ( data, type, row ) {
-  return (row.info_jobs.invoice_currency==1 ? data : " " );
-}
-},
-{ data: "invoices.inv_subc",
-className: "sumEur",
-render: function ( data, type, row ) {
-  return (row.info_jobs.invoice_currency==0 ? row.invoices.inv_subc.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' : (row.invoices.inv_subc*row.invoices.USDRate).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' );
-}
-},
-{ data: "invoices.inv_mrsas",
-className: "sumEur",
-render: function ( data, type, row ) {
-  return (row.info_jobs.invoice_currency==0 ? row.invoices.inv_mrsas.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' : (row.invoices.inv_mrsas*row.invoices.USDRate).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' );
-}
-},
-{ data: null,
-  className: "sumEur",
-  render: function ( data, type, row ) {
-    return (row.info_jobs.invoice_currency==0 ? (parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas)).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' :  ((parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas))*row.invoices.USDRate).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' );
-  }
-},
-{ data: "invoices.inv_tva",
-className: "sumEur",
-render: function ( data, type, row ) {
-  return (row.info_jobs.invoice_currency==0 ? row.invoices.inv_tva.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' : (row.invoices.inv_tva*row.invoices.USDRate).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' );
-}
-},
-{ data: null,
-  className: "sumEur",
-  render: function ( data, type, row ) {
-    return (row.info_jobs.invoice_currency==0 ? (parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas)+parseFloat(row.invoices.inv_tva)).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' : ((parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas)+parseFloat(row.invoices.inv_tva))*row.invoices.USDRate).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' ) ;
-  }
-},
-{ data: "invoices.datepayement"  }
-],
-scrollY: '65vh',
-scrollCollapse: true,
-paging: false,
-info: true,
-select: {
-  style:    'os',
-  blurable: true
-},
-buttons: [
-  { extend: "create", editor: editor },
-  { extend: "edit",   editor: editor },
-  { extend: "remove", editor: editor },
-  { text: "Accounting File",
-  action: function() {
-    location.assign("controller/createInvoicablePayables-controller.php?dateStart="+$('#dateStartInvoice').text());
-  } },
-  { text: "Payables",
-  action: function() {
-    location.assign("index.php?page=payables");
-  } },
-  { text: "UBR",
-  action: function() {
-    location.assign("index.php?page=ubr");
-  } },
-  { text: "Backlog",
-  action: function() {
-    location.assign("index.php?page=backlog");
-  } }
-],
-headerCallback: function ( row, data, start, end, display ) {
-  var api = this.api();
+  buttons: [
+    { extend: "edit",   editor: editor },
+    { extend: "remove", editor: editor },
+    { text: "Accounting File",
+    action: function() {
+      location.assign("controller/createInvoicablePayables-controller.php?dateStart="+$('#dateStartInvoice').text());
+    } },
+    { text: "Payables",
+    action: function() {
+      location.assign("index.php?page=payables");
+    } },
+    { text: "UBR",
+    action: function() {
+      location.assign("index.php?page=ubr");
+    } },
+    { text: "Backlog",
+    action: function() {
+      location.assign("index.php?page=backlog");
+    } }
+  ],
+  headerCallback: function ( row, data, start, end, display ) {
+    var api = this.api();
 
-  api.columns('.sumDol', { page: 'current' }).every(function () {
-    var sum = api
-    .cells( null, this.index(), { page: 'current'} )
-    .render('display')
-    .reduce(function (a, b) {
-      var x = parseFloat(a) || 0;
-      var y = parseFloat(b.replace(/[$ €]+/g, '')) || 0;
-      return x + y;
-    }, 0);
-    $(this.header()).html('$'+sum.toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 '));
-  });
-  api.columns('.sumEur', { page: 'current' }).every(function () {
-    var sum = api
-    .cells( null, this.index(), { page: 'current'} )
-    .render('display')
-    .reduce(function (a, b) {
-      var x = parseFloat(a) || 0;
-      var y = parseFloat(b.replace(/[$ €]+/g, '')) || 0;
-      return x + y;
-    }, 0);
-    $(this.header()).html(sum.toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €');
-  });
-},
-columnDefs: [ {
-  targets: [14,15,16,17,18],
-  createdCell: function (td, cellData, rowData, row, col) {
-    if ( rowData.info_jobs.invoice_currency == 1 ) {
-      $(td).css('color', 'lightgreen')
+    api.columns('.sumDol', { page: 'current' }).every(function () {
+      var sum = api
+      .cells( null, this.index(), { page: 'current'} )
+      .render('display')
+      .reduce(function (a, b) {
+        var x = parseFloat(a) || 0;
+        var y = parseFloat(b.replace(/[$ €]+/g, '')) || 0;
+        return x + y;
+      }, 0);
+      $(this.header()).html('$'+sum.toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 '));
+    });
+    api.columns('.sumEur', { page: 'current' }).every(function () {
+      var sum = api
+      .cells( null, this.index(), { page: 'current'} )
+      .render('display')
+      .reduce(function (a, b) {
+        var x = parseFloat(a) || 0;
+        var y = parseFloat(b.replace(/[$ €]+/g, '')) || 0;
+        return x + y;
+      }, 0);
+      $(this.header()).html(sum.toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €');
+    });
+  },
+  columnDefs: [ {
+    targets: [14,15,16,17,18],
+    createdCell: function (td, cellData, rowData, row, col) {
+      if ( rowData.info_jobs.invoice_currency == 1 ) {
+        $(td).css('color', 'lightgreen')
+      }
     }
-  }
-} ]
+  } ]
 });
 
 

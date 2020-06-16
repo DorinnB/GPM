@@ -77,6 +77,11 @@ $(document).ready(function() {
         return ($.datepicker.formatDate('yy mm - MM', new Date(data)));
 
       } },
+            { data: "ubr.date_UBR",
+            render: function ( data, type, row ) {
+              return ($.datepicker.formatDate('yy mm - MM', new Date(data)));
+
+            } },
       { data: "ubr.date_creation"  },
       { data: "info_jobs.job",
       render: function ( data, type, row ) {
@@ -171,7 +176,7 @@ $(document).ready(function() {
       api.column(0, {page:'current'} ).data().each( function ( group, i ) {
         if ( last !== group ) {
           $(rows).eq( i ).before(
-            '<tr class="group"><td colspan="6" style="background-color:black;">'+($.datepicker.formatDate('yy mm - MM', new Date(group)))+'</td></tr>'
+            '<tr class="group"><td colspan="7" style="background-color:black;">'+($.datepicker.formatDate('yy mm - MM', new Date(group)))+'</td></tr>'
           );
 
           last = group;

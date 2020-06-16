@@ -19,6 +19,7 @@ DataTables\Editor\ValidateOptions;
 Editor::inst( $db, 'invoices' )
 ->pkey( 'invoices.id_invoice' )
 ->fields(
+  Field::inst( 'info_jobs.invoice_type'),
   Field::inst( 'info_jobs.customer'),
   Field::inst( 'info_jobs.job'),
   Field::inst( 'info_jobs.order_val'),
