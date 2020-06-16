@@ -57,7 +57,7 @@ $(document).ready(function() {
       { data: "payables.date_due"  },
       { data: "payables.job",
       render: function ( data, type, row ) {
-        if (data>0) {
+        if (data) {
           return '<a href="index.php?page=invoiceJob&job='+data+'">'+data+'</a>';
         }
         else {
@@ -68,7 +68,7 @@ $(document).ready(function() {
     { data: "payables.USD",
     className: "sumDol",
     render: function ( data, type, row ) {
-      if (data>0 || data <0) {
+      if (data) {
         return '$'+data.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ');
       }
       else {
@@ -79,7 +79,7 @@ $(document).ready(function() {
     { data: "payables.HT",
     className: "sumEur",
     render: function ( data, type, row ) {
-      if (data>0 || data <0) {
+      if (data) {
         return data.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €';
       }
       else {
@@ -89,7 +89,7 @@ $(document).ready(function() {
     { data: "payables.TVA",
     className: "sumEur",
     render: function ( data, type, row ) {
-      if (data>0 || data <0) {
+      if (data) {
         return data.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €';
       }
       else {
