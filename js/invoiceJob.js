@@ -230,6 +230,7 @@ $(document).ready(function() {
       invoiceMRSAS+=parseFloat($(this).text());
     });
     $('.invsubc').each( function (i) {
+      invSubC-=parseFloat($(this).text());
       invoiceSubC+=parseFloat($(this).text());
     });
 
@@ -253,7 +254,7 @@ $(document).ready(function() {
     $('#invoiceTotal').text((invoiceMRSAS+invoiceSubC).toFixed(2));
 
     $('#invoicableMRSAS').text((invoicableMRSAS).toFixed(2));
-    $('#invoicableSubC').text(invoicableSubC.toFixed(2));
+    $('#invoicableSubC').html('<acronym title="To be invoice: '+invSubC.toFixed(2)+'">'+invoicableSubC.toFixed(2)+'</acronym>');
     $('#invoicableTotal').text((invoicableMRSAS+invoicableSubC).toFixed(2));
 
 
