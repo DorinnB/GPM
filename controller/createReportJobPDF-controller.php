@@ -63,7 +63,7 @@ if (file_exists($reportJob)) {
 
   $obj = $WshShell->Run('cmd /C '.$cmd, 0, false);
 
-
+exit;
 
   $tempMax=0;
   while( !file_exists($filename) OR $tempMax>60)  {
