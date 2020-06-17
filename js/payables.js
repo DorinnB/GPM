@@ -128,9 +128,14 @@ $(document).ready(function() {
     scrollCollapse: true,
     paging: false,
     info: true,
+    fixedColumns:   {leftColumns: 3},
     select: {
       style:    'os',
       blurable: true
+    },
+    keys: {
+      columns: [16],
+      editor:  editor
     },
     buttons: [
       { extend: "create", editor: editor },

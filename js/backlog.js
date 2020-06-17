@@ -11,7 +11,9 @@ $(document).ready(function() {
     },
     table: "#table_backlog",
     fields: [
-      { label: "Estimated", name: "info_jobs.order_est"}
+      { label: "Estimated", name: "info_jobs.order_val"},
+        { label: "Estimated", name: "info_jobs.order_est"},
+          { label: "Estimated", name: "info_jobs.order_est_subc"}
     ]
   } );
 
@@ -88,11 +90,11 @@ $(document).ready(function() {
       }    },
       { data: null,        className: "sum",
         render: function ( data, type, row ) {
-          invoices = (data.info_jobs.invoices ? parseFloat(data.info_jobs.invoices) : 0);
+          invoices = (data.info_jobs.invoicesMRSAS ? parseFloat(data.info_jobs.invoicesMRSAS) : 0);
           ubr = (parseFloat(data.ubr.ubrMRSAS)>0 ? parseFloat(data.ubr.ubrMRSAS) : 0);
           est = (parseFloat(data.info_jobs.order_est)>=0 ? parseFloat(data.info_jobs.order_est) : '*');
 
-          if (est>='*') {
+          if (est!='*') {
             return parseFloat(est-invoices-ubr).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €';
           }
           else {
@@ -125,7 +127,7 @@ $(document).ready(function() {
       },
       { data: null,
         className: "sum",        render: function ( data, type, row ) {
-          invoices = (data.info_jobs.invoices ? parseFloat(data.info_jobs.invoices) : 0);
+          invoices = (data.info_jobs.invoicesSubC ? parseFloat(data.info_jobs.invoicesSubC) : 0);
           ubr = (parseFloat(data.ubr.ubrSubC)>0 ? parseFloat(data.ubr.ubrSubC) : 0);
           est = (parseFloat(data.info_jobs.order_est_subc)>=0 ? parseFloat(data.info_jobs.order_est_subc) : '*');
 
@@ -137,7 +139,7 @@ $(document).ready(function() {
           }
         }  }
       ],
-      scrollY: '65vh',
+      scrollY: '60vh',
       scrollCollapse: true,
       paging: false,
       info: true,
@@ -147,7 +149,7 @@ $(document).ready(function() {
         blurable: true
       },
       keys: {
-        columns: ['3'],
+        columns: [3, 5, 9],
         editor:  editor
       },
       buttons: [

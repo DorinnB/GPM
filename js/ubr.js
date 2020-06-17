@@ -72,16 +72,12 @@ $(document).ready(function() {
     },
     order: [[0,"desc"],[2,"asc"]],
     columns: [
+      { data: "ubr.date_UBR"},
       { data: "ubr.date_UBR",
       render: function ( data, type, row ) {
-        return ($.datepicker.formatDate('yy mm - MM', new Date(data)));
+        return ($.datepicker.formatDate('yy-mm - MM', new Date(data)));
 
       } },
-            { data: "ubr.date_UBR",
-            render: function ( data, type, row ) {
-              return ($.datepicker.formatDate('yy mm - MM', new Date(data)));
-
-            } },
       { data: "ubr.date_creation"  },
       { data: "info_jobs.job",
       render: function ( data, type, row ) {
@@ -90,7 +86,7 @@ $(document).ready(function() {
       { data: "ubr.ubrMRSAS",
       className: "sum",
       render: function ( data, type, row ) {
-      if (data>0 || data <0) {
+        if (data>0 || data <0) {
           return '$'+data.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €';
         }
         else {
@@ -100,7 +96,7 @@ $(document).ready(function() {
       { data: "ubr.ubrSubC",
       className: "sum",
       render: function ( data, type, row ) {
-      if (data>0 || data <0) {
+        if (data>0 || data <0) {
           return '$'+data.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €';
         }
         else {

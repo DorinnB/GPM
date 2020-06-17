@@ -21,6 +21,7 @@
         <thead>
           <tr>
             <th>Date UBR</th>
+              <th>Date UBR</th>
             <th>Date Insertion</th>
             <th>Job</th>
             <th>UBR MRSAS</th>
@@ -29,6 +30,7 @@
             <th></th>
           </tr>
             <tr>
+              <th>Date UBR</th>
               <th></th>
               <th></th>
               <th></th>
@@ -40,6 +42,7 @@
         </thead>
         <tfoot>
           <tr>
+            <th>Date UBR</th>
             <th>date ubr</th>
             <th>date creation</th>
             <th>job</th>

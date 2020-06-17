@@ -124,7 +124,7 @@
           <input type="text" class="form-control" name="order_val" value="<?= $job['order_val'] ?>">
         </div>
         <div class="form-group">
-          <label for="Spec">Estimated Order (€/$) :</label>
+          <label for="Spec">Est. Order MRSAS(€/$) :</label>
           <input type="text" class="form-control" name="order_est" value="<?= $job['order_est'] ?>">
         </div>
         <div class="form-group">

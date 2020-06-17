@@ -30,13 +30,13 @@
             <th>Backlog</th>
 
             <th>Estimated MRSAS</th>
-            <th>Invoices MRSAS</th>
             <th>UBR MRSAS</th>
+            <th>Invoices MRSAS</th>
             <th>Backlog MRSAS</th>
 
             <th>Estimated SubC</th>
-            <th>Invoices SubC</th>
             <th>UBR SubC</th>
+            <th>Invoices SubC</th>
             <th>Backlog SubC</th>
 
           </tr>
