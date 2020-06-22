@@ -1,0 +1,53 @@
+#page-content-wrapper div{
+  color:white;
+  background-color: rgb(68, 84, 106);
+}
+#page-content-wrapper .btn-group  {
+  color:black;
+}
+
+caption {
+  font-size:xx-large;
+  text-align:center;
+  color:white;
+}
+
+.form-group input, .form-group select{
+color:black;
+border-radius: 10px;
+}
+
+.dt-buttons  {
+  display:inline;
+}
+
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #5B9BD5;
+}
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #536E94 !important;
+}
+input,  select{
+color:black;
+}
+a {
+  color:white;
+}
+.btn-default {
+  margin-left: 1em !important;
+}
+th  {
+  text-align: center;
+}
+
+.table-hover tbody tr.refused,.table-hover tbody td.refused {     /* attente validation */
+  background-color: darkred !important;
+  opacity: 0.5;
+  color:white;
+}
+.table-hover tbody tr.validated,.table-hover tbody td.validated  {     /* validé */
+  background-color: darkgreen !important;
+  opacity: 0.5;
+  color:white;
+}
