@@ -2,7 +2,8 @@
   GPM's update list
 </h3>
 <p style="color:white;">
-  Apr 2020 -> improve planning users & badging
+  June 2020 -> Accounting integration<br/>
+  Apr 2020 -> improve planning users & badging<br/>
   Feb 2020 -> Add change cycle estimation and priority without unchecking test / add email on WeeklyReport / add planning users<br />
   Nov&Dec 2019 -> LabMonitoring, starting calibration with TempLine<br />
   Aug 2019 -> change specification quality folder (instruction GPM) and added to $ini<br />

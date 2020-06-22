@@ -353,8 +353,7 @@
 					<div class="col-md-12" id="printInvoiceJob" style="height:100%; padding:0px;">
 						<a href="#" id="createInvoice" class="btn btn-default btn-lg" style="width:19%; height:100%; padding:0px; border-radius:10px;">
 							<p style="font-size:small;height:100%;">
-								Ne pas cliquer
-								<!--<img type="image" src="img/onenodte.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">-->
+								<img type="image" src="img/invoice.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">
 							</p>
 						</a>
 

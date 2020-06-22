@@ -268,7 +268,8 @@ class EprouvetteModel
     LEFT JOIN test_type on test_type.id_test_type=tbljobs.id_type_essai
     SET
     `d_checked` = '.$iduser.',
-    eprouvette_InOut_B=IF(test_type.ST=1,  eprouvette_InOut_B, IF(eprouvette_InOut_B IS NULL, NOW(), eprouvette_InOut_B))
+    eprouvette_InOut_B=IF('.$iduser.'<=0,NULL ,IF(test_type.ST=1,  eprouvette_InOut_B, IF(eprouvette_InOut_B IS NULL, NOW(), eprouvette_InOut_B)))
+
     WHERE `eprouvettes`.`id_eprouvette` = '.$this->id.';';
     //echo $reqUpdate;
     $result = $this->db->query($reqUpdate);

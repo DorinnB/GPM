@@ -69,7 +69,7 @@
 			<tbody>
 				<?php foreach ($oFollowup->getAllFollowupJob($filtreFollowup) as $row): ?>
 					<tr>
-						<td class="popover-markup" data-placement="right" style="background-color:<?= $row['statut_color'] ?>;"><a href="index.php?page=split&id_tbljob=<?= $row['id_tbljob'] ?>"><?= $row['id_statut'] ?></a>
+						<td class="popover-markup" data-placement="right" style="background-color:<?= $row['statut_color'] ?>;"><a href="index.php?page=split&id_tbljob=<?= $row['id_tbljob'] ?>"><?= ($row['id_statut']==100)?':'.$row['id_statut']:$row['id_statut'] ?></a>
 							<div class="content hide">
 								<div class="form-group">
 									<?= $row['statut'] ?>

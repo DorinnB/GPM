@@ -247,7 +247,6 @@ class InvoiceModel
 
       AND tbljobs.tbljob_actif=1
       AND invoice_type!=2
-      AND job>13300
       AND customer='.$this->db->quote($customer).'
       GROUP BY info_jobs.id_info_job, ST, id_invoiceline
     ) AS test
@@ -261,7 +260,6 @@ class InvoiceModel
     FROM invoicelines
     LEFT JOIN info_jobs ON (info_jobs.id_info_job=invoicelines.id_info_job AND invoicelines.id_tbljob IS NULL)
     WHERE invoice_type!=2
-    AND job>13300
     AND id_tbljob IS NULL
     AND customer='.$this->db->quote($customer).'
     GROUP BY info_jobs.id_info_job;

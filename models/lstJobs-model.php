@@ -375,7 +375,7 @@ class LstJobsModel
     LEFT JOIN contacts  contacts4 ON contacts4.id_contact=info_jobs.id_contact4
     LEFT JOIN master_eprouvettes ON master_eprouvettes.id_info_job=info_jobs.id_info_job
     LEFT JOIN eprouvettes ON eprouvettes.id_master_eprouvette=master_eprouvettes.id_master_eprouvette
-    WHERE info_job_actif=1 and job>13333 and customer='.$customer.'
+    WHERE info_job_actif=1 AND customer='.$customer.'
     AND master_eprouvette_actif=1 AND eprouvette_actif=1
     AND (info_jobs.invoice_date>now()-interval 6 day OR info_jobs.invoice_type!=2)
     GROUP BY job
@@ -396,7 +396,7 @@ class LstJobsModel
     LEFT JOIN eprouvettes ON eprouvettes.id_job=tbljobs.id_tbljob
     LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
     LEFT JOIN contacts  contactsST ON contactsST.id_contact=tbljobs.id_contactST
-    WHERE info_job_actif=1 and job>13333 and contactsST.ref_customer='.$subC.'
+    WHERE info_job_actif=1 and contactsST.ref_customer='.$subC.'
     AND master_eprouvette_actif=1 AND eprouvette_actif=1
     AND (info_jobs.invoice_date>now()-interval 10 day OR info_jobs.invoice_type!=2) AND etape<100
     GROUP BY job

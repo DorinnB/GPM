@@ -222,9 +222,11 @@ class INOUT
   }
 
   public function overdueOut(){
-    $req='SELECT job, max(id_tbljob) as id_tbljob
+    $req='SELECT job, max(tbljobs.id_tbljob) as id_tbljob
     FROM tbljobs
     LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
+    LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+    LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
     WHERE (
       SELECT sum(if(eprouvettes.eprouvette_inOut_B IS NOT NULL,0,1))
       FROM master_eprouvettes
@@ -236,6 +238,7 @@ class INOUT
       GROUP BY master_eprouvettes.id_info_job
     ) = 0
     AND invoice_type=2
+    AND etape!=100
     GROUP BY job
     ORDER BY job DESC';
 
@@ -251,6 +254,7 @@ class INOUT
     LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
 
     WHERE etape = 90
+    AND cast(split AS UNSIGNED)
     AND info_job_actif=1
     AND tbljob_actif=1
     AND invoice_type!=2
