@@ -15,47 +15,49 @@ DataTables\Editor\Upload,
 DataTables\Editor\Validate;
 
 // Build our Editor instance and process the data coming from _POST
-Editor::inst( $db, 'purchases' )
-->pkey( 'purchases.id_purchase' )
+Editor::inst( $db, 'purchaserequests' )
+->pkey( 'purchaserequests.id_purchaserequest' )
 ->fields(
-  Field::inst( 'purchases.id_purchase'),
+  Field::inst( 'purchaserequests.id_purchaserequest'),
 
-  Field::inst( 'purchases.purchase_date'),
-  Field::inst( 'purchases.description')
+  Field::inst( 'purchaserequests.purchaserequest_date'),
+  Field::inst( 'purchaserequests.description')
   ->validator( 'Validate::notEmpty' ),
-  Field::inst( 'purchases.id_user')
+  Field::inst( 'purchaserequests.id_user')
   ->validator( 'Validate::notEmpty' ),
   Field::inst( 'techniciens.technicien'),
-  Field::inst( 'purchases.supplier')
+  Field::inst( 'purchaserequests.supplier')
   ->validator( 'Validate::notEmpty' ),
-  Field::inst( 'purchases.usd')
+  Field::inst( 'purchaserequests.usd')
   ->validator( 'Validate::numeric' )
   ->setFormatter( 'Format::ifEmpty', null ),
-  Field::inst( 'purchases.euro')
+  Field::inst( 'purchaserequests.euro')
   ->validator( 'Validate::numeric' )
   ->setFormatter( 'Format::ifEmpty', null ),
-  Field::inst( 'purchases.id_validator'),
+  Field::inst( 'purchaserequests.id_validator'),
   Field::inst( 't2.technicien'),
-  Field::inst( 'purchases.purchase_number')
-  ->setFormatter( 'Format::ifEmpty', null ),
+  Field::inst( 'purchases.id_purchase'),
   Field::inst( 'purchases.id_receipt'),
   Field::inst( 't3.technicien'),
-  Field::inst( 'purchases.job')
+  Field::inst( 'purchaserequests.job')
   ->setFormatter( 'Format::ifEmpty', null ),
-  Field::inst( 'purchases.comments')
-  ->setFormatter( 'Format::ifEmpty', null )
+  Field::inst( 'purchaserequests.comments')
+  ->setFormatter( 'Format::ifEmpty', null ),
+  Field::inst( 'purchases.purchase_date')
 
   )
-  ->leftJoin( 'techniciens',     'techniciens.id_technicien',          '=', 'purchases.id_user' )
-  ->leftJoin( 'techniciens as t2',     't2.id_technicien',          '=', 'abs(purchases.id_validator)' )
+   ->leftJoin( 'purchases',     'purchases.id_purchaserequest',          '=', 'purchaserequests.id_purchaserequest' )
+
+  ->leftJoin( 'techniciens',     'techniciens.id_technicien',          '=', 'purchaserequests.id_user' )
+  ->leftJoin( 'techniciens as t2',     't2.id_technicien',          '=', 'abs(purchaserequests.id_validator)' )
   ->leftJoin( 'techniciens as t3',     't3.id_technicien',          '=', 'abs(purchases.id_receipt)' )
 
-  ->where('purchases.purchase_date',$_POST['dateStartPurchase'],'>=')
+  ->where('purchaserequests.purchaserequest_date',$_POST['dateStartPurchase'],'>=')
 
   //enregistrement du user effectuant l'update
   ->on( 'preCreate', function ( $editor, $values ) {
     $editor
-    ->field( 'purchases.id_user' )
+    ->field( 'purchaserequests.id_user' )
     ->setValue( $_COOKIE['id_user'] );
   } )
 

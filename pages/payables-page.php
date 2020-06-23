@@ -25,6 +25,8 @@
             <th>Posted Date</th>
             <th>Date Invoice</th>
             <th>Date Due</th>
+            <th>PO</th>
+            <th>Approb.</th>
             <th>N° Job</th>
             <th>Applied</th>
             <th>Amount USD</th>
@@ -43,6 +45,8 @@
             <th></th>
             <th></th>
             <th></th>
+            <th></th>
+            <th><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></th>
             <th></th>
             <th></th>
             <th></th>
@@ -57,22 +61,23 @@
         <tfoot>
           <tr>
             <th></th>
-            <th>Inv n°</th>
-            <th>Supplier</th>
-            <th>Description</th>
-            <th>Type</th>
-            <th>Capitalized</th>
-            <th>Posted Date</th>
-            <th>Date Invoice</th>
-            <th>Date Due</th>
-            <th>N° Job</th>
-            <th>Applied</th>
-            <th>Amount USD</th>
-            <th>USD Rate</th>
-            <th>HT EUR</th>
-            <th>TVA EUR</th>
-            <th>TTC EUR</th>
-            <th>Date Paid</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
           </tr>
         </tfoot>
       </table>

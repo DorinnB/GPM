@@ -1,3 +1,28 @@
+/* Formatting function for row details - modify as you need */
+function format ( d ) {
+  // `d` is the original data object for the row
+  return '<table class="table-condensed table-striped table-bordered" style="display: inline-block;">'+
+  '<tr>'+
+  '<th>Applicant</th>'+
+  '<th>Purchase Order</th>'+
+  '<th>Supplier</th>'+
+  '<th>Description</th>'+
+  '<th>Job</th>'+
+  '<th>USD HT</th>'+
+  '<th>Euro HT</th>'+
+  '</tr>'+
+  '<tr>'+
+  '<td>'+(d.techniciens.technicien || "") +'</td>'+
+  '<td>'+(d.payables.purchase || "") +'</td>'+
+  '<td>'+(d.purchaserequests.supplier || "") +'</td>'+
+  '<td>'+(d.purchaserequests.description || "") +'</td>'+
+  '<td>'+(d.purchaserequests.job || "") +'</td>'+
+  '<td>'+(d.purchaserequests.usd || "") +'</td>'+
+  '<td>'+(d.purchaserequests.euro || "") +'</td>'+
+  '</tr>'+
+  '</table>';
+}
+
 
 var editor; // use a global for the submit and return data rendering in the examples
 
@@ -20,6 +45,7 @@ $(document).ready(function() {
       { label: "postedDate", name: "payables.postedDate", type:  'datetime'},
       { label: "invoice", name: "payables.invoice"  },
       { label: "job", name: "payables.job"  },
+      { label: "PO", name: "payables.purchase"  },
       { label: "USD", name: "payables.USD"  },
       { label: "taux", name: "payables.taux"  },
       { label: "HT", name: "payables.HT"  },
@@ -44,7 +70,7 @@ $(document).ready(function() {
       type: "POST",
       data: {"dateStartPayable" : $('#dateStartPayable').text()}
     },
-    order: [ 7, "desc" ],
+    order: [ 8, "desc" ],
     columns: [
       { data: "payables.id_payable","visible": false  },
       { data: "payables.invoice"  },
@@ -55,6 +81,16 @@ $(document).ready(function() {
       { data: "payables.postedDate"  },
       { data: "payables.date_invoice"  },
       { data: "payables.date_due"  },
+      { data: "payables.purchase",  className:      'details-control'  },
+      { data: "purchases.id_receipt",
+      render: function ( data, type, row) {
+        if (row.t3.technicien) {
+          return (data<0?'-':'')+row.t3.technicien;
+        }
+        else {
+          return '';
+        }
+      }},
       { data: "payables.job",
       render: function ( data, type, row ) {
         text="";
@@ -124,17 +160,28 @@ $(document).ready(function() {
       },
       { data: "payables.date_payable"  },
     ],
+    columnDefs: [ {
+      targets: [10],
+      createdCell: function (td, cellData, rowData, row, col) {
+        if ( cellData < 0 ) {
+          $(td).addClass('refused')
+        }
+        else if ( cellData > 0 ) {
+          $(td).addClass('validated')
+        }
+      }
+    } ],
     scrollY: '65vh',
+    scrollX: true,
     scrollCollapse: true,
     paging: false,
     info: true,
-    fixedColumns:   {leftColumns: 3},
     select: {
       style:    'os',
       blurable: true
     },
     keys: {
-      columns: [16],
+      columns: [17],
       editor:  editor
     },
     buttons: [
@@ -186,6 +233,40 @@ $(document).ready(function() {
     },
   }
 );
+
+
+
+
+// Add event listener for opening and closing details
+$('#table_payables tbody').on('click', 'td.details-control', function () {
+  var tr = $(this).closest('tr');
+  var row = table.row( tr );
+
+  if ( row.child.isShown() ) {
+    // This row is already open - close it
+    row.child.hide();
+    tr.removeClass('shown');
+  }
+  else {
+    // Open this row
+    row.child( format(row.data()) ).show();
+    tr.addClass('shown');
+  }
+} );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

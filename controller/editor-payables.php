@@ -22,6 +22,7 @@ Editor::inst( $db, 'payables' )
 
   Field::inst( 'payables.payable')
     ->validator( 'Validate::notEmpty' ),
+
   Field::inst( 'payables.capitalize')
     ->setFormatter( 'Format::ifEmpty', null ),
   Field::inst( 'payables.date_due')
@@ -60,10 +61,27 @@ Editor::inst( $db, 'payables' )
           ->table( 'payable_lists' )
           ->value( 'id_payable_list' )
           ->label( 'payable_list' )
-      ),
-        Field::inst( 'payable_lists.payable_list')
+  ),
+  Field::inst( 'payable_lists.payable_list'),
+
+  Field::inst( 'payables.purchase')
+    ->setFormatter( 'Format::ifEmpty', null ),
+  Field::inst( 'purchases.id_receipt'),
+  Field::inst( 't3.technicien'),
+  Field::inst( 'purchaserequests.description'),
+  Field::inst( 'purchaserequests.supplier'),
+  Field::inst( 'purchaserequests.usd'),
+  Field::inst( 'purchaserequests.euro'),
+  Field::inst( 'techniciens.technicien'),
+  Field::inst( 'purchaserequests.job')
   )
+
   ->leftJoin( 'payable_lists',     'payable_lists.id_payable_list',          '=', 'payables.id_payable_list' )
+  ->leftJoin( 'purchases',     'purchases.id_purchase',          '=', 'payables.purchase' )
+  ->leftJoin( 'techniciens as t3',     't3.id_technicien',          '=', 'abs(purchases.id_receipt)' )
+  ->leftJoin( 'purchaserequests',     'purchaserequests.id_purchaserequest',          '=', 'purchases.id_purchaserequest' )
+  ->leftJoin( 'techniciens',     'techniciens.id_technicien',          '=', 'purchaserequests.id_user' )
+
 
   ->where('payables.date_invoice',$_POST['dateStartPayable'],'>=')
 

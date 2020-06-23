@@ -29,10 +29,12 @@
             <th>EUR HT</th>
             <th>Comments</th>
             <th>Validator</th>
-            <th>PO</th>
+            <th>PO Date</th>
+            <th><acronym title="You will get your PO number once you fill the PO Date">PO</acronym></th>
             <th>Tech. Approv.</th>
           </tr>
           <tr>
+            <th></th>
             <th></th>
             <th></th>
             <th></th>
@@ -49,6 +51,7 @@
         </thead>
         <tfoot>
           <tr>
+            <th></th>
             <th></th>
             <th></th>
             <th></th>

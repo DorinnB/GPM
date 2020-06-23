@@ -40,3 +40,13 @@ a {
 th  {
   text-align: center;
 }
+.table-hover tbody tr.refused,.table-hover tbody td.refused {     /* attente validation */
+  background-color: darkred !important;
+  opacity: 0.5;
+  color:white;
+}
+.table-hover tbody tr.validated,.table-hover tbody td.validated  {     /* validé */
+  background-color: darkgreen !important;
+  opacity: 0.5;
+  color:white;
+}
