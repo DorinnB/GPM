@@ -2,24 +2,28 @@
 function format ( d ) {
   // `d` is the original data object for the row
   return '<table class="table-condensed table-striped table-bordered" style="display: inline-block;">'+
-  '<tr>'+
-  '<th>Applicant</th>'+
-  '<th>Purchase Order</th>'+
-  '<th>Supplier</th>'+
-  '<th>Description</th>'+
-  '<th>Job</th>'+
-  '<th>USD HT</th>'+
-  '<th>Euro HT</th>'+
-  '</tr>'+
-  '<tr>'+
-  '<td>'+(d.techniciens.technicien || "") +'</td>'+
-  '<td>'+(d.payables.purchase || "") +'</td>'+
-  '<td>'+(d.purchaserequests.supplier || "") +'</td>'+
-  '<td>'+(d.purchaserequests.description || "") +'</td>'+
-  '<td>'+(d.purchaserequests.job || "") +'</td>'+
-  '<td>'+(d.purchaserequests.usd || "") +'</td>'+
-  '<td>'+(d.purchaserequests.euro || "") +'</td>'+
-  '</tr>'+
+    '<tr>'+
+      '<th>Applicant</th>'+
+      '<th>Purchase Order</th>'+
+      '<th>Supplier</th>'+
+      '<th>Description</th>'+
+      '<th>Job</th>'+
+      '<th>USD HT</th>'+
+      '<th>Euro HT</th>'+
+      '<th>Comments</th>'+
+      '<th>Tech Approb.</th>'+
+    '</tr>'+
+    '<tr>'+
+      '<td>'+(d.techniciens.technicien || "") +'</td>'+
+      '<td>'+(d.payables.purchase || "") +'</td>'+
+      '<td>'+(d.purchaserequests.supplier || "") +'</td>'+
+      '<td>'+(d.purchaserequests.description || "") +'</td>'+
+      '<td>'+(d.purchaserequests.job || "") +'</td>'+
+      '<td>'+(d.purchaserequests.usd || "") +'</td>'+
+      '<td>'+(d.purchaserequests.euro || "") +'</td>'+
+      '<td>'+(d.purchaserequests.comments || "") +'</td>'+
+      '<td>'+(d.t3.technicien || "") +'</td>'+
+    '</tr>'+
   '</table>';
 }
 

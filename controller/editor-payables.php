@@ -73,7 +73,8 @@ Editor::inst( $db, 'payables' )
   Field::inst( 'purchaserequests.usd'),
   Field::inst( 'purchaserequests.euro'),
   Field::inst( 'techniciens.technicien'),
-  Field::inst( 'purchaserequests.job')
+  Field::inst( 'purchaserequests.job'),
+  Field::inst( 'purchaserequests.comments')
   )
 
   ->leftJoin( 'payable_lists',     'payable_lists.id_payable_list',          '=', 'payables.id_payable_list' )

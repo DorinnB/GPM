@@ -43,7 +43,7 @@ Editor::inst( $db, 'purchaserequests' )
   ->setFormatter( 'Format::ifEmpty', null ),
   Field::inst( 'purchaserequests.comments')
   ->setFormatter( 'Format::ifEmpty', null ),
-  Field::inst( 'purchases.purchase_date')
+  Field::inst( 'purchases.generate')
 
   )
    ->leftJoin( 'purchases',     'purchases.id_purchaserequest',          '=', 'purchaserequests.id_purchaserequest' )

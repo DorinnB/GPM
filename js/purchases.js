@@ -38,9 +38,11 @@ $(document).ready(function() {
         { label: 'Undecided', value: 0 },
         { label: 'Refused', value: -iduser }
       ]},
-      { label: "Date", name: "purchases.purchase_date",
-      type:  'datetime',
-      def:   function () { return new Date(); }},
+      { label: "Validator", name: "purchases.generate",
+      type:  'radio',
+      options: [
+        { label: 'Accept',  value: 1 }
+      ]},
       { label: "Receipt", name: "purchases.id_receipt",
       type:  'radio',
       options: [
@@ -98,11 +100,10 @@ $(document).ready(function() {
           return '';
         }
       }},
-      { data: "purchases.purchase_date",
+      { data: "purchases.generate",
       render: function ( data, type, row ) {
-        return ($.datepicker.formatDate('yy-mm-dd', new Date(data)));
+        return row.purchases.id_purchase;
       } },
-      { data: "purchases.id_purchase"  },
       { data: "purchases.id_receipt",
       render: function ( data, type, row) {
         if (row.t3.technicien) {
@@ -114,7 +115,7 @@ $(document).ready(function() {
       }},
     ],
     columnDefs: [ {
-      targets: [9, 12],
+      targets: [9, 11],
       createdCell: function (td, cellData, rowData, row, col) {
         if ( cellData < 0 ) {
           $(td).addClass('refused')
@@ -201,7 +202,7 @@ table.columns.adjust().draw();
 // Activate the bubble editor on click of a table cell
 $('#table_purchases').on( 'click', 'tbody td:not(:first-child)', function (e) {
   var index = $(this).index();
-  if (index == 9 || index == 10 || index == 12) {
+  if (index == 9 || index == 10 || index == 11) {
     editorValid.bubble( this );
   }
 } );
