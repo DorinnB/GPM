@@ -73,16 +73,27 @@ $(document).ready(function() {
     //table.columns.adjust().draw( false ); // adjust column sizing and redraw
   }
 
+
   // Filter event handler
   $( table.table().container() ).on( 'keyup', 'tfoot input', function () {
+    if (this.value.substr(0,1)=='!') {
+      search='^((?!'+this.value.substring(1)+').)*$';
+    }
+    else {
+      search=this.value;
+    }
     table
     .column( $(this).data('index') )
-    .search( this.value )
+    .search( search, true, false )
     .draw();
     checkValueModule();
     checkValueC1Stress();
     checkValueC2Stress()
   } );
+
+
+
+
   document.getElementById("table_ep_filter").style.display = "none";
 } );
 

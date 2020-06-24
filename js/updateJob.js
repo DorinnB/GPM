@@ -24,11 +24,17 @@ $(document).ready(function() {
   });
 
 
-  // Apply the filter
-  $("#table_ep tfoot input").on( 'keyup change', function () {
+  // Filter event handler
+  $( table.table().container() ).on( 'keyup', 'tfoot input', function () {
+    if (this.value.substr(0,1)=='!') {
+      search='^((?!'+this.value.substring(1)+').)*$';
+    }
+    else {
+      search=this.value;
+    }
     table
-    .column( $(this).parent().index()+':visible' )
-    .search( this.value )
+    .column( $(this).data('index') )
+    .search( search, true, false )
     .draw();
   } );
 

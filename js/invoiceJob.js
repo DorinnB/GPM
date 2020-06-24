@@ -380,7 +380,7 @@ $(document).ready(function() {
 
     //On ajoute aussi langue, currency et invoice_commentaire
     $("#invoiceJob").append('<input type="hidden" name="order_val" value="'+$('#order_val').val()+'"></input>');
-    $("#invoiceJob").append('<input type="hidden" name="order_est" value="'+$('#order_est').val()+'"></input>');
+    $("#invoiceJob").append('<input type="hidden" name="order_est_mrsas" value="'+$('#order_est_mrsas').val()+'"></input>');
     $("#invoiceJob").append('<input type="hidden" name="order_est_subc" value="'+$('#order_est_subc').val()+'"></input>');
     $("#invoiceJob").append('<input type="hidden" name="invoice_lang" value="'+$('#invoice_lang').parents().hasClass('off')+'"></input>');  //a cause de bootstrapToggle, on doit chercher la div au dessus si elle a la class off (ou rien)
     $("#invoiceJob").append('<input type="hidden" name="invoice_currency" value="'+$('#invoice_currency').parents().hasClass('off')+'"></input>');

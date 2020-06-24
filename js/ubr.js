@@ -3,7 +3,7 @@ function format ( d ) {
   // `d` is the original data object for the row
   return '<div class="row">'+
   '<div class="col-md-6 col-md-offset-3">'+
-  '<table class="table table-condensed table-bordered dataTable" cellspacing="0" width="100%" style="background:rgb(68, 84, 106);">'+
+  '<table class="table table-condensed table-bordered dataTable" cellspacing="0" width="100%">'+
   '<tr>'+
   '<td style="font-weight:bold;">Job '+d.info_jobs.job+'</td>'+
   '<td style="font-weight:bold;">'+$.datepicker.formatDate('yy M', new Date(d.ubrold.date_UBR))+'</td>'+
@@ -172,7 +172,7 @@ $(document).ready(function() {
       api.column(0, {page:'current'} ).data().each( function ( group, i ) {
         if ( last !== group ) {
           $(rows).eq( i ).before(
-            '<tr class="group"><td colspan="7" style="background-color:black;">'+($.datepicker.formatDate('yy mm - MM', new Date(group)))+'</td></tr>'
+            '<tr class="group"><td colspan="7" style="background-color:white;">'+($.datepicker.formatDate('yy mm - MM', new Date(group)))+'</td></tr>'
           );
 
           last = group;
@@ -220,9 +220,15 @@ $(document).ready(function() {
 
   // Filter event handler
   $( table.table().container() ).on( 'keyup', 'tfoot input', function () {
+    if (this.value.substr(0,1)=='!') {
+      search='^((?!'+this.value.substring(1)+').)*$';
+    }
+    else {
+      search=this.value;
+    }
     table
     .column( $(this).data('index') )
-    .search( this.value )
+    .search( search, true, false )
     .draw();
   } );
 

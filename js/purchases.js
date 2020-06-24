@@ -209,15 +209,12 @@ $('#table_purchases').on( 'click', 'tbody td:not(:first-child)', function (e) {
 
 // Filter event handler
 $( table.table().container() ).on( 'keyup', 'tfoot input', function () {
-
-  console.log(this.value);
   if (this.value.substr(0,1)=='!') {
     search='^((?!'+this.value.substring(1)+').)*$';
   }
   else {
     search=this.value;
   }
-
   table
   .column( $(this).data('index') )
   .search( search, true, false )

@@ -1,6 +1,6 @@
 #page-content-wrapper div{
-  color:white;
-  background-color: rgb(68, 84, 106);
+  color:black;
+  background-color: white;
 }
 #page-content-wrapper .btn-group  {
   color:black;
@@ -9,12 +9,12 @@
 caption {
   font-size:xx-large;
   text-align:center;
-  color:white;
+  color:black;
 }
 
 .form-group input, .form-group select{
-  color:black;
-  border-radius: 10px;
+color:black;
+border-radius: 10px;
 }
 
 .dt-buttons  {
@@ -23,17 +23,20 @@ caption {
 
 
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-  background-color: #5B9BD5;
+  background-color: darkgray;
 }
 .table-striped > tbody > tr:nth-of-type(odd) {
-  background-color: #536E94 !important;
+  background-color: lightgray !important;
 }
-
 input,  select{
-  color:black;
+color:black;
 }
 a {
-  color:white;
+  color:black;
+}
+
+table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
+    background-color: white;
 }
 
 td.details-control {

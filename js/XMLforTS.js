@@ -35,7 +35,7 @@ $(document).ready(function() {
     columns: [
       { data: "xmlforts.xml" },
       { data: "xmlforts.ts" },
-      { data: "xmlforts.unit" },      
+      { data: "xmlforts.unit" },
       { data: "test_type.test_type_abbr" }
     ],
     scrollY: '65vh',
@@ -62,9 +62,15 @@ $(document).ready(function() {
 
   // Filter event handler
   $( table.table().container() ).on( 'keyup', 'tfoot input', function () {
+    if (this.value.substr(0,1)=='!') {
+      search='^((?!'+this.value.substring(1)+').)*$';
+    }
+    else {
+      search=this.value;
+    }
     table
     .column( $(this).data('index') )
-    .search( this.value )
+    .search( search, true, false )
     .draw();
   } );
 

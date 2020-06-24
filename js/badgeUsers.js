@@ -313,9 +313,15 @@ $(document).ready(function() {
 
   // Filter event handler
   $( table.table().container() ).on( 'keyup', 'tfoot input', function () {
+    if (this.value.substr(0,1)=='!') {
+      search='^((?!'+this.value.substring(1)+').)*$';
+    }
+    else {
+      search=this.value;
+    }
     table
     .column( $(this).data('index') )
-    .search( this.value )
+    .search( search, true, false )
     .draw();
   } );
 

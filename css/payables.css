@@ -1,6 +1,6 @@
 #page-content-wrapper div{
-  color:white;
-  background-color: rgb(68, 84, 106);
+  color:black;
+  background-color: white;
 }
 #page-content-wrapper .btn-group  {
   color:black;
@@ -9,7 +9,7 @@
 caption {
   font-size:xx-large;
   text-align:center;
-  color:white;
+  color:black;
 }
 
 .form-group input, .form-group select{
@@ -23,16 +23,16 @@ border-radius: 10px;
 
 
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-  background-color: #5B9BD5;
+  background-color: darkgray;
 }
 .table-striped > tbody > tr:nth-of-type(odd) {
-  background-color: #536E94 !important;
+  background-color: lightgray !important;
 }
 input,  select{
 color:black;
 }
 a {
-  color:white;
+  color:black;
 }
 .btn-default {
   margin-left: 1em !important;
@@ -40,13 +40,15 @@ a {
 th  {
   text-align: center;
 }
+
+table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
+    background-color: white;
+}
 .table-hover tbody tr.refused,.table-hover tbody td.refused {     /* attente validation */
   background-color: darkred !important;
-  opacity: 0.5;
   color:white;
 }
 .table-hover tbody tr.validated,.table-hover tbody td.validated  {     /* validé */
   background-color: darkgreen !important;
-  opacity: 0.5;
-  color:white;
+  color:black;
 }
