@@ -17,7 +17,7 @@ unset($_POST['id_tbljob']);
 
 $oInvoice->order_val=$_POST['order_val'];
 unset($_POST['order_val']);
-$oInvoice->order_est=$_POST['order_est'];
+$oInvoice->order_est=$_POST['order_est_mrsas'];
 unset($_POST['order_est']);
 $oInvoice->order_est_subc=$_POST['order_est_subc'];
 unset($_POST['order_est_subc']);
