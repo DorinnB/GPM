@@ -75,9 +75,17 @@ Rapport de la maj:
 */
 /*---------------------------------------------------------------*/
 
+function get_easter_datetime($year) {
+    $base = new DateTime("$year-03-21");
+    $days = easter_days($year);
+
+    return $base->add(new DateInterval("P{$days}D"));
+}
+
 function dimanche_paques($annee)
 {
-  return date("Y-m-d", easter_date($annee));
+  return get_easter_datetime($annee)->format('Y-m-d');
+//  return date("Y-m-d", easter_date($annee));
 }
 function vendredi_saint($annee)
 {
