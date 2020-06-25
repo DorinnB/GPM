@@ -26,7 +26,7 @@ $(document).ready(function() {
 
 
   var table = $('#table_backlog').DataTable( {
-    dom: "Bfrtip",
+    dom: "rtip",
     ajax: {
       url : "controller/editor-backlog.php",
       type: "POST"
@@ -152,24 +152,6 @@ $(document).ready(function() {
         columns: [3, 5, 9],
         editor:  editor
       },
-      buttons: [
-        { text: "Accounting File",
-        action: function() {
-          location.assign("controller/createInvoicablePayables-controller.php?dateStart="+$('#dateStartbacklog').text());
-        } },
-        { text: "Payables",
-        action: function() {
-          location.assign("index.php?page=payables");
-        } },
-        { text: "UBR",
-        action: function() {
-          location.assign("index.php?page=ubr");
-        } },
-        { text: "Invoices",
-        action: function() {
-          location.assign("index.php?page=invoices");
-        } }
-      ],
       headerCallback: function ( row, data, start, end, display ) {
         var api = this.api();
 

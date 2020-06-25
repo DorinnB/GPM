@@ -132,23 +132,7 @@ $(document).ready(function() {
   },
   buttons: [
     { extend: "edit",   editor: editor },
-    { extend: "remove", editor: editor },
-    { text: "Accounting File",
-    action: function() {
-      location.assign("controller/createInvoicablePayables-controller.php?dateStart="+$('#dateStartInvoice').text());
-    } },
-    { text: "Payables",
-    action: function() {
-      location.assign("index.php?page=payables");
-    } },
-    { text: "UBR",
-    action: function() {
-      location.assign("index.php?page=ubr");
-    } },
-    { text: "Backlog",
-    action: function() {
-      location.assign("index.php?page=backlog");
-    } }
+    { extend: "remove", editor: editor }
   ],
   headerCallback: function ( row, data, start, end, display ) {
     var api = this.api();
@@ -185,6 +169,12 @@ $(document).ready(function() {
     }
   } ]
 });
+
+
+table
+.buttons()
+.container()
+.appendTo( '#btn' );
 
 
 

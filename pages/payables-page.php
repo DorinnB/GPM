@@ -12,6 +12,42 @@
     <link href="css/payables.css" rel="stylesheet">
 
     <div class="col-md-12" style="height:100%">
+      <div class="row" style="height:5%;margin-top:10px;">
+  <div id="btn" class="col-md-3" style="height:100%;">
+  </div>
+
+  <div id="" class="col-md-1" style="height:100%;">
+    <a href="index.php?page=purchases" title="Purchases" class="btn btn-link  btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
+      <img type="image" src="img/purchaserequest.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">
+    </a>
+  </div>
+  <div id="" class="col-md-1" style="height:100%;">
+    <a href="index.php?page=payables" title="Payables" class="btn disabled btn-link btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
+      <img type="image" src="img/payable.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">
+    </a>
+  </div>
+  <div id="" class="col-md-1" style="height:100%;">
+    <a href="index.php?page=UBR" title="UBR" class="btn btn-link btn-lg"style="width:100%; height:100%; padding:0px; border-radius:10px;">
+      <img type="image" src="img/ubr.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">
+    </a>
+  </div>
+  <div id="" class="col-md-1" style="height:100%;">
+    <a href="index.php?page=invoices" title="Invoices" class="btn btn-link btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
+      <img type="image" src="img/invoice.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">
+    </a>
+  </div>
+  <div id="" class="col-md-1" style="height:100%;">
+    <a href="index.php?page=backlog" title="backlog" class="btn btn-link btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
+      <img type="image" src="img/backlog.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">
+    </a>
+  </div>
+  <div id="" class="col-md-1" style="height:100%;">
+    <a href="controller/createInvoicablePayables-controller.php?dateStart=<?= $_GET['dateStartPayable'] ?>" title="Accounting Files" class="btn btn-default btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
+      <img type="image" src="img/export.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">
+    </a>
+  </div>
+</div>
+
       <table id="table_payables" class="table table-condensed table-striped nowrap table-hover table-bordered dataTable" cellspacing="0" width="100%">
         <caption>PAYABLES LIST</caption>
         <thead>

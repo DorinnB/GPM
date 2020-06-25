@@ -34,14 +34,14 @@ $(document).ready(function() {
         label: "MRSAS:",
         name:  "inv_mrsas",
         def: function() {
-          return parseFloat(0+$('#UBRMRSAS').text()).toFixed(2);
+          return parseFloat(0+$('#invoicableMRSAS').text()).toFixed(2);
         }
       },
       {
         label: "SubC:",
         name:  "inv_subc",
         def: function() {
-          return parseFloat(0+$('#notInv_val_subc').text()).toFixed(2);
+          return parseFloat(0+$('#invoicableSubC').text()).toFixed(2);
         }
       },
       {

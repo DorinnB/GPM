@@ -13,7 +13,7 @@ $(document).ready(function() {
     },
     table: "#table_purchases",
     fields: [
-      { label: "Date", name: "purchaserequests.purchaserequest_date", type:  'datetime'  },
+      { label: "Date", name: "purchaserequests.purchaserequest_date", type:  'datetime', def:   function () { return new Date(); }  },
       { label: "Supplier", name: "purchaserequests.supplier"  },
       { label: "Description", name: "purchaserequests.description"},
       { label: "Job", name: "purchaserequests.job"},
@@ -31,19 +31,19 @@ $(document).ready(function() {
     },
     table: "#table_purchases",
     fields: [
-      { label: "Validator", name: "purchaserequests.id_validator",
+      { label: "Do you validate this POR ?", name: "purchaserequests.id_validator",
       type:  'radio',
       options: [
         { label: 'Accept',  value: iduser },
         { label: 'Undecided', value: 0 },
         { label: 'Refused', value: -iduser }
       ]},
-      { label: "Validator", name: "purchases.generate",
+      { label: "PO Number", name: "purchases.generate",
       type:  'radio',
       options: [
-        { label: 'Accept',  value: 1 }
+        { label: 'Generate a PO Number',  value: 1 }
       ]},
-      { label: "Receipt", name: "purchases.id_receipt",
+      { label: "Do you approve this reception", name: "purchases.id_receipt",
       type:  'radio',
       options: [
         { label: 'Conform',  value: iduser },
@@ -62,7 +62,7 @@ $(document).ready(function() {
 
 
   var table = $('#table_purchases').DataTable( {
-    dom: "Bfrtip",
+    dom: "Brtip",
     ajax: {
       url : "controller/editor-purchases.php",
       type: "POST",
@@ -84,11 +84,11 @@ $(document).ready(function() {
       { data: "purchaserequests.job" },
       { data: "purchaserequests.usd", className: "sumDol",
       render: function ( data, type, row ) {
-        return (data>0 ? "$"+data.replace(/(\d)(?=(\d{3})+\b)/g,'$1 '): " " );
+        return (data>0 ? "$"+data.replace(/(\d)(?=(\d{3})+\b)/g,'$1 '): "" );
       }  },
       { data: "purchaserequests.euro", className: "sumEur",
       render: function ( data, type, row ) {
-        return (data>0 ? data.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+" €" : " " );
+        return (data>0 ? data.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+" €" : "" );
       }  },
       { data: "purchaserequests.comments"  },
       { data: "purchaserequests.id_validator",
@@ -145,23 +145,7 @@ $(document).ready(function() {
     },
     buttons: [
       { extend: "create", editor: editor },
-      { extend: "edit",   editor: editor },
-      { text: "Payables",
-      action: function() {
-        location.assign("index.php?page=payables");
-      } },
-      { text: "UBR",
-      action: function() {
-        location.assign("index.php?page=ubr");
-      } },
-      { text: "Invoices",
-      action: function() {
-        location.assign("index.php?page=invoices");
-      } },
-      { text: "Backlog",
-      action: function() {
-        location.assign("index.php?page=backlog");
-      } }
+      { extend: "edit",   editor: editor }
     ],
     headerCallback: function ( row, data, start, end, display ) {
       var api = this.api();
@@ -193,6 +177,10 @@ $(document).ready(function() {
 );
 
 
+table
+.buttons()
+.container()
+.appendTo( '#btn' );
 
 
 $('#container').css('display', 'block');
