@@ -74,7 +74,7 @@ $(document).ready(function() {
       type: "POST",
       data: {"dateStartPayable" : $('#dateStartPayable').text()}
     },
-    order: [ 8, "desc" ],
+    order: [ 6, "desc" ],
     columns: [
       { data: "payables.id_payable","visible": false  },
       { data: "payables.invoice"  },
