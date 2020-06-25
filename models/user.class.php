@@ -108,5 +108,22 @@ class USER
   {
     return $_COOKIE['technicien'];
   }
+
+  public function is_accounting()
+  {
+    if(isset($_COOKIE['id_user']))
+    {
+      $req='SELECT accounting
+      FROM techniciens
+      WHERE id_technicien='.$this->db->quote($_COOKIE['id_user']).';';
+
+      $result = $this->db->getOne($req);
+
+      if ($result['accounting']==1) {
+        return true;
+      }
+      return false;
+    }
+  }
 }
 ?>

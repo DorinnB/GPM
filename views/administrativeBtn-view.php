@@ -17,27 +17,28 @@
       <img type="image" src="img/purchaserequest.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">
     </a>
   </div>
-
-  <div id="" class="col-md-2" style="height:100%;">
-    <a href="index.php?page=payables" title="Payables" class="btn btn-default btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
-      <img type="image" src="img/payable.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">
-    </a>
-  </div>
-  <div id="" class="col-md-2" style="height:100%;">
-    <a href="index.php?page=UBR" title="UBR" class="btn btn-default btn-lg"style="width:100%; height:100%; padding:0px; border-radius:10px;">
-      <img type="image" src="img/ubr.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">
-    </a>
-  </div>
-  <div id="" class="col-md-2" style="height:100%;">
-    <a href="index.php?page=invoices" title="Invoices" class="btn btn-default btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
-      <img type="image" src="img/invoice.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">
-    </a>
-  </div>
-  <div id="" class="col-md-2" style="height:100%;">
-    <a href="index.php?page=backlog" title="backlog" class="btn btn-default btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
-      <img type="image" src="img/backlog.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">
-    </a>
-  </div>
+  <?php if($user->is_accounting()) : ?>
+    <div id="" class="col-md-2" style="height:100%;">
+      <a href="index.php?page=payables" title="Payables" class="btn btn-default btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
+        <img type="image" src="img/payable.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">
+      </a>
+    </div>
+    <div id="" class="col-md-2" style="height:100%;">
+      <a href="index.php?page=UBR" title="UBR" class="btn btn-default btn-lg"style="width:100%; height:100%; padding:0px; border-radius:10px;">
+        <img type="image" src="img/ubr.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">
+      </a>
+    </div>
+    <div id="" class="col-md-2" style="height:100%;">
+      <a href="index.php?page=invoices" title="Invoices" class="btn btn-default btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
+        <img type="image" src="img/invoice.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">
+      </a>
+    </div>
+    <div id="" class="col-md-2" style="height:100%;">
+      <a href="index.php?page=backlog" title="backlog" class="btn btn-default btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
+        <img type="image" src="img/backlog.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">
+      </a>
+    </div>
+  <?php endif ?>
 </div>
 <!--
 <div id="badge2" class="col-md-2" style="height:10%;">

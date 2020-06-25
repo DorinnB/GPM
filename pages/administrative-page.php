@@ -12,7 +12,7 @@
 			</div>
 			<div class="row" style="height:50%;">
 				<div class="col-md-6" style="height:100%"><?php include 'controller/administrativeList-controller.php'; ?></div>
-<div class="col-md-6" style="height:100%"><?php include 'controller/frameUtilization-controller.php'; ?></div>
+				<div class="col-md-6" style="height:100%"><?php include 'controller/frameUtilization-controller.php'; ?></div>
 			</div>
 		</div>
 		<div class="col-md-12 unique" id="pageunique" style="height:100%; display:none;">
