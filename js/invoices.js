@@ -28,7 +28,7 @@ $(document).ready(function() {
 
 
   var table = $('#table_invoices').DataTable( {
-    dom: "Bfrtip",
+    dom: "Brtip",
     ajax: {
       url : "controller/editor-invoices.php",
       type: "POST",

@@ -64,7 +64,7 @@ $(document).ready(function() {
 
 
   var table = $('#table_ubr').DataTable( {
-    dom: "Bfrtip",
+    dom: "Brtip",
     ajax: {
       url : "controller/editor-ubr.php",
       type: "POST",

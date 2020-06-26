@@ -68,7 +68,7 @@ $(document).ready(function() {
 
 
   var table = $('#table_payables').DataTable( {
-    dom: "Bfrtip",
+    dom: "Brtip",
     ajax: {
       url : "controller/editor-payables.php",
       type: "POST",
