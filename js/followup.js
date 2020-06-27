@@ -47,8 +47,13 @@ $(document).ready(function() {
     $(this).html('<input type="text" placeholder="' + title + '" / style="width:100%">');
   });
 
+
+
+
   // Filter event handler
   $( tableJob.table().container() ).on( 'keyup', 'tfoot input', function () {
+
+    console.log(this.data('index'));
     if (this.value.substr(0,1)=='!') {
       search='^((?!'+this.value.substring(1)+').)*$';
     }
@@ -62,6 +67,9 @@ $(document).ready(function() {
   } );
 
   document.getElementById("table_followup_filter").style.display = "none";
+
+
+
 
 
 

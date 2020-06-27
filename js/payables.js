@@ -250,19 +250,6 @@ $('#table_payables tbody').on('click', 'td.details-control', function () {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 $('#container').css('display', 'block');
 table.columns.adjust().draw();
 
