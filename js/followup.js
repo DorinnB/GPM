@@ -53,11 +53,15 @@ tableJob.columns().every(function() {
   var that = this;
 
   $('input', this.footer()).on('keyup change', function() {
-    if (that.search() !== this.value) {
-      that
-      .search(this.value)
-      .draw();
+    if (this.value.substr(0,1)=='!') {
+      search='^((?!'+this.value.substring(1)+').)*$';
     }
+    else {
+      search=this.value;
+    }
+    that
+    .search( search, true, false )
+    .draw();
   });
 });
 
