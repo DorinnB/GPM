@@ -22,7 +22,6 @@ $date=date("Y-m-d H-i-s");
 
 
 
-
 /** Error reporting */
 error_reporting(E_ALL);
 ini_set('display_errors', TRUE);
@@ -357,7 +356,6 @@ $startMonth=($startMonth==$row)?$row-1:$startMonth;
 
 
 $page5->getPageSetup()->setPrintArea('A1:I'.$row);
-
 
 
 

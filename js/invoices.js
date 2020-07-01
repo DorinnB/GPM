@@ -164,7 +164,7 @@ $(document).ready(function() {
     targets: [14,15,16,17,18],
     createdCell: function (td, cellData, rowData, row, col) {
       if ( rowData.info_jobs.invoice_currency == 1 ) {
-        $(td).css('color', 'lightgreen')
+        $(td).css('color', 'blue')
       }
     }
   } ]

@@ -237,12 +237,12 @@ $(document).ready(function() {
 
     $('.payables').each( function (i) {
       invoicableSubC+=($(this).data('applied')==1)?0:parseFloat($(this).text());
-      reachedSubC+=parseFloat($(this).text());
+      //reachedSubC+=parseFloat($(this).text());
     });
 
     invMRSAS=invoicableMRSAS;
     reachedMRSAS=invoiceMRSAS+invMRSAS;
-    reachedSubC=invoicableSubC+invoicableSubC;
+    reachedSubC=invoicableSubC+invoiceSubC;
 
 
     $('#reachedMRSAS').text(reachedMRSAS.toFixed(2));

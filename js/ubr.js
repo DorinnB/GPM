@@ -5,7 +5,7 @@ function format ( d ) {
   '<div class="col-md-6 col-md-offset-3">'+
   '<table class="table table-condensed table-bordered dataTable" cellspacing="0" width="100%">'+
   '<tr>'+
-  '<td style="font-weight:bold;">Job '+d.info_jobs.job+'</td>'+
+  '<td style="font-weight:bold;">Job '+d.ubr.job+'</td>'+
   '<td style="font-weight:bold;">'+$.datepicker.formatDate('yy M', new Date(d.ubrold.date_UBR))+'</td>'+
   '<td style="font-weight:bold;">'+$.datepicker.formatDate('yy M', new Date(d.ubr.date_UBR))+'</td>'+
   '<td style="font-weight:bold;">Delta</td>'+
@@ -49,7 +49,7 @@ $(document).ready(function() {
     fields: [
       { label: "date_UBR (please write last day of a month)", name: "ubr.date_UBR" , type:  'datetime' },
       { label: "date_creation", name: "ubr.date_creation" , type:  'datetime',   def:   function () { return new Date(); } },
-      { label: "Info_Job", name: "info_jobs.job"},
+      { label: "Info_Job", name: "ubr.job"},
       { label: "UBR MRSAS", name: "ubr.ubrMRSAS"  },
       { label: "UBR SubC", name: "ubr.ubrSubC"}
     ]
@@ -79,9 +79,10 @@ $(document).ready(function() {
 
       } },
       { data: "ubr.date_creation"  },
-      { data: "info_jobs.job",
+      { data: "info_jobs.customer"  },
+      { data: "ubr.job",
       render: function ( data, type, row ) {
-        return '<a href="index.php?page=invoiceJob&id_infojob='+data+'">'+data+'</a>';
+        return '<a href="index.php?page=invoiceJob&job='+data+'">'+data+'</a>';
       } },
       { data: "ubr.ubrMRSAS",
       className: "sum",
@@ -145,10 +146,10 @@ $(document).ready(function() {
         $(this.header()).html(sum.toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €');
       });
     },
-    "columnDefs": [
+    columnDefs: [
       { "visible": false, "targets": 0 }
     ],
-    "drawCallback": function ( settings ) {
+    drawCallback: function ( settings ) {
       var api = this.api();
       var rows = api.rows( {page:'current'} ).nodes();
       var last=null;
@@ -156,7 +157,7 @@ $(document).ready(function() {
       api.column(0, {page:'current'} ).data().each( function ( group, i ) {
         if ( last !== group ) {
           $(rows).eq( i ).before(
-            '<tr class="group"><td colspan="7" style="background-color:white;">'+($.datepicker.formatDate('yy mm - MM', new Date(group)))+'</td></tr>'
+            '<tr class="group"><td colspan="8" class="mois">'+($.datepicker.formatDate('yy mm - MM', new Date(group)))+'</td></tr>'
           );
 
           last = group;

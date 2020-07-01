@@ -59,6 +59,7 @@
               <th>Date UBR</th>
               <th>Date UBR</th>
               <th>Date Insertion</th>
+              <th>Customer</th>
               <th>Job</th>
               <th>UBR MRSAS</th>
               <th>UBR SubC</th>
@@ -74,6 +75,7 @@
               <th></th>
               <th></th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tfoot>
@@ -81,6 +83,7 @@
               <th>Date UBR</th>
               <th>date ubr</th>
               <th>date creation</th>
+              <th>Customer</th>
               <th>job</th>
               <th>ubr MRSAS</th>
               <th>ubr SubC</th>

@@ -307,14 +307,14 @@ foreach ($splits as $key => $value) {
 //pour le job
 if ($oInvoices->getInvoiceListJob($_GET['id_tbljob'])) {
 
-    //on ecrit l'intitulé du split
-    $page->setCellValueByColumnAndRow(1+1, $row, '0 - Others');
-    $page->getStyle('B'.$row.':D'.$row)->applyFromArray($styleSplit);
+  //on ecrit l'intitulé du split
+  $page->setCellValueByColumnAndRow(1+1, $row, '0 - Others');
+  $page->getStyle('B'.$row.':D'.$row)->applyFromArray($styleSplit);
 
-    $intituleSplit=$row;
-    $row++;
+  $intituleSplit=$row;
+  $row++;
 
-    $nbLines=0; //comptage s'il y a des invoicelines dans ce split
+  $nbLines=0; //comptage s'il y a des invoicelines dans ce split
 
   foreach ($oInvoices->getInvoiceListJob($_GET['id_tbljob']) as $invoicelines) {
 
@@ -336,12 +336,12 @@ if ($oInvoices->getInvoiceListJob($_GET['id_tbljob'])) {
   }
 
 
-    if ($nbLines>0) { //1 ligne de separation avec le split suivant
-      $row++;
-    }
-    else { //sinon on masque la ligne d'intitulé de split
-      $page->getRowDimension($intituleSplit)->setVisible(false);
-    }
+  if ($nbLines>0) { //1 ligne de separation avec le split suivant
+    $row++;
+  }
+  else { //sinon on masque la ligne d'intitulé de split
+    $page->getRowDimension($intituleSplit)->setVisible(false);
+  }
 
 }
 
@@ -353,35 +353,35 @@ if ($oInvoices->getInvoiceListJob($_GET['id_tbljob'])) {
 //partial invoice
 
 
-    //on ecrit l'intitulé du split
-    $page->setCellValueByColumnAndRow(1+1, $row, 'Partial Invoice');
-    $page->getStyle('B'.$row.':D'.$row)->applyFromArray($styleSplit);
+//on ecrit l'intitulé du split
+$page->setCellValueByColumnAndRow(1+1, $row, 'Partial Invoice');
+$page->getStyle('B'.$row.':D'.$row)->applyFromArray($styleSplit);
 
-    $intituleSplit=$row;
-    $row++;
+$intituleSplit=$row;
+$row++;
 
-    $nbLines=0; //comptage s'il y a des invoicelines dans ce split
+$nbLines=0; //comptage s'il y a des invoicelines dans ce split
 
-  foreach ($oInvoices->getAllInvoiceRecorded($split['id_tbljob']) as $inv) {
-    copyRange($page, 'A'.$rowTemplate.':G'.$rowTemplate, Coordinate::stringFromColumnIndex(1).$row);
+foreach ($oInvoices->getAllInvoiceRecorded($split['id_tbljob']) as $inv) {
+  copyRange($page, 'A'.$rowTemplate.':G'.$rowTemplate, Coordinate::stringFromColumnIndex(1).$row);
 
-      $page->setCellValueByColumnAndRow(1+0, $row, $nCode);
-    $page->setCellValueByColumnAndRow(1+1, $row, 'Invoice : '.$inv['inv_number']);
-    $page->setCellValueByColumnAndRow(1+4, $row, '1');
-    $page->setCellValueByColumnAndRow(1+5, $row, -$inv['inv_mrsas']-$inv['inv_subc']);
-    $page->setCellValueByColumnAndRow(1+6, $row, '=E'.$row.'*F'.$row);
+  $page->setCellValueByColumnAndRow(1+0, $row, $nCode);
+  $page->setCellValueByColumnAndRow(1+1, $row, 'Invoice : '.$inv['inv_number']);
+  $page->setCellValueByColumnAndRow(1+4, $row, '1');
+  $page->setCellValueByColumnAndRow(1+5, $row, -$inv['inv_mrsas']-$inv['inv_subc']);
+  $page->setCellValueByColumnAndRow(1+6, $row, '=E'.$row.'*F'.$row);
 
-    $row++;
-    $nbLines++;
-    $nCode++;
-  }
+  $row++;
+  $nbLines++;
+  $nCode++;
+}
 
-    if ($nbLines>0) { //1 ligne de separation avec le split suivant
-      $row++;
-    }
-    else { //sinon on masque la ligne d'intitulé de split
-      $page->getRowDimension($intituleSplit)->setVisible(false);
-    }
+if ($nbLines>0) { //1 ligne de separation avec le split suivant
+  $row++;
+}
+else { //sinon on masque la ligne d'intitulé de split
+  $page->getRowDimension($intituleSplit)->setVisible(false);
+}
 
 
 
@@ -432,9 +432,19 @@ $page->getPageSetup()->setPrintArea('A1:G'.$row);
 
 //si ubr, on affiche un 'résumé' des données du job
 if (isset($_GET['UBR']) AND $_GET['UBR']==1) {
-  foreach ($splits as $row) {
+
+  $UBR_inv_mrsas=0;
+  $UBR_inv_subc=0;
+  $UBR_payable=0;
+  $reached_MRSAS=0;
+  $reached_SubC=0;
+
+  $objPHPExcel->getSheetByName('Template')
+  ->setSheetState(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_VISIBLE);
+
+  foreach ($splits as $splitUBR) {
     //on recupere la liste des eprouvettes de ce split
-    $oEprouvettes = new LstEprouvettesModel($db,$row['id_tbljob']);
+    $oEprouvettes = new LstEprouvettesModel($db,$splitUBR['id_tbljob']);
     $ep=$oEprouvettes->getAllEprouvettes();
 
     //on se crée un tableau $ep[$k] des informations
@@ -445,7 +455,7 @@ if (isset($_GET['UBR']) AND $_GET['UBR']==1) {
 
     //on crée un nouvel onglet du nom du split
     $newSheet = $objPHPExcel->getSheetByName('Template')->copy();
-    $newSheet->setTitle($row['split'].'-'.$row['test_type_abbr']);
+    $newSheet->setTitle($splitUBR['split'].'-'.$splitUBR['test_type_abbr']);
     $objPHPExcel->addSheet($newSheet);
 
     $tpsSup=0;
@@ -453,12 +463,7 @@ if (isset($_GET['UBR']) AND $_GET['UBR']==1) {
     $col = 3;
     //pour chaque eprouvette, on écrit les données de celle ci
     foreach ($ep as $key => $value) {
-      //copy des styles des colonnes
-      for ($row = 5; $row <= 17; $row++) {
-        $style = $newSheet->getStyleByColumnAndRow(1+3, $row);
-        $dstCell = Coordinate::stringFromColumnIndex($col) . (string)($row);
-        $newSheet->duplicateStyle($style, $dstCell);
-      }
+
 
       $newSheet->setCellValueByColumnAndRow(1+$col, 5, $value['prefixe']);
       $newSheet->setCellValueByColumnAndRow(1+$col, 6, $value['nom_eprouvette']);
@@ -492,8 +497,54 @@ if (isset($_GET['UBR']) AND $_GET['UBR']==1) {
       }
       $col++;
     }
+
+
+    foreach ($oInvoices->getInvoiceListSplit($splitUBR['id_tbljob']) as $invoicelines) {
+      if ($splitUBR['ST']==0) {
+        $reached_MRSAS+=(($invoicelines['qteUser']!="")?$invoicelines['qteUser']:$invoicelines['qteGPM'])*$invoicelines['priceUnit'];
+      }
+      else {
+        $reached_SubC+=(($invoicelines['qteUser']!="")?$invoicelines['qteUser']:$invoicelines['qteGPM'])*$invoicelines['priceUnit'];
+      }
+    }
+
+
+
   }
+
+  foreach ($oInvoices->getInvoiceListJob($_GET['id_tbljob']) as $invoicelines) {
+    $reached_SubC+=(($invoicelines['qteUser']!="")?$invoicelines['qteUser']:$invoicelines['qteGPM'])*$invoicelines['priceUnit'];
+  }
+
+
+  foreach ($oInvoices->getAllInvoiceRecorded($splitUBR['id_tbljob']) as $inv) {
+    $UBR_inv_mrsas+=$inv['inv_mrsas'];
+    $UBR_inv_subc+=$inv['inv_subc'];
+  }
+  foreach ($oInvoices->getAllPayablesJob($splitUBR['id_tbljob']) as $payable) {
+    if ($payable['applied']!=1) {
+      $UBR_payable+=($payable['USD']>0)?$payable['USD']*$payable['taux']:$payable['HT'];
+    }
+  }
+
+
+
+
+  $UBRMRSAS = $reached_MRSAS - $UBR_inv_mrsas;
+  $UBRSUBC = $UBR_payable;
+
+
+
+  //envoi des attributs du job
+  $oInvoices->job=$split['job'];
+  $oInvoices->ubrMRSAS=$UBRMRSAS;
+  $oInvoices->ubrSubC=$UBRSUBC;
+  $oInvoices->date_creation=date("Y-m-d");
+  $oInvoices->date_ubr= date("Y-m-d", mktime(0,0,0,date("m"),30,date("Y")));
+
+  $oInvoices->addNewUBR();
 }
+
 
 
 

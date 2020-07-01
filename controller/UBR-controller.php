@@ -28,7 +28,7 @@ echo '<script>function sleep(milliseconds) {
 foreach ($invoices as $key => $value) {
   echo '
   setTimeout(function() {
-    window.open("createInvoice-controller.php?UBR=0&id_tbljob='.$value['id_tbljob'].'", "'.$value['id_tbljob'].'", "width=200, height=100");
+    window.open("createInvoice-controller.php?UBR=1&id_tbljob='.$value['id_tbljob'].'", "'.$value['id_tbljob'].'", "width=200, height=100");
     ';
   }
   foreach ($invoices as $key => $value) {

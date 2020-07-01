@@ -19,14 +19,13 @@ Editor::inst( $db, 'ubr' )
 ->pkey( 'ubr.id_ubr' )
 ->fields(
   Field::inst( 'ubr.id_ubr'),
+  Field::inst( 'info_jobs.customer'),
+  Field::inst( 'ubr.job'),
 
-  Field::inst( 'ubr.id_info_job'),
   Field::inst( 'ubr.ubrMRSAS'),
   Field::inst( 'ubr.ubrSubC'),
   Field::inst( 'ubr.date_creation'),
   Field::inst( 'ubr.date_UBR'),
-
-  Field::inst( 'info_jobs.job'),
 
   Field::inst( 'ubrold.ubrMRSAS'),
   Field::inst( 'ubrold.ubrSubC'),
@@ -34,10 +33,8 @@ Editor::inst( $db, 'ubr' )
   Field::inst( 'ubrold.date_UBR')
 )
 
-
-  ->leftJoin( 'info_jobs',     'info_jobs.id_info_job',          '=', 'ubr.id_info_job' )
-
   ->leftJoin('ubr as ubrold', 'ubrold.id_info_job=ubr.id_info_job and ubrold.id_UBR = (select u.id_ubr from ubr u where u.id_info_job=ubrold.id_info_job and u.date_UBR<ubr.date_UBR order by date_ubr desc limit 1)','','')
+  ->leftJoin('info_jobs', 'info_jobs.job', '=', 'ubr.job')
 
   ->where('ubr.date_UBR',$_POST['dateStartUBR'],'>=')
 

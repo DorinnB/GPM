@@ -18,6 +18,7 @@ DataTables\Editor\Validate;
 Editor::inst( $db, 'info_jobs' )
 ->pkey( 'info_jobs.id_info_job' )
 ->fields(
+  Field::inst( 'info_jobs.datecreation'),
   Field::inst( 'info_jobs.customer'),
   Field::inst( 'info_jobs.job'),
   Field::inst( 'info_jobs.order_val'),
@@ -62,7 +63,7 @@ Editor::inst( $db, 'info_jobs' )
 
   )
 
-  ->leftJoin('ubr', 'ubr.id_info_job=info_jobs.id_info_job and ubr.id_UBR = (select u.id_ubr from ubr u where u.id_info_job=ubr.id_info_job order by date_ubr desc limit 1)','','')
+  ->leftJoin('ubr', 'ubr.job=info_jobs.job and ubr.id_UBR = (select u.id_ubr from ubr u where u.job=ubr.job order by date_ubr desc limit 1)','','')
 
   ->where('info_jobs.invoice_type ','2','!=')
 

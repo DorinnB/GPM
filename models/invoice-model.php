@@ -456,20 +456,20 @@ class InvoiceModel
 
   public function getAllUBR($dateStartPayable) {
 
-    $req='SELECT entreprise, customer, job, invoice_currency, ubr.ubrSubC as ubrSubC, ubr.ubrMRSAS as ubrMRSAS, ubrold.ubrSubC as ubroldSubC, ubrold.ubrMRSAS as ubroldMRSAS, ubr.date_ubr as date_ubr
+    $req='SELECT entreprise, customer, info_jobs.job, invoice_currency, ubr.ubrSubC as ubrSubC, ubr.ubrMRSAS as ubrMRSAS, ubrold.ubrSubC as ubroldSubC, ubrold.ubrMRSAS as ubroldMRSAS, ubr.date_ubr as date_ubr
     FROM ubr
     LEFT JOIN info_jobs ON ubr.id_info_job=info_jobs.id_info_job
     LEFT JOIN entreprises ON entreprises.id_entreprise=info_jobs.customer
-    LEFT JOIN ubr ubrold ON ubrold.id_info_job=ubr.id_info_job AND ubrold.id_ubr=(
+    LEFT JOIN ubr ubrold ON ubrold.job=ubr.job AND ubrold.id_ubr=(
       SELECT u.id_ubr
       FROM ubr u
-      WHERE u.id_info_job=ubrold.id_info_job
+      WHERE u.job=ubrold.job
       AND u.date_UBR<ubr.date_UBR
       ORDER BY date_ubr DESC
       LIMIT 1
     )
     WHERE ubr.date_UBR>='.$this->db->quote($dateStartPayable).'
-    ORDER BY date_ubr ASC, job ASC
+    ORDER BY date_ubr ASC, info_jobs.job ASC
     ;';
 
     return $this->db->getAll($req);
@@ -486,6 +486,16 @@ class InvoiceModel
     ;';
 
     return $this->db->getAll($req);
+  }
+
+  public function addNewUBR() {
+
+    $req = 'INSERT INTO ubr
+    (job,	ubrMRSAS,	ubrSubC, date_creation,	date_ubr)
+    VALUES ('.$this->job.', '.$this->ubrMRSAS.', '.$this->ubrSubC.', '.$this->date_creation.', '.$this->date_ubr.');';
+
+    //echo $req;
+    $this->db->execute($req);
   }
 
 }

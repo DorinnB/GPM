@@ -13,8 +13,8 @@ caption {
 }
 
 .form-group input, .form-group select{
-color:black;
-border-radius: 10px;
+  color:black;
+  border-radius: 10px;
 }
 
 .dt-buttons  {
@@ -23,13 +23,13 @@ border-radius: 10px;
 
 
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-  background-color: darkgray;
+  background-color: lightblue;
 }
 .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: lightgray !important;
 }
 input,  select{
-color:black;
+  color:black;
 }
 a {
   color:black;
@@ -42,13 +42,18 @@ th  {
 }
 
 table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
-    background-color: white;
+  background-color: white;
 }
 .table-hover tbody tr.refused,.table-hover tbody td.refused {     /* attente validation */
   background-color: darkred !important;
   color:white;
 }
 .table-hover tbody tr.validated,.table-hover tbody td.validated  {     /* validé */
-  background-color: darkgreen !important;
+  background-color: lightgreen !important;
   color:black;
+}
+
+.table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+  border-left: 1px solid #44546A;
+  border-right: 1px solid #44546A;
 }

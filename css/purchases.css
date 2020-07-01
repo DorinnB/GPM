@@ -23,7 +23,7 @@ border-radius: 10px;
 
 
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-  background-color: darkgray;
+  background-color: lightblue;
 }
 .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: lightgray !important;
@@ -55,4 +55,10 @@ table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
 
 label {
   display: inline;
+}
+
+
+.table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+  border-left: 1px solid #44546A;
+  border-right: 1px solid #44546A;
 }
