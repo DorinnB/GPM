@@ -12,6 +12,7 @@ $(document).ready(function() {
     },
     table: "#table_invoices",
     fields: [
+      { label: "invoices.inv_date", name: "invoices.inv_date"},
       { label: "invoices.inv_mrsas", name: "invoices.inv_mrsas"},
       { label: "invoices.inv_subc", name: "invoices.inv_subc"},
       { label: "invoices.inv_tva", name: "invoices.inv_tva"},

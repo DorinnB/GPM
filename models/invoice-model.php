@@ -458,7 +458,7 @@ class InvoiceModel
 
     $req='SELECT entreprise, customer, info_jobs.job, invoice_currency, ubr.ubrSubC as ubrSubC, ubr.ubrMRSAS as ubrMRSAS, ubrold.ubrSubC as ubroldSubC, ubrold.ubrMRSAS as ubroldMRSAS, ubr.date_ubr as date_ubr
     FROM ubr
-    LEFT JOIN info_jobs ON ubr.id_info_job=info_jobs.id_info_job
+    LEFT JOIN info_jobs ON ubr.job=info_jobs.job
     LEFT JOIN entreprises ON entreprises.id_entreprise=info_jobs.customer
     LEFT JOIN ubr ubrold ON ubrold.job=ubr.job AND ubrold.id_ubr=(
       SELECT u.id_ubr

@@ -46,7 +46,7 @@
           <thead>
             <tr>
               <th colspan="4">Job</th>
-              <th colspan="2">PO</th>
+              <th colspan="3">PO</th>
               <th colspan="5">MRSAS</th>
               <th colspan="5">SubC</th>
             </tr>

@@ -535,12 +535,15 @@ if (isset($_GET['UBR']) AND $_GET['UBR']==1) {
 
 
 
-  //envoi des attributs du job
+  //envoi de l'UBR dans GPM
   $oInvoices->job=$split['job'];
   $oInvoices->ubrMRSAS=$UBRMRSAS;
   $oInvoices->ubrSubC=$UBRSUBC;
   $oInvoices->date_creation=date("Y-m-d");
-  $oInvoices->date_ubr= date("Y-m-d", mktime(0,0,0,date("m"),30,date("Y")));
+
+  //$oInvoices->date_ubr= date("Y-m-d", mktime(0,0,0,date("m"),30,date("Y")));  
+  $oInvoices->date_ubr= date("Y-m-d", strtotime("last day of previous month"));
+
 
   $oInvoices->addNewUBR();
 }

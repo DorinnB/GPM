@@ -167,23 +167,19 @@ $(document).ready(function() {
   } );
 
 
+     // Collapse / Expand Click Groups
+ 	$('tbody').on( 'click', 'tr.group', function () {
+         var rowsCollapse = $(this).nextUntil('.group');
+         $(rowsCollapse).toggleClass('hidden');
+     });
+
+
+
   table
   .buttons()
   .container()
   .appendTo( '#btn' );
 
-
-
-  // Order by the grouping
-  $('#table_ubr tbody').on( 'click', 'tr.group', function () {
-    var currentOrder = table.order()[0];
-    if ( currentOrder[0] === 0 && currentOrder[1] === 'asc' ) {
-      table.order( [ 0, 'desc' ] ).draw();
-    }
-    else {
-      table.order( [ 0, 'asc' ] ).draw();
-    }
-  } );
 
   // Add event listener for opening and closing details
   $('#table_ubr tbody').on('click', 'td.details-control', function () {
