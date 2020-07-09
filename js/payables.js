@@ -50,13 +50,25 @@ $(document).ready(function() {
       { label: "invoice", name: "payables.invoice"  },
       { label: "job", name: "payables.job"  },
       { label: "PO", name: "payables.purchase"  },
-      { label: "USD", name: "payables.USD"  },
-      { label: "taux", name: "payables.taux"  },
-      { label: "HT", name: "payables.HT"  },
-      { label: "TVA", name: "payables.TVA"  },
+      { label: "USD ($)", name: "payables.USD"  },
+      { label: "Taux (4 digits)", name: "payables.taux"  },
+      { label: "HT (€)", name: "payables.HT"  },
+      { label: "TVA (€)", name: "payables.TVA"  },
       { label: "date_payable", name: "payables.date_payable", type:  'datetime'},
     ]
   } );
+
+  editor.dependent( 'payables.USD', function ( val ) {
+      return val != '' ?
+          { hide: ['payables.HT'],show: ['payables.taux'] } :
+          { show: ['payables.HT'],hide: ['payables.taux'] };
+  } );
+  editor.dependent( 'payables.HT', function ( val ) {
+      return val != '' ?
+          { hide: ['payables.USD', 'payables.taux'] } :
+          { show: ['payables.USD', 'payables.taux'] };
+  } );
+
 
   // Setup - add a text input to each footer cell
   $('#table_payables tfoot th').each( function (i) {
