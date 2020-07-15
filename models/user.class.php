@@ -25,6 +25,7 @@ class USER
 
     if(isset($userRow['id_technicien']) && ($mdp == $userRow['mdp']))
     {
+      $this->log_login();
       $maReponse = array('result' => 'correct', 'id_technicien' => $userRow['id_technicien'], 'technicien' => $userRow['technicien']);
 
       if($rememberme=='true') {
@@ -63,6 +64,7 @@ class USER
 
     if(isset($userRow['id_technicien']) && ($mdp == $userRow['mdp']))
     {
+      $this->log_login();
       $maReponse = array('result' => 'correct', 'id_technicien' => $userRow['id_technicien'], 'technicien' => $userRow['technicien'], 'expiry'=>$_COOKIE['expiry']);
 
       echo json_encode($maReponse);
@@ -125,5 +127,21 @@ class USER
       return false;
     }
   }
+
+  public function log_login()  {
+
+    if (isset($_COOKIE['id_user'])) {
+      $req='INSERT INTO log_login (id_user)
+      VALUES ('.$this->db->quote($_COOKIE['id_user']).');';
+
+      $req='INSERT INTO log_login SET id_user='.$this->db->quote($_COOKIE['id_user']).', date_log=CURDATE(), login=CURRENT_TIMESTAMP, logout=CURRENT_TIMESTAMP ON DUPLICATE KEY UPDATE logout=CURRENT_TIMESTAMP, quantity=quantity+1;';
+
+
+
+    return $this->db->query($req);
+    }
+
+  }
+
 }
 ?>
