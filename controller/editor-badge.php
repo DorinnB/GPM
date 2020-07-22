@@ -15,9 +15,8 @@ DataTables\Editor\Upload,
 DataTables\Editor\Validate;
 
 // Build our Editor instance and process the data coming from _POST
-Editor::inst( $db, 'badges' )
-    ->readTable('badges') // The VIEW to read data from
-  ->pkey( 'badges.id_badge' )
+Editor::inst( $db, 'planning_users' )
+  ->pkey( 'planning_users.id_planning_user' )
   ->fields(
     Field::inst( 'badges.date'),
     Field::inst( 'badges.id_user' )
@@ -46,9 +45,11 @@ Editor::inst( $db, 'badges' )
     ),
     Field::inst( 't2.technicien'),
     Field::inst( 'ba.id_manager'),
-    Field::inst( 'badgeplanning.quantity')
+    Field::inst( 'planning_modif.quantity'),
+    Field::inst( 'planning_users.quantity')
   )
 
+  ->leftJoin( 'badges',     'badges.id_user=planning_users.id_user and badges.date=planning_users.dateplanned','','' )
   ->leftJoin( 'techniciens',     'techniciens.id_technicien',          '=', 'badges.id_user' )
   ->leftJoin( 'techniciens as t2',     't2.id_technicien',          '=', 'badges.id_validator' )
   ->leftJoin( 'badge_access as ba',     'ba.id_managed',          '=', 'badges.id_user' )
@@ -56,6 +57,7 @@ Editor::inst( $db, 'badges' )
   ->leftJoin( 'badge_hr',     'badge_hr.id_user',          '=', 'badges.id_user' )
 
 
+    ->leftJoin( 'planning_modif',     'planning_modif.id_user=planning_users.id_user and planning_modif.datemodif=planning_users.dateplanned and planning_modif.id_planning_modif in (select max(pm.id_planning_modif) from planning_modif pm where pm.id_validator>0 group by pm.id_user, pm.datemodif)','','' )
 
   ->where( function ( $q ) {
     $q->where('ba.id_manager',(isset($_COOKIE['id_user'])?$_COOKIE['id_user']:0));
