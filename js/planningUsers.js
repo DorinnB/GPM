@@ -223,5 +223,16 @@ if (table_planningModif) {
 
 
 
+    //deplacement à date du jour
+    var dateObj = new Date();
+    var month = dateObj.getUTCMonth() + 1; //months from 1-12
+    var day = dateObj.getUTCDate();
+    var year = dateObj.getUTCFullYear();
+
+    newdate = year + "-" + ('0' + month).slice(-2) + "-" + ('0' + day).slice(-2);
+    console.log(newdate);
+      date = '2020-07-23';
+      $('div.dataTables_scrollBody').scrollLeft($('#' + newdate).position().left - $(window).width() / 4);
+
 
 } );
