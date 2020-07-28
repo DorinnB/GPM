@@ -46,7 +46,10 @@ Editor::inst( $db, 'badges' )
     ),
     Field::inst( 't2.technicien'),
     Field::inst( 'ba.id_manager'),
-    Field::inst( 'badgeplanning.quantity')
+    Field::inst( 'badgeplanning.quantity'),
+
+    Field::inst( 'planning_modif.quantity'),
+Field::inst( 'planning_users.quantity')
   )
 
   ->leftJoin( 'techniciens',     'techniciens.id_technicien',          '=', 'badges.id_user' )
@@ -55,6 +58,8 @@ Editor::inst( $db, 'badges' )
   ->leftJoin( 'badgeplanning',     'badgeplanning.id_badge',          '=', 'badges.id_badge' )
   ->leftJoin( 'badge_hr',     'badge_hr.id_user',          '=', 'badges.id_user' )
 
+  ->leftJoin( 'planning_users',     'planning_users.id_user=badges.id_user and planning_users.dateplanned=badges.date','','' )
+  ->leftJoin( 'planning_modif',     'planning_modif.id_user=planning_users.id_user and planning_modif.datemodif=planning_users.dateplanned and planning_modif.id_planning_modif in (select max(pm.id_planning_modif) from planning_modif pm where pm.id_validator>0 group by pm.id_user, pm.datemodif)','','' )
 
 
   ->where( function ( $q ) {

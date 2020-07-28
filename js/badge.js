@@ -165,7 +165,7 @@ $(document).ready(function() {
           out2=new Date(data.badges.out2);
 
           //var dayhours=$('#dayhours').attr('data-value');
-          var dayhours=data.badgeplanning.quantity;
+ var dayhours=(data.planning_modif.quantity>0)?data.planning_modif.quantity:data.planning_users.quantity;
           var resthours=$('#resthours').attr('data-value');
           malus=0;
 
@@ -210,7 +210,7 @@ $(document).ready(function() {
         in2=new Date(rowData.badges.in2);
         out2=new Date(rowData.badges.out2);
 
-        var dayhours=rowData.badgeplanning.quantity;
+ var dayhours=(rowData.planning_modif.quantity>0)?rowData.planning_modif.quantity:rowData.planning_users.quantity;
         var resthours=$('#resthours').attr('data-value');
 
         if (rowData.badges.out2) {
@@ -254,7 +254,7 @@ $(document).ready(function() {
           out2=new Date(data.badges.out2);
 
           //var dayhours=$('#dayhours').attr('data-value');
-          var dayhours=data.badgeplanning.quantity;
+      var dayhours=(data.planning_modif.quantity>0)?data.planning_modif.quantity:data.planning_users.quantity;
           var resthours=$('#resthours').attr('data-value');
           malus=0;
 
@@ -296,7 +296,11 @@ $(document).ready(function() {
 
         }
       },
-      { data: "badgeplanning.quantity" },
+      { data: null,
+        render: function (data,type,row) {
+          return (row.planning_modif.quantity>0)?row.planning_modif.quantity:row.planning_users.quantity;
+        }
+      },
       { data: "badges.comments" },
       { data: "t2.technicien" }
     ],
