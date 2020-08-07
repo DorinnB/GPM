@@ -39,6 +39,11 @@
               <img type="image" src="img/backlog.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">Backlog
             </a>
           </div>
+          <div id="" class="col-md-1" style="height:100%;">
+            <a href="#" title="Accounting Files" class="btn btn-default btn-lg" data-toggle="modal" data-target="#AccountingFileModal" style="width:100%; height:100%; padding:0px; border-radius:10px;">
+              <img type="image" src="img/export.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">Excel File
+            </a>
+          </div>
         </div>
 
         <table id="table_backlog" class="table table-condensed table-striped table-hover table-bordered dataTable" cellspacing="0" width="100%">
@@ -120,13 +125,52 @@
       <script type="text/javascript" src="js/backlog.js"></script>
 
     <?php else : ?>
-    </br>
-    You are not allowed to reach this page!
-  <?php endif ?>
+      </br>
+      You are not allowed to reach this page!
+    <?php endif ?>
 
 
+  </div>
 </div>
+
+
+<!-- Modal -->
+<div id="AccountingFileModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Accounting Files Generation</h4>
+      </div>
+      <div class="modal-body">
+        <form action="controller/createInvoicablePayables-controller.php" class="form-horizontal" method="get">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="dateStart">Starting Date:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="dateStart" id="dateStart" placeholder="Starting Date">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="dateEnd">Ending Date:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="dateEnd" id="dateEnd" placeholder="Ending Date">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-default">Submit</button>
+            </div>
+          </div>
+       </form>
+      </div>
+    </div>
+
+  </div>
 </div>
+
 <?php
 require('views/login-view.php');
 ?>

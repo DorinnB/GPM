@@ -179,10 +179,10 @@ $(document).ready(function() {
     }}
   ],
   scrollY: '60vh',
+  scrollX : true,
   scrollCollapse: true,
   paging: false,
   info: true,
-  fixedColumns:   {leftColumns: 2},
   select: {
     style:    'os',
     blurable: true
@@ -226,6 +226,24 @@ $( table.table().container() ).on( 'keyup', 'tfoot input', function () {
   .search( search, true, false )
   .draw();
 } );
+
+
+
+$( "#dateStart" ).datepicker({
+  showWeek: true,
+  firstDay: 1,
+  showOtherMonths: true,
+  selectOtherMonths: true,
+  dateFormat: "yy-mm-dd"
+});
+  $( "#dateEnd" ).datepicker({
+    showWeek: true,
+    firstDay: 1,
+    showOtherMonths: true,
+    selectOtherMonths: true,
+    dateFormat: "yy-mm-dd"
+  });
+
 
 
 

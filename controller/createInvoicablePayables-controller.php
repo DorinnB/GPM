@@ -8,14 +8,17 @@ $db = new db(); // create a new object, class db()
 if (!isset($_GET['dateStart'])) {
   exit;
 }
+if (!isset($_GET['dateEnd'])) {
+  exit;
+}
 
 // Rendre votre modèle accessible
 include '../models/invoice-model.php';
 // Création d'une instance
 $oInvoices = new InvoiceModel($db);
-$payables=$oInvoices->getAllPayables($_GET['dateStart']);
-$invoicables=$oInvoices->getAllUBR($_GET['dateStart']);
-$invoices=$oInvoices->getAllInvoices($_GET['dateStart']);
+$payables=$oInvoices->getAllPayables($_GET['dateStart'],$_GET['dateEnd']);
+$invoicables=$oInvoices->getAllUBR($_GET['dateStart'],$_GET['dateEnd']);
+$invoices=$oInvoices->getAllInvoices($_GET['dateStart'],$_GET['dateEnd']);
 
 $date=date("Y-m-d H-i-s");
 
@@ -358,7 +361,7 @@ $startMonth=($startMonth==$row)?$row-1:$startMonth;
 
 $page5->getPageSetup()->setPrintArea('A1:I'.$row);
 
-
+$objPHPExcel->setActiveSheetIndex(0);
 
 
 $objWriter = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($objPHPExcel, 'Xlsx');

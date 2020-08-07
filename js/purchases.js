@@ -211,6 +211,27 @@ $( table.table().container() ).on( 'keyup', 'tfoot input', function () {
 
 
 
+
+$( "#dateStart" ).datepicker({
+  showWeek: true,
+  firstDay: 1,
+  showOtherMonths: true,
+  selectOtherMonths: true,
+  dateFormat: "yy-mm-dd"
+});
+  $( "#dateEnd" ).datepicker({
+    showWeek: true,
+    firstDay: 1,
+    showOtherMonths: true,
+    selectOtherMonths: true,
+    dateFormat: "yy-mm-dd"
+  });
+
+
+
+
+
+
 } );
 
 

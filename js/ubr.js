@@ -88,7 +88,7 @@ $(document).ready(function() {
       className: "sum",
       render: function ( data, type, row ) {
         if (data>0 || data <0) {
-          return '$'+data.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €';
+          return data.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €';
         }
         else {
           return '';
@@ -98,7 +98,7 @@ $(document).ready(function() {
       className: "sum",
       render: function ( data, type, row ) {
         if (data>0 || data <0) {
-          return '$'+data.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €';
+          return data.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €';
         }
         else {
           return '';
@@ -220,6 +220,23 @@ $(document).ready(function() {
     .search( search, true, false )
     .draw();
   } );
+
+
+  $( "#dateStart" ).datepicker({
+    showWeek: true,
+    firstDay: 1,
+    showOtherMonths: true,
+    selectOtherMonths: true,
+    dateFormat: "yy-mm-dd"
+  });
+    $( "#dateEnd" ).datepicker({
+      showWeek: true,
+      firstDay: 1,
+      showOtherMonths: true,
+      selectOtherMonths: true,
+      dateFormat: "yy-mm-dd"
+    });
+
 
 
 } );

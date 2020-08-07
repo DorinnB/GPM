@@ -33,7 +33,7 @@ Editor::inst( $db, 'ubr' )
   Field::inst( 'ubrold.date_UBR')
 )
 
-  ->leftJoin('ubr as ubrold', 'ubrold.id_info_job=ubr.id_info_job and ubrold.id_UBR = (select u.id_ubr from ubr u where u.id_info_job=ubrold.id_info_job and u.date_UBR<ubr.date_UBR order by date_ubr desc limit 1)','','')
+  ->leftJoin('ubr as ubrold', 'ubrold.job=ubr.job and ubrold.id_UBR = (select u.id_ubr from ubr u where u.job=ubrold.job and u.date_UBR<ubr.date_UBR order by date_ubr desc limit 1)','','')
   ->leftJoin('info_jobs', 'info_jobs.job', '=', 'ubr.job')
 
   ->where('ubr.date_UBR',$_POST['dateStartUBR'],'>=')
