@@ -49,23 +49,23 @@ $jobcomplet= $split['customer'].'-'.$split['job'];
 
 //adresse
 $i=0;
-if (isset($split['departement'])) {
+if (isset($split['departement']) AND $split['departement']!="") {
   $adresse[$i]='departement';
   $i++;
 }
-if (isset($split['rue1'])) {
+if (isset($split['rue1']) AND $split['rue1']!="") {
   $adresse[$i]='rue1';
   $i++;
 }
-if (isset($split['rue2'])) {
+if (isset($split['rue2']) AND $split['rue2']!="") {
   $adresse[$i]='rue2';
   $i++;
 }
-if (isset($split['ville'])) {
+if (isset($split['ville']) AND $split['ville']!="") {
   $adresse[$i]='ville';
   $i++;
 }
-if (isset($split['pays'])) {
+if (isset($split['pays']) AND $split['pays']!="") {
   $adresse[$i]='pays';
   $i++;
 }
