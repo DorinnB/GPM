@@ -49,7 +49,7 @@ Editor::inst( $db, 'badges' )
     Field::inst( 'badgeplanning.quantity'),
 
     Field::inst( 'planning_modif.quantity'),
-Field::inst( 'planning_users.quantity')
+    Field::inst( 'planning_users.quantity')
   )
 
   ->leftJoin( 'techniciens',     'techniciens.id_technicien',          '=', 'badges.id_user' )
