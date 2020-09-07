@@ -31,7 +31,7 @@ if (isset($_POST['id_machine'])){
       <label>Machine : </label>
       <SELECT  name="id_machine">
         <option value="0">-</option>
-        <?php for ($i=1; $i < 30; $i++): ?>
+        <?php for ($i=1; $i < 35; $i++): ?>
           <option value="<?= $i  ?>"><?= $i?></option>
         <?php endfor ?>
       </select>
