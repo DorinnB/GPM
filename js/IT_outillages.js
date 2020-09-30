@@ -46,7 +46,8 @@ $(document).ready(function() {
                 type:  "radio",
                 options: [
                     { label: "No", value: 0 },
-                    { label: "Yes",  value: 1 }
+                    { label: "Yes",  value: 1 },
+                    { label: "Machining",  value: 2 }
                 ],
                 def: 0
             }
