@@ -159,11 +159,12 @@ foreach ($payables as $key => $value) {
   $page->setCellValueByColumnAndRow(1+1, $row, $value['date_due']);
   $page->setCellValueByColumnAndRow(1+2, $row, $value['date_invoice']);
   $page->setCellValueByColumnAndRow(1+3, $row, $value['invoice']);
-  $page->setCellValueByColumnAndRow(1+4, $row, $value['TVA']);
-  $page->setCellValueByColumnAndRow(1+5, $row, (($value['USD']>0)?$value['USD']*$value['taux']:$value['HT'])+$value['TVA']);
-  $page->setCellValueByColumnAndRow(1+6, $row, $value['date_payable']);
-  $page->setCellValueByColumnAndRow(1+7, $row, '');
-  $page->setCellValueByColumnAndRow(1+8, $row, $value['payable_list']);
+  $page->setCellValueByColumnAndRow(1+4, $row, (($value['USD']>0)?$value['USD']*$value['taux']:$value['HT'])+$value['TVA']-$value['TVA']);
+  $page->setCellValueByColumnAndRow(1+5, $row, $value['TVA']);
+  $page->setCellValueByColumnAndRow(1+6, $row, (($value['USD']>0)?$value['USD']*$value['taux']:$value['HT'])+$value['TVA']);
+  $page->setCellValueByColumnAndRow(1+7, $row, $value['date_payable']);
+  $page->setCellValueByColumnAndRow(1+8, $row, '');
+  $page->setCellValueByColumnAndRow(1+9, $row, $value['payable_list']);
   $row++;
 
   if (!isset($payables[$key+1]) OR date("m",strtotime($payables[$key]['date_invoice']))!=date("m",strtotime($payables[$key+1]['date_invoice']))) {
@@ -171,10 +172,11 @@ foreach ($payables as $key => $value) {
     $page->setCellValueByColumnAndRow(1+3, $row, date("F",strtotime($value['date_invoice'])).' Payables');
     $page->setCellValueByColumnAndRow(1+4, $row, '=sum(E'.$startMonth.':E'.($row-1).')');
     $page->setCellValueByColumnAndRow(1+5, $row, '=sum(F'.$startMonth.':F'.($row-1).')');
+    $page->setCellValueByColumnAndRow(1+6, $row, '=sum(G'.$startMonth.':G'.($row-1).')');
 
-    $page->getStyle('A'.$row.':I'.$row)->applyFromArray($styleGras);
+    $page->getStyle('A'.$row.':J'.$row)->applyFromArray($styleGras);
     $row++;
-    $page->getStyle('A'.$row.':I'.$row)->applyFromArray($styleColor);
+    $page->getStyle('A'.$row.':J'.$row)->applyFromArray($styleColor);
     $row++;
     $startMonth=$row;
   }
@@ -199,10 +201,10 @@ foreach ($invoicables as $key => $value) {
   $page2->setCellValueByColumnAndRow(1+2, $row, $value['job']);
   $page2->setCellValueByColumnAndRow(1+3, $row, ($value['invoice_currency']==1)?$value['ubrSubC']+$value['ubrMRSAS']:'');
   $page2->setCellValueByColumnAndRow(1+4, $row, '');
-  $page2->setCellValueByColumnAndRow(1+5, $row, ($value['invoice_currency']==1)?'=D'.$row.'+E'.$row:'');
+  $page2->setCellValueByColumnAndRow(1+5, $row, ($value['invoice_currency']==1)?'=D'.$row:'');
   $page2->setCellValueByColumnAndRow(1+6, $row, ($value['invoice_currency']==0)?$value['ubrSubC']+$value['ubrMRSAS']:'');
   $page2->setCellValueByColumnAndRow(1+7, $row, '');
-  $page2->setCellValueByColumnAndRow(1+8, $row, ($value['invoice_currency']==0)?'=G'.$row.'+H'.$row:'');
+  $page2->setCellValueByColumnAndRow(1+8, $row, ($value['invoice_currency']==0)?'=G'.$row:'');
   $page2->setCellValueByColumnAndRow(1+9, $row, ($value['invoice_currency']==0)?$value['ubroldSubC']+$value['ubroldMRSAS']:'');
   $page2->setCellValueByColumnAndRow(1+10, $row, ($value['invoice_currency']==1)?$value['ubroldSubC']+$value['ubroldMRSAS']:'');
   //$page2->setCellValueByColumnAndRow(1+11, $row, $value['date_ubr']);
@@ -247,7 +249,7 @@ foreach ($invoices as $key => $value) {
   $page3->setCellValueByColumnAndRow(1+1, $row, $value['customer'].'-'.$value['job']);
   $page3->setCellValueByColumnAndRow(1+2, $row, $value['inv_number']);
   $page3->setCellValueByColumnAndRow(1+3, $row, $value['inv_date']);
-  $page3->setCellValueByColumnAndRow(1+4, $row, '=D'.$row.'+45');
+  $page3->setCellValueByColumnAndRow(1+4, $row, date('Y-m-d', strtotime($value['inv_date']. ' + 45 days')));
   $page3->setCellValueByColumnAndRow(1+5, $row, ($value['invoice_currency']==1)?$value['inv_subc']+$value['inv_mrsas']:'');
   $page3->setCellValueByColumnAndRow(1+6, $row, ($value['invoice_currency']==1)?$value['inv_TVA']:'');
   $page3->setCellValueByColumnAndRow(1+7, $row, ($value['invoice_currency']==1)?'=F'.$row.'+G'.$row:'');
@@ -258,8 +260,9 @@ foreach ($invoices as $key => $value) {
   $page3->setCellValueByColumnAndRow(1+12, $row, ($value['invoice_currency']==0)?$value['inv_TVA']:'');
   $page3->setCellValueByColumnAndRow(1+13, $row, ($value['invoice_currency']==0)?'=L'.$row.'+M'.$row:'');
   $page3->setCellValueByColumnAndRow(1+14, $row, $value['datepayement']);
-  $page3->setCellValueByColumnAndRow(1+15, $row, (!isset($value['datepayement']))?'=I'.$row.'+J'.$row.'+L'.$row.'+M'.$row:'0');
+  $page3->setCellValueByColumnAndRow(1+15, $row, (!isset($value['datepayement']))?(($value['invoice_currency']==0)?'=N'.$row:'=K'.$row):'0');
   $row++;
+
 
   if (!isset($invoices[$key+1]) OR date("m",strtotime($invoices[$key]['inv_date']))!=date("m",strtotime($invoices[$key+1]['inv_date']))) {
     $page3->setCellValueByColumnAndRow(1+0, $row, date("F",strtotime($value['inv_date'])).' Sales');
