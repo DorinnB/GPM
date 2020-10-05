@@ -7,7 +7,8 @@ $(document).ready(function() {
   editor = new $.fn.dataTable.Editor( {
     ajax: {
       url : "controller/editor-backlog.php",
-      type: "POST"
+      type: "POST",
+      data: {"dateStartBacklog" : $('#dateStartBacklog').text()}
     },
     table: "#table_backlog",
     fields: [
@@ -29,7 +30,8 @@ $(document).ready(function() {
     dom: "rtip",
     ajax: {
       url : "controller/editor-backlog.php",
-      type: "POST"
+      type: "POST",
+      data: {"dateStartBacklog" : $('#dateStartBacklog').text()}
     },
     order: [ 3, "asc" ],
     columns: [
@@ -42,6 +44,9 @@ $(document).ready(function() {
       render: function ( data, type, row ) {
         if (data==0) {
           return "UBR";
+        }
+        else if (data==2) {
+          return "INV.";
         }
         else {
           return 'PART.';
@@ -178,7 +183,7 @@ $(document).ready(function() {
       }
     }}
   ],
-  scrollY: '60vh',
+  scrollY: '55vh',
   scrollX : true,
   scrollCollapse: true,
   paging: false,
@@ -207,6 +212,13 @@ $(document).ready(function() {
     });
   }
 });
+
+
+
+  table
+  .column( '1' )
+  .search( 'R' )
+  .draw();
 
 
 

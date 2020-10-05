@@ -5,7 +5,13 @@
   <div class="container-fluid">
     <?php if($user->is_accounting()) : ?>
 
-      <div style="display:none;" id="dateStartUBR"><?= $_GET['dateStartUBR'] ?></div>
+      <?php
+      if (!isset($_GET['dateStartBacklog'])) {
+        echo "<script type='text/javascript'>document.location.replace('index.php?page=backlog&dateStartBacklog=".date('Y-m-d',strtotime('first day of january'))."');</script>";
+      }
+      ?>
+      <div style="display:none;" id="dateStartBacklog"><?= $_GET['dateStartBacklog'] ?></div>
+
 
       <link href="css/ubr.css" rel="stylesheet">
 
@@ -47,7 +53,7 @@
         </div>
 
         <table id="table_backlog" class="table table-condensed table-striped table-hover table-bordered dataTable" cellspacing="0" width="100%">
-          <caption>BACKLOG LIST</caption>
+          <caption><acronym title="Default Filter on INV = R">BACKLOG LIST</acronym></caption>
           <thead>
             <tr>
               <th colspan="4">Job</th>

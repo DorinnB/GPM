@@ -65,7 +65,8 @@ Editor::inst( $db, 'info_jobs' )
 
   ->leftJoin('ubr', 'ubr.job=info_jobs.job and ubr.id_UBR = (select u.id_ubr from ubr u where u.job=ubr.job order by date_ubr desc limit 1)','','')
 
-  ->where('info_jobs.invoice_type ','2','!=')
+
+  ->where('info_jobs.datecreation',$_POST['dateStartBacklog'],'>=')
 
   ->process($_POST)
   ->json();
