@@ -49,7 +49,7 @@ $(document).ready(function() {
     fields: [
       { label: "date_UBR (please write last day of a month)", name: "ubr.date_UBR" , type:  'datetime' },
       { label: "date_creation", name: "ubr.date_creation" , type:  'datetime',   def:   function () { return new Date(); } },
-      { label: "Info_Job", name: "ubr.job"},
+      { label: "Job", name: "ubr.job"},
       { label: "UBR MRSAS", name: "ubr.ubrMRSAS"  },
       { label: "UBR SubC", name: "ubr.ubrSubC"}
     ]
