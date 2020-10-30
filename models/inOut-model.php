@@ -295,7 +295,6 @@ class INOUT
     WHERE rawdatatobesent=1
     AND info_job_actif=1
     AND tbljob_actif=1
-    AND invoice_type!=2
     AND etape != 100
     GROUP BY id_tbljob
     ORDER BY job DESC, split ASC
@@ -313,7 +312,6 @@ class INOUT
     AND split > 0
     AND info_job_actif=1
     AND tbljob_actif=1
-    AND invoice_type!=2
     AND etape != 100
     ORDER BY job DESC, split ASC
     ';
@@ -331,7 +329,6 @@ class INOUT
     AND ST=1
     AND info_job_actif=1
     AND tbljob_actif=1
-    AND invoice_type!=2
     AND etape != 100
     ORDER BY job DESC, split ASC
     ';
@@ -349,7 +346,6 @@ class INOUT
     AND final=1 AND ST=0
     AND info_job_actif=1
     AND tbljob_actif=1
-    AND invoice_type!=2
     AND etape != 100
     ORDER BY job DESC, split ASC
     ';
