@@ -31,6 +31,11 @@
             </a>
           </div>
           <div id="" class="col-md-1" style="height:100%;">
+            <a href="index.php?page=quotations" title="Quotations" class="btn btn-link btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
+              <img type="image" src="img/quotation.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">Invoice
+            </a>
+          </div>
+          <div id="" class="col-md-1" style="height:100%;">
             <a href="index.php?page=UBR" title="UBR" class="btn btn-link btn-lg"style="width:100%; height:100%; padding:0px; border-radius:10px;">
               <img type="image" src="img/ubr.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">UBR
             </a>
@@ -52,19 +57,21 @@
           </div>
         </div>
 
-        <table id="table_quotations" class="table table-condensed table-striped nowrap table-hover table-bordered dataTable" cellspacing="0" width="100%">
+        <table id="table_quotations" class="table table-condensed table-striped nowrap table-hover table-bordered dataTable">
           <caption>QUOTATIONS LIST</caption>
           <thead>
             <tr>
-              <th><acronym title="Quotation">Quotation</acronym></th>
-              <th><acronym title="Customer Number">Cust.</acronym></th>
+              <th><acronym title="Quotation ID">ID</acronym></th>
               <th><acronym title="Customer">Cust.</acronym></th>
               <th><acronym title="Customer Contact">Contact</acronym></th>
               <th><acronym title="MRSAS Contact">MRSAS</acronym></th>
               <th><acronym title="Date">Date</acronym></th>
+              <th><acronym title="Estimated">Estimated</acronym></th>
+              <th><acronym title="Associated Job ">Job</acronym></th>
               <th><acronym title="State 0 = Cancelled, 1 = Created, 2 = Accepted">State</acronym></th>
             </tr>
             <tr>
+              <th></th>
               <th></th>
               <th></th>
               <th></th>
@@ -76,6 +83,7 @@
           </thead>
           <tfoot>
             <tr>
+              <th></th>
               <th></th>
               <th></th>
               <th></th>

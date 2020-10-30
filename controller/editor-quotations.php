@@ -50,14 +50,18 @@ Editor::inst( $db, 'quotations' )
   Field::inst( 'techniciens.technicien'),
 
   Field::inst( 'quotations.quotation_date'),
+  Field::inst( 'quotations.quotation_estimated'),
+  Field::inst( 'info_jobs.id_info_job'),
+  Field::inst( 'info_jobs.job'),
   Field::inst( 'quotations.quotation_actif')
   )
 
   ->leftJoin( 'entreprises',     'entreprises.id_entreprise',          '=', 'quotations.id_customer' )
   ->leftJoin( 'contacts',     'contacts.id_contact',          '=', 'quotations.id_contact' )
-
   ->leftJoin( 'techniciens',     'techniciens.id_technicien',          '=', 'quotations.id_user' )
+  ->leftJoin( 'info_jobs',     'info_jobs.devis=concat("D",quotations.id_quotation)','','' )
 
+  ->where('quotations.quotation_date',$_POST['dateStartQuotation'],'>=')
 
   ->process($_POST)
   ->json();
