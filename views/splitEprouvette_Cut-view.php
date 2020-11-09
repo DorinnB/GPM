@@ -39,7 +39,7 @@
 
     <tbody>
       <?php for($k=0;$k < count($ep);$k++): ?>
-        <tr>
+        <tr class="chartTR <?= (isset($ep[$k]['priority']) and $ep[$k]['priority']==0)?"priority0":"" ?>">
           <td><?= $ep[$k]['id_master_eprouvette'] ?></td>
           <td class="dispo open-GestionEp selectable" data-id="<?= $ep[$k]['id_eprouvette'] ?>" data-dispo="<?= $ep[$k]['dispo'] ?>"><acronym title="<?= $ep[$k]['dispoText'] ?>"><?= $ep[$k]['dispo'] ?></acronym></td>
           <td><?= $ep[$k]['prefixe'] ?></td>

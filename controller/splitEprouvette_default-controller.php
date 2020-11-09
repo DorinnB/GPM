@@ -391,7 +391,7 @@ else {
 
 
   //gestion priority test & specimen
-  $classpriority=($ep[$k]['priority']>0)?'':$classpriority;
+  $classpriority=(isset($ep[$k]['priority']))?'':$classpriority;
 }
 
 $classSTL="hidden";

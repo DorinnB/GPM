@@ -85,7 +85,7 @@ $(document).ready(function() {
         "searchable": false
       },
       {
-        targets: 14,
+        targets: 16,
         createdCell: function (td, cellData, rowData, row, col) {
           if ( cellData < 0 ) {
             $(td).css('background-color', 'darkred');
