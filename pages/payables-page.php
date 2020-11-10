@@ -30,14 +30,14 @@
             </a>
           </div>
           <div id="" class="col-md-1" style="height:100%;">
-            <a href="index.php?page=UBR" title="UBR" class="btn btn-link btn-lg"style="width:100%; height:100%; padding:0px; border-radius:10px;">
-              <img type="image" src="img/ubr.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">UBR
-            </a>
-          </div>
-          <div id="" class="col-md-1" style="height:100%;">
             <a href="index.php?page=quotations" title="Quotations" class="btn btn-link btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
               <img type="image" src="img/WIP.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">Invoice
             </a>
+            <div id="" class="col-md-1" style="height:100%;">
+              <a href="index.php?page=UBR" title="UBR" class="btn btn-link btn-lg"style="width:100%; height:100%; padding:0px; border-radius:10px;">
+                <img type="image" src="img/ubr.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">UBR
+              </a>
+            </div>
           </div>
           <div id="" class="col-md-1" style="height:100%;">
             <a href="index.php?page=invoices" title="Invoices" class="btn btn-link btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
@@ -167,7 +167,7 @@
               <button type="submit" class="btn btn-default">Submit</button>
             </div>
           </div>
-       </form>
+        </form>
       </div>
     </div>
 

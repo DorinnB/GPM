@@ -37,7 +37,18 @@ $(document).ready(function() {
         { label: 'Accept',  value: iduser },
         { label: 'Undecided', value: 0 },
         { label: 'Refused', value: -iduser }
-      ]},
+      ]}
+    ]
+  } );
+
+  editorPo = new $.fn.dataTable.Editor( {
+    ajax: {
+      url : "controller/editor-purchases.php",
+      type: "POST",
+      data: {"dateStartPurchase" : $('#dateStartPurchase').text()}
+    },
+    table: "#table_purchases",
+    fields: [
       { label: "PO Number", name: "purchases.generate",
       type:  'radio',
       options: [
@@ -190,8 +201,11 @@ table.columns.adjust().draw();
 // Activate the bubble editor on click of a table cell
 $('#table_purchases').on( 'click', 'tbody td:not(:first-child)', function (e) {
   var index = $(this).index();
-  if (index == 9 || index == 10 || index == 11) {
+  if (index == 9) {
     editorValid.bubble( this );
+  }
+  else if (index == 10 || index == 11) {
+    editorPo.bubble( this );
   }
 } );
 
