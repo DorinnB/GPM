@@ -17,7 +17,7 @@ $(document).ready(function() {
       { label: "SubC", name: "invoices.inv_subc"},
       { label: "TVA", name: "invoices.inv_tva"},
       { label: "USDRate if applicable", name: "invoices.USDRate"},
-      { label: "Payement date", name: "invoices.datepayement", type:  'datetime'}
+      { label: "Payment date", name: "invoices.datepayement", type:  'datetime'}
     ]
   } );
 

@@ -14,6 +14,7 @@
         <th><?= $split['cons2'] ?></th>
         <th><acronym title="StepCase Consigne">S+ C</acronym></th>
         <th><acronym title="Step">S+ S</acronym></th>
+        <th><acronym title="Staircase">Stair</acronym></th>
         <th><acronym title="Minimum Requirement">Cy Min</acronym></th>
         <th>Runout</th>
         <th><acronym title="Estimated Cycle">Cy Est.</acronym></th>
@@ -36,6 +37,7 @@
         <th><?= $split['cons2'] ?></th>
         <th><acronym title="StepCase Consigne">S+ C</acronym></th>
         <th><acronym title="Step">S+ S</acronym></th>
+        <th><acronym title="Staircase">Stair</acronym></th>
         <th><acronym title="Minimum Requirement">Cy Min</acronym></th>
         <th>Runout</th>
         <th><acronym title="Estimated Cycle">Cy Est.</acronym></th>

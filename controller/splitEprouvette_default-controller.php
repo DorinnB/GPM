@@ -385,7 +385,7 @@ else {
 
   //detection des STL
   $nbSTL+=($ep[$k]['c_cycle_STL']!='')?1:0;
-  //detection des StepCases
+  //detection des StepCases & Staircase
   $nbStepcase+=($ep[$k]['stepcase_val']!='')?1:0;
 
 
@@ -410,6 +410,8 @@ if ($nbStepcase>0) {
   </script>
   ';
 }
+
+$classStaircase=($split['staircase']>0)?"":"hidden";
 
 
 include $splitEp_View;
