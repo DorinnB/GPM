@@ -93,9 +93,9 @@ class InfoJob
   public function copyTbljobs($old_id_tbljob) {
 
     $req = 'INSERT INTO tbljobs
-    (id_info_job, phase, split, id_contactST, specification, id_type_essai, c_1, c_2, c_unite, tbljob_frequence, waveform, id_rawData, GE, comments, special_instruction, specific_protocol, staircase, other_1, other_2, other_3, other_4, other_5, tbljob_commentaire, tbljob_instruction, tbljob_actif)
+    (id_info_job, phase, split, id_contactST, specification, id_type_essai, c_1, c_2, c_unite, tbljob_frequence, waveform, id_rawData, GE, comments, special_instruction, specific_protocol, staircase, rawdatatobesent, other_1, other_2, other_3, other_4, other_5, tbljob_commentaire, tbljob_instruction, tbljob_actif)
     SELECT
-    '.$this->newIdInfoJob.', phase, split, id_contactST, specification, id_type_essai, c_1, c_2, c_unite, tbljob_frequence, waveform, id_rawData, GE, comments, special_instruction, specific_protocol, staircase, other_1, other_2, other_3, other_4, other_5, tbljob_commentaire, tbljob_instruction, tbljob_actif
+    '.$this->newIdInfoJob.', phase, split, id_contactST, specification, id_type_essai, c_1, c_2, c_unite, tbljob_frequence, waveform, id_rawData, GE, comments, special_instruction, specific_protocol, staircase, rawdatatobesent, other_1, other_2, other_3, other_4, other_5, tbljob_commentaire, tbljob_instruction, tbljob_actif
     FROM tbljobs
     WHERE id_tbljob='.$old_id_tbljob;
 
