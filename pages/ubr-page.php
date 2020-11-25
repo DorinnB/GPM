@@ -57,7 +57,7 @@
           </div>
         </div>
 
-        <table id="table_ubr" class="table table-condensed table-striped table-hover table-bordered dataTable" cellspacing="0" width="100%">
+        <table id="table_ubr" class="table table-condensed table-striped nowrap table-hover table-bordered dataTable">
           <caption>UBR LIST</caption>
           <thead>
             <tr>

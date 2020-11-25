@@ -12,15 +12,15 @@ function format ( d ) {
   '</tr>'+
   '<tr>'+
   '<td>MRSAS</td>'+
-  '<td>'+d.ubrold.ubrMRSAS+'</td>'+
-  '<td>'+d.ubr.ubrMRSAS+'</td>'+
-  '<td>'+(d.ubr.ubrMRSAS-d.ubrold.ubrMRSAS)+'</td>'+
+  '<td>'+(isNaN(d.ubrold.ubrMRSAS)?d.ubrold.ubrMRSAS.toFixed(2):d.ubrold.ubrMRSAS)+'</td>'+
+  '<td>'+(isNaN(d.ubr.ubrMRSAS)?d.ubr.ubrMRSAS.toFixed(2):d.ubr.ubrMRSAS)+'</td>'+
+  '<td>'+(isNaN(d.ubr.ubrMRSAS-d.ubrold.ubrMRSAS)?(d.ubr.ubrMRSAS-d.ubrold.ubrMRSAS).toFixed(2):(d.ubr.ubrMRSAS-d.ubrold.ubrMRSAS))+'</td>'+
   '</tr>'+
   '<tr>'+
   '<td>SubC</td>'+
-  '<td>'+d.ubrold.ubrSubC+'</td>'+
-  '<td>'+d.ubr.ubrSubC+'</td>'+
-  '<td>'+(d.ubr.ubrSubC-d.ubrold.ubrSubC)+'</td>'+
+  '<td>'+(isNaN(d.ubrold.ubrSubC)?d.ubrold.ubrSubC.toFixed(2):d.ubrold.ubrSubC)+'</td>'+
+  '<td>'+(isNaN(d.ubr.ubrSubC)?d.ubr.ubrSubC.toFixed(2):d.ubr.ubrSubC)+'</td>'+
+  '<td>'+(isNaN(d.ubr.ubrSubC-d.ubrold.ubrSubC)?(d.ubr.ubrSubC-d.ubrold.ubrSubC).toFixed(2):(d.ubr.ubrSubC-d.ubrold.ubrSubC))+'</td>'+
   '</tr>'+
   '<tr>'+
   '<td>TOTAL</td>'+
@@ -41,7 +41,7 @@ $(document).ready(function() {
 
   editor = new $.fn.dataTable.Editor( {
     ajax: {
-      url : "controller/editor-ubr.php",
+      url : "controller/editor-ubr2.php",
       type: "POST",
       data: {"dateStartUBR" : $('#dateStartUBR').text()}
     },
@@ -66,44 +66,57 @@ $(document).ready(function() {
   var table = $('#table_ubr').DataTable( {
     dom: "Brtip",
     ajax: {
-      url : "controller/editor-ubr.php",
+      url : "controller/editor-ubr2.php",
       type: "POST",
       data: {"dateStartUBR" : $('#dateStartUBR').text()}
     },
-    order: [[0,"desc"],[2,"asc"]],
+    order: [1,"desc"],
     columns: [
-      { data: "ubr.date_UBR"},
-      { data: "ubr.date_UBR",
-      render: function ( data, type, row ) {
-        return ($.datepicker.formatDate('yy-mm - MM', new Date(data)));
-
-      } },
-      { data: "ubr.date_creation"  },
       { data: "info_jobs.customer"  },
-      { data: "ubr.job",
+      { data: "info_jobs.job",
       render: function ( data, type, row ) {
         return '<a href="index.php?page=invoiceJob&job='+data+'">'+data+'</a>';
       } },
-      { data: "ubr.ubrMRSAS",
-      className: "sum",
+      { data: "info_jobs.datecreation",
       render: function ( data, type, row ) {
-        if (data>0 || data <0) {
-          return data.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €';
+        return ($.datepicker.formatDate('yy-mm', new Date(data)));
+
+      } },
+      { data: null,
+        render: function ( data, type, row ) {
+
+dateEndMonth=$('#dateStartUBR').text()
+var date = new Date(dateEndMonth);
+var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+var lastDay = new Date(date.getFullYear(), date.getMonth()+1, 0);
+
+
+
+          if (!isNaN(parseFloat(data.ubr.ubrMRSAS)+parseFloat(data.ubr.ubrSubC)) || data.info_jobs.invoice_type==1) {
+            return 'UBR';
+          }
+          else if (data.info_jobs.invoice_type==2) {
+            return 'INV';
+          }
+        /*
+          else if (new Date(data.info_jobs.datecreation)>firstDay && new Date(data.info_jobs.datecreation)<lastDay) {
+            return 'NEW'
+          }
+          else {
+            return '???';
+          }
+          */
+          else {
+            return 'Error'
+          }
         }
-        else {
-          return '';
+      },
+      { data: null,
+        className: "sum",
+        render: function ( data, type, row ) {
+          return (parseFloat(data.ubrold.ubrMRSAS)+parseFloat(data.ubrold.ubrSubC)).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €';
         }
-      }  },
-      { data: "ubr.ubrSubC",
-      className: "sum",
-      render: function ( data, type, row ) {
-        if (data>0 || data <0) {
-          return data.replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €';
-        }
-        else {
-          return '';
-        }
-      }  },
+      },
       { data: null,
         className: "sum",
         render: function ( data, type, row ) {
@@ -127,11 +140,6 @@ $(document).ready(function() {
       style:    'os',
       blurable: true
     },
-    buttons: [
-      { extend: "create", editor: editor },
-      { extend: "edit",   editor: editor },
-      { extend: "remove", editor: editor }
-    ],
     headerCallback: function ( row, data, start, end, display ) {
       var api = this.api();
 
@@ -146,33 +154,15 @@ $(document).ready(function() {
         }, 0);
         $(this.header()).html(sum.toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €');
       });
-    },
-    columnDefs: [
-      { "visible": false, "targets": 0 }
-    ],
-    drawCallback: function ( settings ) {
-      var api = this.api();
-      var rows = api.rows( {page:'current'} ).nodes();
-      var last=null;
-
-      api.column(0, {page:'current'} ).data().each( function ( group, i ) {
-        if ( last !== group ) {
-          $(rows).eq( i ).before(
-            '<tr class="group"><td colspan="8" class="mois">'+($.datepicker.formatDate('yy mm - MM', new Date(group)))+'</td></tr>'
-          );
-
-          last = group;
-        }
-      } );
     }
   } );
 
 
-     // Collapse / Expand Click Groups
- 	$('tbody').on( 'click', 'tr.group', function () {
-         var rowsCollapse = $(this).nextUntil('.group');
-         $(rowsCollapse).toggleClass('hidden');
-     });
+  // Collapse / Expand Click Groups
+  $('tbody').on( 'click', 'tr.group', function () {
+    var rowsCollapse = $(this).nextUntil('.group');
+    $(rowsCollapse).toggleClass('hidden');
+  });
 
 
 
@@ -230,13 +220,13 @@ $(document).ready(function() {
     selectOtherMonths: true,
     dateFormat: "yy-mm-dd"
   });
-    $( "#dateEnd" ).datepicker({
-      showWeek: true,
-      firstDay: 1,
-      showOtherMonths: true,
-      selectOtherMonths: true,
-      dateFormat: "yy-mm-dd"
-    });
+  $( "#dateEnd" ).datepicker({
+    showWeek: true,
+    firstDay: 1,
+    showOtherMonths: true,
+    selectOtherMonths: true,
+    dateFormat: "yy-mm-dd"
+  });
 
 
 

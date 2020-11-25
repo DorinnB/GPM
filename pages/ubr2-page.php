@@ -6,14 +6,14 @@
     <?php if($user->is_accounting()) : ?>
 
       <?php
-      if (!isset($_GET['dateStartInvoice'])) {
-        echo "<script type='text/javascript'>document.location.replace('index.php?page=invoices&dateStartInvoice=".date('Y-m-d',strtotime('first day of january'))."');</script>";
+      if (!isset($_GET['dateStartUBR'])) {
+        echo "<script type='text/javascript'>document.location.replace('index.php?page=ubr2&dateStartUBR=".date('Y-m-d',strtotime('last day of previous month'))."');</script>";
       }
       ?>
-      <div style="display:none;" id="dateStartInvoice"><?= $_GET['dateStartInvoice'] ?></div>
 
+      <div style="display:none;" id="dateStartUBR"><?= $_GET['dateStartUBR'] ?></div>
 
-      <link href="css/payables.css" rel="stylesheet">
+      <link href="css/ubr.css" rel="stylesheet">
 
       <div class="col-md-12" style="height:100%">
         <div class="row" style="height:5%;margin-top:10px;">
@@ -57,45 +57,19 @@
           </div>
         </div>
 
-        <table id="table_invoices" class="table table-condensed table-striped nowrap table-hover table-bordered dataTable">
-          <caption>INVOICES LIST</caption>
+        <table id="table_ubr" class="table table-condensed table-striped nowrap table-hover table-bordered dataTable">
+          <caption>UBR LIST</caption>
           <thead>
             <tr>
-              <th><acronym title="Statut">Statut</acronym></th>
-              <th><acronym title="Customer">Cust.</acronym></th>
-              <th><acronym title="Job Number">Job</acronym></th>
-              <th><acronym title="PO Amount">PO</acronym></th>
-              <th><acronym title="Estimated MRSAS">Est.MRSAS</acronym></th>
-              <th><acronym title="Invoice N°">Inv N°</acronym></th>
-              <th><acronym title="Invoice Date">Inv Date</acronym></th>
-              <th><acronym title="Invoice Due Date">Due Date</acronym></th>
-              <th><acronym title="HT SubC">HT SubC</acronym></th>
-              <th><acronym title="HT MRSAS">HT MRSAS</acronym></th>
-              <th><acronym title="HT Total">HT Total</acronym></th>
-              <th><acronym title="TVA">TVA</acronym></th>
-              <th><acronym title="TTC">TTC</acronym></th>
-              <th><acronym title="USD/€ Exchange Rate">USD Rate</acronym></th>
-              <th><acronym title="HT SubC">HT SubC</acronym></th>
-              <th><acronym title="HT MRSAS">HT MRSAS</acronym></th>
-              <th><acronym title="HT Total">HT Total</acronym></th>
-              <th><acronym title="TVA">TVA</acronym></th>
-              <th><acronym title="TTC">TTC</acronym></th>
-              <th><acronym title="Invoice Payment Date">Payment Date</acronym></th>
+              <th>Customer</th>
+              <th>Job</th>
+              <th>Creation Date</th>
+              <th>Status</th>
+              <th><?= date("M",strtotime(date("Y-m-t", strtotime($_GET['dateStartUBR'])) . "-35 days")) ?></th>
+              <th><?= date("M", strtotime($_GET['dateStartUBR'])) ?></th>
+              <th></th>
             </tr>
             <tr>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
               <th></th>
               <th></th>
               <th></th>
@@ -114,24 +88,13 @@
               <th></th>
               <th></th>
               <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
             </tr>
           </tfoot>
         </table>
       </div>
-      <script type="text/javascript" src="js/invoices.js"></script>
+
+
+      <script type="text/javascript" src="js/ubr2.js"></script>
 
     <?php else : ?>
     </br>

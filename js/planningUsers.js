@@ -120,9 +120,42 @@ $(document).ready(function() {
           buttons: 'Save'
         } );
         editor.mode( 'create' );
-      } }
+      } },
+      {
+        extend: "selected",
+        text: 'Cancel',
+        init: function ( dt, node, config ) {
+          this.disable();
+        },
+        action: function ( e, dt, node, config ) {
+          var rows = table.rows( {selected: true} ).indexes();
+          editor
+          .hide( editor.fields() )
+          .one( 'close', function () {
+            setTimeout( function () { // Wait for animation
+              editor.show( editor.fields() );
+            }, 500 );
+          } )
+          .edit( rows, {
+            title: 'Disapprobation',
+            message: rows.length === 1 ?
+            'Are you sure you wish to cancel this row?' :
+            'Are you sure you wish to cancel these '+rows.length+' rows',
+            buttons: 'OK'
+          } )
+          .val( 'planning_modif.id_validator', -iduser ).val( 'planning_modif.datevalidation', datevalidation );
+        }
+      }
     ]
   } );
+
+  //enabledisable based on cell value
+  table.on( 'select', function () {
+    var data = table.rows( { selected: true } ).data();
+    data = parseInt(data[0]['planning_modif']['id_validator']);
+    table.button( 2 ).enable( isNaN(data) ?    true :    false  );
+} );
+
 
 var table_planningModif=document.getElementById("table_planningModif_filter");
 if (table_planningModif) {
