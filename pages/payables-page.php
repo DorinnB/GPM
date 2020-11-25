@@ -31,7 +31,7 @@
           </div>
           <div id="" class="col-md-1" style="height:100%;">
             <a href="index.php?page=quotations" title="Quotations" class="btn btn-link btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
-              <img type="image" src="img/WIP.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">Invoice
+              <img type="image" src="img/quotation.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;">Quotation
             </a>
             <div id="" class="col-md-1" style="height:100%;">
               <a href="index.php?page=UBR" title="UBR" class="btn btn-link btn-lg"style="width:100%; height:100%; padding:0px; border-radius:10px;">
