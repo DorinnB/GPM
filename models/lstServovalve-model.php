@@ -17,6 +17,10 @@ class ServovalveModel
     }
   }
 
+  public function getServovalve($id) {
+    $req='SELECT * FROM servovalves where id_servovalve = '.$id.';';
+    echo json_encode( $this->db->getOne($req));;
+  }
   public function getAllServovalve() {
     $req='SELECT * FROM servovalves where servovalve_actif=1 ORDER BY servovalve;';
     return $this->db->getAll($req);
