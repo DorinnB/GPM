@@ -80,5 +80,27 @@ class BadgeModel
     $this->db->query($reqUpdate);
   }
 
+  public function getAllManagedAwaiting() {
+    $req='SELECT
+    technicien, count(*) AS nb
+    FROM badges
+    LEFT JOIN badge_hr on badge_hr.id_user=badges.id_user
+    LEFT JOIN badgeplanning ON badgeplanning.id_badge=badges.id_badge
+    LEFT JOIN techniciens on techniciens.id_technicien=badges.id_user
+    LEFT JOIN planning_users on planning_users.id_user=badges.id_user and planning_users.dateplanned=badges.date
+    LEFT JOIN planning_modif ON planning_modif.id_user=planning_users.id_user and planning_modif.datemodif=planning_users.dateplanned and planning_modif.id_planning_modif in (select max(pm.id_planning_modif) from planning_modif pm where pm.id_validator>0 group by pm.id_user, pm.datemodif)
+    WHERE badge_type=1 AND badges.validation IS NULL
+    AND if(ifnull(TIMESTAMPDIFF(SECOND, badges.in2, badges.out2),0)+ifnull(TIMESTAMPDIFF(SECOND, badges.in1, badges.out1),0) < ifnull(planning_modif.quantity, planning_users.quantity)*3600,
+    GREATEST(ifnull(TIMESTAMPDIFF(SECOND, badges.in2, badges.out2),0)+ifnull(TIMESTAMPDIFF(SECOND, badges.in1, badges.out1),0)-resthours*3600,0),
+    IF(ifnull(TIMESTAMPDIFF(SECOND, badges.in2, badges.out2),0)+ifnull(TIMESTAMPDIFF(SECOND, badges.in1, badges.out1),0)>=ifnull(planning_modif.quantity, planning_users.quantity) AND ifnull(TIMESTAMPDIFF(SECOND, badges.in2, badges.out2),0)+ifnull(TIMESTAMPDIFF(SECOND, badges.in1, badges.out1),0)<= (ifnull(planning_modif.quantity, planning_users.quantity)*3600+resthours*3600),
+    ifnull(planning_modif.quantity, planning_users.quantity)*3600,
+    ifnull(planning_modif.quantity, ifnull(TIMESTAMPDIFF(SECOND, badges.in2, badges.out2),0)+ifnull(TIMESTAMPDIFF(SECOND, badges.in1, badges.out1),0)-planning_users.quantity)*3600))/3600
+    -  ifnull(planning_modif.quantity, planning_users.quantity)  <> 0
+    AND TO_DAYS(badges.date) < TO_DAYS(NOW())
+    GROUP BY technicien;';
+
+    //echo $req;
+    return $this->db->getAll($req);
+  }
 
 }

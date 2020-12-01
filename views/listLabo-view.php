@@ -25,7 +25,7 @@
             <acronym title="Machine - Technician ">Running</acronym>
           </div>
         </div>
-         <div class="col-md-2">
+        <div class="col-md-2">
           <div class="col-md-12 titre">
             Modif Planning
           </div>
@@ -62,12 +62,23 @@
           <?php endforeach  ?>
         </div>
         <div class="col-md-2">
-  <?php foreach ($nbModifPlanning as $key => $value) : ?>
-    <a href="index.php?page=planningManagers" class="col-md-12 valeur">
-      <?= $value['technicien'].' ('.$value['nb'].')'  ?>
-    </a>
-  <?php endforeach  ?>
-</div>
+          <?php foreach ($nbModifPlanning as $key => $value) : ?>
+            <a href="index.php?page=planningManagers" class="col-md-12 valeur">
+              <?= $value['technicien'].' ('.$value['nb'].')'  ?>
+            </a>
+          <?php endforeach  ?>
+
+          <?php if ($nbBadgeAwaiting) : ?>
+            <p href="#" class="titre bandeau" style="border-bottom: 2px solid white; margin-top:20px; width: 100%;display: inline-block; border">
+              Badging Irregularity
+            </p>
+          <?php endif ?>
+          <?php foreach ($nbBadgeAwaiting as $key => $value) : ?>
+            <a href="index.php?page=badge" class="col-md-12 valeur">
+              <?= $value['technicien'].' ('.$value['nb'].')'  ?>
+            </a>
+          <?php endforeach  ?>
+        </div>
       </div>
     </div>
   </div>

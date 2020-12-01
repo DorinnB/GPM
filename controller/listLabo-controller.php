@@ -18,6 +18,12 @@ include_once 'models/lstPlanningUsers-model.php';
 $oPlanningUsers = new PlanningUsersModel($db);
 $nbModifPlanning=$oPlanningUsers->getAllManagedAwaiting();
 
+// Rendre votre modèle accessible
+include_once 'models/badge-model.php';
+$oBadges = new BadgeModel($db);
+$nbBadgeAwaiting=$oBadges->getAllManagedAwaiting();
+
+
 // Affichage du résultat
 include 'views/listLabo-view.php';
 ?>
