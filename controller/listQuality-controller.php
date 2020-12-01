@@ -16,6 +16,6 @@ $oInOut = new INOUT($db);
 
 
 // Affichage du résultat
-include 'views/qualiteList-view.php';
+include 'views/listQuality-view.php';
 
 ?>

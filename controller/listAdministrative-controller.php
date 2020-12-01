@@ -12,6 +12,6 @@ $oInOut = new INOUT($db);
 
 
 // Affichage du résultat
-include 'views/administrativeList-view.php';
+include 'views/listAdministrative-view.php';
 
 ?>

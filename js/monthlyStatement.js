@@ -41,9 +41,9 @@ $(document).ready(function() {
 
   editor = new $.fn.dataTable.Editor( {
     ajax: {
-      url : "controller/editor-ubr2.php",
+      url : "controller/editor-monthlyStatement.php",
       type: "POST",
-      data: {"dateStartUBR" : $('#dateStartUBR').text()}
+      data: {"dateStartMonthlyStatement" : $('#dateStartMonthlyStatement').text()}
     },
     table: "#table_ubr",
     fields: [
@@ -66,9 +66,9 @@ $(document).ready(function() {
   var table = $('#table_ubr').DataTable( {
     dom: "Brtip",
     ajax: {
-      url : "controller/editor-ubr2.php",
+      url : "controller/editor-monthlyStatement.php",
       type: "POST",
-      data: {"dateStartUBR" : $('#dateStartUBR').text()}
+      data: {"dateStartMonthlyStatement" : $('#dateStartMonthlyStatement').text()}
     },
     order: [1,"desc"],
     columns: [
@@ -80,37 +80,28 @@ $(document).ready(function() {
       { data: "info_jobs.datecreation",
       render: function ( data, type, row ) {
         return ($.datepicker.formatDate('yy-mm', new Date(data)));
-
       } },
       { data: null,
         render: function ( data, type, row ) {
 
-dateEndMonth=$('#dateStartUBR').text()
-var date = new Date(dateEndMonth);
-var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-var lastDay = new Date(date.getFullYear(), date.getMonth()+1, 0);
+          dateEndMonth=$('#dateStartUBR').text()
+          var date = new Date(dateEndMonth);
+          var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+          var lastDay = new Date(date.getFullYear(), date.getMonth()+1, 0);
 
 
-
-          if (!isNaN(parseFloat(data.ubr.ubrMRSAS)+parseFloat(data.ubr.ubrSubC)) || data.info_jobs.invoice_type==1) {
-            return 'UBR';
-          }
-          else if (data.info_jobs.invoice_type==2) {
+          if (data.info_jobs.invoice_type==2) {
             return 'INV';
           }
-        /*
-          else if (new Date(data.info_jobs.datecreation)>firstDay && new Date(data.info_jobs.datecreation)<lastDay) {
-            return 'NEW'
+          else if (!isNaN(parseFloat(data.ubr.ubrMRSAS)+parseFloat(data.ubr.ubrSubC)) || data.info_jobs.invoice_type==1) {
+            return 'UBR';
           }
-          else {
-            return '???';
-          }
-          */
           else {
             return 'Error'
           }
         }
       },
+      { data: "info_jobs.invoice_date"},
       { data: null,
         className: "sum",
         render: function ( data, type, row ) {
@@ -139,7 +130,9 @@ var lastDay = new Date(date.getFullYear(), date.getMonth()+1, 0);
       selector:'td:not(:first-child)',
       style:    'os',
       blurable: true
-    },
+    },    buttons: [
+      'copy', 'excel', 'pdf'
+    ],
     headerCallback: function ( row, data, start, end, display ) {
       var api = this.api();
 

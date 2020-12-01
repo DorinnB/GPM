@@ -7,11 +7,6 @@
       <div class="row bandeau" style="height:30%;overflow-y:scroll;border-bottom:2px solid white;">
         <div class="col-md-2">
           <div class="col-md-12 titre">
-
-          </div>
-        </div>
-        <div class="col-md-2">
-          <div class="col-md-12 titre">
             Last Condition
           </div>
         </div>
@@ -27,7 +22,12 @@
         </div>
         <div class="col-md-2">
           <div class="col-md-12 titre">
-
+            Weekly Report
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="col-md-12 titre">
+            Weekly Report SubC
           </div>
         </div>
         <div class="col-md-2">
@@ -37,9 +37,6 @@
         </div>
       </div>
       <div class="row bandeauVal" style="height:70%;overflow-y:scroll;">
-        <div class="col-md-2">
-
-        </div>
         <div class="col-md-2">
           <?php foreach ($oInOut->stepStatut(51) as $key => $value) : ?>
             <a href="index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
@@ -62,7 +59,18 @@
           <?php endforeach  ?>
         </div>
         <div class="col-md-2">
-
+          <?php foreach ($oInOut->WeeklyReport() as $key => $value) : ?>
+            <a href="index.php?page=WeeklyReport&customer=<?= $value['customer'] ?>" class="col-md-12 valeur">
+              <?= $value['customer'] .' ('.$value['nbJob'].')' ?>
+            </a>
+          <?php endforeach  ?>
+        </div>
+        <div class="col-md-2">
+          <?php foreach ($oInOut->WeeklyReportSubC() as $key => $value) : ?>
+            <a href="index.php?page=WeeklyReportSubC&customer=<?= $value['ref_customer'] ?>" class="col-md-12 valeur">
+              <?= $value['ref_customer'] .' ('.$value['nbJob'].')' ?>
+            </a>
+          <?php endforeach  ?>
         </div>
         <div class="col-md-2">
           <?php foreach ($nbModifPlanning as $key => $value) : ?>

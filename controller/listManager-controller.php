@@ -4,14 +4,18 @@ $db = new db(); // create a new object, class db()
 
 
 // Rendre votre modèle accessible
-include_once 'models/lab-model.php';
-// Création d'une instance
-$oTest = new LabModel($db);
+include_once 'models/inOut-model.php';
+$oInOut = new INOUT($db);
 
-$test=$oTest->getCheckList();
-$checkRupture=$oTest->getCheckRuptureList();
-$checkDataValue=$oTest->getCheckDataValueList();
-$awaitingTechnician=$oTest->getAwaitingTechnicianList();
+// Rendre votre modèle accessible
+include_once 'models/qualite-model.php';
+$oQualite = new QualiteModel($db);
+
+
+$uncheckedJob=$oQualite->getUncheckedJob();
+$uncheckedStartedJob=$oQualite->getUncheckedStartedJob();
+$flag=$oQualite->getFlagJob();
+
 
 // Rendre votre modèle accessible
 include_once 'models/lstPlanningUsers-model.php';
@@ -19,5 +23,6 @@ $oPlanningUsers = new PlanningUsersModel($db);
 $nbModifPlanning=$oPlanningUsers->getAllManagedAwaiting();
 
 // Affichage du résultat
-include 'views/checkList-view.php';
+include 'views/listManager-view.php';
+
 ?>

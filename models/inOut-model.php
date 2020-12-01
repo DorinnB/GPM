@@ -369,14 +369,49 @@ class INOUT
       ((eprouvettes.eprouvette_inOut_A is null AND n_fichier is null) and eprouvettes.eprouvette_inOut_B is not null)
       OR
       (eprouvettes.eprouvette_inOut_A is not null and (select count(eps.id_eprouvette) from eprouvettes eps left join tbljobs tbl on tbl.id_tbljob=eps.id_job where eps.id_master_eprouvette=eprouvettes.id_master_eprouvette and tbl.phase<tbljobs.phase and eps.eprouvette_actif=1 and eps.eprouvette_inOut_A is null group by eps.id_master_eprouvette
-    )>=1)
-  )
-  AND etape!=100
-  AND tbljobs.tbljob_actif=1
-  GROUP BY job
-  ORDER BY job DESC
-  ';
-  return $this->db->getAll($req);
-}
+    )>=1)  )
+    AND etape!=100
+    AND tbljobs.tbljob_actif=1
+    GROUP BY job
+    ORDER BY job DESC
+    ';
+    return $this->db->getAll($req);
+  }
+
+  public function WeeklyReport(){
+
+    $req='SELECT count(DISTINCT job) AS nbJob, customer
+    FROM info_jobs
+    LEFT JOIN master_eprouvettes ON master_eprouvettes.id_info_job=info_jobs.id_info_job
+    LEFT JOIN eprouvettes ON eprouvettes.id_master_eprouvette=master_eprouvettes.id_master_eprouvette
+    WHERE info_job_actif=1
+    AND master_eprouvette_actif=1 AND eprouvette_actif=1
+    AND (info_jobs.invoice_date>now()-interval 6 day OR info_jobs.invoice_type!=2)
+    GROUP BY customer
+    ORDER BY customer ASC
+    ';
+    return $this->db->getAll($req);
+  }
+
+  public function WeeklyReportSubC(){
+
+    $req='SELECT count(DISTINCT job) AS nbJob, contactsST.ref_customer
+    FROM info_jobs
+    LEFT JOIN tbljobs ON tbljobs.id_info_job=info_jobs.id_info_job
+    LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+    LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
+    LEFT JOIN eprouvettes ON eprouvettes.id_job=tbljobs.id_tbljob
+    LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
+    LEFT JOIN contacts  contactsST ON contactsST.id_contact=tbljobs.id_contactST
+    WHERE info_job_actif=1
+    AND master_eprouvette_actif=1 AND eprouvette_actif=1
+    AND (info_jobs.invoice_date>now()-interval 10 day OR info_jobs.invoice_type!=2) AND etape<90
+    AND ref_customer IS NOT NULL
+    GROUP BY ref_customer
+    ORDER BY ref_customer ASC
+    ';
+    return $this->db->getAll($req);
+  }
+
 
 }
