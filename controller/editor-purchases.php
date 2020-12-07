@@ -46,7 +46,7 @@ Editor::inst( $db, 'purchaserequests' )
   Field::inst( 'purchases.generate')
 
   )
-   ->leftJoin( 'purchases',     'purchases.id_purchaserequest',          '=', 'purchaserequests.id_purchaserequest' )
+  ->leftJoin( 'purchases',     'purchases.id_purchaserequest',          '=', 'purchaserequests.id_purchaserequest' )
 
   ->leftJoin( 'techniciens',     'techniciens.id_technicien',          '=', 'purchaserequests.id_user' )
   ->leftJoin( 'techniciens as t2',     't2.id_technicien',          '=', 'abs(purchaserequests.id_validator)' )
@@ -59,6 +59,15 @@ Editor::inst( $db, 'purchaserequests' )
     $editor
     ->field( 'purchaserequests.id_user' )
     ->setValue( $_COOKIE['id_user'] );
+
+
+    $_POST['sendTo']  ='pgonnet@metcut.com';
+    $_POST['subject'] = 'New POR registered';
+    $_POST['body']    = '#'.$_COOKIE['id_user'].' want to purchase for '.$values['purchaserequests']['euro'].$values['purchaserequests']['usd'].'€/$ a '.$values['purchaserequests']['description'].' from '.$values['purchaserequests']['supplier'].'.';
+    $_POST['altBody'] = $_POST['body'];
+
+    include( 'sendEmail.php' );
+
   } )
 
 
