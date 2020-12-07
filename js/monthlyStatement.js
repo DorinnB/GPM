@@ -111,6 +111,7 @@ $(document).ready(function() {
           inv_TVA=parseFloat((data.invoices.inv_TVA>0) ? (data.invoices.inv_TVA) : 0);
 
           total=(inv_mrsas+inv_subc+inv_TVA)*usdrate;
+          total=(inv_mrsas+inv_subc)*usdrate;
 
           return total==0?"": total.toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €';
 
