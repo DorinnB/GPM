@@ -32,12 +32,19 @@ Editor::inst( $db, 'info_jobs' )
   Field::inst( 'ubrold.ubrMRSAS'),
   Field::inst( 'ubrold.ubrSubC'),
   Field::inst( 'ubrold.date_creation'),
-  Field::inst( 'ubrold.date_UBR')
+  Field::inst( 'ubrold.date_UBR'),
+
+    Field::inst( 'invoices.inv_mrsas'),
+    Field::inst( 'invoices.inv_subc'),
+    Field::inst( 'invoices.USDRate'),
+    Field::inst( 'invoices.inv_TVA'),
+    Field::inst( 'invoices.inv_date')
   )
 
 
   ->leftJoin('ubr', 'ubr.job=info_jobs.job and ubr.date_UBR = "'.$_POST['dateStartMonthlyStatement'].'"','','')
   ->leftJoin('ubr as ubrold', 'ubrold.job=info_jobs.job and ubrold.date_UBR = "'.date("Y-m-t",strtotime(date("Y-m-t", strtotime($_POST['dateStartMonthlyStatement'])) . "-35 days")).'"','','')
+  ->leftJoin('invoices', 'invoices.inv_job=info_jobs.job and MONTH(invoices.inv_date) = MONTH("'.$_POST['dateStartMonthlyStatement'].'")','','')
 
 
   ->where( function ( $q ) {

@@ -103,6 +103,20 @@ $(document).ready(function() {
       },
       { data: "info_jobs.invoice_date"},
       { data: null,
+        render: function ( data, type, row ) {
+
+          inv_mrsas=parseFloat((data.invoices.inv_mrsas>0) ? (data.invoices.inv_mrsas) : 0);
+          inv_subc=parseFloat((data.invoices.inv_subc>0) ? (data.invoices.inv_subc) : 0);
+          usdrate=parseFloat((data.invoices.USDRate>0) ? (data.invoices.USDRate) : 1);
+          inv_TVA=parseFloat((data.invoices.inv_TVA>0) ? (data.invoices.inv_TVA) : 0);
+
+          total=(inv_mrsas+inv_subc+inv_TVA)*usdrate;
+
+          return total==0?"": total.toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €';
+
+        }
+      },
+      { data: null,
         className: "sum",
         render: function ( data, type, row ) {
           return (parseFloat(data.ubrold.ubrMRSAS)+parseFloat(data.ubrold.ubrSubC)).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €';
