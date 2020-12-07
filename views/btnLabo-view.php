@@ -6,8 +6,8 @@
     <a href="index.php?page=badge" class="btn btn-default" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/badge.png" style="height:40px;"> Badge M.</a>
   </div>
 
-  <div id="Procurement" class="col-md-2" style="height:100%; color: white; border-right: 1px solid white;">Procurement
-    <a href="index.php?page=purchases" class="btn btn-default" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/purchaserequest.png" style="height:40px;" > POR</a>
+  <div id="CRM" class="col-md-2" style="height:100%; color: white; border-right: 1px solid white;">CRM
+    <a href="index.php?page=purchases" class="btn btn-por" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/purchaserequest.png" style="height:40px;" > POR</a>
   </div>
 
   <div id="Labo" class="col-md-2" style="height:100%; color: white; border-right: 1px solid white;">Labo
@@ -22,9 +22,9 @@
   </div>
 
   <div id="Engineering" class="col-md-2" style="height:100%; color: white; border-right: 1px solid white;">Engineering
-    <a href="index.php?page=IT&tool=matieres" class="btn btn-default" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/material.png" style="height:40px;"> Material</a>
-    <a href="index.php?page=IT&tool=dessins" class="btn btn-default" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/dummy.png" style="height:40px;"> Drawing</a>
     <a href="index.php?page=WeeklyReport" class="btn btn-default" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/old.png" style="height:40px;"> W.R. Cust</a>
     <a href="index.php?page=WeeklyReportSubC&customer=1001" class="btn btn-default" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/old.png" style="height:40px;"> W.R. SubC</a>
+    <a href="index.php?page=IT&tool=matieres" class="btn btn-list" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/material.png" style="height:40px;"> Material</a>
+    <a href="index.php?page=IT&tool=dessins" class="btn btn-list" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/dummy.png" style="height:40px;"> Drawing</a>
   </div>
 </div>

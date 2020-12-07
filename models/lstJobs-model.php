@@ -66,7 +66,61 @@ class LstJobsModel
       $limit='LIMIT 1000';
     }
 
+    /* filtre pour avoir l'available plus précis, mais très long temps de chargement >4secondes
 
+    if ($filtreFollowup=='ALL') {
+    $reqfiltre='AND etape <=90';
+    $DyT=', IF(tbljobs.DyT_Cust>NOW(),0,1) as delay,
+    IFNULL((SELECT MAX(DyT_expected)
+    FROM tbljobs t
+    LEFT JOIN eprouvettes e ON e.id_job=t.id_tbljob
+    LEFT JOIN master_eprouvettes m ON m.id_master_eprouvette=e.id_master_eprouvette
+    WHERE m.id_master_eprouvette IN (
+    SELECT ma.id_master_eprouvette
+    FROM tbljobs tb
+    LEFT JOIN eprouvettes ep ON ep.id_job=tb.id_tbljob
+    LEFT JOIN master_eprouvettes ma ON ma.id_master_eprouvette=ep.id_master_eprouvette
+    WHERE ep.eprouvette_actif=1 AND ma.master_eprouvette_actif=1 AND tb.id_tbljob=tbljobs.id_tbljob )
+    and m.master_eprouvette_actif=1 AND e.eprouvette_actif=1 AND phase < tbljobs.phase AND DyT_expected IS NOT NULL)
+    ,available_expected) AS available';
+    $limit='LIMIT 1000';  }
+    elseif ($filtreFollowup=='SubC') {
+    $reqfiltre='AND ST=1 AND etape <=90';
+    $DyT=', IF(tbljobs.DyT_Cust>NOW(),0,1) as delay,
+    IFNULL((SELECT MAX(DyT_expected)
+    FROM tbljobs t
+    LEFT JOIN eprouvettes e ON e.id_job=t.id_tbljob
+    LEFT JOIN master_eprouvettes m ON m.id_master_eprouvette=e.id_master_eprouvette
+    WHERE m.id_master_eprouvette IN (
+    SELECT ma.id_master_eprouvette
+    FROM tbljobs tb
+    LEFT JOIN eprouvettes ep ON ep.id_job=tb.id_tbljob
+    LEFT JOIN master_eprouvettes ma ON ma.id_master_eprouvette=ep.id_master_eprouvette
+    WHERE ep.eprouvette_actif=1 AND ma.master_eprouvette_actif=1 AND tb.id_tbljob=tbljobs.id_tbljob )
+    and m.master_eprouvette_actif=1 AND e.eprouvette_actif=1 AND phase < tbljobs.phase AND DyT_expected IS NOT NULL)
+    ,available_expected) AS available';
+    $limit='LIMIT 1000';}
+    elseif ($filtreFollowup=='ALLNoTime') {
+    $reqfiltre='';
+    $DyT=', IF(tbljobs.DyT_Cust>NOW(),0,1) as delay, "" as available';
+    $limit='';}
+    else {
+    $reqfiltre='AND final=1 AND ST=0 AND etape <90';
+    $DyT=', IF(tbljobs.DyT_Cust>NOW(),0,1) as delay,
+    IFNULL((SELECT MAX(DyT_expected)
+    FROM tbljobs t
+    LEFT JOIN eprouvettes e ON e.id_job=t.id_tbljob
+    LEFT JOIN master_eprouvettes m ON m.id_master_eprouvette=e.id_master_eprouvette
+    WHERE m.id_master_eprouvette IN (
+    SELECT ma.id_master_eprouvette
+    FROM tbljobs tb
+    LEFT JOIN eprouvettes ep ON ep.id_job=tb.id_tbljob
+    LEFT JOIN master_eprouvettes ma ON ma.id_master_eprouvette=ep.id_master_eprouvette
+    WHERE ep.eprouvette_actif=1 AND ma.master_eprouvette_actif=1 AND tb.id_tbljob=tbljobs.id_tbljob )
+    and m.master_eprouvette_actif=1 AND e.eprouvette_actif=1 AND phase < tbljobs.phase AND DyT_expected IS NOT NULL)
+    ,available_expected) AS available';
+    $limit='LIMIT 1000';}
+    */
 
     $req = 'SELECT id_tbljob,
     id_statut_temp, statut_color,

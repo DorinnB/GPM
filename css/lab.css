@@ -10,3 +10,16 @@
  a {
      color: inherit;
  }
+
+.btn-accounting  {
+  background-color: plum;
+  color: black;
+}
+.btn-por  {
+  background-color: beige;
+  color: black;
+}
+
+.btn-list  {
+  background-color: SteelBlue;
+}

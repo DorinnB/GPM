@@ -45,7 +45,7 @@
         </div>
 
         <table id="table_ubr" class="table table-condensed table-striped nowrap table-hover table-bordered dataTable">
-          <caption>MONTHLY STATEMENT</caption>
+          <caption>MONTHLY STATEMENT - <?= date("M", strtotime($_GET['dateStartMonthlyStatement'])) ?></caption>
           <thead>
             <tr>
               <th>Customer</th>
@@ -53,11 +53,13 @@
               <th>Creation Date</th>
               <th>Status</th>
               <th>Invoice Date</th>
-              <th><?= date("M",strtotime(date("Y-m-t", strtotime($_GET['dateStartMonthlyStatement'])) . "-35 days")) ?></th>
-              <th><?= date("M", strtotime($_GET['dateStartMonthlyStatement'])) ?></th>
+              <th>Invoice Amount</th>
+              <th>UBR <?= date("M",strtotime(date("Y-m-t", strtotime($_GET['dateStartMonthlyStatement'])) . "-35 days")) ?></th>
+              <th>UBR <?= date("M", strtotime($_GET['dateStartMonthlyStatement'])) ?></th>
               <th></th>
             </tr>
             <tr>
+              <th></th>
               <th></th>
               <th></th>
               <th></th>
@@ -70,6 +72,7 @@
           </thead>
           <tfoot>
             <tr>
+              <th></th>
               <th></th>
               <th></th>
               <th></th>
