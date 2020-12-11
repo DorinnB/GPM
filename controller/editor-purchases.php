@@ -61,15 +61,23 @@ Editor::inst( $db, 'purchaserequests' )
     ->setValue( $_COOKIE['id_user'] );
 
 
-    $_POST['sendTo']  ='pgonnet@metcut.com';
+  } )
+  //enregistrement du user effectuant l'update
+  ->on( 'postCreate', function ( $editor, $id, $values, $row ) {
+
+    $_POST['sendTo']  ='jgalipaud@metcut.com';
     $_POST['subject'] = 'New POR registered';
-    $_POST['body']    = '#'.$_COOKIE['id_user'].' want to purchase for '.$values['purchaserequests']['euro'].$values['purchaserequests']['usd'].'€/$ a '.$values['purchaserequests']['description'].' from '.$values['purchaserequests']['supplier'].'.';
+    $_POST['body']    =
+    'POR '.$id.'<br/>'.
+    'Supplier : '.$values['purchaserequests']['supplier'].'<br/>'.
+    'Description : '.$values['purchaserequests']['description'].'<br/>'.
+    'Amount : '.($values['purchaserequests']['euro']>0?$values['purchaserequests']['euro'].' €':'$ '.$values['purchaserequests']['usd']).'<br/>'.
+    'User : #'.$_COOKIE['id_user'];
+
     $_POST['altBody'] = $_POST['body'];
 
-    include( 'sendEmail.php' );
-
+    include( 'sendEmail.php' ); 
   } )
-
 
 
   ->process($_POST)
