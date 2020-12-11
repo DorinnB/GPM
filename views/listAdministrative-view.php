@@ -22,17 +22,21 @@
         </div>
         <div class="col-md-2">
           <div class="col-md-12 titre">
-            Expected SubC
+            <?php if ($oInOut->overdueSubC()): ?>
+              Overdue SubC
+            <?php else : ?>
+              Expected SubC
+            <?php endif ?>
           </div>
         </div>
         <div class="col-md-2">
           <div class="col-md-12 titre">
-            Overdue SubC
+            Weekly Report
           </div>
         </div>
         <div class="col-md-2">
           <div class="col-md-12 titre">
-            InOut Error
+            Weekly Report SubC
           </div>
         </div>
       </div>
@@ -59,6 +63,18 @@
           <?php endforeach  ?>
         </div>
         <div class="col-md-2">
+          <?php foreach ($oInOut->overdueSubC() as $key => $value) : ?>
+            <a href="index.php?page=inOut&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
+              <?= $value['job'].'-'.$value['split']  ?>
+            </a>
+          <?php endforeach  ?>
+
+          <?php if ($oInOut->overdueSubC() AND $oInOut->oneWeek()) : ?>
+            <p href="#" class="titre bandeau" style="border-bottom: 2px solid white; margin-top:20px; width: 100%;display: inline-block; border">
+              Expected SubC
+            </p>
+          <?php endif ?>
+
           <?php foreach ($oInOut->oneWeek() as $key => $value) : ?>
             <a href="index.php?page=inOut&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
               <?= $value['job'].'-'.$value['split']  ?>
@@ -66,16 +82,16 @@
           <?php endforeach  ?>
         </div>
         <div class="col-md-2">
-          <?php foreach ($oInOut->overdueSubC() as $key => $value) : ?>
-            <a href="index.php?page=inOut&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
-              <?= $value['job'].'-'.$value['split']  ?>
+          <?php foreach ($oInOut->WeeklyReport() as $key => $value) : ?>
+            <a href="index.php?page=WeeklyReport&customer=<?= $value['customer'] ?>" class="col-md-12 valeur">
+              <?= $value['customer'] .' ('.$value['nbJob'].')' ?>
             </a>
           <?php endforeach  ?>
         </div>
         <div class="col-md-2">
-          <?php foreach ($oInOut->inOutError() as $key => $value) : ?>
-            <a href="index.php?page=inOut&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
-              <?= $value['job'] ?>
+          <?php foreach ($oInOut->WeeklyReportSubC() as $key => $value) : ?>
+            <a href="index.php?page=WeeklyReportSubC&customer=<?= $value['ref_customer'] ?>" class="col-md-12 valeur">
+              <?= $value['ref_customer'] .' ('.$value['nbJob'].')' ?>
             </a>
           <?php endforeach  ?>
         </div>
@@ -87,12 +103,16 @@
       <div class="row bandeau" style="height:24%;overflow-y:scroll;border-bottom:2px solid white;">
         <div class="col-md-2">
           <div class="col-md-12 titre">
-            Out Ready
+            InOut Error
           </div>
         </div>
         <div class="col-md-2">
           <div class="col-md-12 titre">
-            Overdue Out
+            <?php if ($oInOut->overdueOut()): ?>
+              Overdue Out
+            <?php else : ?>
+              Out Ready
+            <?php endif ?>
           </div>
         </div>
         <div class="col-md-2">
@@ -118,9 +138,9 @@
       </div>
       <div class="row bandeauVal" style="height:75%;overflow-y:scroll;">
         <div class="col-md-2">
-          <?php foreach ($oInOut->outReady() as $key => $value) : ?>
+          <?php foreach ($oInOut->inOutError() as $key => $value) : ?>
             <a href="index.php?page=inOut&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
-              <?= $value['job'].'-'.$value['split']  ?>
+              <?= $value['job'] ?>
             </a>
           <?php endforeach  ?>
         </div>
@@ -128,6 +148,18 @@
           <?php foreach ($oInOut->overdueOut() as $key => $value) : ?>
             <a href="index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
               <?= $value['job']  ?>
+            </a>
+          <?php endforeach  ?>
+
+          <?php if ($oInOut->overdueOut() AND $oInOut->outReady()) : ?>
+            <p href="#" class="titre bandeau" style="border-bottom: 2px solid white; margin-top:20px; width: 100%;display: inline-block; border">
+              Out Ready
+            </p>
+          <?php endif ?>
+
+          <?php foreach ($oInOut->outReady() as $key => $value) : ?>
+            <a href="index.php?page=inOut&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
+              <?= $value['job'].'-'.$value['split']  ?>
             </a>
           <?php endforeach  ?>
         </div>
