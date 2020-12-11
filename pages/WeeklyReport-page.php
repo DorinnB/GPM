@@ -69,7 +69,7 @@ include('controller/weeklyReport-controller.php');
 									<td><?=	$v['DyT_Cust']	?></td>
 								</tr>
 							<?php endforeach	?>
-							<tr><td colspan="11" style="background-color:black;line-height:30%;">&nbsp;</td></tr>
+							<tr><td colspan="12" style="background-color:black;line-height:30%;">&nbsp;</td></tr>
 						<?php endforeach	?>
 					</tbody>
 				</table>

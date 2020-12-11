@@ -13,6 +13,7 @@
       <th>Street 2</th>
       <th><acronym title="Zipcode & City">City</acronym></th>
       <th>Country</th>
+      <th>Weekly Email</th>
       <th>Actif</th>
     </tr>
   </thead>
@@ -28,6 +29,7 @@
       <th>Street 2</th>
       <th><acronym title="Zipcode & City">City</acronym></th>
       <th>Country</th>
+      <th>Weekly Email</th>
       <th>Actif</th>
       </tr>
     </tfoot>

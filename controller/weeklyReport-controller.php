@@ -24,7 +24,6 @@ else {
 
 
 
-
 // Rendre votre modèle accessible
 include 'models/lstJobs-model.php';
 $oJob = new LstJobsModel($db);
@@ -40,7 +39,7 @@ $lstContactsString .= $value['contactsEmail'];
 $lstContactsArray = explode(";", $lstContactsString);
 
 $lstContact = implode(";", array_unique($lstContactsArray));
-
+$lstContact .= ';'.$customer['weeklyemail'];
 //var_dump($infoJobs);
 
 

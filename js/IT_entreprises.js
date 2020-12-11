@@ -23,6 +23,7 @@ $(document).ready(function() {
       { label: "Street 2", name: "entreprises.billing_rue2"  },
       { label: "Zipcode & City", name: "entreprises.billing_ville"  },
       { label: "Country", name: "entreprises.billing_pays"  },
+      { label: "Additional Weekly Email", name: "entreprises.weeklyemail"  },
 
       { label: "Actif", name: "entreprises.entreprise_actif", def: "1" },
     ]
@@ -56,13 +57,14 @@ $(document).ready(function() {
       { data: "entreprises.billing_rue2" },
       { data: "entreprises.billing_ville" },
       { data: "entreprises.billing_pays" },
+      { data: "entreprises.weeklyemail" },
       { data: "entreprises.entreprise_actif" }
     ],
     scrollY: '65vh',
     scrollCollapse: true,
     paging: false,
     keys: {
-      columns: [2,3,4,5,6,7,8,9,10],
+      columns: [2,3,4,5,6,7,8,9,10,11],
       editor:  editor
     },
     select: {
@@ -77,7 +79,7 @@ $(document).ready(function() {
 
 
   table
-  .column( '11' )
+  .column( '12' )
   .search( '1' )
   .draw();
 

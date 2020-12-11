@@ -420,9 +420,11 @@ class LstJobsModel
       if(contacts3.email is not null, concat(contacts3.email, ";"),""),
       if(contacts4.email is not null, concat(contacts4.email, ";"),"")
       SEPARATOR "; "
-    )as contactsEmail
+    )as contactsEmail,
+    weeklyemail
 
     FROM info_jobs
+    LEFT JOIN entreprises ON entreprises.id_entreprise=info_jobs.customer
     LEFT JOIN contacts ON contacts.id_contact=info_jobs.id_contact
     LEFT JOIN contacts  contacts2 ON contacts2.id_contact=info_jobs.id_contact2
     LEFT JOIN contacts  contacts3 ON contacts3.id_contact=info_jobs.id_contact3

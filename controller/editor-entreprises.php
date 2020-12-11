@@ -37,6 +37,7 @@ Editor::inst( $db, 'entreprises' )
   Field::inst( 'entreprises.billing_rue2'),
   Field::inst( 'entreprises.billing_ville'),
   Field::inst( 'entreprises.billing_pays'),
+  Field::inst( 'entreprises.weeklyemail'),
   Field::inst( 'entreprises.entreprise_actif')
   )
 
