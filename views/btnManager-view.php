@@ -6,7 +6,7 @@
     <a href="index.php?page=badge" class="btn btn-default" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/badge.png" style="height:40px;"> Badge M.</a>
   </div>
 
-  <div id="CRM" class="col-md-2" style="height:100%; color: white; border-right: 1px solid white;">CRM
+  <div id="Administrative" class="col-md-2" style="height:100%; color: white; border-right: 1px solid white;">Administrative
     <a  href="index.php?page=payables" class="btn btn-accounting" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;"role="button"><img src="img/payable.png" style="height:40px;" alt="Payables"> Payables</a>
     <a  href="index.php?page=invoices" class="btn btn-accounting" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;"role="button"><img src="img/invoice.png" style="height:40px;" alt="Invoices"> Invoices</a>
     <div style="width:100;height:20px;"></div>

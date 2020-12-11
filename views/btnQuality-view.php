@@ -4,7 +4,7 @@
     <a href="index.php?page=planningUsers" class="btn btn-default" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/calendar_yes.png" style="height:40px;"> Planning</a>
   </div>
 
-  <div id="CRM" class="col-md-2" style="height:100%; color: white; border-right: 1px solid white;">CRM
+  <div id="Administrative" class="col-md-2" style="height:100%; color: white; border-right: 1px solid white;">Administrative
     <a href="index.php?page=purchases" class="btn btn-por" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/purchaserequest.png" style="height:40px;" > POR</a>
     <a  href="index.php?page=IT&tool=contacts" class="btn btn-list" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;"role="button"><img src="img/contact.png" style="height:40px;" alt="Contacts"> Contacts</a>
     <a  href="index.php?page=IT&tool=entreprises" class="btn btn-list" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;"role="button"><img src="img/companie.png" style="height:40px;" alt="Companies"> Companies</a>
