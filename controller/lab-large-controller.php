@@ -126,6 +126,11 @@ foreach ($test as $value) {
       $poste[$value['poste']]['color']='white';
       $runStop[]="RUN";
     break;
+    case "Tensile":
+      $poste[$value['poste']]['background-color']='darkgreen';
+      $poste[$value['poste']]['color']='white';
+      $runStop[]="RUN";
+    break;
     case "Stop":
       $poste[$value['poste']]['background-color']='darkred';
       $poste[$value['poste']]['color']='white';
