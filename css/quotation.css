@@ -1,0 +1,69 @@
+#page-content-wrapper div{
+  color:black;
+  background-color: white;
+}
+#page-content-wrapper .btn-group  {
+  color:black;
+}
+
+caption {
+  font-size:xx-large;
+  text-align:center;
+  color:black;
+}
+
+.form-group input, .form-group select{
+  color:black;
+  border-radius: 10px;
+}
+
+.dt-buttons  {
+  display:inline;
+}
+
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: lightblue;
+}
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: lightgray !important;
+}
+input,  select{
+  color:black;
+}
+a {
+  color:black;
+}
+.btn-default {
+  margin-left: 1em !important;
+}
+th  {
+  text-align: center;
+}
+
+table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
+  background-color: white;
+}
+.table-hover tbody tr.refused,.table-hover tbody td.refused {     /* attente validation */
+  background-color: darkred !important;
+  color:white;
+}
+.table-hover tbody tr.validated,.table-hover tbody td.validated  {     /* validé */
+  background-color: lightgreen !important;
+  color:black;
+}
+
+.table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+  border-left: 1px solid #44546A;
+  border-right: 1px solid #44546A;
+}
+
+
+input.newTitle {
+  background-color: #44546a;
+  color: white
+}
+
+ul{
+  padding:0 10px;
+}

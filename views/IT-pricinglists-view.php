@@ -1,6 +1,6 @@
 <link href="css/XMLforTS.css" rel="stylesheet">
 <table id="table_pricinglists" class="table table-condensed table-hover table-bordered dataTable" cellspacing="0" width="100%">
-  <caption>Material List</caption>
+  <caption>Pricing List</caption>
   <thead>
     <tr>
       <th><acronym title="prodCode">prodCode</acronym></th>

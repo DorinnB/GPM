@@ -45,6 +45,7 @@ $(document).ready(function() {
       { data: "pricinglists.USD" },
       { data: "pricinglists.EURO" },
       { data: "pricinglists.type" },
+        //{ data: "test_type", render: "[, ].test_type" },    liste des test avec ces pricings list
       { data: "pricinglists.pricingList_actif" }
     ],
     scrollY: '65vh',

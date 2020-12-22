@@ -43,8 +43,26 @@ Editor::inst( $db, 'pricinglists' )
   Field::inst( 'pricinglists.pricingList_actif')
   )
 
+  //récupère les test type ayant ces pricinglist
+  ->join(
+    Mjoin::inst( 'test_type' )
+    ->link( 'pricinglists.id_pricingList', 'test_type_pricinglists.id_pricingList' )
+    ->link( 'test_type.id_test_type', 'test_type_pricinglists.id_test_type' )
+    ->order( 'test_type_abbr asc' )
+    ->fields(
+      Field::inst( 'test_type' )
+      ->validator( Validate::required() )
+      ->options( Options::inst()
+      ->table( 'test_type' )
+      ->value( 'id_test_type' )
+      ->label( 'test_type' )
+    ),
+    Field::inst( 'test_type_abbr' )
+    )
+    )
 
 
-  ->process($_POST)
-  ->json();
-  ?>
+
+    ->process($_POST)
+    ->json();
+    ?>
