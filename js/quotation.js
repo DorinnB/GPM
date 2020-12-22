@@ -6,7 +6,7 @@ $(document).ready(function(){
     handle: '.handle',
     stop : function(event, ui){
       //console.log($(this).sortable('serialize'));
-            showSave();
+      showSave();
     }
   });
   $("#sortable").disableSelection();
@@ -117,6 +117,7 @@ $(document).ready(function(){
       }
     });
   } );
+
 
 
 });
@@ -235,14 +236,14 @@ function addHourlyCharge(){
           hourlychargeComment+=nb + ' tests at '+freq+' Hz: cycles estimated '+cy+' => '+hrsuptest+' hrs additional per test\n';
         }
       }
-          totalHourlyCharge+=nb * hrsuptest;
+      totalHourlyCharge+=nb * hrsuptest;
     }
   });
 
-      $('textarea[name ="'+$('#hourlycharge').val()+'_comments"]').val(hourlychargeComment);
-      $('input[name ="'+$('#hourlycharge').val()+'_unit"]').val(totalHourlyCharge);
-      showSave();
-      $('#HourlyChargeModal').modal('toggle');
+  $('textarea[name ="'+$('#hourlycharge').val()+'_comments"]').val(hourlychargeComment);
+  $('input[name ="'+$('#hourlycharge').val()+'_unit"]').val(totalHourlyCharge);
+  showSave();
+  $('#HourlyChargeModal').modal('toggle');
 }
 
 
@@ -274,6 +275,31 @@ function calcHourlyCharge(){
   });
 }
 
+
+
+//calcul total par ligne
+$(document).on('change', 'input.unit, input.price', function() {
+  unit=$(this).parents('li').find('.unit').val();
+  price=$(this).parents('li').find('.price').val();
+  $(this).parents('li').find('.total').val((unit * price).toFixed(2));
+  calcTotal();
+});
+$(".unit").each(function() {
+  unit=$(this).parents('li').find('.unit').val();
+  price=$(this).parents('li').find('.price').val();
+  $(this).parents('li').find('.total').val((unit * price).toFixed(2));
+  calcTotal();
+});
+
+function calcTotal(){   //calcul total quotation
+  total=0;
+  $('.total').each( function (i) {
+    if ($(this).val()!=0) {
+      total += parseFloat($(this).val());
+    }
+  });
+  $('#totalQuotation').val(total.toFixed(2));
+}
 
 //nom des contacts selon le customer
 $("#ref_customer").change(function() {

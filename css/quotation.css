@@ -67,3 +67,7 @@ input.newTitle {
 ul{
   padding:0 10px;
 }
+
+.right  {
+text-align: right;
+}

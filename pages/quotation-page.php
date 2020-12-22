@@ -109,8 +109,8 @@
               <div class="input-group">
                 <input type="search" class="form-control" id="id_preparer" name="id_preparer">
                 <span class="input-group-btn">
-                <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-pencil" aria-hidden="true">
-                </span> Prep</button>
+                  <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-pencil" aria-hidden="true">
+                  </span> Prep</button>
                 </span>
               </div>
             </div>
@@ -153,7 +153,7 @@
                       <input type="text" class="form-control newTitle" name="quotationlist_<?= $key ?>_description" value="<?= $value['description'] ?>"></textarea>
                     </div>
                   </div>
-                  <div class="col-md-1 col-md-offset-3" style="color:red;">
+                  <div class="col-md-1 col-md-offset-4" style="color:red; width:2%;">
                     <span class="glyphicon glyphicon-trash" style="margin-top:10px;" onClick="$(this).parents('li').remove(); showSave();"></span>
                   </div>
                 </div>
@@ -171,7 +171,7 @@
                       <textarea class="form-control comments" rows="2" name="quotationlist_<?= $key ?>_comments"><?= $value['comments'] ?></textarea>
                     </div>
                   </div>
-                  <div class="col-md-1 col-md-offset-3" style="color:red;">
+                  <div class="col-md-1 col-md-offset-4" style="color:red; width:2%;">
                     <span class="glyphicon glyphicon-trash" style="margin-top:10px;" onClick="$(this).parents('li').remove(); showSave();"></span>
                   </div>
                 </div>
@@ -207,13 +207,13 @@
                       <input type="text" class="form-control price" name="quotationlist_<?= $key ?>_price" value="<?= $value['price'] ?>">
                     </div>
                   </div>
-                  <div class="col-md-1">
+                  <div class="col-md-2">
                     <div class="input-group">
                       <span class="input-group-addon">Total</span>
-                      <input type="text" class="form-control total" disabled >
+                      <input type="text" class="form-control right total" disabled >
                     </div>
                   </div>
-                  <div class="col-md-1" style="color:red;">
+                  <div class="col-md-1" style="color:red; width:2%;">
                     <span class="glyphicon glyphicon-trash" style="margin-top:10px;" onClick="$(this).parents('li').remove(); showSave();"></span>
                   </div>
                 </div>
@@ -240,6 +240,8 @@
       </div>
 
       <div class="row" style="height:5%">
+        <div class="col-md-1" style="width:5%;">
+        </div>
         <div class="col-md-4">
 
           <button type="button" class="btn btn-default btn-lg" onClick="addNewTitle()">
@@ -255,16 +257,16 @@
           </button>
 
         </div>
-        <div class="col-md-6" style="height:100%;">
+        <div class="col-md-5" style="height:100%;">
           <div class="col-md-12" id="printQuotation" style="height:100%; padding:0px;">
-            <a href="controller/createQuotation-controller.php?id_quotation=<?=	$_GET['id_quotation']	?>" class="btn btn-default btn-lg" style="width:80%; height:100%; padding:0px; border-radius:10px;">
+            <a href="controller/createQuotation-controller.php?id_quotation=<?=	$_GET['id_quotation']	?>" class="btn btn-warning btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
               <p style="font-size:small;height:100%;">
                 <img type="image" src="img/print.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
               </p>
             </a>
           </div>
           <div class="col-md-12" id="saveQuotation" style="height:100%; padding:0px; display:none;">
-            <a href="" class="btn btn-default btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
+            <a href="" class="btn btn-info btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
               <p style="font-size:small;height:100%;">
                 <img type="image" src="img/save.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
               </p>
@@ -272,7 +274,12 @@
           </div>
         </div>
         <div class="col-md-2">
-          Total
+          <div class="input-group">
+            <span class="input-group-addon">Total</span>
+            <input type="text" class="form-control right" disabled id="totalQuotation" >
+          </div>
+        </div>
+        <div class="col-md-1" style="color:red; width:2%;">
         </div>
       </div>
     </form>
@@ -363,15 +370,15 @@
             </thead>
             <tbody>
               <?php for ($i=0; $i < 10; $i++) : ?>
-              <tr>
-                <td contenteditable class="nb" onkeyup="calcHourlyCharge();"></td>
-                <td contenteditable class="cy" onkeyup="calcHourlyCharge();"></td>
-                <td contenteditable class="freq" onkeyup="calcHourlyCharge();"></td>
-                <td contenteditable class="stl" onkeyup="calcHourlyCharge();"></td>
-                <td contenteditable class="fstl" onkeyup="calcHourlyCharge();"></td>
-                <td class="total"></td>
-                <td class="hrsup"></td>
-              </tr>
+                <tr>
+                  <td contenteditable class="nb" onkeyup="calcHourlyCharge();"></td>
+                  <td contenteditable class="cy" onkeyup="calcHourlyCharge();"></td>
+                  <td contenteditable class="freq" onkeyup="calcHourlyCharge();"></td>
+                  <td contenteditable class="stl" onkeyup="calcHourlyCharge();"></td>
+                  <td contenteditable class="fstl" onkeyup="calcHourlyCharge();"></td>
+                  <td class="total right"></td>
+                  <td class="hrsup right"></td>
+                </tr>
               <?php endfor ?>
 
             </tbody>
@@ -401,7 +408,7 @@
         <input type="text" class="form-control newTitle" id="description"></textarea>
       </div>
     </div>
-    <div class="col-md-1 col-md-offset-3" style="color:red;">
+    <div class="col-md-1 col-md-offset-4" style="color:red; width:2%;">
       <span class="glyphicon glyphicon-trash" style="margin-top:10px;" onClick="$(this).parents('li').remove(); showSave();"></span>
     </div>
   </div>
@@ -419,7 +426,7 @@
         <textarea class="form-control" rows="2" id="comments"></textarea>
       </div>
     </div>
-    <div class="col-md-1 col-md-offset-3" style="color:red;">
+    <div class="col-md-1 col-md-offset-4" style="color:red; width:2%;">
       <span class="glyphicon glyphicon-trash" style="margin-top:10px;" onClick="$(this).parents('li').remove(); showSave();"></span>
     </div>
   </div>
@@ -455,13 +462,13 @@
         <input type="text" class="form-control price" >
       </div>
     </div>
-    <div class="col-md-1">
+    <div class="col-md-2">
       <div class="input-group">
         <span class="input-group-addon">Total</span>
-        <input type="text" class="form-control total" disabled >
+        <input type="text" class="form-control right total" disabled >
       </div>
     </div>
-    <div class="col-md-1" style="color:red;">
+    <div class="col-md-1" style="color:red; width:2%;">
       <span class="glyphicon glyphicon-trash" style="margin-top:10px;" onClick="$(this).parents('li').remove(); showSave();"></span>
     </div>
   </div>
@@ -476,7 +483,7 @@
       </div>
     </div>
     <div class="col-md-1" style="color:blue;">
-<span class="glyphicon glyphicon-list-alt" style="margin-top:10px;" data-toggle="modal" data-target="#HourlyChargeModal" onClick="$('#hourlycharge').val($(this).parents('li').attr('id'));" ></span>
+      <span class="glyphicon glyphicon-list-alt" style="margin-top:10px;" data-toggle="modal" data-target="#HourlyChargeModal" onClick="$('#hourlycharge').val($(this).parents('li').attr('id'));" ></span>
     </div>
   </div>
 </li>
