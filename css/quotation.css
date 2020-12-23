@@ -67,7 +67,19 @@ input.newTitle {
 ul{
   padding:0 10px;
 }
+.ui-state-default {
+  border: 1px solid lightgrey;
+}
 
 .right  {
 text-align: right;
+}
+
+.checkOK {
+  background-color:darkgreen !important;
+  color:white !important;
+}
+.checkNOK {
+  background-color:darkred !important;
+  color:white !important;
 }

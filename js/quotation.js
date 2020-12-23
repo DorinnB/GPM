@@ -93,6 +93,46 @@ $(document).ready(function(){
 
 
 
+  $('#changePrep').click( function(e) {
+    showSave()
+    if (Math.abs($('#id_preparer').val())==$('#iduser').text()) {
+      $('#id_preparer').val(-$('#id_preparer').val());
+      $('#preparer').val($('#user').text());
+    }
+    else {
+      $('#id_preparer').val($('#iduser').text());
+      $('#preparer').val($('#user').text());
+    }
+
+    if ($('#id_preparer').val()>0) {
+      $('#preparer').addClass('checkOK');
+      $('#preparer').removeClass('checkNOK');
+    }
+    else {
+      $('#preparer').addClass('checkNOK');
+      $('#preparer').removeClass('checkOK');
+    }
+  });
+  $('#changeCheck').click( function(e) {
+    showSave()
+    if (Math.abs($('#id_checker').val())==$('#iduser').text()) {
+      $('#id_checker').val(-$('#id_checker').val());
+      $('#checker').val($('#user').text());
+    }
+    else {
+      $('#id_checker').val($('#iduser').text());
+      $('#checker').val($('#user').text());
+    }
+
+    if ($('#id_checker').val()>0) {
+      $('#checker').addClass('checkOK');
+      $('#checker').removeClass('checkNOK');
+    }
+    else {
+      $('#checker').addClass('checkNOK');
+      $('#checker').removeClass('checkOK');
+    }
+  });
 
   //Lors du save de la quotation
   $('#saveQuotation').click( function(e) {
@@ -241,7 +281,7 @@ function addHourlyCharge(){
   });
 
   $('textarea[name ="'+$('#hourlycharge').val()+'_comments"]').val(hourlychargeComment);
-  $('input[name ="'+$('#hourlycharge').val()+'_unit"]').val(totalHourlyCharge);
+  $('input[name ="'+$('#hourlycharge').val()+'_unit"]').val(totalHourlyCharge).change();
   showSave();
   $('#HourlyChargeModal').modal('toggle');
 }

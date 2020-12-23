@@ -13,7 +13,6 @@ $job=$oJob->getInfoJob();
 include 'models/quotation-model.php';
 $oQuotations = new QUOTATION($db);
 $quotation=$oQuotations->getQuotationList($_GET['id_quotation']);
-$quotationList=$oQuotations->getAllQuotationList($_GET['id_quotation']);
 
 
 // Rendre votre modèle accessible

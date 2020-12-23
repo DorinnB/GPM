@@ -36,7 +36,7 @@
             <div class="col-md-2 col-md-offset-1 form-group">
               <div class="input-group">
                 <span class="input-group-addon">Rev</span>
-                <input type="text" class="form-control" name="rev" value="<?= $quotation['rev'] ?>">
+                <input type="text" class="form-control" name="rev" value="<?= ($quotation['rev']>0)?$quotation['rev']:0 ?>">
               </div>
             </div>
           </div>
@@ -107,11 +107,12 @@
           <div class="row">
             <div class="col-md-12 form-group">
               <div class="input-group">
-                <input type="search" class="form-control" id="id_preparer" name="id_preparer">
-                <span class="input-group-btn">
+                <input type="hidden" id="id_preparer" name="id_preparer" value="<?= $quotation['id_preparer']  ?>">
+                <span class="input-group-btn" id="changePrep">
                   <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-pencil" aria-hidden="true">
-                  </span> Prep</button>
+                  </span> Preparator</button>
                 </span>
+                <input type="text" class="form-control <?= (($quotation['id_preparer']>0)?'checkOK':'checkNOK') ?>" id="preparer" value="<?= $quotation['preparer']  ?>" disabled>
               </div>
             </div>
           </div>
@@ -119,8 +120,12 @@
           <div class="row">
             <div class="col-md-12 form-group">
               <div class="input-group">
-                <span class="input-group-addon">Checker</span>
-                <input type="text" class="form-control" id="checker" name="Checker">
+                <input type="hidden" id="id_checker" name="id_checker" value="<?= $quotation['id_checker']  ?>">
+                <span class="input-group-btn" id="changeCheck">
+                  <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-pencil" aria-hidden="true">
+                  </span> Checker&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                </span>
+                <input type="text" class="form-control <?= (($quotation['id_checker']>0)?'checkOK':'checkNOK') ?>" id="checker" value="<?= $quotation['checker']  ?>" disabled>
               </div>
             </div>
           </div>
@@ -259,14 +264,14 @@
         </div>
         <div class="col-md-5" style="height:100%;">
           <div class="col-md-12" id="printQuotation" style="height:100%; padding:0px;">
-            <a href="controller/createQuotation-controller.php?id_quotation=<?=	$_GET['id_quotation']	?>" class="btn btn-warning btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
+            <a href="controller/createQuotation-controller.php?id_quotation=<?=	$_GET['id_quotation']	?>" class="btn btn-info btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
               <p style="font-size:small;height:100%;">
                 <img type="image" src="img/print.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
               </p>
             </a>
           </div>
           <div class="col-md-12" id="saveQuotation" style="height:100%; padding:0px; display:none;">
-            <a href="" class="btn btn-info btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
+            <a href="" class="btn btn-warning btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
               <p style="font-size:small;height:100%;">
                 <img type="image" src="img/save.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
               </p>
