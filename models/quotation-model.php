@@ -27,10 +27,12 @@ class QUOTATION
   }
 
   public function getQuotationList($id_quotation){
-    $req='SELECT id_quotation, creation_date, title, rfq, rev, id_preparer, t1.technicien as preparer, id_checker, t2.technicien as checker, quotation_date, customer, id_contact, lang, currency, quotationlist
+    $req='SELECT id_quotation, creation_date, title, rfq, rev, id_preparer, t1.technicien as preparer, id_checker, t2.technicien as checker, quotation_date, customer, id_contact, lang, currency, quotationlist,
+    entreprises.entreprise, entreprises.VAT, entreprises.MRSASRef, entreprises.billing_rue1, entreprises.billing_rue2, entreprises.billing_ville, entreprises.billing_pays
     FROM quotation
     LEFT JOIN techniciens t1 ON t1.id_technicien=quotation.id_preparer
     LEFT JOIN techniciens t2 ON t2.id_technicien=quotation.id_checker
+    LEFT JOIN entreprises ON entreprises.id_entreprise=quotation.customer
     WHERE quotation.id_quotation='.$id_quotation.';';
     //    echo $req;
     return $this->db->getOne($req);
