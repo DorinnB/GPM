@@ -18,7 +18,7 @@ $oQuotations = new QUOTATION($db);
 $oQuotations->id=($_POST['id']==0)?"":$_POST['id'];
 $oQuotations->titre=$_POST['titre'];
 $oQuotations->RFQ=$_POST['RFQ'];
-$oQuotations->rev=$_POST['rev'];
+$oQuotations->ver=$_POST['ver'];
 $oQuotations->ref_customer=$_POST['ref_customer'];
 $oQuotations->id_contact=$_POST['id_contact'];
 $oQuotations->id_preparer=$_POST['id_preparer'];

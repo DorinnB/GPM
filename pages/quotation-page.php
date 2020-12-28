@@ -35,8 +35,8 @@
             </div>
             <div class="col-md-2 col-md-offset-1 form-group">
               <div class="input-group">
-                <span class="input-group-addon">Rev</span>
-                <input type="text" class="form-control" name="rev" value="<?= ($quotation['rev']>0)?$quotation['rev']:0 ?>">
+                <span class="input-group-addon">Version</span>
+                <input type="text" class="form-control" name="ver" value="<?= ($quotation['ver']>0)?$quotation['ver']:0 ?>">
               </div>
             </div>
           </div>
@@ -142,7 +142,7 @@
 
       </div>
 
-      <div class="row" id="pricingList2" style="height:75%">
+      <div class="row" id="pricingList2" style="height:70%; overflow-y:auto; overflow-x:hidden;">
         <ul id="sortable">
           <?php foreach ($quotationlist as $key => $value) : ?>
             <?php if ($value['type']=="title") : ?>
@@ -244,7 +244,7 @@
         </ul>
       </div>
 
-      <div class="row" style="height:5%">
+      <div class="row" style="height:10%">
         <div class="col-md-1" style="width:5%;">
         </div>
         <div class="col-md-4">
