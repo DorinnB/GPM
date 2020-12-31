@@ -92,12 +92,12 @@
           <div class="bs-example splitInfo" data-example-id="basic-forms" data-content="Internationalization">
             <p class="title">
               <span class="value">
-                <input <?=	($quotation['lang']==1)?'checked':''	?> id="lang" name="lang" data-toggle="toggle" data-on="<img src='img/FlagUSA.png' style='max-width: auto;max-height: 20px;'>" data-off="<img src='img/FlagFrench.png' style='max-width: auto;max-height: 20px;'>" type="checkbox" onChange='showSave();'>
+                <input <?=	($quotation['lang']==1)?'checked':''	?> id="lang" name="lang" data-toggle="toggle" data-on="<img src='img/FlagUSA.png' style='max-width: auto;max-height: 20px;'>" data-off="<img src='img/FlagFrench.png' style='max-width: auto;max-height: 20px;'>" type="checkbox" onChange='showSave(); changeWarning();'>
               </span>
             </p>
             <p class="title">
               <span class="value">
-                <input <?=	($quotation['currency']==1)?'checked':'a'	?> id="currency" name="currency" data-toggle="toggle" data-on="<img src='img/dollar.png' style='max-width: auto;max-height: 20px;'>" data-off="<img src='img/euro.png' style='max-width: auto;max-height: 20px;'>" type="checkbox" onChange='showSave();'>
+                <input <?=	($quotation['currency']==1)?'checked':''	?> id="currency" name="currency" data-toggle="toggle" data-on="<img src='img/dollar.png' style='max-width: auto;max-height: 20px;'>" data-off="<img src='img/euro.png' style='max-width: auto;max-height: 20px;'>" type="checkbox" onChange='showSave(); changeWarning();'>
               </span>
             </p>
           </div>
@@ -142,7 +142,7 @@
 
       </div>
 
-      <div class="row" id="pricingList2" style="height:70%; overflow-y:auto; overflow-x:hidden;">
+      <div class="row" id="pricingList2" style="height:70%; overflow-y:auto; overflow-x:hidden; padding: 5px 0; border:solid black 2px;">
         <ul id="sortable">
           <?php foreach ($quotationlist as $key => $value) : ?>
             <?php if ($value['type']=="title") : ?>
@@ -159,7 +159,7 @@
                     </div>
                   </div>
                   <div class="col-md-1 col-md-offset-4" style="color:red; width:2%;">
-                    <span class="glyphicon glyphicon-trash" style="margin-top:10px;" onClick="$(this).parents('li').remove(); showSave();"></span>
+                    <span class="glyphicon glyphicon-trash" style="margin-top:10px;" onClick="$(this).parents('li').remove(); showSave(); calcTotal();"></span>
                   </div>
                 </div>
               </li>
@@ -177,7 +177,7 @@
                     </div>
                   </div>
                   <div class="col-md-1 col-md-offset-4" style="color:red; width:2%;">
-                    <span class="glyphicon glyphicon-trash" style="margin-top:10px;" onClick="$(this).parents('li').remove(); showSave();"></span>
+                    <span class="glyphicon glyphicon-trash" style="margin-top:10px;" onClick="$(this).parents('li').remove(); showSave(); calcTotal();"></span>
                   </div>
                 </div>
               </li>
@@ -219,7 +219,7 @@
                     </div>
                   </div>
                   <div class="col-md-1" style="color:red; width:2%;">
-                    <span class="glyphicon glyphicon-trash" style="margin-top:10px;" onClick="$(this).parents('li').remove(); showSave();"></span>
+                    <span class="glyphicon glyphicon-trash" style="margin-top:10px;" onClick="$(this).parents('li').remove(); showSave(); calcTotal();"></span>
                   </div>
                 </div>
 
@@ -237,6 +237,29 @@
                   </div>
                 </div>
               </li>
+            <?php elseif ($value['type']=="subTotal") : ?>
+              <li id="quotationlist_<?= $key ?>" class="ui-state-default">
+                <div class="row">
+                  <div class="col-md-1 handle" style="width:5%;">
+                    <span class="glyphicon glyphicon-move"></span>
+                    <input type="hidden" class="form-control newtype" name="quotationlist_<?= $key ?>_type" value="subTotal">
+                  </div>
+                  <div class="col-md-7">
+                  </div>
+                  <div class="col-md-2">
+                    <input type="text" class="form-control newTitle" value="ESTIMATED SUB-TOTAL">
+                  </div>
+                  <div class="col-md-2">
+                    <div class="input-group">
+                      <span class="input-group-addon">Total</span>
+                      <input type="text" class="form-control right total subTotal decimal2" disabled >
+                    </div>
+                  </div>
+                  <div class="col-md-1" style="color:red; width:2%;">
+                    <span class="glyphicon glyphicon-trash" style="margin-top:10px;" onClick="$(this).parents('li').remove(); showSave(); calcTotal();"></span>
+                  </div>
+                </div>
+              </li>
             <?php else : ?>
               ERROR !
             <?php endif ?>
@@ -244,51 +267,52 @@
         </ul>
       </div>
 
-      <div class="row" style="height:10%">
+      <div class="row" style="height:10%; overflow-y:auto; padding-top: 5px;">
         <div class="col-md-1" style="width:5%;">
         </div>
-        <div class="col-md-4">
 
-          <button type="button" class="btn btn-default btn-lg" onClick="addNewTitle()">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Title
-          </button>
-
-          <button type="button" class="btn btn-default btn-lg" onClick="addNewComment()">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Comment
-          </button>
-
-          <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#NewCodeModal">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Code
-          </button>
-
-        </div>
-        <div class="col-md-5" style="height:100%;">
-          <div class="col-md-12" id="printQuotation" style="height:100%; padding:0px;">
-            <a href="controller/createQuotation-controller.php?id_quotation=<?=	$_GET['id_quotation']	?>" class="btn btn-info btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
-              <p style="font-size:small;height:100%;">
-                <img type="image" src="img/print.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
-              </p>
-            </a>
-          </div>
-          <div class="col-md-12" id="saveQuotation" style="height:100%; padding:0px; display:none;">
-            <a href="" class="btn btn-warning btn-lg" style="width:100%; height:100%; padding:0px; border-radius:10px;">
-              <p style="font-size:small;height:100%;">
-                <img type="image" src="img/save.png" style="max-width:50%; max-height:100%; padding:5px 0px;display: block; margin: auto;" />
-              </p>
-            </a>
+        <div class="col-md-7 comments">
+          <div class="input-group">
+            <span class="input-group-addon">Additional Comment</span>
+            <textarea class="form-control comments" rows="2" name="endComments"><?= $quotation['endComments'] ?></textarea>
           </div>
         </div>
+
+        <div class="col-md-2">
+          <button type="button" class="btn btn-default btn-lg col-md-5" onClick="addNewTitle()">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Title
+          </button>
+          <button type="button" class="btn btn-default btn-lg col-md-5 col-md-offset-1" onClick="addNewComment()">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Comment
+          </button>
+          <button type="button" class="btn btn-default btn-lg col-md-5" data-toggle="modal" data-target="#NewCodeModal">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Code
+          </button>
+          <button type="button" class="btn btn-default btn-lg col-md-5 col-md-offset-1" onClick="addNewSubTotal()">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> SubTotal
+          </button>
+        </div>
+
         <div class="col-md-2">
           <div class="input-group">
             <span class="input-group-addon">Total</span>
             <input type="text" class="form-control right" disabled id="totalQuotation" >
           </div>
+          <a href="controller/createQuotation-controller.php?id_quotation=<?=	$_GET['id_quotation']	?>" class="btn btn-primary btn-lg col-md-5" id="printQuotation" style="width:100%;">
+            <span class="glyphicon glyphicon-print" aria-hidden="true"></span> PRINT
+          </a>
+          <button type="button" class="btn btn-warning btn-lg col-md-5" id="saveQuotation" style="width:100%; display:none;">
+            <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> SAVE
+          </button>
         </div>
-        <div class="col-md-1" style="color:red; width:2%;">
-        </div>
+
       </div>
-    </form>
-  </div>
+
+
+
+    </div>
+  </form>
+</div>
 </div>
 
 <script type="text/javascript" src="js/quotation.js"></script>
@@ -303,6 +327,12 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">New Code</h4>
+        <div class="alert alert-warning alert-dismissible" style="text-align: center;">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Warning!</strong><br/>
+          The language is defined as <img id="warning_lang" src='<?=	($quotation['lang']==1)?'img/FlagUSA.png':'img/FlagFrench.png'	?>' style='max-width: auto;max-height: 20px;'> and
+          the currency is defined as <img id="warning_currency" src='<?=	($quotation['currency']==1)?'img/dollar.png':'img/euro.png'	?>' style='max-width: auto;max-height: 20px;'>.
+        </div>
       </div>
       <div class="modal-body">
         <form class="form-horizontal" onsubmit="addNewCode();return false;">
@@ -410,11 +440,11 @@
     <div class="col-md-7 description">
       <div class="input-group">
         <span class="input-group-addon">Titre</span>
-        <input type="text" class="form-control newTitle" id="description"></textarea>
+        <input type="text" class="form-control newTitle" id="description">
       </div>
     </div>
     <div class="col-md-1 col-md-offset-4" style="color:red; width:2%;">
-      <span class="glyphicon glyphicon-trash" style="margin-top:10px;" onClick="$(this).parents('li').remove(); showSave();"></span>
+      <span class="glyphicon glyphicon-trash" style="margin-top:10px;" onClick="$(this).parents('li').remove(); showSave(); calcTotal();"></span>
     </div>
   </div>
 </li>
@@ -432,7 +462,7 @@
       </div>
     </div>
     <div class="col-md-1 col-md-offset-4" style="color:red; width:2%;">
-      <span class="glyphicon glyphicon-trash" style="margin-top:10px;" onClick="$(this).parents('li').remove(); showSave();"></span>
+      <span class="glyphicon glyphicon-trash" style="margin-top:10px;" onClick="$(this).parents('li').remove(); showSave(); calcTotal();"></span>
     </div>
   </div>
 </li>
@@ -474,7 +504,7 @@
       </div>
     </div>
     <div class="col-md-1" style="color:red; width:2%;">
-      <span class="glyphicon glyphicon-trash" style="margin-top:10px;" onClick="$(this).parents('li').remove(); showSave();"></span>
+      <span class="glyphicon glyphicon-trash" style="margin-top:10px;" onClick="$(this).parents('li').remove(); showSave(); calcTotal();"></span>
     </div>
   </div>
 
@@ -489,6 +519,29 @@
     </div>
     <div class="col-md-1" style="color:blue;">
       <span class="glyphicon glyphicon-list-alt" style="margin-top:10px;" data-toggle="modal" data-target="#HourlyChargeModal" onClick="$('#hourlycharge').val($(this).parents('li').attr('id'));" ></span>
+    </div>
+  </div>
+</li>
+
+<li id="newSubTotal" class="ui-state-default" style="display:none;">
+  <div class="row">
+    <div class="col-md-1 handle" style="width:5%;">
+      <span class="glyphicon glyphicon-move"></span>
+      <input type="hidden" class="form-control newtype" id="type" value="subTotal">
+    </div>
+    <div class="col-md-7">
+    </div>
+    <div class="col-md-2">
+      <input type="text" class="form-control newTitle" value="ESTIMATED SUB-TOTAL">
+    </div>
+    <div class="col-md-2">
+      <div class="input-group">
+        <span class="input-group-addon">Total</span>
+        <input type="text" class="form-control right total subTotal" disabled >
+      </div>
+    </div>
+    <div class="col-md-1" style="color:red; width:2%;">
+      <span class="glyphicon glyphicon-trash" style="margin-top:10px;" onClick="$(this).parents('li').remove(); showSave(); calcTotal();"></span>
     </div>
   </div>
 </li>

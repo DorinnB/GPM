@@ -43,29 +43,28 @@ if ($quotationlistArray) {
 //adresse
 $i=0;
 if (isset($quotation['entreprise'])) {
-  $quotation[$i]=$quotation['entreprise'];
+  $adresse[$i]=$quotation['entreprise'];
   $i++;
 }
 if (isset($quotation['billing_rue1'])) {
-  $quotation[$i]=$quotation['billing_rue1'];
+  $adresse[$i]=$quotation['billing_rue1'];
   $i++;
 }
 if (isset($quotation['billing_rue2'])) {
-  $quotation[$i]=$quotation['billing_rue2'];
+  $adresse[$i]=$quotation['billing_rue2'];
   $i++;
 }
 if (isset($quotation['billing_ville'])) {
-  $quotation[$i]=$quotation['billing_ville'];
+  $adresse[$i]=$quotation['billing_ville'];
   $i++;
 }
 if (isset($quotation['billing_pays'])) {
-  $quotation[$i]=$quotation['billing_pays'];
+  $adresse[$i]=$quotation['billing_pays'];
   $i++;
 }
 
 
 $date=date("Y-m-d H-i-s");
-
 
 
 
@@ -176,6 +175,21 @@ function copyRange( Worksheet $sheet, $srcRange, $dstCell, Worksheet $destSheet 
   }
 }
 
+function autoHeight($page, $col, $row, $value, $width=80) {
+  //calcul de la hauteur max de la cellule de commentaire
+  $maxheight = 0;
+  //$width=80;  //valeur empirique lié à la largeur des colonnes
+  $line = explode("\n", $value);
+
+
+  foreach($line as $source) {
+    $maxheight += intval((strlen($source) / $width) +1);
+  }
+
+  $page->setCellValueByColumnAndRow($col, $row, $value);
+  $page->getRowDimension($row)->setRowHeight(count($line) * 13.75);
+
+}
 
 $styleBorder = array(
   'borders' => array(
@@ -199,133 +213,201 @@ $styleTitre = array(
     'color' => array('rgb'=>'F2F2F2')
   ),
 );
-
-//nom du fichier excel d'UBR
-$objPHPExcel = $objReader->load("../templates/Quotation.xlsm");
-
-$page=$objPHPExcel->getSheetByName('Quotation');
-//on cache la fenetre template
-$page->setSheetState(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_VISIBLE);
-
-$pageComments=$objPHPExcel->getSheetByName('Comments');
-
-
-
-
-
-$val2Xls = array(
-
-  'F5' => date('y', strtotime($quotation['creation_date'])).'-'.sprintf('%05d',$quotation['id_quotation']),
-  'F6' => $quotation['rev'],
-  'F7'=> date("Y-m-d"),
-  'F9' => $quotation['rfq'],
-
-  'B6'=> (isset($adresse2[0])?$adresse2[0]:''),
-  'B7'=> (isset($adresse2[1])?$adresse2[1]:''),
-  'B8'=> (isset($adresse2[2])?$adresse2[2]:''),
-  'B9'=> (isset($adresse2[3])?$adresse2[3]:''),
-  'B10'=> (isset($adresse2[4])?$adresse2[4]:''),
-  'B11'=> (isset($adresse2[5])?$adresse2[5]:'')
-
+$styleComment = array(
+  'font'  => array(
+    'color' => array('rgb'=>'8193AB') //FF000000    //F2F2F2
+  )
 );
+$styleCurrencyEURO = array(
+  'numberFormat' => [
+    'formatCode' => \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_EUR_SIMPLE
+    ]
+  );
+  $styleCurrencyUSD = array(
+    'numberFormat' => [
+      'formatCode' => \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE
+      ]
+    );
 
-//Pour chaque element du tableau associatif, on update les cellules Excel
-foreach ($val2Xls as $key => $value) {
-  $page->setCellValue($key, $value);
-}
+
+    //nom du fichier excel d'UBR
+    $objPHPExcel = $objReader->load("../templates/Quotation.xlsm");
+
+    $pageComments=$objPHPExcel->getSheetByName('Comments');
+
+    //Commentaire fin de page
+    if ($quotation['lang']==0) {  //FR
+      $page=$objPHPExcel->getSheetByName('QuotationFR');
+      $objPHPExcel->getSheetByName('QuotationUS')->setSheetState(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_HIDDEN);
+      $comments1 = $pageComments->getCellByColumnAndRow(1,5);
+      $comments2 = $pageComments->getCellByColumnAndRow(11,6);
+      $CommentSubTotal = $pageComments->getCellByColumnAndRow(1,7);
+      $CommentTotal = $pageComments->getCellByColumnAndRow(1,8);
+    }
+    else {                        //US
+      $page=$objPHPExcel->getSheetByName('QuotationUS');
+      $objPHPExcel->getSheetByName('QuotationFR')->setSheetState(\PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::SHEETSTATE_HIDDEN);
+      $comments1 = $pageComments->getCellByColumnAndRow(1,14);
+      $comments2 = $pageComments->getCellByColumnAndRow(11,15);
+      $CommentSubTotal = $pageComments->getCellByColumnAndRow(1,16);
+      $CommentTotal = $pageComments->getCellByColumnAndRow(1,17);
+    }
+
+    $page
+    ->getStyle('F:G')
+    ->getNumberFormat()
+    ->setFormatCode(PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_CURRENCY_USD_SIMPLE);
 
 
 
-$row = 17;
+    $val2Xls = array(
 
-//pour chaque split
-foreach ($quotationlist as $key => $value) {
+      'F9' => date('y', strtotime($quotation['creation_date'])).'-'.sprintf('%05d',$quotation['id_quotation']),
+      'F10' => $quotation['ver'],
+      'F11'=> date("Y-m-d"),
+      'F13' => $quotation['rfq'],
 
-  if ($value['type']=="title") {
+      'B10'=> (isset($adresse[0])?$adresse[0]:''),
+      'B11'=> (isset($adresse[1])?$adresse[1]:''),
+      'B12'=> (isset($adresse[2])?$adresse[2]:''),
+      'B13'=> (isset($adresse[3])?$adresse[3]:''),
+      'B14'=> (isset($adresse[4])?$adresse[4]:''),
+      'B15'=> (isset($adresse[5])?$adresse[5]:'')
+
+    );
+
+    //Pour chaque element du tableau associatif, on update les cellules Excel
+    foreach ($val2Xls as $key => $value) {
+      $page->setCellValue($key, $value);
+    }
+
+
+
+    $row = 20;
+    $rowInitial=$row;
+    $rowSubTotal = $row;
+
+    //pour chaque split
+    foreach ($quotationlist as $key => $value) {
+
+      if ($value['type']=="title") {
+        $row++;
+        $page->setCellValueByColumnAndRow(1+1, $row, $value['description']);
+        $page->getStyle('B'.$row.':G'.$row)->applyFromArray($styleTitre);
+      }
+      elseif ($value['type']=="comment") {
+        $page->setCellValueByColumnAndRow(1+1, $row, $value['comments']);
+        $page->getStyle('B'.$row)->applyFromArray($styleComment);
+      }
+      elseif ($value['type']=="code") {
+        $page->setCellValueByColumnAndRow(1+0, $row, $value['prodCode']);
+        $page->setCellValueByColumnAndRow(1+1, $row, $value['description']);
+        $page->setCellValueByColumnAndRow(1+4, $row, $value['unit']);
+        $page->setCellValueByColumnAndRow(1+5, $row, $value['price']);
+        $page->setCellValueByColumnAndRow(1+6, $row, $value['unit']*$value['price']);
+        $page->setCellValueByColumnAndRow(1+7, $row, $value['unit']*$value['price']);
+        $row++;
+        //$page->setCellValueByColumnAndRow(1+1, $row, $value['comments']);
+        $page->mergeCells('B'.$row.':D'.$row);
+        $page->getStyle('B'.$row)->getAlignment()->setWrapText(true);
+
+        autoHeight($page, 1+1, $row, $value['comments'], $width=60);
+
+        $page->getStyle('B'.$row)->applyFromArray($styleComment);
+
+      }
+      elseif ($value['type']=="subTotal") {
+        $row++;
+
+        $page->setCellValue('A3', $CommentSubTotal->getCalculatedValue());
+        copyRange(  $page, 'A3:G3', Coordinate::stringFromColumnIndex(1).$row);
+        $page->setCellValueByColumnAndRow(1+6, $row,'=sum(G'.$rowSubTotal.':G'.($row-1).')');
+        $rowSubTotal=$row+1;
+
+      }
+
+      $row++;
+
+
+    }
+
+
+
+
+
     $row++;
-    $page->setCellValueByColumnAndRow(1+1, $row, $value['description']);
-    $page->getStyle('B'.$row.':G'.$row)->applyFromArray($styleTitre);
-  }
-  elseif ($value['type']=="comment") {
-    $page->setCellValueByColumnAndRow(1+1, $row, $value['comments']);
-  }
-  elseif ($value['type']=="code") {
-    $page->setCellValueByColumnAndRow(1+0, $row, $value['prodCode']);
-    $page->setCellValueByColumnAndRow(1+1, $row, $value['description']);
-    $page->setCellValueByColumnAndRow(1+4, $row, $value['unit']);
-    $page->setCellValueByColumnAndRow(1+5, $row, $value['price']);
-    $page->setCellValueByColumnAndRow(1+6, $row, $value['unit']*$value['price']);
+
+    //prix total
+    $page->setCellValue('A4', $CommentTotal->getCalculatedValue());
+    copyRange(  $page, 'A4:G4', Coordinate::stringFromColumnIndex(1).$row);
+    $page->setCellValueByColumnAndRow(1+6, $row,'=sum(H'.$rowInitial.':H'.($row-1).')');
     $row++;
-    $page->setCellValueByColumnAndRow(1+1, $row, $value['comments']);
-  }
+
+    //commentaire additionnel
+    $page->setCellValueByColumnAndRow(1+0, $row, 'Notes');
+    $page->mergeCells('B'.$row.':G'.$row);
+    autoHeight($page, 1+1, $row, $quotation['endComments'], $width=60);
+    $page->getStyle('B'.$row)->getAlignment()->setWrapText(true);
 
 
-  $row++;
+    $row++;
 
-
-}
-
-
-
-
-
-$row++;
-
-
-//Commentaire fin de page
-if ($quotation['lang']==0) {  //FR
-  $cell = $pageComments->getCellByColumnAndRow(11,5);
-  $page->setCellValue('A1', $cell->getCalculatedValue());
-
-  $cell = $pageComments->getCellByColumnAndRow(11,6);
-  $page->setCellValue('A2', $cell->getCalculatedValue());
-}
-else {                        //US
-  $cell = $pageComments->getCellByColumnAndRow(11,10);
-  $page->setCellValue('A1', $cell->getCalculatedValue());
-  $cell = $pageComments->getCellByColumnAndRow(11,11);
-  $page->setCellValue('A2', $cell->getCalculatedValue());
-}
-
-copyRange(  $page, 'A1:G2', Coordinate::stringFromColumnIndex(1).$row);
-
-//prix total -- a modifier
-$page->setCellValueByColumnAndRow(1+6, $row,'=sum(F17:F'.($row-1).')');
+    $row++;
 
 
 
-$page->getPageSetup()->setPrintArea('A1:G'.$row);
+    //commentaire fin de page
+    $page->setCellValue('A1', $comments1->getValue());
+    $page->setCellValue('A2', $comments2->getCalculatedValue());
+    copyRange(  $page, 'A1:G2', Coordinate::stringFromColumnIndex(1).$row);
+    $row++;
+
+
+    //format nombre
+    if ($quotation['currency']==0) {  //EURO
+      $page->getStyle('F'.$rowInitial.':G'.$row)->applyFromArray($styleCurrencyEURO);
+    }
+    else {                        //USD
+      $page->getStyle('F'.$rowInitial.':G'.$row)->applyFromArray($styleCurrencyUSD);
+    }
 
 
 
 
-/*
 
-//on cache les fenetres template
-$objPHPExcel->getSheetByName('Quotation')
-->setSheetState(Worksheet::SHEETSTATE_HIDDEN);
-*/
+    $page->getPageSetup()->setPrintArea('A1:G'.$row);
 
 
-$objWriter = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($objPHPExcel, 'Xlsx');
-//$objWriter->setIncludeCharts(TRUE);
-$file='../temp/Quotation-'.date('y', strtotime($quotation['creation_date'])).'-'.sprintf('%05d',$quotation['id_quotation']).'.xlsm';
-$objWriter->save($file);
 
 
-// Redirect output to a client’s web browser (Excel2007)
-header('Content-Type: application/vnd.ms-excel.sheet.macroEnabled.12');
-header('Content-Disposition: attachment;filename="Quotation-'.date('y', strtotime($quotation['creation_date'])).'-'.sprintf('%05d',$quotation['id_quotation']).'.xlsm"');
-header('Cache-Control: max-age=0');
-// If you're serving to IE 9, then the following may be needed
-header('Cache-Control: max-age=1');
 
-// If you're serving to IE over SSL, then the following may be needed
-header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
-header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
-header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
-header ('Pragma: public'); // HTTP/1.0
+    /*
 
-readfile($file);
+    //on cache les fenetres template
+    $objPHPExcel->getSheetByName('Quotation')
+    ->setSheetState(Worksheet::SHEETSTATE_HIDDEN);
+    */
 
-exit;
+
+    $objWriter = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($objPHPExcel, 'Xlsx');
+    //$objWriter->setIncludeCharts(TRUE);
+    $file='../temp/Quotation-'.date('y', strtotime($quotation['creation_date'])).'-'.sprintf('%05d',$quotation['id_quotation']).'.xlsm';
+    $objWriter->save($file);
+
+
+    // Redirect output to a client’s web browser (Excel2007)
+    header('Content-Type: application/vnd.ms-excel.sheet.macroEnabled.12');
+    header('Content-Disposition: attachment;filename="Quotation-'.date('y', strtotime($quotation['creation_date'])).'-'.sprintf('%05d',$quotation['id_quotation']).'.xlsm"');
+    header('Cache-Control: max-age=0');
+    // If you're serving to IE 9, then the following may be needed
+    header('Cache-Control: max-age=1');
+
+    // If you're serving to IE over SSL, then the following may be needed
+    header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+    header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
+    header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+    header ('Pragma: public'); // HTTP/1.0
+
+    readfile($file);
+
+    exit;

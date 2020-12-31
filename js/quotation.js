@@ -6,6 +6,7 @@ $(document).ready(function(){
     handle: '.handle',
     stop : function(event, ui){
       //console.log($(this).sortable('serialize'));
+        calcTotal();
       showSave();
     }
   });
@@ -94,7 +95,7 @@ $(document).ready(function(){
 
 
   $('#changePrep').click( function(e) {
-    showSave()
+    showSave(1)
     if (Math.abs($('#id_preparer').val())==$('#iduser').text()) {
       $('#id_preparer').val(-$('#id_preparer').val());
       $('#preparer').val($('#user').text());
@@ -114,7 +115,6 @@ $(document).ready(function(){
     }
   });
   $('#changeCheck').click( function(e) {
-    showSave()
     if (Math.abs($('#id_checker').val())==$('#iduser').text()) {
       $('#id_checker').val(-$('#id_checker').val());
       $('#checker').val($('#user').text());
@@ -132,6 +132,7 @@ $(document).ready(function(){
       $('#checker').addClass('checkNOK');
       $('#checker').removeClass('checkOK');
     }
+        showSave(1)
   });
 
   //Lors du save de la quotation
@@ -158,14 +159,41 @@ $(document).ready(function(){
     });
   } );
 
-
-
 });
 
+
+//changement du texte warning de NewCode
+function changeWarning() {
+  if ($('#lang').parents().hasClass('off')) { //off = fr
+    $('#warning_lang').attr('src', 'img/FlagFrench.png');
+  }
+  else {
+      $('#warning_lang').attr('src', 'img/FlagUSA.png');
+  }
+
+  if ($('#currency').parents().hasClass('off')) { //off = euro
+    $('#warning_currency').attr('src', 'img/euro.png');
+  }
+  else {
+      $('#warning_currency').attr('src', 'img/dollar.png');
+  }
+}
+
 //changement de l'icone print en save
-function showSave() {
+function showSave(check=0) {
   $('#printQuotation').css('display','none');
   $('#saveQuotation').css('display','block');
+
+if (check==0) {
+  $('#id_preparer').val(-$('#iduser').text());
+  $('#preparer').val($('#user').text());
+  $('#preparer').addClass('checkNOK').removeClass('checkOK');
+
+  $('#id_checker').val(0);
+  $('#checker').val('');
+  $('#checker').addClass('checkNOK').removeClass('checkOK');
+}
+
 }
 //au démarrage
 $(document).on('input', function() {
@@ -221,7 +249,7 @@ function addNewCode(){
     $('#quotationlist_' + id).find('#type').prop('id', 'quotationlist_' + id + '_type' ).attr('name','quotationlist_' + id + '_type');
     $('#quotationlist_' + id).find('.prodCode').prop('id', 'quotationlist_' + id + '_prodCode' ).attr('name','quotationlist_' + id + '_prodCode').val(row['1']);
 
-    if ($('#lang').parents().hasClass('off')) { //off = euro
+    if ($('#lang').parents().hasClass('off')) { //off = fr
       $('#quotationlist_' + id).find('.description').prop('id', 'quotationlist_' + id + '_description' ).attr('name','quotationlist_' + id + '_description').val(row['5']);
     }
     else {
@@ -241,6 +269,14 @@ function addNewCode(){
   });
 
   $("#NewCodeModal").modal("hide");
+}
+
+function addNewSubTotal(){
+  showSave();
+
+  id++;
+  $('#sortable').last().append($('#newSubTotal').clone().prop('id', 'quotationlist_' + id ).toggle());
+  $('#quotationlist_' + id).find('#type').prop('id', 'quotationlist_' + id + '_type' ).attr('name','quotationlist_' + id + '_type');
 }
 
 function addHourlyCharge(){
@@ -333,10 +369,20 @@ $(".unit").each(function() {
 
 function calcTotal(){   //calcul total quotation
   total=0;
+  subTotal=0;
   $('.total').each( function (i) {
+    if ($(this).hasClass('subTotal')) {
+        $(this).val(subTotal.toFixed(2));
+        subTotal=0;
+    }
+    else {
     if ($(this).val()!=0) {
       total += parseFloat($(this).val());
+      subTotal += parseFloat($(this).val());
     }
+
+    }
+
   });
   $('#totalQuotation').val(total.toFixed(2));
 }
@@ -352,6 +398,22 @@ $.get("controller/lstClient-controller.php?&ref_customer=" + $("#ref_customer").
   $("#id_contact").load("controller/lstContact-controller.php?id_contact=" + $("#idcontact").html() + "&ref_customer=" + $("#ref_customer").val());
   $("#nomclient").val(result);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

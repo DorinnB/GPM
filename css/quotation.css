@@ -34,9 +34,7 @@ input,  select{
 a {
   color:black;
 }
-.btn-default {
-  margin-left: 1em !important;
-}
+
 th  {
   text-align: center;
 }
@@ -82,4 +80,10 @@ text-align: right;
 .checkNOK {
   background-color:darkred !important;
   color:white !important;
+}
+
+.btn-lg {
+  font-size: initial;
+  padding-top:5px;
+  padding-bottom:5px;
 }

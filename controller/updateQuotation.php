@@ -28,6 +28,7 @@ $oQuotations->lang=isset($_POST['lang'])?"1":"0";
 $oQuotations->currency=isset($_POST['currency'])?"1":"0";
 
 $oQuotations->quotationlist=$_POST['quotationlist'];
+$oQuotations->endComments=$_POST['endComments'];
 
 $quotation=$oQuotations->updateQuotation();
 
