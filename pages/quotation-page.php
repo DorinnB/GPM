@@ -40,9 +40,8 @@
               </div>
             </div>
           </div>
-
-
         </div>
+
         <div class="col-md-2">
           <div class="row">
             <div class="col-md-12 form-group">
@@ -78,10 +77,52 @@
           </div>
         </div>
 
+
+
+
+
+
+
+
+        <div class="col-md-2">
+
+
+          <div class="row">
+            <div class="col-md-12 form-group">
+              <div class="input-group">
+                <span class="input-group-addon">Language</span>
+              <input class="form-control" <?=	($quotation['lang']==1)?'checked':''	?> id="lang" name="lang" data-toggle="toggle" data-on="<img src='img/FlagUSA.png' style='max-width: auto;max-height: 20px;'>" data-off="<img src='img/FlagFrench.png' style='max-width: auto;max-height: 20px;'>" type="checkbox" onChange='showSave(); changeWarning();'>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 form-group">
+              <div class="input-group">
+                <span class="input-group-addon">Currency</span>
+              <input class="form-control" <?=	($quotation['currency']==1)?'checked':''	?> id="currency" name="currency" data-toggle="toggle" data-on="<img src='img/dollar.png' style='max-width: auto;max-height: 20px;'>" data-off="<img src='img/euro.png' style='max-width: auto;max-height: 20px;'>" type="checkbox" onChange='showSave(); changeWarning();'>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 form-group">
+              <div class="input-group popover-markup" data-placement="bottom">
+                <span class="input-group-addon">MRSAS Notes</span>
+                <div class="head hide">MRSAS Notes</div>
+                <div class="content hide">
+                  <div class="form-group">
+                    <textarea class="bubble_commentaire" name="c_commentaire" rows="10" cols="50"><?= $quotation['mrsasComments'] ?></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+<!--
         <div class="col-md-1">
           <div class="bs-example splitInfo" data-example-id="basic-forms" data-content="Internationalization">
             <p class="title">
-              <span class="name">Quotation Language :</span>
+              <span class="name">Language :</span>
             </p>
             <p class="title">
               <span class="name">Currency :</span>
@@ -102,7 +143,7 @@
             </p>
           </div>
         </div>
-
+-->
         <div class="col-md-2">
           <div class="row">
             <div class="col-md-12 form-group">
@@ -134,7 +175,7 @@
             <div class="col-md-12 form-group">
               <div class="input-group">
                 <span class="input-group-addon">Date</span>
-                <input type="text" class="form-control" id="dateQuotation" name="date" >
+                <input type="text" class="form-control" id="quotation_date" name="quotation_date" value="<?= $quotation['quotation_date'] ?>">
               </div>
             </div>
           </div>
@@ -142,7 +183,7 @@
 
       </div>
 
-      <div class="row" id="pricingList2" style="height:70%; overflow-y:auto; overflow-x:hidden; padding: 5px 0; border:solid black 2px;">
+      <div class="row" id="pricingList2" style="height:70%; overflow-y:auto; overflow-x:hidden; padding: 5px 0; border: 2px solid black;">
         <ul id="sortable">
           <?php foreach ($quotationlist as $key => $value) : ?>
             <?php if ($value['type']=="title") : ?>

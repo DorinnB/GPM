@@ -23,7 +23,7 @@ $oQuotations->ref_customer=$_POST['ref_customer'];
 $oQuotations->id_contact=$_POST['id_contact'];
 $oQuotations->id_preparer=$_POST['id_preparer'];
 $oQuotations->id_checker=$_POST['id_checker'];
-$oQuotations->date=$_POST['date'];
+$oQuotations->quotation_date=$_POST['quotation_date'];
 $oQuotations->lang=isset($_POST['lang'])?"1":"0";
 $oQuotations->currency=isset($_POST['currency'])?"1":"0";
 

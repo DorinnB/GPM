@@ -42,15 +42,7 @@ $(document).ready(function() {
       { label: "Date of Commissioning", name: "outillages.dateService"  },
       { label: "Date Out of Order", name: "outillages.dateHS"  },
       { label: "Comments", name: "outillages.comments"  },
-      { label: "Active", name: "outillages.outillage_actif",
-                type:  "radio",
-                options: [
-                    { label: "No", value: 0 },
-                    { label: "Yes",  value: 1 },
-                    { label: "Machining",  value: 2 }
-                ],
-                def: 0
-            }
+      { label: "Active", name: "outillages.outillage_actif" }
     ]
   } );
 

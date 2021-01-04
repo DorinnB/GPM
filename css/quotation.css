@@ -87,3 +87,7 @@ text-align: right;
   padding-top:5px;
   padding-bottom:5px;
 }
+
+.popover{
+    max-width: 100%; /* Max Width of the popover (depending on the container!) */
+}

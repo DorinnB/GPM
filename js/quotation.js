@@ -6,7 +6,7 @@ $(document).ready(function(){
     handle: '.handle',
     stop : function(event, ui){
       //console.log($(this).sortable('serialize'));
-        calcTotal();
+      calcTotal();
       showSave();
     }
   });
@@ -132,7 +132,7 @@ $(document).ready(function(){
       $('#checker').addClass('checkNOK');
       $('#checker').removeClass('checkOK');
     }
-        showSave(1)
+    showSave(1)
   });
 
   //Lors du save de la quotation
@@ -168,14 +168,14 @@ function changeWarning() {
     $('#warning_lang').attr('src', 'img/FlagFrench.png');
   }
   else {
-      $('#warning_lang').attr('src', 'img/FlagUSA.png');
+    $('#warning_lang').attr('src', 'img/FlagUSA.png');
   }
 
   if ($('#currency').parents().hasClass('off')) { //off = euro
     $('#warning_currency').attr('src', 'img/euro.png');
   }
   else {
-      $('#warning_currency').attr('src', 'img/dollar.png');
+    $('#warning_currency').attr('src', 'img/dollar.png');
   }
 }
 
@@ -184,15 +184,15 @@ function showSave(check=0) {
   $('#printQuotation').css('display','none');
   $('#saveQuotation').css('display','block');
 
-if (check==0) {
-  $('#id_preparer').val(-$('#iduser').text());
-  $('#preparer').val($('#user').text());
-  $('#preparer').addClass('checkNOK').removeClass('checkOK');
+  if (check==0) {
+    $('#id_preparer').val(-$('#iduser').text());
+    $('#preparer').val($('#user').text());
+    $('#preparer').addClass('checkNOK').removeClass('checkOK');
 
-  $('#id_checker').val(0);
-  $('#checker').val('');
-  $('#checker').addClass('checkNOK').removeClass('checkOK');
-}
+    $('#id_checker').val(0);
+    $('#checker').val('');
+    $('#checker').addClass('checkNOK').removeClass('checkOK');
+  }
 
 }
 //au démarrage
@@ -202,12 +202,15 @@ $(document).on('input', function() {
 
 
 
-$( "#dateQuotation" ).datepicker({
+$( "#quotation_date" ).datepicker({
   showWeek: true,
   firstDay: 1,
   showOtherMonths: true,
   selectOtherMonths: true,
-  dateFormat: "yy-mm-dd"
+  dateFormat: "yy-mm-dd",
+  onSelect: function() {
+    showSave();
+  }
 });
 
 
@@ -372,14 +375,14 @@ function calcTotal(){   //calcul total quotation
   subTotal=0;
   $('.total').each( function (i) {
     if ($(this).hasClass('subTotal')) {
-        $(this).val(subTotal.toFixed(2));
-        subTotal=0;
+      $(this).val(subTotal.toFixed(2));
+      subTotal=0;
     }
     else {
-    if ($(this).val()!=0) {
-      total += parseFloat($(this).val());
-      subTotal += parseFloat($(this).val());
-    }
+      if ($(this).val()!=0) {
+        total += parseFloat($(this).val());
+        subTotal += parseFloat($(this).val());
+      }
 
     }
 
@@ -407,7 +410,32 @@ $.get("controller/lstClient-controller.php?&ref_customer=" + $("#ref_customer").
 
 
 
-
+//affichage et disparition automatique du popover en mouse hover
+$('.popover-markup').popover({
+  html: true,
+  container:'body',
+  trigger: "manual",
+  title: function () {
+    return $(this).find('.head').html();
+  },
+  content: function () {
+    return $(this).find('.content').html();
+  }
+})
+.on("mouseenter", function () {
+  var _this = this;
+  $(this).popover("show");
+  $(".popover").on("mouseleave", function () {
+    $(_this).popover('hide');
+  });
+}).on("mouseleave", function () {
+  var _this = this;
+  setTimeout(function () {
+    if (!$(".popover:hover").length) {
+      $(_this).popover("hide");
+    }
+  });
+});
 
 
 

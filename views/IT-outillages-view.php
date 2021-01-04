@@ -21,7 +21,7 @@
       <th><acronym title="Date Out of Order">HS</acronym></th>
       <th><acronym title="Comments">Comments</acronym></th>
       <th><acronym title="Last Seen">Last Seen</acronym></th>
-      <th><acronym title="Active">Active</acronym></th>
+      <th><acronym title="Active with 0=Out of Service, 1=Usable, 2=Maintenance">Active</acronym></th>
 
     </tr>
   </thead>
