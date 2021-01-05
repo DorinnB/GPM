@@ -14,7 +14,7 @@ $(document).ready(function() {
       { label: "quotation.quotation_actif", name: "quotation.quotation_actif",
       type: "radio",
       options: [
-        { label: "-", value: 1 },
+        { label: "N/A", value: 1 },
         { label: "Price",    value: -1 },
         { label: "DyT",    value: -2 },
         { label: "Aborted",    value: -3 },
