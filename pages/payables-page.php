@@ -6,6 +6,7 @@
     <?php if($user->is_accounting()) : ?>
       <?php
       if (!isset($_GET['dateStartPayable'])) {
+                echo "<script type='text/javascript'>document.location.replace('index.php?page=payables&dateStartPayable=2020-01-01');</script>";
         echo "<script type='text/javascript'>document.location.replace('index.php?page=payables&dateStartPayable=".date('Y-m-d',strtotime('first day of january'))."');</script>";
       }
       ?>

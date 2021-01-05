@@ -6,6 +6,7 @@
     <?php if($user->is_accounting()) : ?>
       <?php
       if (!isset($_GET['dateStartUBR'])) {
+echo "<script type='text/javascript'>document.location.replace('index.php?page=ubr&dateStartUBR=2020-01-01');</script>";
         echo "<script type='text/javascript'>document.location.replace('index.php?page=ubr&dateStartUBR=".date('Y-m-d',strtotime('first day of january'))."');</script>";
       }
       ?>

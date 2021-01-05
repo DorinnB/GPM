@@ -19,10 +19,6 @@ $(document).ready(function(){
     $(this).html( '<input type="text" placeholder="'+title+'" data-index="'+i+'" style="width:100%;"/>' );
   } );
 
-  // Activate an inline edit on click of a table cell
-  $('#example').on( 'click', 'tbody td:not(:first-child)', function (e) {
-    editor.inline( this );
-  } );
 
 
   var table = $('#table_pricinglists').DataTable( {
@@ -159,7 +155,9 @@ $(document).ready(function(){
     });
   } );
 
+
 });
+
 
 
 //changement du texte warning de NewCode
@@ -195,9 +193,19 @@ function showSave(check=0) {
   }
 
 }
+
+
 //au démarrage
-$(document).on('input', function() {
+$(document).on('input', 'input', function() {
   showSave();
+});
+$(document).on('input', 'textarea', function() {  //exclusion du commentaire mrsasComment
+  if ($(this).attr('id')=='mrsasCommentTextarea') {
+    showSave(1);
+  }
+  else {
+    showSave();
+  }
 });
 
 
@@ -209,11 +217,20 @@ $( "#quotation_date" ).datepicker({
   selectOtherMonths: true,
   dateFormat: "yy-mm-dd",
   onSelect: function() {
-    showSave();
+    showSave(1);
   }
 });
 
 
+$(document).on('shown.bs.modal','#mrsasComment', function () {
+  $('#mrsasCommentTextarea').focus();
+});
+
+function addMRSASComments(){
+  $('#mrsasComments').val($('#mrsasCommentTextarea').val());
+  $('#mrsasComment').modal('toggle');
+  $('#mrsasCommentBadge').text($('#mrsasCommentTextarea').val().substr(0, 20) + " [...]");
+}
 
 var id=0;
 
@@ -225,6 +242,8 @@ function addNewTitle(){
   $('#sortable').last().append($('#newTitle').clone().prop('id', 'quotationlist_' + id ).toggle());
   $('#quotationlist_' + id).find('#type').prop('id', 'quotationlist_' + id + '_type' ).attr('name','quotationlist_' + id + '_type');
   $('#quotationlist_' + id).find('#description').prop('id', 'quotationlist_' + id + '_description' ).attr('name','quotationlist_' + id + '_description');
+  $('#quotationlist_' + id + '_description').focus();
+
 }
 
 function addNewComment(){
@@ -234,6 +253,7 @@ function addNewComment(){
   $('#sortable').last().append($('#newComment').clone().prop('id', 'quotationlist_' + id ).toggle());
   $('#quotationlist_' + id).find('#type').prop('id', 'quotationlist_' + id + '_type' ).attr('name','quotationlist_' + id + '_type');
   $('#quotationlist_' + id).find('#comments').prop('id', 'quotationlist_' + id + '_comments' ).attr('name','quotationlist_' + id + '_comments');
+  $('#quotationlist_' + id + '_comments').focus();
 }
 
 function addNewCode(){
@@ -271,7 +291,14 @@ function addNewCode(){
 
   });
 
+
   $("#NewCodeModal").modal("hide");
+
+  $(document).on('hidden.bs.modal','#NewCodeModal', function () {
+    $('#quotationlist_' + id + '_unit').focus();
+  });
+
+  $('#table_pricinglists').DataTable().rows().deselect();   //deselection des pricinglist
 }
 
 function addNewSubTotal(){
@@ -281,6 +308,11 @@ function addNewSubTotal(){
   $('#sortable').last().append($('#newSubTotal').clone().prop('id', 'quotationlist_' + id ).toggle());
   $('#quotationlist_' + id).find('#type').prop('id', 'quotationlist_' + id + '_type' ).attr('name','quotationlist_' + id + '_type');
 }
+
+
+$(document).on('shown.bs.modal','#HourlyChargeModal', function () {
+  $('#firstCalcHourly').focus();
+});
 
 function addHourlyCharge(){
 

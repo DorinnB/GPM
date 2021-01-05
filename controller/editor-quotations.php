@@ -16,12 +16,12 @@ DataTables\Editor\Validate,
 DataTables\Editor\ValidateOptions;
 
 // Build our Editor instance and process the data coming from _POST
-Editor::inst( $db, 'quotations' )
-->pkey( 'quotations.id_quotation' )
+Editor::inst( $db, 'quotation' )
+->pkey( 'quotation.id_quotation' )
 ->fields(
-  Field::inst( 'quotations.id_quotation'),
+  Field::inst( 'quotation.id_quotation'),
 
-  Field::inst( 'quotations.id_customer' )
+  Field::inst( 'quotation.customer' )
     ->options( Options::inst()
     ->table( 'entreprises' )
     ->value( 'id_entreprise' )
@@ -30,7 +30,7 @@ Editor::inst( $db, 'quotations' )
   Field::inst( 'entreprises.entreprise_abbr'),
 
 
-  Field::inst( 'quotations.id_contact' )
+  Field::inst( 'quotation.id_contact' )
     ->options( Options::inst()
     ->table( 'contacts' )
     ->value( 'id_contact' )
@@ -41,27 +41,31 @@ Editor::inst( $db, 'quotations' )
 
 
 
-  Field::inst( 'quotations.id_user' )
+  Field::inst( 'quotation.id_preparer' )
     ->options( Options::inst()
     ->table( 'techniciens' )
     ->value( 'id_technicien' )
     ->label( 'technicien' )
   ),
   Field::inst( 'techniciens.technicien'),
+  Field::inst( 'quotation.id_checker' ),
+  Field::inst( 'quotation.rfq'),
+  Field::inst( 'quotation.mrsasComments'),
 
-  Field::inst( 'quotations.quotation_date'),
-  Field::inst( 'quotations.quotation_estimated'),
+  Field::inst( 'quotation.creation_date'),
+  Field::inst( 'quotation.quotation_date'),
+  Field::inst( 'quotation.quotationlist'),
   Field::inst( 'info_jobs.id_info_job'),
   Field::inst( 'info_jobs.job'),
-  Field::inst( 'quotations.quotation_actif')
+  Field::inst( 'quotation.quotation_actif')
   )
 
-  ->leftJoin( 'entreprises',     'entreprises.id_entreprise',          '=', 'quotations.id_customer' )
-  ->leftJoin( 'contacts',     'contacts.id_contact',          '=', 'quotations.id_contact' )
-  ->leftJoin( 'techniciens',     'techniciens.id_technicien',          '=', 'quotations.id_user' )
-  ->leftJoin( 'info_jobs',     'info_jobs.devis=concat("D",quotations.id_quotation)','','' )
+  ->leftJoin( 'entreprises',     'entreprises.id_entreprise',          '=', 'quotation.customer' )
+  ->leftJoin( 'contacts',     'contacts.id_contact',          '=', 'quotation.id_contact' )
+  ->leftJoin( 'techniciens',     'techniciens.id_technicien',          '=', 'quotation.id_preparer' )
+  ->leftJoin( 'info_jobs',     'info_jobs.devis=concat("D",quotation.id_quotation) OR right(info_jobs.devis,4)=quotation.id_quotation','','' )
 
-  ->where('quotations.quotation_date',$_POST['dateStartQuotation'],'>=')
+  ->where('quotation.creation_date',$_POST['dateStartQuotation'],'>=')
 
   ->process($_POST)
   ->json();

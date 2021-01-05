@@ -15,7 +15,7 @@
         <div class="col-md-6">
           <div class="row">
             <input type="hidden" name="id" value="<?= $quotation['id_quotation'] ?>">
-            <H3>QUOTATION # <?= date('y', strtotime($quotation['creation_date'])).'-'.sprintf('%05d',$quotation['id_quotation']) ?></H3>
+            <H3>QUOTATION # <?= ($quotation['id_quotation']==0)?"Undefined yet":date('y', strtotime($quotation['creation_date'])).'-'.sprintf('%05d',$quotation['id_quotation']) ?></H3>
           </div>
 
           <div class="row">
@@ -91,7 +91,7 @@
             <div class="col-md-12 form-group">
               <div class="input-group">
                 <span class="input-group-addon">Language</span>
-              <input class="form-control" <?=	($quotation['lang']==1)?'checked':''	?> id="lang" name="lang" data-toggle="toggle" data-on="<img src='img/FlagUSA.png' style='max-width: auto;max-height: 20px;'>" data-off="<img src='img/FlagFrench.png' style='max-width: auto;max-height: 20px;'>" type="checkbox" onChange='showSave(); changeWarning();'>
+                <input class="form-control" <?=	($quotation['lang']==1)?'checked':''	?> id="lang" name="lang" data-toggle="toggle" data-on="<img src='img/FlagUSA.png' style='max-width: auto;max-height: 20px;'>" data-off="<img src='img/FlagFrench.png' style='max-width: auto;max-height: 20px;'>" type="checkbox" onChange='showSave(); changeWarning();'>
               </div>
             </div>
           </div>
@@ -99,51 +99,21 @@
             <div class="col-md-12 form-group">
               <div class="input-group">
                 <span class="input-group-addon">Currency</span>
-              <input class="form-control" <?=	($quotation['currency']==1)?'checked':''	?> id="currency" name="currency" data-toggle="toggle" data-on="<img src='img/dollar.png' style='max-width: auto;max-height: 20px;'>" data-off="<img src='img/euro.png' style='max-width: auto;max-height: 20px;'>" type="checkbox" onChange='showSave(); changeWarning();'>
+                <input class="form-control" <?=	($quotation['currency']==1)?'checked':''	?> id="currency" name="currency" data-toggle="toggle" data-on="<img src='img/dollar.png' style='max-width: auto;max-height: 20px;'>" data-off="<img src='img/euro.png' style='max-width: auto;max-height: 20px;'>" type="checkbox" onChange='showSave(); changeWarning();'>
               </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12 form-group">
-              <div class="input-group popover-markup" data-placement="bottom">
-                <span class="input-group-addon">MRSAS Notes</span>
-                <div class="head hide">MRSAS Notes</div>
-                <div class="content hide">
-                  <div class="form-group">
-                    <textarea class="bubble_commentaire" name="c_commentaire" rows="10" cols="50"><?= $quotation['mrsasComments'] ?></textarea>
-                  </div>
-                </div>
-              </div>
-            </div>
+
+            <button type="button" class="btn btn-default btn-lg col-md-12" data-toggle="modal" data-target="#mrsasComment">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> MRSAS Note <span class="badge" id="mrsasCommentBadge"><?= ($quotation['mrsasComments']=="")?"":substr($quotation['mrsasComments'],0,20)." [...]" ?></span>
+            </button>
+            <input class="form-control" type="hidden" id="mrsasComments" name="mrsasComments">
+
           </div>
 
         </div>
-<!--
-        <div class="col-md-1">
-          <div class="bs-example splitInfo" data-example-id="basic-forms" data-content="Internationalization">
-            <p class="title">
-              <span class="name">Language :</span>
-            </p>
-            <p class="title">
-              <span class="name">Currency :</span>
-            </p>
-          </div>
-        </div>
-        <div class="col-md-1">
-          <div class="bs-example splitInfo" data-example-id="basic-forms" data-content="Internationalization">
-            <p class="title">
-              <span class="value">
-                <input <?=	($quotation['lang']==1)?'checked':''	?> id="lang" name="lang" data-toggle="toggle" data-on="<img src='img/FlagUSA.png' style='max-width: auto;max-height: 20px;'>" data-off="<img src='img/FlagFrench.png' style='max-width: auto;max-height: 20px;'>" type="checkbox" onChange='showSave(); changeWarning();'>
-              </span>
-            </p>
-            <p class="title">
-              <span class="value">
-                <input <?=	($quotation['currency']==1)?'checked':''	?> id="currency" name="currency" data-toggle="toggle" data-on="<img src='img/dollar.png' style='max-width: auto;max-height: 20px;'>" data-off="<img src='img/euro.png' style='max-width: auto;max-height: 20px;'>" type="checkbox" onChange='showSave(); changeWarning();'>
-              </span>
-            </p>
-          </div>
-        </div>
--->
+
         <div class="col-md-2">
           <div class="row">
             <div class="col-md-12 form-group">
@@ -359,6 +329,33 @@
 <script type="text/javascript" src="js/quotation.js"></script>
 
 
+<div id="mrsasComment" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">MRSAS Notes</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" onsubmit="addMRSASComments(); return false;">
+
+          <textarea class="form-control" id="mrsasCommentTextarea"><?= $quotation['mrsasComments'] ?></textarea>
+
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-default">Add Comments</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 
 <div id="NewCodeModal" class="modal fade" role="dialog">
   <div class="modal-dialog" style="width:80%;">
@@ -368,7 +365,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">New Code</h4>
-        <div class="alert alert-warning alert-dismissible" style="text-align: center;">
+        <div class="alert alert-danger alert-dismissible" style="text-align: center;">
           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
           <strong>Warning!</strong><br/>
           The language is defined as <img id="warning_lang" src='<?=	($quotation['lang']==1)?'img/FlagUSA.png':'img/FlagFrench.png'	?>' style='max-width: auto;max-height: 20px;'> and
@@ -447,7 +444,7 @@
             <tbody>
               <?php for ($i=0; $i < 10; $i++) : ?>
                 <tr>
-                  <td contenteditable class="nb" onkeyup="calcHourlyCharge();"></td>
+                  <td contenteditable class="nb" onkeyup="calcHourlyCharge();" id="firstCalcHourly"></td>
                   <td contenteditable class="cy" onkeyup="calcHourlyCharge();"></td>
                   <td contenteditable class="freq" onkeyup="calcHourlyCharge();"></td>
                   <td contenteditable class="stl" onkeyup="calcHourlyCharge();"></td>
@@ -529,7 +526,7 @@
     <div class="col-md-1">
       <div class="input-group">
         <span class="input-group-addon">Unit</span>
-        <input type="text" class="form-control unit" >
+        <input type="text" class="form-control unit" autofocus="autofocus">
       </div>
     </div>
     <div class="col-md-1">

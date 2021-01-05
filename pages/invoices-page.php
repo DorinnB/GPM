@@ -6,6 +6,7 @@
     <?php if($user->is_accounting()) : ?>
       <?php
       if (!isset($_GET['dateStartInvoice'])) {
+        echo "<script type='text/javascript'>document.location.replace('index.php?page=invoices&dateStartInvoice=2020-01-01');</script>";
         echo "<script type='text/javascript'>document.location.replace('index.php?page=invoices&dateStartInvoice=".date('Y-m-d',strtotime('first day of january'))."');</script>";
       }
       ?>

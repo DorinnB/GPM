@@ -6,6 +6,7 @@
     <?php if($user->is_accounting()) : ?>
       <?php
       if (!isset($_GET['dateStartQuotation'])) {
+        echo "<script type='text/javascript'>document.location.replace('index.php?page=quotations&dateStartQuotation=2020-01-01');</script>";
         echo "<script type='text/javascript'>document.location.replace('index.php?page=quotations&dateStartQuotation=".date('Y-m-d',strtotime('first day of january'))."');</script>";
       }
       ?>
@@ -51,13 +52,21 @@
               <th><acronym title="Quotation ID">ID</acronym></th>
               <th><acronym title="Customer">Cust.</acronym></th>
               <th><acronym title="Customer Contact">Contact</acronym></th>
+              <th><acronym title="Customer RFQ">RFQ</acronym></th>
               <th><acronym title="MRSAS Contact">MRSAS</acronym></th>
-              <th><acronym title="Date">Date</acronym></th>
+              <th><acronym title="Creation Date">Creation</acronym></th>
+              <th><acronym title="Send Date">Send Date</acronym></th>
               <th><acronym title="Estimated">Estimated</acronym></th>
-              <th><acronym title="Associated Job ">Job</acronym></th>
+              <th><acronym title="Associated Job">Job</acronym></th>
+              <th><acronym title="MRSAS Notes">MRSAS Notes</acronym></th>
               <th><acronym title="State 0 = Cancelled, 1 = Created, 2 = Accepted">State</acronym></th>
+              <th><acronym title="Refused Reason">Reason</acronym></th>
             </tr>
             <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
               <th></th>
               <th></th>
               <th></th>
@@ -70,6 +79,10 @@
           </thead>
           <tfoot>
             <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
               <th></th>
               <th></th>
               <th></th>

@@ -21,6 +21,7 @@ $oQuotations->RFQ=$_POST['RFQ'];
 $oQuotations->ver=$_POST['ver'];
 $oQuotations->ref_customer=$_POST['ref_customer'];
 $oQuotations->id_contact=$_POST['id_contact'];
+$oQuotations->mrsasComments=$_POST['mrsasComments'];
 $oQuotations->id_preparer=$_POST['id_preparer'];
 $oQuotations->id_checker=$_POST['id_checker'];
 $oQuotations->quotation_date=$_POST['quotation_date'];
