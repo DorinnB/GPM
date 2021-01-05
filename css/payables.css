@@ -57,3 +57,8 @@ table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
   border-left: 1px solid #44546A;
   border-right: 1px solid #44546A;
 }
+
+
+.DTE_Field_InputControl label {
+  width:50%;
+}

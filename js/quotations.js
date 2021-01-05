@@ -126,19 +126,19 @@ $(document).ready(function() {
         render: function ( data, type, row ) {
 
           if (row.info_jobs.job) {
-            return '4 - Accepted';
+            return '<div class="col-md-2" style="background-color:inherit;">4</div><div class="col-md-9" style="background-color:inherit;">Accepted</div>';
           }
           else if (row.quotation.quotation_date) {
-            return '3 - Sent';
+            return '<div class="col-md-2" style="background-color:inherit;">3</div><div class="col-md-9" style="background-color:inherit;">Sent</div>';
           }
           else if (row.quotation.id_checker>0) {
-            return '2 - Checked';
+            return '<div class="col-md-2" style="background-color:inherit;">2</div><div class="col-md-9" style="background-color:inherit;">Checked</div>';
           }
-          else if (row.techniciens.id_technicien>0) {
-            return '1 - Awaiting Check';
+          else if (row.quotation.id_preparer>0) {
+            return '<div class="col-md-2" style="background-color:inherit;">1</div><div class="col-md-9" style="background-color:inherit;">Awaiting Check</div>';
           }
           else {
-            return '0 - Created';
+            return '<div class="col-md-2" style="background-color:inherit;">0</div><div class="col-md-9" style="background-color:inherit;">Created</div>';
           }
 
         }
@@ -171,8 +171,7 @@ $(document).ready(function() {
     paging: false,
     info: true,
     buttons: [
-      { extend: "edit", editor: editor },
-      { text: 'New Quotation',
+      { text: '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Quotation',
       action: function ( e, dt, node, config ) {
         document.location.replace('index.php?page=quotation&id_quotation=0');
       } },
