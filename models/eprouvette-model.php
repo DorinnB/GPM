@@ -871,7 +871,7 @@ public function getEstimatedCycle(){
 
 public function getWorkflow(){
   $reqUpdate='SELECT GROUP_CONCAT(
-    IF(d_commentaire ="", "",CONCAT("(",split, ")", d_commentaire))
+    IF(d_commentaire = "", "", CONCAT("(", split, ")", d_commentaire, "&#013;&#010;"))
     ORDER BY phase ASC) as comm,
     SUM(IF(ST = 0  AND d_checked <= 0, 1, 0)) AS local,
     SUM(IF(ST = 1  AND d_checked <= 0, 1, 0)) AS ST,

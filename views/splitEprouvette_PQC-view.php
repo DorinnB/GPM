@@ -77,7 +77,7 @@
               <div class="head hide">Order Comment</div>
               <div class="content hide">
                 <div class="form-group">
-                  <textarea class"bubble_commentaire" name="c_commentaire" rows="10" cols="50" style="resize:none;" disabled><?= $ep[$k]['comm'].$ep[$k]['c_commentaire'] ?></textarea>
+                  <textarea class"bubble_commentaire" name="c_commentaire" rows="10" cols="50" style="resize:none;" disabled><?= (($ep[$k]['comm']=="")?"":$ep[$k]['comm'].'&#013;&#010;').$ep[$k]['c_commentaire'] ?></textarea>
                 </div>
               </div>
             <?php endif ?>
