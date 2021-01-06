@@ -155,6 +155,39 @@ $(document).ready(function(){
     });
   } );
 
+  //duplicate quotation
+  $('#duplicateQuotation').click( function(e) {
+
+    e.preventDefault();
+
+    if (confirm("Copy this quotation?")) {
+
+      //re-initialisation des champs non dupliqué
+      $('#id').val(0);
+      $('#id_preparer').val(0);
+      $('#id_checker').val(0);
+      $('#quotation_date').val();
+
+      quotationlist=$("#sortable").find("select,textarea, input").serialize();
+
+      $("#quotation").append('<input type="hidden" name="quotationlist" value="'+quotationlist+'"></input>');
+
+      //on envoi le formulaire d'envoi
+      $.ajax({
+        type: "POST",
+        url: "controller/updateQuotation.php",
+        data: $("#quotation").serialize(), // serializes the form's elements.
+        dataType: "json",
+        success: function(data)
+        {
+          window.location.href = 'index.php?page=quotation&id_quotation='+data.id_quotation;
+        }
+      });
+    }
+  });
+
+
+
 
 });
 

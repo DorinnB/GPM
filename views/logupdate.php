@@ -2,6 +2,7 @@
   GPM's update list
 </h3>
 <p style="color:white;">
+  Jan 2021 -> add Quotation
   Nov 2020 -> Btn on pages for short access + more accounting pages
   June 2020 -> Accounting integration with access right for those pages<br/>
   Apr 2020 -> improve planning users & badging<br/>

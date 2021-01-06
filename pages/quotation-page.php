@@ -14,8 +14,12 @@
       <div class="row" style="height:20%; padding-top:10px;">
         <div class="col-md-6">
           <div class="row">
-            <input type="hidden" name="id" value="<?= $quotation['id_quotation'] ?>">
-            <H3>QUOTATION # <?= ($quotation['id_quotation']==0)?"Undefined yet":date('y', strtotime($quotation['creation_date'])).'-'.sprintf('%05d',$quotation['id_quotation']) ?></H3>
+            <input type="hidden" name="id" id="id" value="<?= $quotation['id_quotation'] ?>">
+            <H3>QUOTATION # <?= ($quotation['id_quotation']==0)?"Undefined yet":date('y', strtotime($quotation['creation_date'])).'-'.sprintf('%05d',$quotation['id_quotation']) ?>
+            <button type="button" class="btn btn-default btn-lg col-md-2"  id="duplicateQuotation" style="float:right;">
+              <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Duplicate
+            </button>
+            </H3>
           </div>
 
           <div class="row">
