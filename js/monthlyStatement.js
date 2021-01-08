@@ -26,7 +26,7 @@ function format ( d ) {
   '<td>TOTAL</td>'+
   '<td>'+(parseFloat(d.ubrold.ubrMRSAS)+parseFloat(d.ubrold.ubrSubC)).toFixed(2)+'</td>'+
   '<td>'+(parseFloat(d.ubr.ubrMRSAS)+parseFloat(d.ubr.ubrSubC)).toFixed(2)+'</td>'+
-  '<td>'+(parseFloat(d.ubr.ubrMRSAS)+parseFloat(d.ubr.ubrSubC)-parseFloat(d.ubrold.ubrMRSAS)+parseFloat(d.ubrold.ubrSubC)).toFixed(2)+'</td>'+
+  '<td>'+(parseFloat(d.ubr.ubrMRSAS)+parseFloat(d.ubr.ubrSubC)-parseFloat(d.ubrold.ubrMRSAS)-parseFloat(d.ubrold.ubrSubC)).toFixed(2)+'</td>'+
   '</tr>'+
   '</tbody>'+
   '</table>'+
@@ -103,6 +103,7 @@ $(document).ready(function() {
       },
       { data: "info_jobs.invoice_date"},
       { data: null,
+        className: "sum",
         render: function ( data, type, row ) {
 
           inv_mrsas=parseFloat((data.invoices.inv_mrsas>0) ? (data.invoices.inv_mrsas) : 0);

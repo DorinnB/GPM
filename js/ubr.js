@@ -14,19 +14,19 @@ function format ( d ) {
   '<td>MRSAS</td>'+
   '<td>'+d.ubrold.ubrMRSAS+'</td>'+
   '<td>'+d.ubr.ubrMRSAS+'</td>'+
-  '<td>'+(d.ubr.ubrMRSAS-d.ubrold.ubrMRSAS)+'</td>'+
+  '<td>'+(d.ubr.ubrMRSAS-d.ubrold.ubrMRSAS).toFixed(2)+'</td>'+
   '</tr>'+
   '<tr>'+
   '<td>SubC</td>'+
   '<td>'+d.ubrold.ubrSubC+'</td>'+
   '<td>'+d.ubr.ubrSubC+'</td>'+
-  '<td>'+(d.ubr.ubrSubC-d.ubrold.ubrSubC)+'</td>'+
+  '<td>'+(d.ubr.ubrSubC-d.ubrold.ubrSubC).toFixed(2)+'</td>'+
   '</tr>'+
   '<tr>'+
   '<td>TOTAL</td>'+
   '<td>'+(parseFloat(d.ubrold.ubrMRSAS)+parseFloat(d.ubrold.ubrSubC)).toFixed(2)+'</td>'+
   '<td>'+(parseFloat(d.ubr.ubrMRSAS)+parseFloat(d.ubr.ubrSubC)).toFixed(2)+'</td>'+
-  '<td>'+(parseFloat(d.ubr.ubrMRSAS)+parseFloat(d.ubr.ubrSubC)-parseFloat(d.ubrold.ubrMRSAS)+parseFloat(d.ubrold.ubrSubC)).toFixed(2)+'</td>'+
+  '<td>'+(parseFloat(d.ubr.ubrMRSAS)+parseFloat(d.ubr.ubrSubC)-parseFloat(d.ubrold.ubrMRSAS)-parseFloat(d.ubrold.ubrSubC)).toFixed(2)+'</td>'+
   '</tr>'+
   '</tbody>'+
   '</table>'+

@@ -44,7 +44,7 @@ Editor::inst( $db, 'info_jobs' )
 
   ->leftJoin('ubr', 'ubr.job=info_jobs.job and ubr.date_UBR = "'.$_POST['dateStartMonthlyStatement'].'"','','')
   ->leftJoin('ubr as ubrold', 'ubrold.job=info_jobs.job and ubrold.date_UBR = "'.date("Y-m-t",strtotime(date("Y-m-t", strtotime($_POST['dateStartMonthlyStatement'])) . "-35 days")).'"','','')
-  ->leftJoin('invoices', 'invoices.inv_job=info_jobs.job and MONTH(invoices.inv_date) = MONTH("'.$_POST['dateStartMonthlyStatement'].'")','','')
+  ->leftJoin('invoices', 'invoices.inv_job=info_jobs.job and YEAR(invoices.inv_date) = YEAR("'.$_POST['dateStartMonthlyStatement'].'") and MONTH(invoices.inv_date) = MONTH("'.$_POST['dateStartMonthlyStatement'].'")','','')
 
 
   ->where( function ( $q ) {
