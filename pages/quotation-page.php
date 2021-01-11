@@ -182,13 +182,14 @@
               <li id="quotationlist_<?= $key ?>" class="ui-state-default">
                 <div class="row">
                   <div class="col-md-1 handle" style="width:5%;">
+
                     <span class="glyphicon glyphicon-move"></span>
                     <input type="hidden" class="form-control newtype" name="quotationlist_<?= $key ?>_type" value="comment">
                   </div>
                   <div class="col-md-7 comments">
                     <div class="input-group">
                       <span class="input-group-addon">Comment</span>
-                      <textarea class="form-control comments" rows="2" name="quotationlist_<?= $key ?>_comments"><?= $value['comments'] ?></textarea>
+                      <textarea class="form-control comments" rows="1" name="quotationlist_<?= $key ?>_comments"><?= $value['comments'] ?></textarea>
                     </div>
                   </div>
                   <div class="col-md-1 col-md-offset-4" style="color:red; width:2%;">
@@ -244,7 +245,7 @@
                   <div class="col-md-7">
                     <div class="input-group">
                       <span class="input-group-addon">Comment</span>
-                      <textarea class="form-control comments" rows="2" name="quotationlist_<?= $key ?>_comments"><?= $value['comments'] ?></textarea>
+                      <textarea class="form-control comments" rows="1" name="quotationlist_<?= $key ?>_comments"><?= $value['comments'] ?></textarea>
                     </div>
                   </div>
                   <div class="col-md-1" style="color:blue;">
@@ -500,7 +501,7 @@
     <div class="col-md-7 comments">
       <div class="input-group">
         <span class="input-group-addon">Comment</span>
-        <textarea class="form-control" rows="2" id="comments"></textarea>
+        <textarea class="form-control" rows="1" id="comments"></textarea>
       </div>
     </div>
     <div class="col-md-1 col-md-offset-4" style="color:red; width:2%;">
@@ -556,7 +557,7 @@
     <div class="col-md-7">
       <div class="input-group">
         <span class="input-group-addon">Comment</span>
-        <textarea class="form-control comments" rows="2"></textarea>
+        <textarea class="form-control comments" rows="1"></textarea>
       </div>
     </div>
     <div class="col-md-1" style="color:blue;">
