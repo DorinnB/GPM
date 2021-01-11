@@ -53,10 +53,10 @@
               <th>Creation Date</th>
               <th>Status</th>
               <th>Invoice Date</th>
-              <th>Invoice Amount</th>
+              <th>Monthly Invoice Amount</th>
               <th>UBR <?= date("M",strtotime(date("Y-m-t", strtotime($_GET['dateStartMonthlyStatement'])) . "-35 days")) ?></th>
               <th>UBR <?= date("M", strtotime($_GET['dateStartMonthlyStatement'])) ?></th>
-              <th></th>
+              <th>Production</th>
             </tr>
             <tr>
               <th></th>
@@ -64,10 +64,10 @@
               <th></th>
               <th></th>
               <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
+              <th id="monthlyInvoice"></th>
+              <th id="ubrold"></th>
+              <th id="ubr"></th>
+              <th id="prodMRSAS"></th>
             </tr>
           </thead>
           <tfoot>

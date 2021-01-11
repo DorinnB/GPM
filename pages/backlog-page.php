@@ -62,13 +62,11 @@
               <th>PO Amount</th>
               <th>Reached</th>
               <th>Backlog</th>
-
               <th>Estimated MRSAS</th>
               <th>Reached</th>
               <th>UBR MRSAS</th>
               <th>Invoices MRSAS</th>
               <th>Backlog MRSAS</th>
-
               <th>Estimated SubC</th>
               <th>Reached</th>
               <th>UBR SubC</th>

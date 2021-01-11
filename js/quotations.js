@@ -84,9 +84,7 @@ $(document).ready(function() {
         total=0;
 
         if (data) {
-
           dataSplit = data.split('&');
-
           dataSplit.forEach(function(entry) {
             var newData = entry.split('=');
             var newName = newData[0].split('_');
@@ -99,14 +97,9 @@ $(document).ready(function() {
               price= newValue;
               total += unit * price;
             }
-
           });
-
         }
-        if (total!=0) {
-          return total.toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ');
-        }
-        return "";
+        return total==0?"": (row.quotation.currency==1 ? '$' : "") + total.toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ') + (row.quotation.currency==0 ? ' €' : "&nbsp;&nbsp;&nbsp;");
 
       } },
       { data: 'info_jobs.job',
@@ -165,6 +158,14 @@ $(document).ready(function() {
         }
       }, className: 'editable' }
     ],
+    columnDefs: [ {
+      targets: [7],
+      createdCell: function (td, cellData, rowData, row, col) {
+        if ( rowData.quotation.currency == 1 ) {
+          $(td).css('color', 'blue')
+        }
+      }
+    } ],
     scrollY: '65vh',
     scrollX : true,
     scrollCollapse: true,

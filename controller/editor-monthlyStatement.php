@@ -23,6 +23,7 @@ Editor::inst( $db, 'info_jobs' )
   Field::inst( 'info_jobs.datecreation'),
   Field::inst( 'info_jobs.invoice_type'),
   Field::inst( 'info_jobs.invoice_date'),
+  Field::inst( 'info_jobs.invoice_currency'),
 
   Field::inst( 'ubr.ubrMRSAS'),
   Field::inst( 'ubr.ubrSubC'),
@@ -34,11 +35,11 @@ Editor::inst( $db, 'info_jobs' )
   Field::inst( 'ubrold.date_creation'),
   Field::inst( 'ubrold.date_UBR'),
 
-    Field::inst( 'invoices.inv_mrsas'),
-    Field::inst( 'invoices.inv_subc'),
-    Field::inst( 'invoices.USDRate'),
-    Field::inst( 'invoices.inv_TVA'),
-    Field::inst( 'invoices.inv_date')
+  Field::inst( 'invoices.inv_mrsas'),
+  Field::inst( 'invoices.inv_subc'),
+  Field::inst( 'invoices.USDRate'),
+  Field::inst( 'invoices.inv_TVA'),
+  Field::inst( 'invoices.inv_date')
   )
 
 

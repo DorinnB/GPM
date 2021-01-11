@@ -65,3 +65,8 @@ th  {
   border-left: 1px solid #44546A;
   border-right: 1px solid #44546A;
 }
+
+.sum  {
+text-align: right;
+padding-right: 10px !important;
+}

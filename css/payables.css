@@ -62,3 +62,17 @@ table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
 .DTE_Field_InputControl label {
   width:50%;
 }
+
+
+.sumEur  {
+text-align: right;
+padding-right: 10px !important;
+}
+.sumDol  {
+text-align: right;
+padding-right: 10px !important;
+}
+.sumEstimated  {
+text-align: right;
+padding-right: 10px !important;
+}
