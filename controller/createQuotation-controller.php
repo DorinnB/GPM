@@ -266,9 +266,9 @@ $page
 
 $val2Xls = array(
 
-  'F10' => date('y', strtotime($quotation['creation_date'])).'-'.sprintf('%05d',$quotation['id_quotation']),
-  'F11' => $quotation['ver'],
-  'F13'=> date("Y-m-d"),
+  'F9' => date('y', strtotime($quotation['creation_date'])).'-'.sprintf('%05d',$quotation['id_quotation']),
+  'F10' => $quotation['ver'],
+  'F12'=> date("Y-m-d"),
   'B16' => $quotation['rfq'],
 
   'B9'=> (isset($adresse[0])?$adresse[0]:''),
@@ -290,6 +290,7 @@ foreach ($val2Xls as $key => $value) {
 $row = 21;
 $rowInitial=$row;
 $rowSubTotal = $row;
+$nCode=1; //prodCode incrémental
 
 //pour chaque split
 foreach ($quotationlist as $key => $value) {
@@ -304,21 +305,24 @@ foreach ($quotationlist as $key => $value) {
     $page->getStyle('B'.$row)->applyFromArray($styleComment);
   }
   elseif ($value['type']=="code") {
-    $page->setCellValueByColumnAndRow(1+0, $row, $value['prodCode']);
+    $page->setCellValueByColumnAndRow(1+0, $row, $nCode);
     $page->setCellValueByColumnAndRow(1+1, $row, $value['description']);
     $page->setCellValueByColumnAndRow(1+4, $row, $value['unit']);
     $page->setCellValueByColumnAndRow(1+5, $row, $value['price']);
     $page->setCellValueByColumnAndRow(1+6, $row, $value['unit']*$value['price']);
     $page->setCellValueByColumnAndRow(1+7, $row, $value['unit']*$value['price']);
-    $row++;
-    //$page->setCellValueByColumnAndRow(1+1, $row, $value['comments']);
-    $page->mergeCells('B'.$row.':D'.$row);
-    $page->getStyle('B'.$row)->getAlignment()->setWrapText(true);
 
-    autoHeight($page, 1+1, $row, $value['comments'], $width=60);
+    if ($value['comments']!="") {
+      $row++;
+      $page->mergeCells('B'.$row.':D'.$row);
+      $page->getStyle('B'.$row)->getAlignment()->setWrapText(true);
 
-    $page->getStyle('B'.$row)->applyFromArray($styleComment);
+      autoHeight($page, 1+1, $row, $value['comments'], $width=60);
 
+      $page->getStyle('B'.$row)->applyFromArray($styleComment);
+    }
+
+    $nCode++;
   }
   elseif ($value['type']=="subTotal") {
     $row++;

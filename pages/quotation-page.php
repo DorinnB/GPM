@@ -15,7 +15,11 @@
         <div class="col-md-6">
           <div class="row">
             <input type="hidden" name="id" id="id" value="<?= $quotation['id_quotation'] ?>">
-            <H3>QUOTATION # <?= ($quotation['id_quotation']==0)?"Undefined yet":date('y', strtotime($quotation['creation_date'])).'-'.sprintf('%05d',$quotation['id_quotation']) ?>
+            <H3>
+            <a href="index.php?page=quotations" type="button" class="btn btn-default btn-lg col-md-2"  style="float:left;">
+              <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Quotations List
+            </a>
+            QUOTATION # <?= ($quotation['id_quotation']==0)?"Undefined yet":date('y', strtotime($quotation['creation_date'])).'-'.sprintf('%05d',$quotation['id_quotation']) ?>
             <button type="button" class="btn btn-default btn-lg col-md-2"  id="duplicateQuotation" style="float:right;">
               <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Duplicate
             </button>
