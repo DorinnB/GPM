@@ -40,7 +40,7 @@
             <div class="col-md-2 col-md-offset-1 form-group">
               <div class="input-group">
                 <span class="input-group-addon">Version</span>
-                <input type="text" class="form-control" name="ver" value="<?= ($quotation['ver']>0)?$quotation['ver']:0 ?>">
+                <input type="text" class="form-control" name="ver" value="<?= ($quotation['ver']>0)?$quotation['ver']:1 ?>">
               </div>
             </div>
           </div>
