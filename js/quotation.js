@@ -364,7 +364,7 @@ function addHourlyCharge(){
 
 
     if (nb>0) {
-      if (stl>0 & (cy-stl)>0) {
+      if (stl>0) {
         if ($('#lang').parents().hasClass('off')){
           hourlychargeComment+=nb + ' tests à '+freq+' Hz ('+stl+'/'+fstl+'Hz): cycles estimés '+cy+' => '+hrsuptest+' hrs supp/test\n';
         }
