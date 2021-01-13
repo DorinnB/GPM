@@ -109,6 +109,23 @@ class USER
     return $_COOKIE['technicien'];
   }
 
+  public function is_bu()
+  {
+    if(isset($_COOKIE['id_user']))
+    {
+      $req='SELECT bu
+      FROM techniciens
+      WHERE id_technicien='.$this->db->quote($_COOKIE['id_user']).';';
+
+      $result = $this->db->getOne($req);
+
+      if ($result['bu']==1) {
+        return true;
+      }
+      return false;
+    }
+  }
+
   public function is_accounting()
   {
     if(isset($_COOKIE['id_user']))

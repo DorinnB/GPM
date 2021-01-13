@@ -40,6 +40,11 @@
           <div id="" class="col-md-1" style="height:100%;">
             <a  href="index.php?page=monthlyStatement" class="btn btn-default" style="width:100%; margin: 0px; padding:0px; border-radius:10px;"role="button"><img src="img/statement.png" style="height:40px;"> Monthly Stat.</a>
           </div>
+          <?php if($user->is_bu()) : ?>
+            <div id="" class="col-md-1" style="height:100%;">
+              <a  href="index.php?page=kpi" class="btn btn-default" style="width:100%; margin: 0px; padding:0px; border-radius:10px;"role="button"><img src="img/statement.png" style="height:40px;"> KPI</a>
+            </div>
+          <?php endif ?> 
           <div id="" class="col-md-1" style="height:100%;">
             <a  href="#" class="btn btn-default" style="width:100%; margin: 0px; padding:0px; border-radius:10px;" role="button" title="Accounting Files" data-toggle="modal" data-target="#AccountingFileModal" ><img src="img/export.png" style="height:40px;"> Acc. File</a>
           </div>

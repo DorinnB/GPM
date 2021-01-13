@@ -1,0 +1,101 @@
+#page-content-wrapper div{
+  color:black;
+  background-color: white;
+}
+#page-content-wrapper .btn-group  {
+  color:black;
+}
+
+caption {
+  font-size:xx-large;
+  text-align:center;
+  color:black;
+}
+
+.form-group input, .form-group select{
+color:black;
+border-radius: 10px;
+}
+
+.dt-buttons  {
+  display:inline;
+}
+
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: lightblue;
+}
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: lightgray !important;
+}
+input,  select{
+color:black;
+}
+a {
+  color:black;
+}
+
+table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
+    background-color: white;
+}
+
+td.details-control {
+  background: url('../img/details_open.png') no-repeat center center;
+  cursor: pointer;
+}
+tr.shown td.details-control {
+  background: url('../img/details_close.png') no-repeat center center;
+}
+
+.btn-default {
+  margin-left: 1em !important;
+}
+
+th  {
+  text-align: center;
+}
+
+.mois{
+  background-color : dimgrey;
+  color:white;
+}
+
+
+.table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+  border-left: 1px solid #44546A;
+  border-right: 1px solid #44546A;
+}
+
+td {
+white-space: nowrap;
+}
+
+.sum  {
+text-align: right;
+padding-right: 10px !important;
+}
+
+.ubr  {
+  background-color:darkblue;
+  color:white;
+}
+.inv  {
+  background-color:sienna;
+  color:white;
+}
+.payables  {
+  background-color:darkred;
+  color:white;
+}
+.hr  {
+  background-color:purple;
+  color:white;
+}
+.unknow  {
+  background-color:black;
+  color:white;
+}
+.prodperf  {
+  background-color:gray;
+  color:white;
+}

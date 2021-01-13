@@ -13,6 +13,7 @@
     <a  href="index.php?page=UBR" class="btn btn-default" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;"role="button"><img src="img/ubr.png" style="height:40px;" alt="UBR"> UBR</a>
     <a  href="index.php?page=backlog" class="btn btn-default" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;"role="button"><img src="img/backlog.png" style="height:40px;" alt="Backlog"> Backlog</a>
     <a  href="index.php?page=monthlyStatement" class="btn btn-default" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;"role="button"><img src="img/statement.png" style="height:40px;" alt="Monthly Statement"> Monthly Stat.</a>
+    <div style="width:100;height:20px;"></div>
     <a  href="index.php?page=IT&tool=contacts" class="btn btn-list" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;"role="button"><img src="img/contact.png" style="height:40px;" alt="Contacts"> Contacts</a>
     <a  href="index.php?page=IT&tool=entreprises" class="btn btn-list" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;"role="button"><img src="img/companie.png" style="height:40px;" alt="Companies"> Companies</a>
   </div>

@@ -501,4 +501,111 @@ class InvoiceModel
     $this->db->execute($req);
   }
 
+  public function getAllProdIndicator($dateStart) {
+
+    $req='SELECT *
+    FROM (
+      SELECT DATE_FORMAT(inv_date, "%Y-%m") as inv_date,
+      SUM(IF(USDRate>0, invoices.inv_mrsas*USDRate, inv_mrsas)) AS inv_mrsas,
+      SUM(IF(USDRate>0, invoices.inv_subc*USDRate, inv_subc)) AS inv_subc
+      FROM invoices
+      WHERE inv_date>='.$this->db->quote($dateStart).'
+      GROUP BY DATE_FORMAT(inv_date, "%Y-%m")
+    ) as i
+
+
+    INNER JOIN (
+      SELECT DATE_FORMAT(date_ubr, "%Y-%m") as date_ubr, SUM(ubrMRSAS) AS ubrMRSAS, SUM(ubrSubC) AS ubrSubC
+      FROM ubr
+      WHERE date_ubr>='.$this->db->quote($dateStart).'
+      GROUP BY DATE_FORMAT(date_ubr, "%Y-%m")
+    ) as u on u.date_ubr=i.inv_date
+
+
+    INNER JOIN (
+      SELECT DATE_FORMAT(date_payable, "%Y-%m") as date_payable,
+      SUM(IF(taux>0, payables.USD*taux, payables.HT)) AS payable_HT,
+      SUM(IF(payables.id_payable_list=0 AND capitalize IS NULL, IF(taux>0, payables.USD*taux, payables.HT),0)) AS payable_0,
+      SUM(IF(payables.id_payable_list=1 AND capitalize IS NULL, IF(taux>0, payables.USD*taux, payables.HT),0)) AS payable_1,
+      SUM(IF(payables.id_payable_list=2 AND capitalize IS NULL, IF(taux>0, payables.USD*taux, payables.HT),0)) AS payable_2,
+      SUM(IF(payables.id_payable_list=3 AND capitalize IS NULL, IF(taux>0, payables.USD*taux, payables.HT),0)) AS payable_3,
+      SUM(IF(payables.id_payable_list=4 AND capitalize IS NULL, IF(taux>0, payables.USD*taux, payables.HT),0)) AS payable_4,
+      SUM(IF(payables.id_payable_list=5 AND capitalize IS NULL, IF(taux>0, payables.USD*taux, payables.HT),0)) AS payable_5,
+      SUM(IF(payables.id_payable_list=6 AND capitalize IS NULL, IF(taux>0, payables.USD*taux, payables.HT),0)) AS payable_6,
+      SUM(IF(payables.id_payable_list=7 AND capitalize IS NULL, IF(taux>0, payables.USD*taux, payables.HT),0)) AS payable_7,
+      SUM(IF(payables.id_payable_list=8 AND capitalize IS NULL, IF(taux>0, payables.USD*taux, payables.HT),0)) AS payable_8,
+      SUM(IF(payables.id_payable_list=9 AND capitalize IS NULL, IF(taux>0, payables.USD*taux, payables.HT),0)) AS payable_9,
+      SUM(IF(payables.id_payable_list=10 AND capitalize IS NULL, IF(taux>0, payables.USD*taux, payables.HT),0)) AS payable_10,
+      SUM(IF(payables.id_payable_list=11 AND capitalize IS NULL, IF(taux>0, payables.USD*taux, payables.HT),0)) AS payable_11,
+      SUM(IF(capitalize IS NULL, IF(taux>0, payables.USD*taux, payables.HT),0)) AS payable_capitalized
+
+      FROM payables
+      WHERE date_payable>='.$this->db->quote($dateStart).'
+      GROUP BY DATE_FORMAT(date_payable, "%Y-%m")
+    ) as p on p.date_payable=i.inv_date
+
+
+    INNER JOIN (
+      SELECT DATE_FORMAT(dateplanned, "%Y-%m") as dateplanned,
+      SUM(if(ifnull(id_type, type)=1 OR ifnull(id_type, type)=6, 1, 0)) AS C1,
+      SUM(if(ifnull(id_type, type)=1 OR ifnull(id_type, type)=6, ifnull((TIME_TO_SEC(badges.validation)/3600),ifnull(badges.validation2,(ifnull(planning_modif.quantity, planning_users.quantity))))*if(badge_hr.badge_type=0,8,1), 0)) AS Q1,
+      SUM(if(ifnull(id_type, type)=2,1,0)) AS C2,
+      SUM(if(ifnull(id_type, type)=2,ifnull(planning_modif.quantity, planning_users.quantity)*if(badge_hr.badge_type=0,8,1),0)) AS Q2,
+      SUM(if(ifnull(id_type, type)=3,1,0)) AS C3,
+      SUM(if(ifnull(id_type, type)=3,ifnull(planning_modif.quantity, planning_users.quantity)*if(badge_hr.badge_type=0,8,1),0)) AS Q3,
+      SUM(if(ifnull(id_type, type)=4,1,0)) AS C4,
+      SUM(if(ifnull(id_type, type)=4,ifnull(planning_modif.quantity, planning_users.quantity)*if(badge_hr.badge_type=0,8,1),0)) AS Q4,
+      SUM(if(ifnull(id_type, type)=5,1,0)) AS C5,
+      SUM(if(ifnull(id_type, type)=5,ifnull(planning_modif.quantity, planning_users.quantity)*if(badge_hr.badge_type=0,8,1),0)) AS Q5,
+      SUM(if(((ifnull(id_type, type)=1 OR ifnull(id_type, type)=6) AND DAYOFWEEK(dateplanned)=7),1,0)) AS QSaturdayON,
+      SUM(if(((ifnull(id_type, type)=1 OR ifnull(id_type, type)=6) AND DAYOFWEEK(dateplanned)=7),ifnull(planning_modif.quantity, planning_users.quantity)*if(badge_hr.badge_type=0,8,1),0)) AS CSaturdayON
+
+      FROM planning_users
+      LEFT JOIN badge_hr ON badge_hr.id_user=planning_users.id_user
+      LEFT JOIN planning_modif ON (planning_modif.datemodif=planning_users.dateplanned AND
+        id_planning_modif IN (
+          SELECT max(pm.id_planning_modif)
+          FROM planning_modif AS pm
+          WHERE pm.id_validator>0 AND pm.id_user=planning_users.id_user
+          AND datemodif>='.$this->db->quote($dateStart).'
+          GROUP BY pm.datemodif
+        )
+      )
+      LEFT JOIN badges ON badges.id_user=planning_users.id_user AND badges.date=planning_users.dateplanned AND badges.id_validator>0
+      LEFT JOIN techniciens ON techniciens.id_technicien=planning_users.id_user
+      WHERE techniciens.production=1
+      AND dateplanned>='.$this->db->quote($dateStart).'
+      GROUP BY DATE_FORMAT(dateplanned, "%Y-%m")
+    ) as pl on pl.dateplanned=i.inv_date
+
+    INNER JOIN (
+      SELECT DATE_FORMAT(date, "%Y-%m") as date_test, COUNT(*) AS nbTest
+      FROM enregistrementessais
+      WHERE date>='.$this->db->quote($dateStart).'
+      GROUP BY DATE_FORMAT(date, "%Y-%m")
+    ) as t on t.date_test=i.inv_date
+
+    INNER JOIN (
+      SELECT DATE_FORMAT(periode, "%Y-%m") as date_etat, COUNT(*) ,
+      sum(cumul)/60 as cumul,
+      SUM(if(etatmachine in ("Load","Strain","Dwell","Not","Fluage","Switchable","Relaxation"),cumul,0))/60 as cycling,
+      SUM(if(etatmachine in ("Ramp","RampTemp","RampTemp1h","RampTemp3h"),cumul,0))/60 as rampToTemp,
+      SUM(if(etatmachine is null or etatmachine in ( "Init","Menu","Parameters","Adv.","Check","Amb.","ET","STL","Stop","Straightening","Report","Analysis","Restart"),cumul,0))/60 as noncycling
+      FROM etatmachine_machines
+      WHERE periode>='.$this->db->quote($dateStart).'
+      GROUP BY DATE_FORMAT(periode, "%Y-%m")
+    ) as etat on etat.date_etat=i.inv_date
+
+
+    ORDER BY inv_date ASC
+    ;';
+
+    //echo $req;
+    return $this->db->getAll($req);
+
+
+
+
+  }
+
 }
