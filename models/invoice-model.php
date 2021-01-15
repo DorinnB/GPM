@@ -596,6 +596,7 @@ class InvoiceModel
       GROUP BY DATE_FORMAT(periode, "%Y-%m")
     ) as etat on etat.date_etat=i.inv_date
 
+    LEFT JOIN kpi ON  kpi.date_kpi=i.inv_date
 
     ORDER BY inv_date ASC
     ;';

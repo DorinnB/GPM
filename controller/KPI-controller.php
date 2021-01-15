@@ -37,7 +37,7 @@ $value['c_var_ubrSubC']=$c_var_ubrSubC=$value['var_ubrSubC'] + $c_var_ubrSubC;
   $tableau[$value['inv_date']]=$value;
 }
 
-//$tableau=array_reverse($tableau); //mettre tableau à l'envers
+//$tableau=array_reverse($tableau);
 
 
 //var_dump($tableau);

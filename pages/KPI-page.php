@@ -56,129 +56,156 @@ include('controller/KPI-controller.php');
           </div>
         </div>
 
+              <H3><acronym title="Key Performance Indicator">KPI</acronym></H3>
+        <ul class="nav nav-tabs nav-justified">
+          <li class="active"><a data-toggle="tab" href="#kpi">KPI</a></li>
+          <li><a data-toggle="tab" href="#graphs1" id="graphs1Toggle">Graphs</a></li>
+        </ul>
+        <div class="tab-content">
+          <div id="kpi" class="tab-pane fade in active">
+            <table id="table_KPI" class="table table-condensed table-striped table-hover table-bordered dataTable" cellspacing="0">
+
+              <thead>
+                <tr>
+                  <th></th>
+                  <th colspan="2" class="ubr">UBR</th>
+                  <th colspan="2" class="inv">INV</th>
+                  <th colspan="8" class="payables">Payables</th>
+                  <th colspan="2" class="hr">HR Prod</th>
+                  <th colspan="9" class="unknow">unknow</th>
+                  <th colspan="4" class="prodperf">Prod Perf</th>
+                  <th colspan="2" class="prodperf">Objectif</th>
+                  <th colspan="2" class="prodperf">N-1</th>
+                </tr>
+                <tr>
+                  <th>Date</th>
+                  <th class="decimal2 ubr">UBR MRSAS</th>
+                  <th class="decimal2 ubr">UBR Total</th>
+                  <th class="decimal2 inv">INV MRSAS</th>
+                  <th class="decimal2 inv">INV Total</th>
+                  <th class="decimal2 payables">MRI EURO</th>
+                  <th class="decimal2 payables">Postage</th>
+                  <th class="decimal2 payables">Energie</th>
+                  <th class="decimal2 payables">Trips et Rbst frais</th>
+                  <th class="decimal2 payables">Production</th>
+                  <th class="decimal2 payables">others</th>
+                  <th class="decimal2 payables">Investissement</th>
+                  <th class="decimal2 payables">Total</th>
+                  <th class="decimal2 hr">Jrs Travaildlés</th>
+                  <th class="decimal2 hr">Jrs Maladie</th>
+                  <th class="decimal2 unknow">Backlog Test</th>
+                  <th class="decimal2 unknow">Backlog Total</th>
+                  <th class="decimal2 unknow">Entrées Cde MRSAS mensuelle</th>
+                  <th class="decimal2 unknow">Monthly Production MRSAS</th>
+                  <th class="decimal2 unknow">Monthly Production Total</th>
+                  <th class="decimal2 unknow">Yearly Production MRSAS</th>
+                  <th class="decimal2 unknow">Yearly Production Total</th>
+                  <th class="decimal2 unknow">SALES HT MRSAS</th>
+                  <th class="decimal2 unknow">SALES Total</th>
+                  <th class="decimal2 prodperf">Ratio Prod</th>
+                  <th class="decimal2 prodperf">Total Tests</th>
+                  <th class="decimal2 prodperf">Occupation Réelle</th>
+                  <th class="decimal2 prodperf">Occupation Etendue</th>
+                  <th class="decimal2 prodperf">Prod MRSAS</th>
+                  <th class="decimal2 prodperf">Sales</th>
+                  <th class="decimal2 prodperf">% prod N-1</th>
+                  <th class="decimal2 prodperf">% Sales N-1</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </tfoot>
+
+              <tbody>
+<?php $row=0; ?>
+                <?php foreach ($tableau as $key => $value) : ?>
+                <?php $row++; ?>
+                  <?php $key_year = date("Y-m",strtotime("-1 year", strtotime($key))); ?>
+                  <tr class="chartTR" id="row_<?= $key ?>">
+                    <td class="key"><?= $key ?></td>
+                    <td class="decimal2 ubrMRSAS" data-val="<?= $value['var_ubrMRSAS'] ?>"><?= $value['ubrMRSAS'] ?></td>
+                    <td class="decimal2 ubrTotal" data-val="<?= $value['var_ubrMRSAS']+$value['var_ubrSubC'] ?>"><?= $value['ubrMRSAS']+$value['ubrSubC'] ?></td>
+                    <td class="decimal2 invMRSAS" data-val="<?= $value['inv_mrsas'] ?>"><?= $value['inv_mrsas'] ?></td>
+                    <td class="decimal2 invTotal"><?= $value['inv_mrsas']+$value['inv_subc'] ?></td>
+                    <td class="decimal2"><?= $value['payable_2'] ?></td>
+                    <td class="decimal2"><?= $value['payable_4'] ?></td>
+                    <td class="decimal2"><?= $value['payable_5'] ?></td>
+                    <td class="decimal2"><?= $value['payable_11'] ?></td>
+                    <td class="decimal2"><?= $value['payable_7'] ?></td>
+                    <td class="decimal2"><?= $value['payable_1'] + $value['payable_3'] + $value['payable_6'] + $value['payable_8'] + $value['payable_9'] + $value['payable_10'] ?></td>
+                    <td class="decimal2"><?= $value['payable_capitalized'] ?></td>
+                    <td class="decimal2"><?= $value['payable_1']+$value['payable_2']+$value['payable_3']+$value['payable_4']+$value['payable_5']+$value['payable_6']+$value['payable_7']+$value['payable_8']+$value['payable_9']+$value['payable_10']+$value['payable_11']+$value['payable_capitalized'] ?></td>
+                    <td class="decimal2"><?= $value['C1'] ?></td>
+                    <td class="decimal2"><?= $value['C5'] ?></td>
+                    <td class="decimal2"><?= $value['backlogMRSAS'] ?></td>
+                    <td class="decimal2"><?= $value['backlogTOTAL'] ?></td>
+                    <td class="decimal2"><?= $value['cdeMRSAS'] ?></td>
+                    <td class="decimal2 prodMRSAS" data-val="<?= $value['var_ubrMRSAS']+$value['inv_mrsas'] ?>" data-y="<?= isset($tableau[$key_year])?$tableau[$key_year]['var_ubrMRSAS']+$tableau[$key_year]['inv_mrsas']:0 ?>"><?= $value['var_ubrMRSAS']+$value['inv_mrsas'] ?></td>
+                    <td class="decimal2"><?= $value['var_ubrMRSAS']+$value['var_ubrSubC']+$value['inv_mrsas']+$value['inv_subc'] ?></td>
+                    <td class="decimal2"><?= $value['c_var_ubrMRSAS']+$value['c_inv_mrsas'] ?></td>
+                    <td class="decimal2"><?= $value['c_var_ubrMRSAS']+$value['c_var_ubrSubC']+$value['c_inv_mrsas']+$value['c_inv_subc'] ?></td>
+                    <td class="decimal2"><?= $value['c_inv_mrsas'] ?></td>
+                    <td class="decimal2"><?= $value['c_inv_mrsas']+$value['c_inv_subc'] ?></td>
+                    <td class="decimal2"><?= ($value['var_ubrMRSAS']+$value['inv_mrsas']) / $value['C1'] ?></td>
+                    <td class="decimal2"><?= $value['nbTest'] ?></td>
+                    <td class="decimal2"><?= $value['cycling'] / $value['cumul'] * 100 ?></td>
+                    <td class="decimal2"><?= ($value['cycling']+$value['rampToTemp']+$value['noncycling']) / $value['cumul'] * 100 ?></td>
+
+                    <td class="decimal2"><?= $value['obj_prodMRSAS'] ?></td>
+                    <td class="decimal2"><?= $value['obj_invMRSAS'] ?></td>
+                    <td class="decimal2"><?= isset($tableau[$key_year])?($value['var_ubrMRSAS']+$value['inv_mrsas'])/($tableau[$key_year]['var_ubrMRSAS']+$tableau[$key_year]['inv_mrsas'])*100:"" ?></td>
+                    <td class="decimal2"><?= isset($tableau[$key_year])?$value['inv_mrsas']/$tableau[$key_year]['inv_mrsas']*100:"" ?></td>
+                  </tr>
+                <?php endforeach  ?>
+
+              </tbody>
+            </table>
+          </div>
+
+          <div id="graphs1" class="tab-pane fade">
+            <div id='chart'></div>
+          </div>
+        </div>
 
 
-
-        <table id="table_KPI" class="table table-condensed table-striped table-hover table-bordered dataTable" cellspacing="0">
-          <caption><acronym title="Key Performance Indicator">KPI</acronym></caption>
-          <thead>
-            <tr>
-              <th></th>
-              <th colspan="2" class="ubr">UBR</th>
-              <th colspan="2" class="inv">INV</th>
-              <th colspan="8" class="payables">Payables</th>
-              <th colspan="2" class="hr">HR Prod</th>
-              <th colspan="9" class="unknow">unknow</th>
-              <th colspan="4" class="prodperf">Prod Perf</th>
-            </tr>
-            <tr>
-              <th>Date</th>
-              <th class="decimal2 ubr">UBR MRSAS</th>
-              <th class="decimal2 ubr">UBR Total</th>
-              <th class="decimal2 inv">INV MRSAS</th>
-              <th class="decimal2 inv">INV Total</th>
-              <th class="decimal2 payables">MRI EURO</th>
-              <th class="decimal2 payables">Postage</th>
-              <th class="decimal2 payables">Energie</th>
-              <th class="decimal2 payables">Trips et Rbst frais</th>
-              <th class="decimal2 payables">Production</th>
-              <th class="decimal2 payables">others</th>
-              <th class="decimal2 payables">Investissement</th>
-              <th class="decimal2 payables">Total</th>
-              <th class="decimal2 hr">Jrs Travaildlés</th>
-              <th class="decimal2 hr">Jrs Maladie</th>
-              <th class="decimal2 unknow">Backlog Test</th>
-              <th class="decimal2 unknow">Backlog Total</th>
-              <th class="decimal2 unknow">Entrées Cde MRSAS mensuelle</th>
-              <th class="decimal2 unknow">Monthly Production MRSAS</th>
-              <th class="decimal2 unknow">Monthly Production Total</th>
-              <th class="decimal2 unknow">Yearly Production MRSAS</th>
-              <th class="decimal2 unknow">Yearly Production Total</th>
-              <th class="decimal2 unknow">SALES HT MRSAS</th>
-              <th class="decimal2 unknow">SALES Total</th>
-              <th class="decimal2 prodperf">Ratio Prod</th>
-              <th class="decimal2 prodperf">Total Tests</th>
-              <th class="decimal2 prodperf">Occupation Réelle</th>
-              <th class="decimal2 prodperf">Occupation Etendue</th>
-            </tr>
-            <tr>
-              <th>AVG</th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-
-          <tbody>
-
-            <?php foreach ($tableau as $key => $value) : ?>
-              <tr>
-                <td><?= $key ?></td>
-                <td class="decimal2"><?= $value['ubrMRSAS'] ?></td>
-                <td class="decimal2"><?= $value['ubrMRSAS']+$value['ubrSubC'] ?></td>
-                <td class="decimal2"><?= $value['inv_mrsas'] ?></td>
-                <td class="decimal2"><?= $value['inv_mrsas']+$value['inv_subc'] ?></td>
-                <td class="decimal2"><?= $value['payable_2'] ?></td>
-                <td class="decimal2"><?= $value['payable_4'] ?></td>
-                <td class="decimal2"><?= $value['payable_5'] ?></td>
-                <td class="decimal2"><?= $value['payable_11'] ?></td>
-                <td class="decimal2"><?= $value['payable_7'] ?></td>
-                <td class="decimal2"><?= $value['payable_1'] + $value['payable_3'] + $value['payable_6'] + $value['payable_8'] + $value['payable_9'] + $value['payable_10'] ?></td>
-                <td class="decimal2"><?= $value['payable_capitalized'] ?></td>
-                <td class="decimal2"><?= $value['payable_1']+$value['payable_2']+$value['payable_3']+$value['payable_4']+$value['payable_5']+$value['payable_6']+$value['payable_7']+$value['payable_8']+$value['payable_9']+$value['payable_10']+$value['payable_11']+$value['payable_capitalized'] ?></td>
-                <td class="decimal2"><?= $value['C1'] ?></td>
-                <td class="decimal2"><?= $value['C5'] ?></td>
-                <td class="decimal2"></td>
-                <td class="decimal2"></td>
-                <td class="decimal2"></td>
-                <td class="decimal2"><?= $value['var_ubrMRSAS']+$value['inv_mrsas'] ?></td>
-                <td class="decimal2"><?= $value['var_ubrMRSAS']+$value['var_ubrSubC']+$value['inv_mrsas']+$value['inv_subc'] ?></td>
-                <td class="decimal2"><?= $value['c_var_ubrMRSAS']+$value['c_inv_mrsas'] ?></td>
-                <td class="decimal2"><?= $value['c_var_ubrMRSAS']+$value['c_var_ubrSubC']+$value['c_inv_mrsas']+$value['c_inv_subc'] ?></td>
-                <td class="decimal2"><?= $value['c_inv_mrsas'] ?></td>
-                <td class="decimal2"><?= $value['c_inv_mrsas']+$value['c_inv_subc'] ?></td>
-                <td class="decimal2"><?= ($value['var_ubrMRSAS']+$value['inv_mrsas']) / $value['C1'] ?></td>
-                <td class="decimal2"><?= $value['nbTest'] ?></td>
-                <td class="decimal2"><?= $value['cycling'] / $value['cumul'] * 100 ?></td>
-                <td class="decimal2"><?= ($value['cycling']+$value['rampToTemp']+$value['noncycling']) / $value['cumul'] * 100 ?></td>
-              </tr>
-            <?php endforeach  ?>
-
-
-
-
-
-          </tbody>
-        </table>
 
 
       </div>
 
-
+      <script src="lib/plotly/plotly-latest.min.js"></script>
       <script type="text/javascript" src="js/KPI.js"></script>
 
     <?php else : ?>
