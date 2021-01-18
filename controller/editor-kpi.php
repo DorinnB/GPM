@@ -22,7 +22,7 @@ Editor::inst( $db, 'kpi' )
   ->validator( 'Validate::numeric' )
   ->setFormatter( 'Format::ifEmpty', null ),
 
-  Field::inst( 'kpi.backlogTOTAL')
+  Field::inst( 'kpi.backlogTotal')
   ->validator( 'Validate::numeric' )
   ->setFormatter( 'Format::ifEmpty', null ),
 
@@ -34,7 +34,7 @@ Editor::inst( $db, 'kpi' )
   ->validator( 'Validate::numeric' )
   ->setFormatter( 'Format::ifEmpty', null ),
 
-    Field::inst( 'kpi.obj_invMRSAS')
+    Field::inst( 'kpi.obj_invTotal')
     ->validator( 'Validate::numeric' )
     ->setFormatter( 'Format::ifEmpty', null )
   )

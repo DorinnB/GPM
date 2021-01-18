@@ -1,22 +1,18 @@
 <script type="text/javascript" src="jquery/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
 <link rel="stylesheet" href="jquery/jquery-ui-1.12.1.custom/jquery-ui.css">
 
-<?php
-include('controller/KPI-controller.php');
-?>
-
-
-
 <div id="page-content-wrapper" style="height:100%">
   <div class="container-fluid">
     <?php if($user->is_bu()) : ?>
       <?php
-      if (!isset($_GET['dateStart'])) {
-        //echo "<script type='text/javascript'>document.location.replace('index.php?page=KPI&dateStart=".date('Y-m-d',strtotime('first day of january'))."');</script>";
-        echo "<script type='text/javascript'>document.location.replace('index.php?page=KPI&dateStart=2000-01-01');</script>";
+      if (!isset($_GET['dateStart']) OR !isset($_GET['dateEnd'])) {
+        echo "<script type='text/javascript'>document.location.replace('index.php?page=KPI&dateStart=".date("Y-m", strtotime("-1 year", strtotime('first day of january last year')))."&dateEnd=".date("Y-m", strtotime('first day of january next year'))."');</script>";
+        //echo "<script type='text/javascript'>document.location.replace('index.php?page=KPI&dateStart=2000-01-01');</script>";
+      }
+      else {
+        include('controller/KPI-controller.php');
       }
       ?>
-      <div style="display:none;" id="dateStar"><?= $_GET['dateStart'] ?></div>
 
 
       <link href="css/KPI.css" rel="stylesheet">
@@ -56,12 +52,18 @@ include('controller/KPI-controller.php');
           </div>
         </div>
 
-              <H3><acronym title="Key Performance Indicator">KPI</acronym></H3>
+        <H3><acronym title="Key Performance Indicator">KPI</acronym></H3>
+
         <ul class="nav nav-tabs nav-justified">
-          <li class="active"><a data-toggle="tab" href="#kpi">KPI</a></li>
-          <li><a data-toggle="tab" href="#graphs1" id="graphs1Toggle">Graphs</a></li>
+          <li class="active"><a data-toggle="tab" href="#kpi">KPI Data</a></li>
+          <li><a data-toggle="tab" href="#ubrMRSAS" id="tab_ubrMRSAS">MRSAS Testing-Production</a></li>
+          <li><a data-toggle="tab" href="#sales" id="tab_sales">Sales</a></li>
+          <li><a data-toggle="tab" href="#tab_cde" id="tab_cde">Cde Commande</a></li>
+          <li><a data-toggle="tab" href="#testingProd" id="tab_testingProd">Testing Production</a></li>
+
         </ul>
-        <div class="tab-content">
+
+        <div class="tab-content" style="height:80%">
           <div id="kpi" class="tab-pane fade in active">
             <table id="table_KPI" class="table table-condensed table-striped table-hover table-bordered dataTable" cellspacing="0">
 
@@ -150,16 +152,44 @@ include('controller/KPI-controller.php');
               </tfoot>
 
               <tbody>
-<?php $row=0; ?>
+                <?php $row=0; ?>
                 <?php foreach ($tableau as $key => $value) : ?>
-                <?php $row++; ?>
+                  <?php $row++; ?>
                   <?php $key_year = date("Y-m",strtotime("-1 year", strtotime($key))); ?>
                   <tr class="chartTR" id="row_<?= $key ?>">
+
+                    <input type="hidden" name="dateKPI" value="<?= $key ?>">
+                    <input type="hidden" name="ubrMRSAS" value="<?= $value['var_ubrMRSAS'] ?>">
+                    <input type="hidden" name="ubrTotal" value="<?= $value['ubrMRSAS']+$value['ubrSubC'] ?>">
+                    <input type="hidden" name="var_ubrTotal" value="<?= $value['var_ubrMRSAS']+$value['var_ubrSubC'] ?>">
+                    <input type="hidden" name="invMRSAS" value="<?= $value['inv_mrsas'] ?>">
+                    <input type="hidden" name="invMRSAS_base" value="<?= ($value['var_ubrMRSAS']>0)?$value['var_ubrMRSAS']:0 ?>">
+                    <input type="hidden" name="invTotal" value="<?= $value['inv_mrsas'] + $value['inv_subc'] ?>">
+                    <input type="hidden" name="invTotal_y" value="<?= isset($tableau[$key_year])?$value['inv_mrsas'] + $tableau[$key_year]['inv_subc']:"" ?>">
+                    <input type="hidden" name="prodMRSAS" value="<?= $value['var_ubrMRSAS']+$value['inv_mrsas'] ?>">
+                    <input type="hidden" name="prodMRSAS_y" value="<?= isset($tableau[$key_year])?$tableau[$key_year]['var_ubrMRSAS']+$tableau[$key_year]['inv_mrsas']:0 ?>">
+                    <input type="hidden" name="c_inv_Total" value="<?= $value['c_inv_mrsas']+$value['c_inv_subc'] ?>">
+                    <input type="hidden" name="c_inv_Total_y" value="<?= isset($tableau[$key_year])?$tableau[$key_year]['c_inv_mrsas']+$tableau[$key_year]['c_inv_subc']:0 ?>">
+<input type="hidden" name="obj_prodMRSAS" value="<?= $value['obj_prodMRSAS'] ?>">
+                    <input type="hidden" name="obj_invTotal" value="<?= $value['obj_invTotal'] ?>">
+                    <input type="hidden" name="invTotal_ratio" value="<?= (isset($tableau[$key_year]) AND (($tableau[$key_year]['var_ubrMRSAS']+$tableau[$key_year]['inv_mrsas'])>0))?(($value['inv_mrsas']+$value['inv_subc'])-($tableau[$key_year]['inv_mrsas']+$tableau[$key_year]['inv_subc']))/($tableau[$key_year]['inv_mrsas']+$tableau[$key_year]['inv_subc'])*100:"" ?>">
+                    <input type="hidden" name="c_invTotal_ratio" value="<?= (isset($tableau[$key_year]) AND (($tableau[$key_year]['var_ubrMRSAS']+$tableau[$key_year]['inv_mrsas'])>0))?(($value['c_inv_mrsas']+$value['c_inv_subc'])-($tableau[$key_year]['c_inv_mrsas']+$tableau[$key_year]['c_inv_subc']))/($tableau[$key_year]['c_inv_mrsas']+$tableau[$key_year]['c_inv_subc'])*100:"" ?>">
+<input type="hidden" name="c_prodMRSAS" value="<?= $value['c_var_ubrMRSAS']+$value['c_inv_mrsas'] ?>">
+<input type="hidden" name="c_prodMRSAS_y" value="<?= isset($tableau[$key_year])?$tableau[$key_year]['c_var_ubrMRSAS']+$tableau[$key_year]['c_inv_mrsas']:0 ?>">
+<input type="hidden" name="prod_MRSAS_ratio" value="<?= (isset($tableau[$key_year]) AND (($tableau[$key_year]['var_ubrMRSAS']+$tableau[$key_year]['inv_mrsas'])>0))?($value['var_ubrMRSAS']+$value['inv_mrsas'])/($tableau[$key_year]['var_ubrMRSAS']+$tableau[$key_year]['inv_mrsas'])*100:"" ?>">
+
+
+
+
+                <input type="hidden" name="backlogMRSAS" value="<?= $value['backlogMRSAS'] ?>">
+                    <input type="hidden" name="backlogTotal" value="<?= $value['backlogTotal'] ?>">
+                    <input type="hidden" name="cdeMRSAS" value="<?= $value['cdeMRSAS'] ?>">
+
                     <td class="key"><?= $key ?></td>
-                    <td class="decimal2 ubrMRSAS" data-val="<?= $value['var_ubrMRSAS'] ?>"><?= $value['ubrMRSAS'] ?></td>
-                    <td class="decimal2 ubrTotal" data-val="<?= $value['var_ubrMRSAS']+$value['var_ubrSubC'] ?>"><?= $value['ubrMRSAS']+$value['ubrSubC'] ?></td>
-                    <td class="decimal2 invMRSAS" data-val="<?= $value['inv_mrsas'] ?>"><?= $value['inv_mrsas'] ?></td>
-                    <td class="decimal2 invTotal"><?= $value['inv_mrsas']+$value['inv_subc'] ?></td>
+                    <td class="decimal2"><?= $value['ubrMRSAS'] ?></td>
+                    <td class="decimal2"><?= $value['ubrMRSAS']+$value['ubrSubC'] ?></td>
+                    <td class="decimal2"><?= $value['inv_mrsas'] ?></td>
+                    <td class="decimal2"><?= $value['inv_mrsas']+$value['inv_subc'] ?></td>
                     <td class="decimal2"><?= $value['payable_2'] ?></td>
                     <td class="decimal2"><?= $value['payable_4'] ?></td>
                     <td class="decimal2"><?= $value['payable_5'] ?></td>
@@ -171,23 +201,23 @@ include('controller/KPI-controller.php');
                     <td class="decimal2"><?= $value['C1'] ?></td>
                     <td class="decimal2"><?= $value['C5'] ?></td>
                     <td class="decimal2"><?= $value['backlogMRSAS'] ?></td>
-                    <td class="decimal2"><?= $value['backlogTOTAL'] ?></td>
+                    <td class="decimal2"><?= $value['backlogTotal'] ?></td>
                     <td class="decimal2"><?= $value['cdeMRSAS'] ?></td>
-                    <td class="decimal2 prodMRSAS" data-val="<?= $value['var_ubrMRSAS']+$value['inv_mrsas'] ?>" data-y="<?= isset($tableau[$key_year])?$tableau[$key_year]['var_ubrMRSAS']+$tableau[$key_year]['inv_mrsas']:0 ?>"><?= $value['var_ubrMRSAS']+$value['inv_mrsas'] ?></td>
+                    <td class="decimal2"><?= $value['var_ubrMRSAS']+$value['inv_mrsas'] ?></td>
                     <td class="decimal2"><?= $value['var_ubrMRSAS']+$value['var_ubrSubC']+$value['inv_mrsas']+$value['inv_subc'] ?></td>
                     <td class="decimal2"><?= $value['c_var_ubrMRSAS']+$value['c_inv_mrsas'] ?></td>
                     <td class="decimal2"><?= $value['c_var_ubrMRSAS']+$value['c_var_ubrSubC']+$value['c_inv_mrsas']+$value['c_inv_subc'] ?></td>
                     <td class="decimal2"><?= $value['c_inv_mrsas'] ?></td>
                     <td class="decimal2"><?= $value['c_inv_mrsas']+$value['c_inv_subc'] ?></td>
-                    <td class="decimal2"><?= ($value['var_ubrMRSAS']+$value['inv_mrsas']) / $value['C1'] ?></td>
+                    <td class="decimal2"><?= ($value['C1']>0)?($value['var_ubrMRSAS']+$value['inv_mrsas']) / $value['C1']:"" ?></td>
                     <td class="decimal2"><?= $value['nbTest'] ?></td>
-                    <td class="decimal2"><?= $value['cycling'] / $value['cumul'] * 100 ?></td>
-                    <td class="decimal2"><?= ($value['cycling']+$value['rampToTemp']+$value['noncycling']) / $value['cumul'] * 100 ?></td>
+                    <td class="decimal2"><?= ($value['cumul'] >0)?round($value['cycling'] / $value['cumul'] * 100):"" ?></td>
+                    <td class="decimal2"><?= ($value['cumul'] >0)?round(($value['cycling']+$value['rampToTemp']+$value['noncycling']) / $value['cumul'] * 100):"" ?></td>
 
                     <td class="decimal2"><?= $value['obj_prodMRSAS'] ?></td>
-                    <td class="decimal2"><?= $value['obj_invMRSAS'] ?></td>
-                    <td class="decimal2"><?= isset($tableau[$key_year])?($value['var_ubrMRSAS']+$value['inv_mrsas'])/($tableau[$key_year]['var_ubrMRSAS']+$tableau[$key_year]['inv_mrsas'])*100:"" ?></td>
-                    <td class="decimal2"><?= isset($tableau[$key_year])?$value['inv_mrsas']/$tableau[$key_year]['inv_mrsas']*100:"" ?></td>
+                    <td class="decimal2"><?= $value['obj_invTotal'] ?></td>
+                    <td class="decimal2"><?= (isset($tableau[$key_year]) AND (($tableau[$key_year]['var_ubrMRSAS']+$tableau[$key_year]['inv_mrsas'])>0))?($value['var_ubrMRSAS']+$value['inv_mrsas'])/($tableau[$key_year]['var_ubrMRSAS']+$tableau[$key_year]['inv_mrsas'])*100:"" ?></td>
+                    <td class="decimal2"><?= (isset($tableau[$key_year]) AND (($tableau[$key_year]['var_ubrMRSAS']+$tableau[$key_year]['inv_mrsas'])>0) AND $value['inv_mrsas']>0)?(($value['inv_mrsas']+$value['inv_subc'])-($tableau[$key_year]['inv_mrsas']+$tableau[$key_year]['inv_subc']))/($tableau[$key_year]['inv_mrsas']+$tableau[$key_year]['inv_subc'])*100:"" ?></td>
                   </tr>
                 <?php endforeach  ?>
 
@@ -195,8 +225,13 @@ include('controller/KPI-controller.php');
             </table>
           </div>
 
-          <div id="graphs1" class="tab-pane fade">
-            <div id='chart'></div>
+          <div id="ubrMRSAS" class="tab-pane fade col-md-4">
+          </div>
+          <div id="sales" class="tab-pane fade">
+          </div>
+          <div id="cde" class="tab-pane fade">
+          </div>
+          <div id="testingProd" class="tab-pane fade">
           </div>
         </div>
 

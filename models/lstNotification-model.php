@@ -40,7 +40,7 @@ class NotificationModel
     LEFT JOIN machines ON machines.id_machine=notifications.id_receiver_frame
     WHERE '.$req_user.'
     '.$notification_state.'
-    AND notification_date > DATE_SUB(NOW(),INTERVAL 1 YEAR)
+    AND notification_date > DATE_SUB(NOW(),INTERVAL 3 YEAR)
     ORDER BY id_notification DESC;';
 
     //echo $req;
@@ -77,7 +77,7 @@ class NotificationModel
     LEFT JOIN machines ON machines.id_machine=notifications.id_receiver_frame
     WHERE ('.$req_user.' OR '.$req_frame.')
     '.$notification_state.'
-        AND notification_date > DATE_SUB(NOW(),INTERVAL 1 YEAR)
+        AND notification_date > DATE_SUB(NOW(),INTERVAL 3 YEAR)
     ORDER BY id_notification DESC;';
 
     //    echo $req;

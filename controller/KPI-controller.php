@@ -8,7 +8,7 @@ include_once 'models/invoice-model.php';
 // Création d'une instance
 $oInvoices = new InvoiceModel($db);
 
-$lstData=$oInvoices->getAllProdIndicator($_GET['dateStart']);
+$lstData=$oInvoices->getAllProdIndicator($_GET['dateStart'], $_GET['dateEnd']);
 
 
 $old_ubrMRSAS=0; $old_ubrSubC=0;
@@ -16,11 +16,11 @@ $c_inv_mrsas=0; $c_inv_subc=0; $c_ubrMRSAS=0; $c_ubrSubC=0; $c_var_ubrMRSAS=0; $
 
 foreach ($lstData as $key => $value) {
 
-  if (date("m",strtotime($value ['inv_date']))=='01') {  //new year
+  if (date("m",strtotime($value ['date_kpi']))=='01') {  //new year
     $c_inv_mrsas=0; $c_inv_subc=0; $c_ubrMRSAS=0; $c_ubrSubC=0; $c_var_ubrMRSAS=0; $c_var_ubrSubC=0;
   }
 
-$value['var_ubrMRSAS']=$value['ubrMRSAS'] - $old_ubrMRSAS; $old_ubrMRSAS=$value['ubrMRSAS'];
+$value['var_ubrMRSAS']=($value['ubrMRSAS']==0)?0:$value['ubrMRSAS'] - $old_ubrMRSAS; $old_ubrMRSAS=$value['ubrMRSAS'];
 $value['var_ubrSubC']=$value['ubrSubC'] - $old_ubrSubC; $old_ubrSubC=$value['ubrSubC'];
 
 $value['c_inv_mrsas']=$c_inv_mrsas=$value['inv_mrsas'] + $c_inv_mrsas;
@@ -34,7 +34,7 @@ $value['c_var_ubrSubC']=$c_var_ubrSubC=$value['var_ubrSubC'] + $c_var_ubrSubC;
 
 
 
-  $tableau[$value['inv_date']]=$value;
+  $tableau[$value['date_kpi']]=$value;
 }
 
 //$tableau=array_reverse($tableau);
