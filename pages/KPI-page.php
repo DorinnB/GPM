@@ -52,14 +52,12 @@
           </div>
         </div>
 
-        <H3><acronym title="Key Performance Indicator">KPI</acronym></H3>
+
+        <H1><acronym title="Key Performance Indicator">KPI</acronym></H1>
 
         <ul class="nav nav-tabs nav-justified">
           <li class="active"><a data-toggle="tab" href="#kpi">KPI Data</a></li>
-          <li><a data-toggle="tab" href="#ubrMRSAS" id="tab_ubrMRSAS">MRSAS Testing-Production</a></li>
-          <li><a data-toggle="tab" href="#sales" id="tab_sales">Sales</a></li>
-          <li><a data-toggle="tab" href="#tab_cde" id="tab_cde">Cde Commande</a></li>
-          <li><a data-toggle="tab" href="#testingProd" id="tab_testingProd">Testing Production</a></li>
+          <li><a data-toggle="tab" href="#graphs" id="tab_graphs">Graphs</a></li>
 
         </ul>
 
@@ -173,44 +171,43 @@
                     <input type="hidden" name="obj_prodMRSAS" value="<?= $value['obj_prodMRSAS'] ?>">
                     <input type="hidden" name="obj_invTotal" value="<?= $value['obj_invTotal'] ?>">
 
-                    
+                    <input type="hidden" name="prodMRSASTech" value="<?= $value['C1']>0?round(($value['var_ubrMRSAS']+$value['inv_mrsas'])/$value['C1']):"" ?>">
+                    <input type="hidden" name="occupancy" value="<?= ($value['cumul'] >0)?round($value['cycling'] / $value['cumul'] * 100,1):"" ?>">
                     <input type="hidden" name="c_prodMRSAS" value="<?= $value['c_var_ubrMRSAS']+$value['c_inv_mrsas'] ?>">
                     <input type="hidden" name="c_prodMRSAS_y" value="<?= isset($tableau[$key_year])?$tableau[$key_year]['c_var_ubrMRSAS']+$tableau[$key_year]['c_inv_mrsas']:0 ?>">
-
-                    <input type="hidden" name="prod_MRSAS_ratio" value="<?= (isset($tableau[$key_year]) AND (($tableau[$key_year]['var_ubrMRSAS']+$tableau[$key_year]['inv_mrsas'])>0))?(($value['c_var_ubrMRSAS']+$value['c_inv_mrsas'])-($tableau[$key_year]['c_var_ubrMRSAS']+$tableau[$key_year]['c_inv_mrsas']))/($tableau[$key_year]['c_var_ubrMRSAS']+$tableau[$key_year]['c_inv_mrsas'])*100:"" ?>">
-<input type="hidden" name="invTotal_ratio" value="<?= (isset($tableau[$key_year]) AND (($tableau[$key_year]['var_ubrMRSAS']+$tableau[$key_year]['inv_mrsas'])>0))?(($value['c_inv_mrsas']+$value['c_inv_subc'])-($tableau[$key_year]['c_inv_mrsas']+$tableau[$key_year]['c_inv_subc']))/($tableau[$key_year]['c_inv_mrsas']+$tableau[$key_year]['c_inv_subc'])*100:"" ?>">
-
-
 
                     <input type="hidden" name="backlogMRSAS" value="<?= $value['backlogMRSAS'] ?>">
                     <input type="hidden" name="backlogTotal" value="<?= $value['backlogTotal'] ?>">
                     <input type="hidden" name="cdeMRSAS" value="<?= $value['cdeMRSAS'] ?>">
 
+                    <input type="hidden" name="prod_MRSAS_ratio" value="<?= (isset($tableau[$key_year]) AND $tableau[$key_year]['var_ubrMRSAS']!=0 AND $value['var_ubrMRSAS']!=0)?(($value['c_var_ubrMRSAS']+$value['c_inv_mrsas'])-($tableau[$key_year]['c_var_ubrMRSAS']+$tableau[$key_year]['c_inv_mrsas']))/($tableau[$key_year]['c_var_ubrMRSAS']+$tableau[$key_year]['c_inv_mrsas'])*100:"" ?>">
+                    <input type="hidden" name="invTotal_ratio" value="<?= (isset($tableau[$key_year]) AND ($tableau[$key_year]['inv_mrsas']+$tableau[$key_year]['inv_subc'])!=0 AND ($value['inv_mrsas']+$value['inv_subc'])!=0)?(($value['c_inv_mrsas']+$value['c_inv_subc'])-($tableau[$key_year]['c_inv_mrsas']+$tableau[$key_year]['c_inv_subc']))/($tableau[$key_year]['c_inv_mrsas']+$tableau[$key_year]['c_inv_subc'])*100:"" ?>">
+
                     <td class="key"><?= $key ?></td>
                     <td class="decimal2"><?= $value['ubrMRSAS'] ?></td>
-                    <td class="decimal2"><?= $value['ubrMRSAS']+$value['ubrSubC'] ?></td>
+                    <td class="decimal2"><?= ($value['ubrMRSAS']+$value['ubrSubC']!=0)?$value['ubrMRSAS']+$value['ubrSubC']:"" ?></td>
                     <td class="decimal2"><?= $value['inv_mrsas'] ?></td>
-                    <td class="decimal2"><?= $value['inv_mrsas']+$value['inv_subc'] ?></td>
+                    <td class="decimal2"><?= ($value['inv_mrsas']+$value['inv_subc']!=0)?$value['inv_mrsas']+$value['inv_subc']:"" ?></td>
                     <td class="decimal2"><?= $value['payable_2'] ?></td>
                     <td class="decimal2"><?= $value['payable_4'] ?></td>
                     <td class="decimal2"><?= $value['payable_5'] ?></td>
                     <td class="decimal2"><?= $value['payable_11'] ?></td>
                     <td class="decimal2"><?= $value['payable_7'] ?></td>
-                    <td class="decimal2"><?= $value['payable_1'] + $value['payable_3'] + $value['payable_6'] + $value['payable_8'] + $value['payable_9'] + $value['payable_10'] ?></td>
+                    <td class="decimal2"><?= ($value['payable_1'] + $value['payable_3'] + $value['payable_6'] + $value['payable_8'] + $value['payable_9'] + $value['payable_10']>0)?$value['payable_1'] + $value['payable_3'] + $value['payable_6'] + $value['payable_8'] + $value['payable_9'] + $value['payable_10']:"" ?></td>
                     <td class="decimal2"><?= $value['payable_capitalized'] ?></td>
-                    <td class="decimal2"><?= $value['payable_1']+$value['payable_2']+$value['payable_3']+$value['payable_4']+$value['payable_5']+$value['payable_6']+$value['payable_7']+$value['payable_8']+$value['payable_9']+$value['payable_10']+$value['payable_11']+$value['payable_capitalized'] ?></td>
+                    <td class="decimal2"><?= ($value['payable_1']+$value['payable_2']+$value['payable_3']+$value['payable_4']+$value['payable_5']+$value['payable_6']+$value['payable_7']+$value['payable_8']+$value['payable_9']+$value['payable_10']+$value['payable_11']+$value['payable_capitalized']>0)?$value['payable_1']+$value['payable_2']+$value['payable_3']+$value['payable_4']+$value['payable_5']+$value['payable_6']+$value['payable_7']+$value['payable_8']+$value['payable_9']+$value['payable_10']+$value['payable_11']+$value['payable_capitalized']:"" ?></td>
                     <td class="decimal2"><?= $value['C1'] ?></td>
                     <td class="decimal2"><?= $value['C5'] ?></td>
                     <td class="decimal2"><?= $value['backlogMRSAS'] ?></td>
                     <td class="decimal2"><?= $value['backlogTotal'] ?></td>
                     <td class="decimal2"><?= $value['cdeMRSAS'] ?></td>
-                    <td class="decimal2"><?= $value['var_ubrMRSAS']+$value['inv_mrsas'] ?></td>
-                    <td class="decimal2"><?= $value['var_ubrMRSAS']+$value['var_ubrSubC']+$value['inv_mrsas']+$value['inv_subc'] ?></td>
-                    <td class="decimal2"><?= $value['c_var_ubrMRSAS']+$value['c_inv_mrsas'] ?></td>
-                    <td class="decimal2"><?= $value['c_var_ubrMRSAS']+$value['c_var_ubrSubC']+$value['c_inv_mrsas']+$value['c_inv_subc'] ?></td>
-                    <td class="decimal2"><?= $value['c_inv_mrsas'] ?></td>
-                    <td class="decimal2"><?= $value['c_inv_mrsas']+$value['c_inv_subc'] ?></td>
-                    <td class="decimal2"><?= ($value['C1']>0)?($value['var_ubrMRSAS']+$value['inv_mrsas']) / $value['C1']:"" ?></td>
+                    <td class="decimal2"><?= ($value['var_ubrMRSAS']!=0)?$value['var_ubrMRSAS']+$value['inv_mrsas']:"" ?></td>
+                    <td class="decimal2"><?= ($value['var_ubrMRSAS']!=0)?$value['var_ubrMRSAS']+$value['var_ubrSubC']+$value['inv_mrsas']+$value['inv_subc']:"" ?></td>
+                    <td class="decimal2"><?= ($value['c_var_ubrMRSAS']!=0)?$value['c_var_ubrMRSAS']+$value['c_inv_mrsas']:"" ?></td>
+                    <td class="decimal2"><?= ($value['c_var_ubrMRSAS']!=0)?$value['c_var_ubrMRSAS']+$value['c_var_ubrSubC']+$value['c_inv_mrsas']+$value['c_inv_subc']:"" ?></td>
+                    <td class="decimal2"><?= ($value['c_var_ubrMRSAS']!=0)?$value['c_inv_mrsas']:"" ?></td>
+                    <td class="decimal2"><?= ($value['c_var_ubrMRSAS']!=0)?$value['c_inv_mrsas']+$value['c_inv_subc']:"" ?></td>
+                    <td class="decimal2"><?= ($value['C1']>0 AND $value['c_var_ubrMRSAS']!=0)?($value['var_ubrMRSAS']+$value['inv_mrsas']) / $value['C1']:"" ?></td>
                     <td class="decimal2"><?= $value['nbTest'] ?></td>
                     <td class="decimal2"><?= ($value['cumul'] >0)?round($value['cycling'] / $value['cumul'] * 100):"" ?></td>
                     <td class="decimal2"><?= ($value['cumul'] >0)?round(($value['cycling']+$value['rampToTemp']+$value['noncycling']) / $value['cumul'] * 100):"" ?></td>
@@ -218,8 +215,8 @@
                     <td class="decimal2"><?= $value['obj_prodMRSAS'] ?></td>
                     <td class="decimal2"><?= $value['obj_invTotal'] ?></td>
 
-                    <td class="decimal2"><?= (isset($tableau[$key_year]) AND (($tableau[$key_year]['var_ubrMRSAS']+$tableau[$key_year]['inv_mrsas'])>0))?(($value['c_var_ubrMRSAS']+$value['c_inv_mrsas'])-($tableau[$key_year]['c_var_ubrMRSAS']+$tableau[$key_year]['c_inv_mrsas']))/($tableau[$key_year]['c_var_ubrMRSAS']+$tableau[$key_year]['c_inv_mrsas'])*100:"" ?></td>
-                    <td class="decimal2"><?= (isset($tableau[$key_year]) AND (($tableau[$key_year]['var_ubrMRSAS']+$tableau[$key_year]['inv_mrsas'])>0) AND $value['inv_mrsas']>0)?(($value['c_inv_mrsas']+$value['c_inv_subc'])-($tableau[$key_year]['c_inv_mrsas']+$tableau[$key_year]['c_inv_subc']))/($tableau[$key_year]['c_inv_mrsas']+$tableau[$key_year]['c_inv_subc'])*100:"" ?></td>
+                    <td class="decimal2"><?= (isset($tableau[$key_year]) AND $tableau[$key_year]['var_ubrMRSAS']!=0 AND $value['var_ubrMRSAS']!=0)?(($value['c_var_ubrMRSAS']+$value['c_inv_mrsas'])-($tableau[$key_year]['c_var_ubrMRSAS']+$tableau[$key_year]['c_inv_mrsas']))/($tableau[$key_year]['c_var_ubrMRSAS']+$tableau[$key_year]['c_inv_mrsas'])*100:"" ?></td>
+                    <td class="decimal2"><?= (isset($tableau[$key_year]) AND ($tableau[$key_year]['inv_mrsas']+$tableau[$key_year]['inv_subc'])!=0 AND ($value['inv_mrsas']+$value['inv_subc'])!=0)?(($value['c_inv_mrsas']+$value['c_inv_subc'])-($tableau[$key_year]['c_inv_mrsas']+$tableau[$key_year]['c_inv_subc']))/($tableau[$key_year]['c_inv_mrsas']+$tableau[$key_year]['c_inv_subc'])*100:"" ?></td>
                   </tr>
                 <?php endforeach  ?>
 
@@ -227,13 +224,17 @@
             </table>
           </div>
 
-          <div id="ubrMRSAS" class="tab-pane fade col-md-4">
-          </div>
-          <div id="sales" class="tab-pane fade">
-          </div>
-          <div id="cde" class="tab-pane fade">
-          </div>
-          <div id="testingProd" class="tab-pane fade">
+          <div id="graphs" class="tab-pane fade">
+            <div id="ubrMRSAS" class="col-md-4">
+            </div>
+            <div id="sales" class="col-md-4">
+            </div>
+            <div id="cde" class="col-md-4">
+            </div>
+            <div id="testingProd" class="col-md-4">
+            </div>
+            <div id="prodTech" class="col-md-4">
+            </div>
           </div>
         </div>
 

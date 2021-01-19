@@ -79,7 +79,10 @@ $(document).ready(function() {
     select: {
       style:    'os',
       blurable: true
-    }
+    },
+    buttons: [
+      'excel'
+    ]
   } );
 
   // Filter event handler
@@ -95,6 +98,13 @@ $(document).ready(function() {
     .search( search, true, false )
     .draw();
   } );
+
+
+
+  table
+  .buttons()
+  .container()
+  .appendTo( '#btn' );
 
 
 
@@ -123,7 +133,17 @@ $(document).ready(function() {
 
 
 
-  $("#tab_ubrMRSAS").click(function(e) {
+
+
+
+
+
+
+
+
+
+
+  $("#tab_graphs").click(function(e) {
 
     //clear variable
     $('#table_KPI').find('tr.chartTR').eq(0).find('input').each( function (i) {
@@ -187,47 +207,30 @@ $(document).ready(function() {
       mode: 'lines'
     };
 
-    var dataubrMRSAS = [ traceinvMRSAS, traceubrMRSAS, traceprodMRSAS, traceprodMRSAS_OLD ];
 
-    var layoutubrMRSAS = {
+    var layout_ubrMRSAS = {
       title:'MRSAS Testing - Production',
       autosize: true,
       barmode: 'stack',
       xaxis: {
-        title: 'Date (Y-mm)'
+        tickformat: '%b-%y'
       },
-      yaxis: {title: '€'}
+      yaxis: {title: '€'},
+      showlegend: true,
+      legend: {"orientation": "h", x: 0, y: 1.2}
     };
 
-    var config = {responsive: true}
 
-    Plotly.newPlot('ubrMRSAS', dataubrMRSAS, layoutubrMRSAS, config);
 
-  });
 
-  $("#tab_sales").click(function(e) {
 
-    //clear variable
-    $('#table_KPI').find('tr.chartTR').eq(0).find('input').each( function (i) {
-      window[$(this).attr('name') + '_data']= [];
-    });
 
-    //pour chaque ligne du tableau eprouvettes
-    $('#table_KPI').find('tr.chartTR').each( function (i) {
-      $(this).find('input').each( function (i) {
-        if (!window[$(this).attr('name') + '_data']) {
-          window[$(this).attr('name') + '_data']= [];
-        }
-        window[$(this).attr('name') + '_data'].push($(this).val()); //on crée une variable array par element
-      });
-    });
-
-    var layoutubrMRSAS = {
+    var layout_sales = {
       title:'Sales',
       autosize: true,
       barmode: 'stack',
       xaxis: {
-        title: 'Date (Y-mm)'
+        tickformat: '%b-%y'
       },
       yaxis: {title: '€'},
       yaxis2: {
@@ -236,7 +239,9 @@ $(document).ready(function() {
         tickfont: {color: 'rgb(148, 103, 189)'},
         overlaying: 'y',
         side: 'right'
-      }
+      },
+      showlegend: true,
+      legend: {"orientation": "h", x: 0, y: 1.2}
     };
 
 
@@ -266,7 +271,8 @@ $(document).ready(function() {
       name: 'Sales',
       text: dateKPI_data,
       marker: {color: 'blue'},
-      type: 'bar'
+      type: 'bar',
+      width: 10*(1000*3600*24)
     };
 
     var t_c_sales = {
@@ -288,38 +294,14 @@ $(document).ready(function() {
     };
 
 
-    var datasales = [ t_obj_invTotal, t_ubrTotal, t_sales, t_c_sales, t_invTotal_ratio ];
-
-    var config = {responsive: true}
 
 
-    Plotly.newPlot('sales', datasales, layoutubrMRSAS, config);
-
-  });
-
-  $("#tab_cde").click(function(e) {
-
-    //clear variable
-    $('#table_KPI').find('tr.chartTR').eq(0).find('input').each( function (i) {
-      window[$(this).attr('name') + '_data']= [];
-    });
-
-    //pour chaque ligne du tableau eprouvettes
-    $('#table_KPI').find('tr.chartTR').each( function (i) {
-      $(this).find('input').each( function (i) {
-        if (!window[$(this).attr('name') + '_data']) {
-          window[$(this).attr('name') + '_data']= [];
-        }
-        window[$(this).attr('name') + '_data'].push($(this).val()); //on crée une variable array par element
-      });
-    });
-
-    var layoutubrMRSAS = {
-      title:'Sales',
+    var layout_cde = {
+      title:'Carnet de Commande',
       autosize: true,
       barmode: 'stack',
       xaxis: {
-        title: 'Date (Y-mm)'
+        tickformat: '%b-%y'
       },
       yaxis: {title: '€'},
       yaxis2: {
@@ -328,7 +310,9 @@ $(document).ready(function() {
         tickfont: {color: 'rgb(148, 103, 189)'},
         overlaying: 'y',
         side: 'right'
-      }
+      },
+      showlegend: true,
+      legend: {"orientation": "h", x: 0, y: 1.2}
     };
 
 
@@ -362,38 +346,14 @@ $(document).ready(function() {
     };
 
 
-    var datasales = [ t_backlogMRSAS,t_backlogTotal, t_cdeMRSAS ];
-
-    var config = {responsive: true}
 
 
-    Plotly.newPlot('sales', datasales, layoutubrMRSAS, config);
-
-  });
-
-  $("#tab_testingProd").click(function(e) {
-
-    //clear variable
-    $('#table_KPI').find('tr.chartTR').eq(0).find('input').each( function (i) {
-      window[$(this).attr('name') + '_data']= [];
-    });
-
-    //pour chaque ligne du tableau eprouvettes
-    $('#table_KPI').find('tr.chartTR').each( function (i) {
-      $(this).find('input').each( function (i) {
-        if (!window[$(this).attr('name') + '_data']) {
-          window[$(this).attr('name') + '_data']= [];
-        }
-        window[$(this).attr('name') + '_data'].push($(this).val()); //on crée une variable array par element
-      });
-    });
-
-    var layoutubrMRSAS = {
+    var layout_testingProd = {
       title:'Testing Production',
       autosize: true,
       barmode: 'stack',
       xaxis: {
-        title: 'Date (Y-mm)'
+        tickformat: '%b-%y'
       },
       yaxis: {title: '€'},
       yaxis2: {
@@ -402,7 +362,9 @@ $(document).ready(function() {
         tickfont: {color: 'rgb(148, 103, 189)'},
         overlaying: 'y',
         side: 'right'
-      }
+      },
+      showlegend: true,
+      legend: {"orientation": "h", x: 0, y: 1.2}
     };
 
 
@@ -422,7 +384,8 @@ $(document).ready(function() {
       name: 'prodMRSAS',
       text: c_prodMRSAS_data,
       marker: {color: 'blue'},
-      type: 'bar'
+      type: 'bar',
+      width: 10*(1000*3600*24)
     };
 
     var t_c_prodMRSAS_y = {
@@ -444,31 +407,138 @@ $(document).ready(function() {
     };
 
 
-    var datatestingProd = [ t_obj_prodMRSAS, t_c_prodMRSAS, t_c_prodMRSAS_y, t_prod_MRSAS_ratio ];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    var t_prodMRSASTech = {
+      x: dateKPI_data,
+      y: prodMRSASTech_data,
+      name: 'prodMRSASTech',
+      text: dateKPI_data,
+      type: 'bar'
+    };
+
+
+    var t_occupancy = {
+      x: dateKPI_data,
+      y: occupancy_data,
+      yaxis: 'y2',
+      name: 'occupancy',
+      text: dateKPI_data,
+      marker: {color: 'orange'},
+      mode: 'lines'
+    };
+
+
+    var layout_prodTech = {
+      title:'Ratio € Producted Test / Technician Day vs Occupancy Rate',
+      autosize: true,
+      barmode: 'stack',
+      xaxis: {
+        tickformat: '%b-%y'
+      },
+      yaxis: {title: '€'},
+      yaxis2: {
+        title: '%',
+        titlefont: {color: 'rgb(148, 103, 189)'},
+        tickfont: {color: 'rgb(148, 103, 189)'},
+        overlaying: 'y',
+        side: 'right',
+        range: [0,100]
+      },
+      showlegend: true,
+      legend: {"orientation": "h", x: 0, y: 1.2}
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     var config = {responsive: true}
 
 
-    Plotly.newPlot('testingProd', datatestingProd, layoutubrMRSAS, config);
 
+
+
+
+    var data_ubrMRSAS = [ traceinvMRSAS, traceubrMRSAS, traceprodMRSAS, traceprodMRSAS_OLD ];
+    Plotly.newPlot('ubrMRSAS', data_ubrMRSAS, layout_ubrMRSAS, config);
+
+
+    var data_sales = [ t_obj_invTotal, t_ubrTotal, t_sales, t_c_sales, t_invTotal_ratio ];
+    Plotly.newPlot('sales', data_sales, layout_sales, config);
+
+
+    var data_cde = [ t_backlogMRSAS,t_backlogTotal, t_cdeMRSAS ];
+    Plotly.newPlot('cde', data_cde, layout_cde, config);
+
+    var data_testingProd = [ t_obj_prodMRSAS, t_c_prodMRSAS, t_c_prodMRSAS_y, t_prod_MRSAS_ratio ];
+    Plotly.newPlot('testingProd', data_testingProd, layout_testingProd, config);
+
+    var data_prodTech = [ t_prodMRSASTech, t_occupancy ];
+    Plotly.newPlot('prodTech', data_prodTech, layout_prodTech, config);
   });
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 });
-
-
-
-
-/*
-  var layoutubrMRSAS = {
-    title:'MRSAS Testing - Production',
-    autosize: true,
-    barmode: 'stack',
-    xaxis: {
-      title: 'Date (Y-mm)'
-    },
-    yaxis: {title: '€'},
-    showlegend: true,
-    legend: {"orientation": "h", x: 0.4, y: 1.2}
-*/
