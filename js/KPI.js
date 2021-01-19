@@ -444,12 +444,12 @@ $(document).ready(function() {
     };
 
 
-    var datasales = [ t_obj_prodMRSAS, t_c_prodMRSAS, t_c_prodMRSAS_y, t_prod_MRSAS_ratio ];
+    var datatestingProd = [ t_obj_prodMRSAS, t_c_prodMRSAS, t_c_prodMRSAS_y, t_prod_MRSAS_ratio ];
 
     var config = {responsive: true}
 
 
-    Plotly.newPlot('testingProd', datasales, layoutubrMRSAS, config);
+    Plotly.newPlot('testingProd', datatestingProd, layoutubrMRSAS, config);
 
   });
 
