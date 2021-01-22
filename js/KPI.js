@@ -557,12 +557,10 @@ $(document).ready(function() {
     var data_ubrMRSAS = [ traceinvMRSAS, traceubrMRSAS, traceprodMRSAS, traceprodMRSAS_OLD ];
     Plotly.newPlot('ubrMRSAS', data_ubrMRSAS, layout_ubrMRSAS, config);
 
-
     var data_sales = [ t_obj_invTotal, t_ubrTotal, t_sales, t_c_sales, t_invTotal_ratio ];
     Plotly.newPlot('sales', data_sales, layout_sales, config);
 
-
-    var data_cde = [ t_backlogMRSAS,t_backlogTotal, t_cdeMRSAS ];
+    var data_cde = [ t_backlogTotal, t_backlogMRSAS, t_cdeMRSAS ];
     Plotly.newPlot('cde', data_cde, layout_cde, config);
 
     var data_testingProd = [ t_obj_prodMRSAS, t_c_prodMRSAS, t_c_prodMRSAS_y, t_prod_MRSAS_ratio ];
