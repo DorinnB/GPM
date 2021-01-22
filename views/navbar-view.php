@@ -29,7 +29,7 @@
 					<span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu dropdownhover">
-					<li><a href="index.php?page=WeeklyReport">Weekly Report</a></li>
+					<li><a href="index.php?page=WeeklyReport&customer=8003">Weekly Report</a></li>
 					<li><a href="index.php?page=WeeklyReportSubC&customer=1001">Weekly Report SubC</a></li>
 				</ul>
 			</li>

@@ -201,10 +201,10 @@ class LstJobsModel
     LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
     LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
     LEFT JOIN entreprises ON info_jobs.customer=entreprises.id_entreprise
-    LEFT JOIN contacts ON contacts.id_contact=info_jobs.id_contact
-    LEFT JOIN contacts  contacts2 ON contacts2.id_contact=info_jobs.id_contact2
-    LEFT JOIN contacts  contacts3 ON contacts3.id_contact=info_jobs.id_contact3
-    LEFT JOIN contacts  contacts4 ON contacts4.id_contact=info_jobs.id_contact4
+    LEFT JOIN contacts ON contacts.id_contact=info_jobs.id_contact AND contacts.id_contact != 0
+    LEFT JOIN contacts  contacts2 ON contacts2.id_contact=info_jobs.id_contact2 AND contacts2.id_contact != 0
+    LEFT JOIN contacts  contacts3 ON contacts3.id_contact=info_jobs.id_contact3 AND contacts3.id_contact != 0
+    LEFT JOIN contacts  contacts4 ON contacts4.id_contact=info_jobs.id_contact4 AND contacts4.id_contact != 0
     LEFT JOIN pricing ON pricing.id_pricing=info_jobs.pricing
     LEFT JOIN matieres ON matieres.id_matiere=info_jobs.id_matiere_std
     LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
@@ -381,10 +381,11 @@ class LstJobsModel
     )as contactsXLS
 
     FROM info_jobs
-    LEFT JOIN contacts ON contacts.id_contact=info_jobs.id_contact
-    LEFT JOIN contacts  contacts2 ON contacts2.id_contact=info_jobs.id_contact2
-    LEFT JOIN contacts  contacts3 ON contacts3.id_contact=info_jobs.id_contact3
-    LEFT JOIN contacts  contacts4 ON contacts4.id_contact=info_jobs.id_contact4
+
+    LEFT JOIN contacts ON contacts.id_contact=info_jobs.id_contact AND contacts.id_contact != 0
+    LEFT JOIN contacts  contacts2 ON contacts2.id_contact=info_jobs.id_contact2 AND contacts2.id_contact != 0
+    LEFT JOIN contacts  contacts3 ON contacts3.id_contact=info_jobs.id_contact3 AND contacts3.id_contact != 0
+    LEFT JOIN contacts  contacts4 ON contacts4.id_contact=info_jobs.id_contact4 AND contacts4.id_contact != 0
     LEFT JOIN master_eprouvettes ON master_eprouvettes.id_info_job=info_jobs.id_info_job
     LEFT JOIN eprouvettes ON eprouvettes.id_master_eprouvette=master_eprouvettes.id_master_eprouvette
     WHERE info_jobs.id_info_job='.$id_infojob.'
@@ -425,10 +426,10 @@ class LstJobsModel
 
     FROM info_jobs
     LEFT JOIN entreprises ON entreprises.id_entreprise=info_jobs.customer
-    LEFT JOIN contacts ON contacts.id_contact=info_jobs.id_contact
-    LEFT JOIN contacts  contacts2 ON contacts2.id_contact=info_jobs.id_contact2
-    LEFT JOIN contacts  contacts3 ON contacts3.id_contact=info_jobs.id_contact3
-    LEFT JOIN contacts  contacts4 ON contacts4.id_contact=info_jobs.id_contact4
+    LEFT JOIN contacts ON contacts.id_contact=info_jobs.id_contact AND contacts.id_contact != 0
+    LEFT JOIN contacts  contacts2 ON contacts2.id_contact=info_jobs.id_contact2 AND contacts2.id_contact != 0
+    LEFT JOIN contacts  contacts3 ON contacts3.id_contact=info_jobs.id_contact3 AND contacts3.id_contact != 0
+    LEFT JOIN contacts  contacts4 ON contacts4.id_contact=info_jobs.id_contact4 AND contacts4.id_contact != 0
     LEFT JOIN master_eprouvettes ON master_eprouvettes.id_info_job=info_jobs.id_info_job
     LEFT JOIN eprouvettes ON eprouvettes.id_master_eprouvette=master_eprouvettes.id_master_eprouvette
     WHERE info_job_actif=1 AND customer='.$customer.'

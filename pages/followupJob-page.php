@@ -80,11 +80,11 @@
 						<td><?= $row['nbep'] ?></td>
 						<td class="location<?= $row['mrsas'] ?>"><?= $row['mrsas'] ?></td>
 						<td class="location<?= $row['subc'] ?>"><?= $row['subc'] ?></td>
-<td><acronym title='<?= $row['entreprise'] ?>'><?= $row['entreprise_abbr'] ?></acronym></td>
+						<td><acronym title='<?= $row['entreprise'] ?>'><?= $row['entreprise_abbr'] ?></acronym></td>
 						<td><?= $row['customer'] ?></td>
 						<td><a href="index.php?page=split&id_tbljob=<?= $row['id_tbljob'] ?>"><?= $row['job'] ?></a></td>
 
-					<td><?= $row['test_type_abbr'] ?></td>
+						<td><?= $row['test_type_abbr'] ?></td>
 
 						<td><?= (isset($row['nom'])?$row['prenom'][0].'. '.$row['nom']:"")
 						.(isset($row['nom2'])?" - ".$row['prenom2'][0].'. '.$row['nom2']:"")
