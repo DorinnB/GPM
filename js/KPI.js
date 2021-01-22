@@ -217,7 +217,7 @@ $(document).ready(function() {
       },
       yaxis: {title: '€'},
       showlegend: true,
-      legend: {"orientation": "h", x: 0, y: 1.2}
+      legend: {"orientation": "h", x: 0, y: 1.2, 'traceorder':'normal'}
     };
 
 
@@ -241,7 +241,7 @@ $(document).ready(function() {
         side: 'right'
       },
       showlegend: true,
-      legend: {"orientation": "h", x: 0, y: 1.2}
+      legend: {"orientation": "h", x: 0, y: 1.2, 'traceorder':'normal'}
     };
 
 
@@ -312,7 +312,7 @@ $(document).ready(function() {
         side: 'right'
       },
       showlegend: true,
-      legend: {"orientation": "h", x: 0, y: 1.2}
+      legend: {"orientation": "h", x: 0, y: 1.2, 'traceorder':'normal'}
     };
 
 
@@ -322,6 +322,7 @@ $(document).ready(function() {
       name: 'backlogMRSAS',
       text: dateKPI_data,
       fill: 'tozeroy',
+      //fillcolor: 'blue',
       type: 'scatter',
       mode: 'none',
     };
@@ -364,7 +365,7 @@ $(document).ready(function() {
         side: 'right'
       },
       showlegend: true,
-      legend: {"orientation": "h", x: 0, y: 1.2}
+      legend: {"orientation": "h", x: 0, y: 1.2, 'traceorder':'normal'}
     };
 
 
@@ -409,27 +410,6 @@ $(document).ready(function() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     var t_prodMRSASTech = {
       x: dateKPI_data,
       y: prodMRSASTech_data,
@@ -467,7 +447,7 @@ $(document).ready(function() {
         range: [0,100]
       },
       showlegend: true,
-      legend: {"orientation": "h", x: 0, y: 1.2}
+      legend: {"orientation": "h", x: 0, y: 1.2, 'traceorder':'normal'}
     };
 
 
@@ -477,10 +457,66 @@ $(document).ready(function() {
 
 
 
+    var t_test_type_cat_Strain_ET = {
+      x: dateKPI_data,
+      y: test_type_cat_Strain_ET_data,
+      name: 'Strain_ET',
+      text: dateKPI_data,
+      type: 'bar'
+    };
+
+    var t_test_type_cat_Strain_RT = {
+      x: dateKPI_data,
+      y: test_type_cat_Strain_RT_data,
+      name: 'Strain RT',
+      text: dateKPI_data,
+      type: 'bar'
+    };
+
+    var t_test_type_cat_Load_ET = {
+      x: dateKPI_data,
+      y: test_type_cat_Load_ET_data,
+      name: 'Load_ET',
+      text: dateKPI_data,
+      type: 'bar'
+    };
+
+    var t_test_type_cat_Load_RT = {
+      x: dateKPI_data,
+      y: test_type_cat_Load_RT_data,
+      name: 'Load RT',
+      text: dateKPI_data,
+      type: 'bar'
+    };
+
+    var t_test_type_cat_Other_ET = {
+      x: dateKPI_data,
+      y: test_type_cat_Other_ET_data,
+      name: 'Other_ET',
+      text: dateKPI_data,
+      type: 'bar'
+    };
+
+    var t_test_type_cat_Other_RT = {
+      x: dateKPI_data,
+      y: test_type_cat_Other_RT_data,
+      name: 'Other RT',
+      text: dateKPI_data,
+      type: 'bar'
+    };
 
 
-
-
+    var layout_testNumber = {
+      title:'Test Type',
+      autosize: true,
+      barmode: 'stack',
+      xaxis: {
+        tickformat: '%b-%y'
+      },
+      yaxis: {title: '€'},
+      showlegend: true,
+      legend: {"orientation": "h", x: 0, y: 1.2, 'traceorder':'normal'}
+    };
 
 
 
@@ -513,6 +549,9 @@ $(document).ready(function() {
 
     var data_prodTech = [ t_prodMRSASTech, t_occupancy ];
     Plotly.newPlot('prodTech', data_prodTech, layout_prodTech, config);
+
+      var data_testNumber = [ t_test_type_cat_Strain_RT, t_test_type_cat_Strain_ET, t_test_type_cat_Load_RT, t_test_type_cat_Load_ET, t_test_type_cat_Other_RT, t_test_type_cat_Other_ET ];
+    Plotly.newPlot('testNumber', data_testNumber, layout_testNumber, config);
   });
 
 

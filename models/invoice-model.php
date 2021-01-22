@@ -583,8 +583,17 @@ class InvoiceModel
     ) as pl on pl.dateplanned=kpi.date_kpi
 
     LEFT JOIN (
-      SELECT DATE_FORMAT(date, "%Y-%m") as date_test, COUNT(*) AS nbTest
+      SELECT DATE_FORMAT(date, "%Y-%m") as date_test, COUNT(*) AS nbTest,
+      SUM(if(test_type_cat="Strain" AND c_temperature>25, 1, 0)) AS test_type_cat_Strain_ET,
+      SUM(if(test_type_cat="Strain" AND (c_temperature<=25 OR c_temperature IS NULL), 1, 0)) AS test_type_cat_Strain_RT,
+      SUM(if(test_type_cat="Load" AND c_temperature>25, 1, 0)) AS test_type_cat_Load_ET,
+      SUM(if(test_type_cat="Load" AND (c_temperature<=25 OR c_temperature IS NULL), 1, 0)) AS test_type_cat_Load_RT,
+      SUM(if(test_type_cat="Other" AND c_temperature>25, 1, 0)) AS test_type_cat_Other_ET,
+      SUM(if(test_type_cat="Other" AND (c_temperature<=25 OR c_temperature IS NULL), 1, 0)) AS test_type_cat_Other_RT
       FROM enregistrementessais
+      LEFT JOIN eprouvettes ON eprouvettes.id_eprouvette=enregistrementessais.id_eprouvette
+      LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
+      LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
       WHERE date>='.$this->db->quote($dateStart).' AND date<'.$this->db->quote($dateEnd).'
       GROUP BY DATE_FORMAT(date, "%Y-%m")
     ) as t on t.date_test=kpi.date_kpi

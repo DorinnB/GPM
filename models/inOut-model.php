@@ -413,5 +413,21 @@ class INOUT
     return $this->db->getAll($req);
   }
 
+  public function awaitingQuotations(){
+    $req='SELECT
+    CASE
+    WHEN id_preparer>0 THEN "A"
+    ELSE "C"
+    END AS state,
+    id_quotation,
+    concat("D", DATE_FORMAT(creation_date, "%y"), "-", LPAD(id_quotation, 5, 0)) as quotation_number
+    FROM quotation
+    LEFT JOIN info_jobs ON info_jobs.devis=concat("D",quotation.id_quotation) OR right(info_jobs.devis,4)=quotation.id_quotation
+    WHERE (info_jobs.job IS NULL AND quotation_date IS NULL)
+    AND quotation_actif=1
+    ORDER BY id_quotation ASC
+    ';
+    return $this->db->getAll($req);
+  }
 
 }

@@ -7,17 +7,17 @@
       <div class="row bandeau" style="height:30%;overflow-y:scroll;border-bottom:2px solid white;">
         <div class="col-md-2">
           <div class="col-md-12 titre">
-            Last Condition
-          </div>
-        </div>
-        <div class="col-md-2">
-          <div class="col-md-12 titre">
-            Awaiting Condition
+            Quotations
           </div>
         </div>
         <div class="col-md-2">
           <div class="col-md-12 titre">
             FQC TM
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="col-md-12 titre">
+            Last Condition
           </div>
         </div>
         <div class="col-md-2">
@@ -37,22 +37,33 @@
         </div>
       </div>
       <div class="row bandeauVal" style="height:70%;overflow-y:scroll;">
+
+        <div class="col-md-2">
+          <?php foreach ($oInOut->awaitingQuotations() as $key => $value) : ?>
+            <a href="index.php?page=quotation&&id_quotation=<?= $value['id_quotation'] ?>" class="col-md-12 valeur">
+              <?= $value['quotation_number'].' ('.$value['state'].')' ?>
+            </a>
+          <?php endforeach  ?>
+        </div>
+        <div class="col-md-2">
+          <?php foreach ($oInOut->stepStatut(71) as $key => $value) : ?>
+            <a href="index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
+              <?= $value['job'].'-'.$value['split']  ?>
+            </a>
+          <?php endforeach  ?>
+        </div>
         <div class="col-md-2">
           <?php foreach ($oInOut->stepStatut(51) as $key => $value) : ?>
             <a href="index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
               <?= $value['job'].'-'.$value['split']  ?>
             </a>
           <?php endforeach  ?>
-        </div>
-        <div class="col-md-2">
+          <?php if ($oInOut->stepStatut(30)) : ?>
+            <p href="#" class="titre bandeau" style="border-bottom: 2px solid white; margin-top:20px; width: 100%;display: inline-block; border">
+              Awaiting Condition
+            </p>
+          <?php endif ?>
           <?php foreach ($oInOut->stepStatut(30) as $key => $value) : ?>
-            <a href="index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
-              <?= $value['job'].'-'.$value['split']  ?>
-            </a>
-          <?php endforeach  ?>
-        </div>
-        <div class="col-md-2">
-          <?php foreach ($oInOut->stepStatut(71) as $key => $value) : ?>
             <a href="index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
               <?= $value['job'].'-'.$value['split']  ?>
             </a>

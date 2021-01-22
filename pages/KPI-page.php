@@ -180,6 +180,16 @@
                     <input type="hidden" name="backlogTotal" value="<?= $value['backlogTotal'] ?>">
                     <input type="hidden" name="cdeMRSAS" value="<?= $value['cdeMRSAS'] ?>">
 
+
+
+                    <input type="hidden" name="nbtest" value="<?= $value['nbTest'] ?>">
+                    <input type="hidden" name="test_type_cat_Strain_ET" value="<?= $value['test_type_cat_Strain_ET'] ?>">
+                    <input type="hidden" name="test_type_cat_Strain_RT" value="<?= $value['test_type_cat_Strain_RT'] ?>">
+                    <input type="hidden" name="test_type_cat_Load_ET" value="<?= $value['test_type_cat_Load_ET'] ?>">
+                    <input type="hidden" name="test_type_cat_Load_RT" value="<?= $value['test_type_cat_Load_RT'] ?>">
+                    <input type="hidden" name="test_type_cat_Other_ET" value="<?= $value['test_type_cat_Other_ET'] ?>">
+                    <input type="hidden" name="test_type_cat_Other_RT" value="<?= $value['test_type_cat_Other_RT'] ?>">
+
                     <input type="hidden" name="prod_MRSAS_ratio" value="<?= (isset($tableau[$key_year]) AND $tableau[$key_year]['var_ubrMRSAS']!=0 AND $value['var_ubrMRSAS']!=0)?(($value['c_var_ubrMRSAS']+$value['c_inv_mrsas'])-($tableau[$key_year]['c_var_ubrMRSAS']+$tableau[$key_year]['c_inv_mrsas']))/($tableau[$key_year]['c_var_ubrMRSAS']+$tableau[$key_year]['c_inv_mrsas'])*100:"" ?>">
                     <input type="hidden" name="invTotal_ratio" value="<?= (isset($tableau[$key_year]) AND ($tableau[$key_year]['inv_mrsas']+$tableau[$key_year]['inv_subc'])!=0 AND ($value['inv_mrsas']+$value['inv_subc'])!=0)?(($value['c_inv_mrsas']+$value['c_inv_subc'])-($tableau[$key_year]['c_inv_mrsas']+$tableau[$key_year]['c_inv_subc']))/($tableau[$key_year]['c_inv_mrsas']+$tableau[$key_year]['c_inv_subc'])*100:"" ?>">
 
@@ -234,6 +244,8 @@
             <div id="testingProd" class="col-md-4">
             </div>
             <div id="prodTech" class="col-md-4">
+            </div>
+            <div id="testNumber" class="col-md-4">
             </div>
           </div>
         </div>
