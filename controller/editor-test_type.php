@@ -33,6 +33,8 @@ Editor::inst( $db, 'test_type' )
   Field::inst( 'test_type.ST')
     ->validator( 'Validate::numeric' )
     ->validator( 'Validate::notEmpty' ),
+  Field::inst( 'test_type.test_type_cat')
+    ->setFormatter( 'Format::ifEmpty', null ),
   Field::inst( 'test_type.test_type_actif')
     ->validator( 'Validate::numeric' )
     ->validator( 'Validate::notEmpty' )

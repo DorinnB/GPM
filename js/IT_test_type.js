@@ -16,11 +16,19 @@ $(document).ready(function() {
       { label: "Final Split (0 or 1)", name: "test_type.final"  },
       { label: "Auxiliary Type (0 or 1)", name: "test_type.auxilaire"  },
       { label: "SubC Test  (0 or 1) (Abbr should start with a dot)", name: "test_type.ST"  },
+      { label: "KPI Type", name: "test_type.test_type_cat",
+      type:  "select",
+      options: [
+        { label: "-",        value: "" },
+        { label: "Strain",   value: "Strain" },
+        { label: "Load",     value: "Load" },
+        { label: "Other",    value: "Other" }
+      ]  },
       { label: "Pricing list:",              name: "pricinglists[].id_pricingList",
-          type: "select",
-          multiple: true
-      },
-      { label: "Active (0 or 1)", name: "test_type.test_type_actif"  },
+      type: "select",
+      multiple: true
+    },
+    { label: "Active (0 or 1)", name: "test_type.test_type_actif"  },
   ]
 } );
 
@@ -46,19 +54,20 @@ var table = $('#table_test_type').DataTable( {
     { data: "test_type.final" },
     { data: "test_type.auxilaire" },
     { data: "test_type.ST" },
+    { data: "test_type.test_type_cat" },
 
     {data: null,
-  render: function(data, type, row, meta) {
-            var pricinglists = '';
-            //loop through all the row pricinglists to build output string
-            for (var item in row.pricinglists) {
-               var pricinglist = row.pricinglists[item];
-                pricinglists = pricinglists + pricinglist.prodCode + '-' + pricinglist.OpnCode + '  ';
-            }
-            return pricinglists;
+      render: function(data, type, row, meta) {
+        var pricinglists = '';
+        //loop through all the row pricinglists to build output string
+        for (var item in row.pricinglists) {
+          var pricinglist = row.pricinglists[item];
+          pricinglists = pricinglists + pricinglist.prodCode + '-' + pricinglist.OpnCode + '  ';
+        }
+        return pricinglists;
 
-          }
-      },
+      }
+    },
     { data: "test_type.test_type_actif" }
   ],
   scrollY: '65vh',

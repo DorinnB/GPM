@@ -9,6 +9,7 @@
       <th><acronym title="Final Split">F.</acronym></th>
       <th><acronym title="auxiliary Type">Aux</acronym></th>
       <th><acronym title="SubC Test (should start with a dot)">SubC.</acronym></th>
+      <th><acronym title="KPI Type">KPI T.</acronym></th>
       <th><acronym title="Pricing list">Pricing list</acronym></th>
       <th><acronym title="Active (0 or 1)">A.+</acronym></th>
     </tr>
@@ -21,6 +22,7 @@
       <th><acronym title="Final Split">F.</acronym></th>
       <th><acronym title="auxiliary Type">Aux</acronym></th>
       <th><acronym title="SubC Test (should start with a dot)">SubC.</acronym></th>
+      <th><acronym title="KPI Type">KPI T.</acronym></th>
       <th><acronym title="Pricing list">Pricing list</acronym></th>
       <th><acronym title="Active (0 or 1)">A.+</acronym></th>
     </tr>
