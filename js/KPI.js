@@ -521,6 +521,27 @@ $(document).ready(function() {
 
 
 
+    var t_occupancyProd = {
+      x: prodMRSAS_data,
+      y: occupancy_data,
+        text: prodMRSASTech_data,
+      mode: 'markers',
+      marker: {
+        size: prodMRSASTech_data,
+        sizeref: 2.0 * Math.max(...prodMRSASTech_data) / (80**2),
+        sizemode: 'area'
+      },
+      name: 'prodMRSAS'
+    };
+
+    var layout_occupancyProd = {
+      title:'Occupation / Production E - Taille Ratio Prod',
+      autosize: true,
+      showlegend: true,
+      xaxis: {title: 'Production €'},
+      yaxis: {title: 'Occupancy %'},
+      legend: {"orientation": "h", x: 0, y: 1.2, 'traceorder':'normal'}
+    };
 
 
 
@@ -550,8 +571,11 @@ $(document).ready(function() {
     var data_prodTech = [ t_prodMRSASTech, t_occupancy ];
     Plotly.newPlot('prodTech', data_prodTech, layout_prodTech, config);
 
-      var data_testNumber = [ t_test_type_cat_Strain_RT, t_test_type_cat_Strain_ET, t_test_type_cat_Load_RT, t_test_type_cat_Load_ET, t_test_type_cat_Other_RT, t_test_type_cat_Other_ET ];
+    var data_testNumber = [ t_test_type_cat_Strain_RT, t_test_type_cat_Strain_ET, t_test_type_cat_Load_RT, t_test_type_cat_Load_ET, t_test_type_cat_Other_RT, t_test_type_cat_Other_ET ];
     Plotly.newPlot('testNumber', data_testNumber, layout_testNumber, config);
+
+    var data_occupancyProd = [ t_occupancyProd ];
+    Plotly.newPlot('occupancyProd', data_occupancyProd, layout_occupancyProd, config);
   });
 
 

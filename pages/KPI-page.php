@@ -247,6 +247,8 @@
             </div>
             <div id="testNumber" class="col-md-4">
             </div>
+            <div id="occupancyProd" class="col-md-4">
+            </div>
           </div>
         </div>
 
