@@ -116,7 +116,7 @@
             <button type="button" class="btn btn-default btn-lg col-md-12" data-toggle="modal" data-target="#mrsasComment">
               <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> MRSAS Note <span class="badge" id="mrsasCommentBadge"><?= ($quotation['mrsasComments']=="")?"":substr($quotation['mrsasComments'],0,20)." [...]" ?></span>
             </button>
-            <input class="form-control" type="hidden" id="mrsasComments" name="mrsasComments">
+            <input class="form-control" type="hidden" id="mrsasComments" name="mrsasComments" value="<?= $quotation['mrsasComments'] ?>">
 
           </div>
 

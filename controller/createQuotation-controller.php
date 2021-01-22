@@ -266,7 +266,7 @@ $page
 
 $val2Xls = array(
 
-  'F9' => date('y', strtotime($quotation['creation_date'])).'-'.sprintf('%05d',$quotation['id_quotation']),
+  'F9' => 'D'.date('y', strtotime($quotation['creation_date'])).'-'.sprintf('%05d',$quotation['id_quotation']),
   'F10' => $quotation['ver'],
   'F12'=> date("Y-m-d"),
   'B16' => $quotation['rfq'],
@@ -398,13 +398,13 @@ $objPHPExcel->getSheetByName('Quotation')
 
 $objWriter = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($objPHPExcel, 'Xlsx');
 //$objWriter->setIncludeCharts(TRUE);
-$file='../temp/Quotation-'.date('y', strtotime($quotation['creation_date'])).'-'.sprintf('%05d',$quotation['id_quotation']).'.xlsm';
+$file='../temp/D'.date('y', strtotime($quotation['creation_date'])).'-'.sprintf('%05d',$quotation['id_quotation']).'.xlsm';
 $objWriter->save($file);
 
 
 // Redirect output to a client’s web browser (Excel2007)
 header('Content-Type: application/vnd.ms-excel.sheet.macroEnabled.12');
-header('Content-Disposition: attachment;filename="Quotation-'.date('y', strtotime($quotation['creation_date'])).'-'.sprintf('%05d',$quotation['id_quotation']).'.xlsm"');
+header('Content-Disposition: attachment;filename="D'.date('y', strtotime($quotation['creation_date'])).'-'.sprintf('%05d',$quotation['id_quotation']).'.xlsm"');
 header('Cache-Control: max-age=0');
 // If you're serving to IE 9, then the following may be needed
 header('Cache-Control: max-age=1');

@@ -74,8 +74,13 @@ $(document).ready(function() {
       }    },
       { data: 'quotation.quotation_date',
       render: function ( data, type, row ) {
-        dateDue = new Date(data);
-        return $.datepicker.formatDate('yy-mm-dd', dateDue);
+        if (data) {
+          dateDue = new Date(data);
+          return $.datepicker.formatDate('yy-mm-dd', dateDue);
+        }
+        else {
+          return "";
+        }
       }  },
       { data: 'quotation.quotationlist', className: "sumEstimated",
       render: function ( data, type, row ) {
