@@ -123,20 +123,44 @@ $(document).ready(function() {
       { data: null,
         render: function ( data, type, row ) {
 
+          var unit=0;
+          var price=0;
+          total=0;
+
+          if (row.quotation.quotationlist) {
+            dataSplit = row.quotation.quotationlist.split('&');
+            dataSplit.forEach(function(entry) {
+              var newData = entry.split('=');
+              var newName = newData[0].split('_');
+              var newValue = newData[1];
+
+              if (newName[2]=='unit') {
+                unit= newValue;
+              }
+              if (newName[2]=='price') {
+                price= newValue;
+                total += unit * price;
+              }
+            });
+          }
+
           if (row.info_jobs.job) {
-            return '<div class="col-md-2" style="background-color:inherit;">4</div><div class="col-md-9" style="background-color:inherit;">Accepted</div>';
+            return '<div class="col-md-2" style="background-color:inherit;">5</div><div class="col-md-9" style="background-color:inherit;">Accepted</div>';
           }
           else if (row.quotation.quotation_date) {
-            return '<div class="col-md-2" style="background-color:inherit;">3</div><div class="col-md-9" style="background-color:inherit;">Sent</div>';
+            return '<div class="col-md-2" style="background-color:inherit;">4</div><div class="col-md-9" style="background-color:inherit;">Sent</div>';
           }
           else if (row.quotation.id_checker>0) {
-            return '<div class="col-md-2" style="background-color:inherit;">2</div><div class="col-md-9" style="background-color:inherit;">Checked</div>';
+            return '<div class="col-md-2" style="background-color:inherit;">3</div><div class="col-md-9" style="background-color:inherit;">Checked</div>';
           }
           else if (row.quotation.id_preparer>0) {
-            return '<div class="col-md-2" style="background-color:inherit;">1</div><div class="col-md-9" style="background-color:inherit;">Awaiting Check</div>';
+            return '<div class="col-md-2" style="background-color:inherit;">2</div><div class="col-md-9" style="background-color:inherit;">Awaiting Check</div>';
+          }
+          else if (total>0) {
+            return '<div class="col-md-2" style="background-color:inherit;">1</div><div class="col-md-9" style="background-color:inherit;">WIP</div>';
           }
           else {
-            return '<div class="col-md-2" style="background-color:inherit;">0</div><div class="col-md-9" style="background-color:inherit;">Created</div>';
+            return '<div class="col-md-2" style="background-color:inherit;">0</div><div class="col-md-9" style="background-color:inherit;">Assigned</div>';
           }
 
         }
@@ -163,6 +187,11 @@ $(document).ready(function() {
         }
       }, className: 'editable' }
     ],
+    createdRow: function( row, data, dataIndex ) {
+    if ( data.quotation.quotation_actif <0 ) {
+      $(row).addClass( 'refused' );
+    }
+  },
     columnDefs: [ {
       targets: [7],
       createdCell: function (td, cellData, rowData, row, col) {
@@ -170,7 +199,51 @@ $(document).ready(function() {
           $(td).css('color', 'blue')
         }
       }
-    } ],
+    },{
+      targets: [10],
+      createdCell: function (td, cellData, rowData, row, col) {
+
+        var unit=0;
+        var price=0;
+        total=0;
+
+        if (rowData.quotation.quotationlist) {
+          dataSplit = rowData.quotation.quotationlist.split('&');
+          dataSplit.forEach(function(entry) {
+            var newData = entry.split('=');
+            var newName = newData[0].split('_');
+            var newValue = newData[1];
+
+            if (newName[2]=='unit') {
+              unit= newValue;
+            }
+            if (newName[2]=='price') {
+              price= newValue;
+              total += unit * price;
+            }
+          });
+        }
+
+        if (rowData.info_jobs.job) {
+          $(td).css('background-color', 'lightgreen');
+        }
+        else if (rowData.quotation.quotation_date) {
+          $(td).css('background-color', 'Beige');
+        }
+        else if (rowData.quotation.id_checker>0) {
+          $(td).css('background-color', 'orange');
+        }
+        else if (rowData.quotation.id_preparer>0) {
+          $(td).css('background-color', 'orange');
+        }
+        else if (total>0) {
+          $(td).css('background-color', 'orange');
+        }
+        else {
+          $(td).css('background-color', 'RosyBrown');
+        }
+      }
+    }  ],
     scrollY: '65vh',
     scrollX : true,
     scrollCollapse: true,

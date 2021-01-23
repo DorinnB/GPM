@@ -32,7 +32,7 @@
               <th><acronym title="Estimated">Estimated</acronym></th>
               <th><acronym title="Associated Job">Job</acronym></th>
               <th><acronym title="MRSAS Notes">MRSAS Notes</acronym></th>
-              <th><acronym title="State 0 = Cancelled, 1 = Created, 2 = Accepted">State</acronym></th>
+              <th><acronym title="Status 0 = Cancelled, 1 = Created, 2 = Accepted">Status</acronym></th>
               <th><acronym title="Refused Reason">Reason</acronym></th>
             </tr>
             <tr>
