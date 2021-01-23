@@ -528,7 +528,7 @@ $(document).ready(function() {
       mode: 'markers',
       marker: {
         size: prodMRSASTech_data,
-        sizeref: 2.0 * Math.max(...prodMRSASTech_data) / (80**2),
+        sizeref: 2.0 * Math.max(...prodMRSASTech_data) / (80*80),
         sizemode: 'area'
       },
       name: 'prodMRSAS'
