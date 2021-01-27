@@ -232,6 +232,9 @@ function showSave(check=0) {
 $(document).on('input', 'input', function() {
   showSave();
 });
+$(document).on('input', 'select', function() {
+  showSave();
+});
 $(document).on('input', 'textarea', function() {  //exclusion du commentaire mrsasComment
   if ($(this).attr('id')=='mrsasCommentTextarea') {
     showSave(1);

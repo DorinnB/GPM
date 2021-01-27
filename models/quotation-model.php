@@ -28,7 +28,7 @@ class QUOTATION
 
   public function getQuotationList($id_quotation){
     $req='SELECT id_quotation, creation_date, title, rfq, ver, id_preparer, t1.technicien as preparer, id_checker, t2.technicien as checker, quotation_date, customer, quotation.id_contact, lang, currency, quotationlist, endComments, mrsasComments,
-    contacts.prenom, contacts.nom,
+    contacts.prenom, contacts.nom, contacts.rue1, contacts.rue2, contacts.ville, contacts.pays,
     entreprises.entreprise, entreprises.VAT, entreprises.MRSASRef, entreprises.billing_rue1, entreprises.billing_rue2, entreprises.billing_ville, entreprises.billing_pays
     FROM quotation
     LEFT JOIN techniciens t1 ON t1.id_technicien=abs(quotation.id_preparer)

@@ -1,6 +1,6 @@
 <link href="css/XMLforTS.css" rel="stylesheet">
 <table id="table_entreprises" class="table table-condensed table-hover table-bordered dataTable" cellspacing="0" width="100%">
-  <caption>Contact List</caption>
+  <caption>Companie List</caption>
   <thead>
     <tr>
       <th>N°</th>

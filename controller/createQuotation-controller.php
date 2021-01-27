@@ -39,32 +39,53 @@ if ($quotationlistArray) {
 }
 
 
-
 //adresse
-$i=0;
-if (isset($quotation['nom'])) {
-  $adresse[$i]=$quotation['prenom'].' '.$quotation['nom'];
-  $i++;
+
+  $i=0;
+  if (isset($quotation['nom'])) {
+    $adresse[$i]=$quotation['prenom'].' '.$quotation['nom'];
+    $i++;
+  }
+  if (isset($quotation['entreprise'])) {
+    $adresse[$i]=$quotation['entreprise'];
+    $i++;
+  }
+
+if ($quotation['rue1']) {
+  if (isset($quotation['rue1']) AND $quotation['rue1']!="") {
+    $adresse[$i]=$quotation['rue1'];
+    $i++;
+  }
+  if (isset($quotation['rue2']) AND $quotation['rue2']!="") {
+    $adresse[$i]=$quotation['rue2'];
+    $i++;
+  }
+  if (isset($quotation['ville']) AND $quotation['ville']!="") {
+    $adresse[$i]=$quotation['ville'];
+    $i++;
+  }
+  if (isset($quotation['pays']) AND $quotation['pays']!="") {
+    $adresse[$i]=$quotation['pays'];
+    $i++;
+  }
 }
-if (isset($quotation['entreprise'])) {
-  $adresse[$i]=$quotation['entreprise'];
-  $i++;
-}
-if (isset($quotation['billing_rue1'])) {
-  $adresse[$i]=$quotation['billing_rue1'];
-  $i++;
-}
-if (isset($quotation['billing_rue2'])) {
-  $adresse[$i]=$quotation['billing_rue2'];
-  $i++;
-}
-if (isset($quotation['billing_ville'])) {
-  $adresse[$i]=$quotation['billing_ville'];
-  $i++;
-}
-if (isset($quotation['billing_pays'])) {
-  $adresse[$i]=$quotation['billing_pays'];
-  $i++;
+else {
+  if (isset($quotation['billing_rue1']) AND $quotation['billing_rue1']!="") {
+    $adresse[$i]=$quotation['billing_rue1'];
+    $i++;
+  }
+  if (isset($quotation['billing_rue2']) AND $quotation['billing_rue2']!="") {
+    $adresse[$i]=$quotation['billing_rue2'];
+    $i++;
+  }
+  if (isset($quotation['billing_ville']) AND $quotation['billing_ville']!="") {
+    $adresse[$i]=$quotation['billing_ville'];
+    $i++;
+  }
+  if (isset($quotation['billing_pays']) AND $quotation['billing_pays']!="") {
+    $adresse[$i]=$quotation['billing_pays'];
+    $i++;
+  }
 }
 
 

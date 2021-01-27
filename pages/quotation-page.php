@@ -152,7 +152,7 @@
           <div class="row">
             <div class="col-md-12 form-group">
               <div class="input-group">
-                <span class="input-group-addon">Date</span>
+                <span class="input-group-addon">Sent Date</span>
                 <input type="text" class="form-control" id="quotation_date" name="quotation_date" value="<?= $quotation['quotation_date'] ?>">
               </div>
             </div>
