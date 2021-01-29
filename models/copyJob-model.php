@@ -26,8 +26,8 @@ class InfoJob
   public function copyInfoJob() {
 
     $req = 'INSERT INTO info_jobs
-    (customer, job, id_contact, id_contact2, id_contact3, id_contact4, ref_matiere, id_matiere_std, pricing, instruction, commentaire, info_job_actif)
-    SELECT customer, (SELECT max(job)+1 FROM info_jobs WHERE info_job_actif=1), id_contact, id_contact2, id_contact3, id_contact4, ref_matiere, id_matiere_std, pricing, instruction, commentaire, 1
+    (customer, job, id_contact, id_contact2, id_contact3, id_contact4, ref_matiere, id_matiere_std, pricing, instruction, commentaire, activity_type, specific_test, info_job_actif)
+    SELECT customer, (SELECT max(job)+1 FROM info_jobs WHERE info_job_actif=1), id_contact, id_contact2, id_contact3, id_contact4, ref_matiere, id_matiere_std, pricing, instruction, commentaire, activity_type, specific_test, 1
     FROM info_jobs
     WHERE id_info_job='.$this->id;
 
