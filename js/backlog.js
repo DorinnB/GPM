@@ -21,7 +21,7 @@ $(document).ready(function() {
   // Setup - add a text input to each footer cell
   $('#table_backlog tfoot th').each( function (i) {
     var title = $('#table_backlog thead th').eq( $(this).index() ).text();
-    $(this).html( '<input type="text" placeholder="'+title+'" data-index="'+i+'" style="width:100%;"/>' );
+    $(this).html( '<input type="text" placeholder="" data-index="'+i+'" style="width:100%;"/>' );
   } );
 
 

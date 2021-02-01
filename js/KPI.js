@@ -290,7 +290,10 @@ $(document).ready(function() {
       name: '% Sales N-1',
       text: dateKPI_data,
       type: 'scatter',
-      mode: 'markers'
+      line: {
+        dash: 'dot',
+        width: 4
+      }
     };
 
 
@@ -513,7 +516,7 @@ $(document).ready(function() {
       xaxis: {
         tickformat: '%b-%y'
       },
-      yaxis: {title: '€'},
+      yaxis: {title: 'Qty'},
       showlegend: true,
       legend: {"orientation": "h", x: 0, y: 1.2, 'traceorder':'normal'}
     };
@@ -524,7 +527,7 @@ $(document).ready(function() {
     var t_occupancyProd = {
       x: prodMRSAS_data,
       y: occupancy_data,
-        text: prodMRSASTech_data,
+      text: prodMRSASTech_data,
       mode: 'markers',
       marker: {
         size: prodMRSASTech_data,
