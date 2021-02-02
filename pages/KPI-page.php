@@ -124,6 +124,7 @@
                   <tr class="chartTR" id="row_<?= $key ?>">
 
                     <input type="hidden" name="dateKPI" value="<?= $key ?>">
+<input type="hidden" name="dateKPI_y" value="<?= date("Y", strtotime($key)) ?>">
                     <input type="hidden" name="ubrMRSAS" value="<?= $value['var_ubrMRSAS'] ?>">
                     <input type="hidden" name="ubrTotal" value="<?= $value['ubrMRSAS']+$value['ubrSubC'] ?>">
                     <input type="hidden" name="var_ubrTotal" value="<?= $value['var_ubrMRSAS']+$value['var_ubrSubC'] ?>">

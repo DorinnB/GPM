@@ -160,6 +160,28 @@ $(document).ready(function() {
       });
     });
 
+
+
+
+    dateKPI_vertical= new Array();
+    dateKPI_y_data.forEach((item, i) => {
+      dateKPI_vertical[i]=      {
+        type: 'line',
+        x0: item,
+        y0: 0,
+        x1: item,
+        yref: 'paper',
+        y1: 1,
+        line: {
+          color: 'grey',
+          width: 3,
+          dash: 'dot'
+        }
+      }
+    });
+
+
+
     var traceubrMRSAS = {
       x: dateKPI_data,
       y: ubrMRSAS_data,
@@ -217,9 +239,9 @@ $(document).ready(function() {
       },
       yaxis: {title: '€'},
       showlegend: true,
-      legend: {"orientation": "h", x: 0, y: 1.2, 'traceorder':'normal'}
+      legend: {"orientation": "h", x: 0, y: 1.2, 'traceorder':'normal'},
+      shapes: dateKPI_vertical
     };
-
 
 
 
@@ -241,7 +263,8 @@ $(document).ready(function() {
         side: 'right'
       },
       showlegend: true,
-      legend: {"orientation": "h", x: 0, y: 1.2, 'traceorder':'normal'}
+      legend: {"orientation": "h", x: 0, y: 1.2, 'traceorder':'normal'},
+      shapes: dateKPI_vertical
     };
 
 
@@ -315,7 +338,8 @@ $(document).ready(function() {
         side: 'right'
       },
       showlegend: true,
-      legend: {"orientation": "h", x: 0, y: 1.2, 'traceorder':'normal'}
+      legend: {"orientation": "h", x: 0, y: 1.2, 'traceorder':'normal'},
+      shapes: dateKPI_vertical
     };
 
 
@@ -368,7 +392,8 @@ $(document).ready(function() {
         side: 'right'
       },
       showlegend: true,
-      legend: {"orientation": "h", x: 0, y: 1.2, 'traceorder':'normal'}
+      legend: {"orientation": "h", x: 0, y: 1.2, 'traceorder':'normal'},
+      shapes: dateKPI_vertical
     };
 
 
@@ -450,7 +475,8 @@ $(document).ready(function() {
         range: [0,100]
       },
       showlegend: true,
-      legend: {"orientation": "h", x: 0, y: 1.2, 'traceorder':'normal'}
+      legend: {"orientation": "h", x: 0, y: 1.2, 'traceorder':'normal'},
+      shapes: dateKPI_vertical
     };
 
 
@@ -518,7 +544,8 @@ $(document).ready(function() {
       },
       yaxis: {title: 'Qty'},
       showlegend: true,
-      legend: {"orientation": "h", x: 0, y: 1.2, 'traceorder':'normal'}
+      legend: {"orientation": "h", x: 0, y: 1.2, 'traceorder':'normal'},
+      shapes: dateKPI_vertical
     };
 
 
