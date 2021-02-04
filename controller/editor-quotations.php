@@ -64,7 +64,7 @@ Editor::inst( $db, 'quotation' )
   ->leftJoin( 'entreprises',     'entreprises.id_entreprise',          '=', 'quotation.customer' )
   ->leftJoin( 'contacts',     'contacts.id_contact',          '=', 'quotation.id_contact' )
   ->leftJoin( 'techniciens',     'techniciens.id_technicien',          '=', 'quotation.id_preparer' )
-  ->leftJoin( 'info_jobs',     'info_jobs.devis=concat("D",quotation.id_quotation) OR right(info_jobs.devis,4)=quotation.id_quotation','','' )
+  ->leftJoin( 'info_jobs',     'info_jobs.devis=quotation.id_quotation OR (SUBSTR(info_jobs.devis, 2, 2)=DATE_FORMAT(quotation.creation_date, "%y") AND SUBSTR(info_jobs.devis, 5, 5)=quotation.id_quotation) OR (SUBSTR(info_jobs.devis, 2, 2)=DATE_FORMAT(quotation.creation_date, "%y") AND SUBSTR(info_jobs.devis, 4, 5)=quotation.id_quotation)','','' )
 
   ->where('quotation.creation_date',$_POST['dateStartQuotation'],'>=')
 
