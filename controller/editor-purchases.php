@@ -43,7 +43,8 @@ Editor::inst( $db, 'purchaserequests' )
   ->setFormatter( 'Format::ifEmpty', null ),
   Field::inst( 'purchaserequests.comments')
   ->setFormatter( 'Format::ifEmpty', null ),
-  Field::inst( 'purchases.generate')
+  Field::inst( 'purchases.generate'),
+  Field::inst( 'payables.invoice')
 
   )
   ->leftJoin( 'purchases',     'purchases.id_purchaserequest',          '=', 'purchaserequests.id_purchaserequest' )
@@ -51,6 +52,8 @@ Editor::inst( $db, 'purchaserequests' )
   ->leftJoin( 'techniciens',     'techniciens.id_technicien',          '=', 'purchaserequests.id_user' )
   ->leftJoin( 'techniciens as t2',     't2.id_technicien',          '=', 'abs(purchaserequests.id_validator)' )
   ->leftJoin( 'techniciens as t3',     't3.id_technicien',          '=', 'abs(purchases.id_receipt)' )
+
+  ->leftJoin( 'payables',     'payables.purchase',          '=', 'purchases.id_purchase' )
 
   ->where('purchaserequests.purchaserequest_date',$_POST['dateStartPurchase'],'>=')
 
@@ -76,7 +79,7 @@ Editor::inst( $db, 'purchaserequests' )
 
     $_POST['altBody'] = $_POST['body'];
 
-    include( 'sendEmail.php' ); 
+    include( 'sendEmail.php' );
   } )
 
 

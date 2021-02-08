@@ -13,10 +13,10 @@
 
     <link href="css/purchases.css" rel="stylesheet">
 
-    <div class="col-md-12" style="height:100%">      
-        <?php include('views/accounting_btn-view.php'); ?>
+    <div class="col-md-12" style="height:100%">
+      <?php include('views/accounting_btn-view.php'); ?>
 
-      <table id="table_purchases" class="table table-condensed table-striped nowrap table-hover table-bordered dataTable" cellspacing="0" width="100%">
+      <table id="table_purchases" class="table table-condensed table-striped table-hover table-bordered dataTable" cellspacing="0" width="100%">
         <caption>PURCHASES ORDER REQUEST</caption>
         <thead>
           <tr>
@@ -32,8 +32,10 @@
             <th>Validator</th>
             <th><acronym title="Click here to generate your PO number">PO</acronym></th>
             <th>Tech. Approv.</th>
+            <th><acronym title="Invoiced">INV.</acronym></th>
           </tr>
           <tr>
+            <th></th>
             <th></th>
             <th></th>
             <th></th>
@@ -50,6 +52,7 @@
         </thead>
         <tfoot>
           <tr>
+            <th></th>
             <th></th>
             <th></th>
             <th></th>

@@ -124,122 +124,133 @@ $(document).ready(function() {
           return '';
         }
       }},
-    ],
-    columnDefs: [ {
-      targets: [9, 11],
-      createdCell: function (td, cellData, rowData, row, col) {
-        if ( cellData < 0 ) {
-          $(td).addClass('refused')
+      { data: "payables.invoice",
+      render: function ( data, type, row ) {
+        if (data) {
+          return 'Yes';
         }
-        else if ( cellData > 0 ) {
-          $(td).addClass('validated')
+        else {
+          return '';
         }
-      }
-    } ],
-    createdRow: function( row, data, dataIndex ) {
-      if (data.purchaserequests.id_validator < 0) {
-        $(row).addClass('refused')
-      }
-      else if ( data.purchaserequests.id_receipt  > 0 ) {
-        $(row).addClass('validated')
-      }
-    },
-
-    scrollY: '65vh',
-    scrollCollapse: true,
-    paging: false,
-    info: true,
-    fixedColumns:   {leftColumns: 3},
-    select: {
-      style:    'os',
-      blurable: true
-    },
-    buttons: [
-      { extend: "create", editor: editor },
-      { extend: "edit",   editor: editor }
+        return row.payables.invoice;
+      } }
     ],
-    headerCallback: function ( row, data, start, end, display ) {
-      var api = this.api();
+    columnDefs: [
+      {
+        targets: [9, 11],
+        createdCell: function (td, cellData, rowData, row, col) {
+          if ( cellData < 0 ) {
+            $(td).addClass('refused')
+          }
+          else if ( cellData > 0 ) {
+            $(td).addClass('validated')
+          }
+        }
+      } ],
+      createdRow: function( row, data, dataIndex ) {
+        if (data.purchaserequests.id_validator < 0) {
+          $(row).addClass('refused')
+        }
+        else if ( data.purchaserequests.id_receipt  > 0 ) {
+          $(row).addClass('validated')
+        }
+      },
 
-      api.columns('.sumDol', { page: 'current' }).every(function () {
-        var sum = api
-        .cells( null, this.index(), { page: 'current'} )
-        .render('display')
-        .reduce(function (a, b) {
-          var x = parseFloat(a) || 0;
-          var y = parseFloat(b.replace(/[$ €]+/g, '')) || 0;
-          return x + y;
-        }, 0);
-        $(this.header()).html('$'+sum.toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 '));
-      });
-      api.columns('.sumEur', { page: 'current' }).every(function () {
-        var sum = api
-        .cells( null, this.index(), { page: 'current'} )
-        .render('display')
-        .reduce(function (a, b) {
-          var x = parseFloat(a) || 0;
-          var y = parseFloat(b.replace(/[$ €]+/g, '')) || 0;
-          return x + y;
-        }, 0);
-        $(this.header()).html(sum.toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €');
-      });
-    },
-  }
-);
+      scrollY: '65vh',
+      scrollCollapse: true,
+      paging: false,
+      info: true,
+      fixedColumns:   {leftColumns: 3},
+      select: {
+        style:    'os',
+        blurable: true
+      },
+      buttons: [
+        { extend: "create", editor: editor },
+        { extend: "edit",   editor: editor }
+      ],
+      headerCallback: function ( row, data, start, end, display ) {
+        var api = this.api();
+
+        api.columns('.sumDol', { page: 'current' }).every(function () {
+          var sum = api
+          .cells( null, this.index(), { page: 'current'} )
+          .render('display')
+          .reduce(function (a, b) {
+            var x = parseFloat(a) || 0;
+            var y = parseFloat(b.replace(/[$ €]+/g, '')) || 0;
+            return x + y;
+          }, 0);
+          $(this.header()).html('$'+sum.toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 '));
+        });
+        api.columns('.sumEur', { page: 'current' }).every(function () {
+          var sum = api
+          .cells( null, this.index(), { page: 'current'} )
+          .render('display')
+          .reduce(function (a, b) {
+            var x = parseFloat(a) || 0;
+            var y = parseFloat(b.replace(/[$ €]+/g, '')) || 0;
+            return x + y;
+          }, 0);
+          $(this.header()).html(sum.toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €');
+        });
+      },
+    }
+  );
 
 
-table
-.buttons()
-.container()
-.appendTo( '#btn' );
-
-
-$('#container').css('display', 'block');
-table.columns.adjust().draw();
-
-
-// Activate the bubble editor on click of a table cell
-$('#table_purchases').on( 'click', 'tbody td:not(:first-child)', function (e) {
-  var index = $(this).index();
-  if (index == 9) {
-    editorValid.bubble( this );
-  }
-  else if (index == 10 || index == 11) {
-    editorPo.bubble( this );
-  }
-} );
-
-// Filter event handler
-$( table.table().container() ).on( 'keyup', 'tfoot input', function () {
-  if (this.value.substr(0,1)=='!') {
-    search='^((?!'+this.value.substring(1)+').)*$';
-  }
-  else {
-    search=this.value;
-  }
   table
-  .column( $(this).data('index') )
-  .search( search, true, false )
-  .draw();
-} );
+  .buttons()
+  .container()
+  .appendTo( '#btn' );
+
+
+  $('#container').css('display', 'block');
+  table.columns.adjust().draw();
+
+
+  // Activate the bubble editor on click of a table cell
+  $('#table_purchases').on( 'click', 'tbody td:not(:first-child)', function (e) {
+    var index = $(this).index();
+    if (index == 9) {
+      editorValid.bubble( this );
+    }
+    else if (index == 10 || index == 11) {
+      editorPo.bubble( this );
+    }
+  } );
+
+  // Filter event handler
+  $( table.table().container() ).on( 'keyup', 'tfoot input', function () {
+    if (this.value.substr(0,1)=='!') {
+      search='^((?!'+this.value.substring(1)+').)*$';
+    }
+    else {
+      search=this.value;
+    }
+    table
+    .column( $(this).data('index') )
+    .search( search, true, false )
+    .draw();
+  } );
 
 
 
 
-$( "#dateStart" ).datepicker({
-  showWeek: true,
-  firstDay: 1,
-  showOtherMonths: true,
-  selectOtherMonths: true,
-  dateFormat: "yy-mm-dd"
-});
-$( "#dateEnd" ).datepicker({
-  showWeek: true,
-  firstDay: 1,
-  showOtherMonths: true,
-  selectOtherMonths: true,
-  dateFormat: "yy-mm-dd"
-});
+  $( "#dateStart" ).datepicker({
+    showWeek: true,
+    firstDay: 1,
+    showOtherMonths: true,
+    selectOtherMonths: true,
+    dateFormat: "yy-mm-dd"
+  });
+  $( "#dateEnd" ).datepicker({
+    showWeek: true,
+    firstDay: 1,
+    showOtherMonths: true,
+    selectOtherMonths: true,
+    dateFormat: "yy-mm-dd"
+  });
 
 
 
