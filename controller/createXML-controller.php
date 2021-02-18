@@ -66,6 +66,8 @@ $essai['GE']=($essai['GE'] == 1 )?'Yes':'No';
 //Crp
 $essai['niveau1']=($essai['c_unite']=="MPa")?$essai['c_type_1_val']*$essai['area']/1000:$essai['c_type_1_val'];
 $essai['niveau2']=($essai['c_unite']=="MPa")?$essai['c_type_3_val']*$essai['area']/1000:$essai['c_type_3_val'];
+$essai['niveau1MPa']=($essai['c_unite']=="MPa")?$essai['c_type_1_val']:$essai['c_type_1_val']/$essai['area']*1000;
+$essai['niveau2MPa']=($essai['c_unite']=="MPa")?$essai['c_type_3_val']:$essai['c_type_3_val']/$essai['area']*1000;;
 $essai['rampe1']=$essai['c_type_2_val'];
 $essai['rampe2']=$essai['c_type_4_val'];
 
