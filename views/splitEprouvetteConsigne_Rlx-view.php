@@ -9,11 +9,9 @@
         <th>ID</th>
         <th><acronym title="Priority">P.</acronym></th>
         <th><acronym title="Temperature">T°</acronym></th>
-        <th>1-Level</th>
-        <th>1-Ramp (s)</th>
-        <th>2-Level</th>
-        <th>2-Ramp (s)</th>
-        <th>Runout (s)</th>
+        <th>Palier (h)</th>
+        <th><?= $split['cons1'] ?></th>
+        <th><?= $split['cons2'] ?></th>
         <th><acronym title="Order Comment">Com.</acronym></th>
         <th><acronym title="Check">Chk</acronym></th>
         <th><acronym title="Test Number">Test</acronym></th>
@@ -28,11 +26,9 @@
         <th>ID</th>
         <th><acronym title="Priority">P.</acronym></th>
         <th><acronym title="Temperature">T°</acronym></th>
-        <th>1-Level</th>
-        <th>1-Ramp (s)</th>
-        <th>2-Level</th>
-        <th>2-Ramp (s)</th>
-        <th>Runout (h)</th>
+        <th>Palier (h)</th>
+        <th><?= $split['cons1'] ?></th>
+        <th><?= $split['cons2'] ?></th>
         <th><acronym title="Order Comment">Com.</acronym></th>
         <th><acronym title="Check">Chk</acronym></th>
         <th><acronym title="Test Number">Test</acronym></th>
@@ -46,4 +42,4 @@
 
 </div>
 
-<script type="text/javascript" src="js/splitEprouvetteConsigne_Crp.js"></script>
+<script type="text/javascript" src="js/splitEprouvetteConsigne_Rlx.js"></script>

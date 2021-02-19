@@ -16,7 +16,7 @@ $(document).ready(function() {
 
   editor = new $.fn.dataTable.Editor( {
     ajax: {
-      url : "controller/editor-splitEprouvetteConsigne_Crp.php",
+      url : "controller/editor-splitEprouvetteConsigne.php",
       type: "POST",
       data: {"idJob" : idJob}
     },
@@ -25,13 +25,11 @@ $(document).ready(function() {
     fields: [
       {       label: "eprouvettes.id_eprouvette",       name: "eprouvettes.id_eprouvette"     },
       {       label: "eprouvettes.c_temperature",       name: "eprouvettes.c_temperature"     },
+      {       label: "eprouvettes.c_frequence",       name: "eprouvettes.c_frequence"     },
       {       label: "eprouvettes.c_type_1_val",       name: "eprouvettes.c_type_1_val"     },
       {       label: "eprouvettes.c_type_2_val",       name: "eprouvettes.c_type_2_val"     },
-      {       label: "eprouvettes.c_type_3_val",       name: "eprouvettes.c_type_3_val"     },
-      {       label: "eprouvettes.c_type_4_val",       name: "eprouvettes.c_type_4_val"     },
-      {       label: "eprouvettes.runout",       name: "eprouvettes.runout"     },
       {       label: "eprouvettes.priority",       name: "eprouvettes.priority"     },
-      {       label: "eprouvettes.c_commentaire",       name: "eprouvettes.c_commentaire", type:  "textarea",     },
+      {       label: "",       name: "eprouvettes.c_commentaire", type:  "textarea",     },
       {       label: "eprouvettes.c_checked",       name: "eprouvettes.c_checked"     }
     ]
   } );
@@ -39,7 +37,7 @@ $(document).ready(function() {
 
   var table = $('#table_ep').DataTable( {
     ajax: {
-      url : "controller/editor-splitEprouvetteConsigne_Crp.php",
+      url : "controller/editor-splitEprouvetteConsigne.php",
       type: "POST",
       data: {"idJob" : idJob}
     },
@@ -49,16 +47,14 @@ $(document).ready(function() {
       { data: "master_eprouvettes.nom_eprouvette" },
       { data: "eprouvettes.priority" },
       { data: "eprouvettes.c_temperature" },
+      { data: "eprouvettes.c_frequence" },
       { data: "eprouvettes.c_type_1_val" },
       { data: "eprouvettes.c_type_2_val" },
-      { data: "eprouvettes.c_type_3_val" },
-      { data: "eprouvettes.c_type_4_val" },
-      { data: "eprouvettes.runout" },
       {  data: "eprouvettes.c_commentaire",
-                render : function(data, type, full, meta){
-                  test=data+"a";
-                  return type === 'display' && test.length > 5 ?data.substr(0,5) + '[...]' : data;
-                }},
+      render : function(data, type, full, meta){
+        test=data+"a";
+        return type === 'display' && test.length > 5 ?data.substr(0,5) + '[...]' : data;
+      }},
       { data: "eprouvettes.c_checked" },
       { data: "eprouvettes.n_essai" },
       { data: "enregistrementessais.n_fichier" },
@@ -71,29 +67,29 @@ $(document).ready(function() {
     info: false,
     fixedColumns:   {leftColumns: 3},
     columnDefs: [
-        {
-            "targets": [ 0 ],
-            "visible": false,
-            "searchable": false
-        },
-        {
-          targets: 11,
-          createdCell: function (td, cellData, rowData, row, col) {
-            if ( cellData < 0 ) {
-              $(td).css('background-color', 'darkred');
-            }
-            else {
-              $(td).css('background-color', 'darkgreen');
-            }
+      {
+        "targets": [ 0 ],
+        "visible": false,
+        "searchable": false
+      },
+      {
+        targets: 9,
+        createdCell: function (td, cellData, rowData, row, col) {
+          if ( cellData < 0 ) {
+            $(td).css('background-color', 'darkred');
+          }
+          else {
+            $(td).css('background-color', 'darkgreen');
           }
         }
+      }
     ],
     autoFill: {
-      columns: [3, 4, 5, 6, 7, 8, 9],
+      columns: [3, 4, 5, 6, 7],
       editor:  editor
     },
     keys: {
-      columns: [3, 4, 5, 6, 7, 8, 9],
+      columns: [3, 4, 5, 6, 7],
       editor:  editor
     },
     select: {
@@ -103,46 +99,45 @@ $(document).ready(function() {
   } );
 
   $('#table_ep').on( 'click', 'tbody td', function (e) {
-          var index = $(this).index();
+    var index = $(this).index();
 
-          if ( index === 9 ) {
-              editor.bubble( this,
-                 ['eprouvettes.c_commentaire'],
-                  { title: 'Order Comments :' ,
-                  submitOnBlur: true,
-                  buttons: false
-                  }
-                 );
-          }
-        }
-      );
-
-
+    if ( index === 7 ) {
+      editor.bubble( this,
+        ['eprouvettes.c_commentaire'],
+        { title: 'Order Comments :' ,
+        submitOnBlur: true,
+        buttons: false
+      }
+    );
+  }
+}
+);
 
 
 
-  $('#container').css('display', 'block');
-  table.columns.adjust().draw();
 
-  // Filter event handler
-  $( table.table().container() ).on( 'keyup', 'tfoot input', function () {
-    if (this.value.substr(0,1)=='!') {
-      search='^((?!'+this.value.substring(1)+').)*$';
-    }
-    else {
-      search=this.value;
-    }
-    table
-    .column( $(this).data('index') )
-    .search( search, true, false )
-    .draw();
-  } );
 
-  document.getElementById("table_ep_filter").style.display = "none";
+$('#container').css('display', 'block');
+table.columns.adjust().draw();
+
+// Filter event handler
+$( table.table().container() ).on( 'keyup', 'tfoot input', function () {
+  if (this.value.substr(0,1)=='!') {
+    search='^((?!'+this.value.substring(1)+').)*$';
+  }
+  else {
+    search=this.value;
+  }
+  table
+  .column( $(this).data('index') )
+  .search( search, true, false )
+  .draw();
 } );
 
+document.getElementById("table_ep_filter").style.display = "none";
 
 
+} );
 
 
 function save() {

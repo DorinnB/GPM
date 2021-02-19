@@ -9,15 +9,11 @@
         <th>ID</th>
         <th class="<?= $classpriority ?>"><acronym title="Priority">P.</acronym></th>
         <th><acronym title="Temperature">T°</acronym></th>
-
-        <th id="ChartTitreCons" data-titre="Level">1-Level</th>
-        <th>1-Ramp (s)</th>
-        <th>2-Level</th>
-        <th>2-Ramp (s)</th>
-        <th>Runout (h)</th>
-        <th><acronym title="Lab Level 1">1-<?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?></acronym></th>
-        <th><acronym title="Lab Level 2">2-<?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?></acronym></th>
-
+        <th>Palier (h)</th>
+        <th id="ChartTitreCons" data-titre="<?= $split['ChartTitreCons']  ?>"><?= $split['cons1'] ?></th>
+        <th><?= $split['cons2'] ?></th>
+        <th><acronym title="Lab Max">M <?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?></acronym></th>
+        <th><acronym title="Lab Min">m <?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?></acronym></th>
         <th><acronym title="Order Comment">Com.</acronym></th>
         <th><acronym title="Order Check">Chk</acronym></th>
         <th><acronym title="Lab Observation">L. Obs.</acronym></th>
@@ -32,7 +28,8 @@
         <?php  endforeach  ?>
         <th>Machine</th>
         <th>Date</th>
-        <th><acronym title="Final Test Duration">Final</acronym></th>
+        <th><acronym title="Waveform">Wave.</acronym></th>
+        <th><acronym title="Final Cycles">Final</acronym></th>
         <th><acronym title="Rupture">Rupt</acronym></th>
         <th><acronym title="Fracture">Fract.</acronym></th>
         <th><acronym title="Test Duration (h)">Tps</acronym></th>
@@ -50,15 +47,11 @@
         <th>ID</th>
         <th class="<?= $classpriority ?>"><acronym title="Priority">P.</acronym></th>
         <th><acronym title="Temperature">T°</acronym></th>
-
+        <th>Freq</th>
         <th><?= $split['cons1'] ?></th>
         <th><?= $split['cons2'] ?></th>
-        <th>2-<?= $split['cons1'] ?></th>
-        <th>2-<?= $split['cons2'] ?></th>
-        <th>Runout (h)</th>
         <th><acronym title="Lab Max">M <?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?></acronym></th>
         <th><acronym title="Lab Min">m <?= ($split['c_unite']=="MPa")?"kN":$split['c_unite']  ?></acronym></th>
-
         <th><acronym title="Order Comment">Com.</acronym></th>
         <th><acronym title="Order Check">Chk</acronym></th>
         <th><acronym title="Lab Observation">L. Obs.</acronym></th>
@@ -73,7 +66,8 @@
         <?php  endforeach  ?>
         <th>Machine</th>
         <th>Date</th>
-        <th><acronym title="Final Test Duration">Final</acronym></th>
+        <th><acronym title="Waveform">Wave.</acronym></th>
+        <th><acronym title="Final Cycles">Final</acronym></th>
         <th><acronym title="Rupture">Rupt</acronym></th>
         <th><acronym title="Fracture">Fract.</acronym></th>
         <th><acronym title="Test Duration (h)">Tps</acronym></th>
@@ -92,14 +86,12 @@
           <td><?= $ep[$k]['nom_eprouvette'] ?><sup><?= ($ep[$k]['retest']!=1)?$ep[$k]['retest']:'' ?></sup></td>
           <td class="<?= $classpriority ?>"><?= $ep[$k]['priority'] ?></td>
           <td class="decimal1" <?= $epHisto2[$k]['c_temp'] ?>><?= $ep[$k]['c_temp'] ?></td>
-          <td class="decimal<?=  $ep[$k]['c_type_1_deci']  ?> <?=  $split['ChartCons2']  ?>" <?= $epHisto2[$k]['c_type_1_val'] ?>><?= $ep[$k]['c_type_1_val'] ?></td>
-          <td class="decimal<?=  $ep[$k]['c_type_2_deci']  ?> <?=  $split['ChartCons3']  ?>" <?= $epHisto2[$k]['c_type_2_val'] ?>><?= $ep[$k]['c_type_2_val'] ?></td>
-          <td class="decimal<?=  $ep[$k]['c_type_2_deci']  ?> <?=  $split['ChartCons1']  ?>" <?= $epHisto2[$k]['c_type_3_val'] ?>><?= $ep[$k]['c_type_3_val'] ?></td>
-          <td class="decimal<?=  $ep[$k]['c_type_2_deci']  ?> <?=  $split['ChartCons4']  ?>" <?= $epHisto2[$k]['c_type_4_val'] ?>><?= $ep[$k]['c_type_4_val'] ?></td>
-          <td class="decimal0" <?= $epHisto2[$k]['runout'] ?>><?= (isset($ep[$k]['runout'])?$ep[$k]['runout']/3600:'') ?></td>
+          <td class="decfimal1" <?= $epHisto2[$k]['c_frequence'] ?>><?= $ep[$k]['c_frequence'] ?></td>
+
+          <td class="decimal<?=  $ep[$k]['c_type_1_deci']  ?> <?=  $split['ChartCons1']  ?>"<?= $epHisto2[$k]['c_type_1_val'] ?>><?= $ep[$k]['c_type_1_val'] ?></td>
+          <td class="decimal<?=  $ep[$k]['c_type_2_deci']  ?> <?=  $split['ChartCons2']  ?>" <?= $epHisto2[$k]['c_type_2_val'] ?>><?= $ep[$k]['c_type_2_val'] ?></td>
           <td class="decimal<?=  $ep[$k]['c_type_1_deci']  ?> chartMax"><?= $ep[$k]['max'] ?></td>
           <td class="decimal<?=  $ep[$k]['c_type_2_deci']  ?>"><?= $ep[$k]['min'] ?></td>
-
           <td class="popover-markup" data-placement="left"><?= ($ep[$k]['comm'].$ep[$k]['c_commentaire']=="")?"":substr($ep[$k]['comm'].$ep[$k]['c_commentaire'],0,5)." [...]" ?>
             <?php if ($ep[$k]['comm'].$ep[$k]['c_commentaire'] !=""):  ?>
               <div class="head hide">Order Comment</div>
@@ -141,8 +133,8 @@
           <?php  endfor  ?>
           <td <?= $epHisto2[$k]['machine'] ?>><?= $ep[$k]['machine'] ?></td>
           <td <?= $epHisto2[$k]['date'] ?>><?= $ep[$k]['date'] ?></td>
-
-          <td class="chartCycle decimal1 <?= $ep[$k]['Cycle_min_nonAtteint']  ?> Cycle_final_valid<?= $ep[$k]['Cycle_final_valid'] ?>"<?= $epHisto2[$k]['Cycle_final'] ?>><?= $ep[$k]['Cycle_final'] ?></td>
+          <td <?= $epHisto2[$k]['waveform'] ?>><?= $ep[$k]['waveform'] ?></td>
+          <td class="chartCycle decimal0 <?= $ep[$k]['Cycle_min_nonAtteint']  ?> Cycle_final_valid<?= $ep[$k]['Cycle_final_valid'] ?>"<?= $epHisto2[$k]['Cycle_final'] ?>><?= $ep[$k]['Cycle_final'] ?></td>
           <td <?= $epHisto2[$k]['Rupture'] ?>><?= $ep[$k]['Rupture'] ?></td>
           <td class="<?= $ep[$k]['CheckValue_Fracture'] ?>"<?= $epHisto2[$k]['Fracture'] ?>><?= $ep[$k]['Fracture'] ?></td>
           <td class="decimal0 <?= $ep[$k]['cycle_estimeCSS'] ?>"><?= (isset($ep[$k]['temps_essais'])?$ep[$k]['temps_essais']:$ep[$k]['temps_essais_calcule']) ?></td>
@@ -155,7 +147,6 @@
       <?php endfor ?>
     </tbody>
   </table>
-
 
 </div>
 
