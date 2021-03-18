@@ -148,7 +148,8 @@
                     <input type="hidden" name="backlogTotal" value="<?= $value['backlogTotal'] ?>">
                     <input type="hidden" name="cdeMRSAS" value="<?= $value['cdeMRSAS'] ?>">
 
-
+                    <input type="hidden" name="objcdeMRSASmax" value="150000">
+                    <input type="hidden" name="objcdeMRSASmin" value="100000">
 
                     <input type="hidden" name="nbtest" value="<?= $value['nbTest'] ?>">
                     <input type="hidden" name="test_type_cat_Strain_ET" value="<?= $value['test_type_cat_Strain_ET'] ?>">

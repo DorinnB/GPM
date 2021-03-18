@@ -162,7 +162,6 @@ $(document).ready(function() {
 
 
 
-
     dateKPI_vertical= new Array();
     dateKPI_y_data.forEach((item, i) => {
       dateKPI_vertical[i]=      {
@@ -373,7 +372,32 @@ $(document).ready(function() {
       type: 'line'
     };
 
-
+    var t_objcdemaxMRSAS = {
+      x: dateKPI_data,
+      y: objcdeMRSASmax_data,
+      name: 'Obj cdeMRSAS',
+      text: dateKPI_data,
+      mode: 'lines',
+      name: 'dot',
+      line: {
+        color: 'rgb(0, 255, 0)',
+        dash: 'dot',
+        width: 2
+      }
+    };
+    var t_objcdeminMRSAS = {
+      x: dateKPI_data,
+      y: objcdeMRSASmin_data,
+      name: 'Obj cdeMRSAS',
+      text: dateKPI_data,
+      mode: 'lines',
+      name: 'dot',
+      line: {
+        color: 'rgb(0, 255, 0)',
+        dash: 'dot',
+        width: 2
+      }
+    };
 
 
     var layout_testingProd = {
@@ -590,7 +614,7 @@ $(document).ready(function() {
     var data_sales = [ t_obj_invTotal, t_ubrTotal, t_sales, t_c_sales, t_invTotal_ratio ];
     Plotly.newPlot('sales', data_sales, layout_sales, config);
 
-    var data_cde = [ t_backlogTotal, t_backlogMRSAS, t_cdeMRSAS ];
+    var data_cde = [ t_backlogTotal, t_backlogMRSAS, t_cdeMRSAS, t_objcdemaxMRSAS, t_objcdeminMRSAS ];
     Plotly.newPlot('cde', data_cde, layout_cde, config);
 
     var data_testingProd = [ t_obj_prodMRSAS, t_c_prodMRSAS, t_c_prodMRSAS_y, t_prod_MRSAS_ratio ];
