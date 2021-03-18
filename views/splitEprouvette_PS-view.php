@@ -117,7 +117,7 @@
 
     <tbody>
       <?php for($k=0;$k < count($ep);$k++): ?>
-        <tr class="chartTR <?= (isset($ep[$k]['priority']) and $ep[$k]['priority']==0)?"priority0":"" ?>">
+        <tr class="chartTR <?= (isset($ep[$k]['priority']) and $ep[$k]['priority']==0)?"priority0":"" ?> <?= (isset($ep[$k]['valid']) and $ep[$k]['valid']==0)?"void":"" ?>">
           <td ><?= $ep[$k]['id_master_eprouvette'] ?></td>
           <td class="dispo open-GestionEp selectable"  data-toggle="modal" data-target="#gestionEp" data-id="<?= $ep[$k]['id_eprouvette'] ?>" data-dispo="<?= $ep[$k]['dispo'] ?>"><acronym title="<?= $ep[$k]['dispoText'] ?>"><?= $ep[$k]['dispo'] ?></acronym></td>
           <td><?= $ep[$k]['prefixe'] ?></td>

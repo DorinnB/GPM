@@ -25,7 +25,7 @@ public function __set($property,$value) {
 		$req = 'SELECT eprouvettes.id_eprouvette,
           master_eprouvettes.prefixe, master_eprouvettes.nom_eprouvette, n_essai, round(c_temperature,0) as c_temp, c_frequence, c_cycle_STL, c_frequence_STL,
           c_type_1_val, c_type_2_val, c_type_3_val, c_type_4_val, c_type_5_val, c1.consigne_type as c_1_type, c2.consigne_type as c_2_type, c_unite,
-           flag_qualite,
+           flag_qualite, valid,
            Cycle_min, runout, cycle_estime, c_commentaire, c_checked, d_checked, dim_1, dim_2, dim_3, dessins.type, id_dessin_type,
            d_commentaire, young,
            n_fichier, machine, enregistrementessais.date, eprouvettes.waveform, Cycle_STL, Cycle_final, Rupture, Fracture
@@ -82,6 +82,26 @@ public function __set($property,$value) {
         $this->db->execute($reqInsert);
       }
     }
+
+
+    public function getAllTests() {
+
+		$req = 'SELECT enregistrementessais.n_fichier
+
+				FROM enregistrementessais
+
+        LEFT JOIN eprouvettes ON eprouvettes.id_eprouvette=enregistrementessais.id_eprouvette
+        LEFT JOIN tbljobs ON tbljobs.id_tbljob=eprouvettes.id_job
+
+				WHERE tbljobs.tbljob_actif = 1
+          AND eprouvette_actif = 1
+        AND tbljobs.id_info_job=(SELECT id_info_job FROM tbljobs WHERE tbljobs.id_tbljob='.$this->id.')
+        ORDER by n_fichier ASC';
+
+        //  echo $req;
+        return $this->db->getAll($req);
+    }
+
 
 }
 

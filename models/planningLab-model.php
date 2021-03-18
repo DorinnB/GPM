@@ -27,10 +27,11 @@ class PLANNINGLAB
   }
 
   public function getAllPlanningFrame($id_machine,$nbDayBefore="5"){
-    $req='SELECT planningLab.id_tbljob, date, id_machine, customer, job, split from planningLab
+    $req='SELECT planningLab.id_tbljob, date, id_machine, customer, job, split
+    FROM planningLab
     LEFT JOIN tbljobs ON tbljobs.id_tbljob=planningLab.id_tbljob
     LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
-    where tbljobs.tbljob_actif=1 AND id_machine='.$id_machine.'
+    where (tbljobs.tbljob_actif=1 OR planningLab.id_tbljob<50) AND id_machine='.$id_machine.'
     AND date >= NOW() - INTERVAL '.$this->db->quote($nbDayBefore).' DAY
     ';
 //    echo $req;

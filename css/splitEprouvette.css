@@ -198,6 +198,9 @@ background:url("../img/question2.png") top right /10px no-repeat;
 }
 
 
+.table-striped > tbody > tr:nth-of-type(2n+1).void, .void {
+  background-color: darkred !important;
+}
 .priority0 {
   background-color: gray !important;
 }
