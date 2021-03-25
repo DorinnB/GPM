@@ -362,8 +362,9 @@ Elseif ($essai['c_unite']=="kN")	{
   $FT->setCellValue('C34', '');
 }
 Elseif ($essai['c_unite']=="%")	{
+
   $maxStrain = number_format($oEprouvette->MAX(), 3, '.', ' ');
-  $minStrain = number_format($oEprouvette->MIN(), 3, '.', ' ');
+  $minStrain = ($oEprouvette->MIN())?number_format($oEprouvette->MIN(), 3, '.', ' '):"";
 
   $maxLimitStrain = $oEprouvette->MAX()+0.15;
   $minLimitStrain = $oEprouvette->MIN()-0.15;
