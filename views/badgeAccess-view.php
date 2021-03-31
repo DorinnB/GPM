@@ -1,4 +1,4 @@
-<div class="col-md-8">
+<div class="col-md-9">
 	<?php if ($clockState['in1']==""): ?>
 		<button type="button" class="btn btn-success badgeAccess clockINOUT badgeAccessEnable" data-clockINOUT="in1">IN</button>
 		<button type="button" class="btn btn-primary badgeAccess disabled" data-clockINOUT="2">OUT</button>
@@ -13,7 +13,7 @@
 	<?php endif ?>
 
 	<h4 class="badgeAccess <?=($clockState['unclocked']==0)?"blink_me":""	?>" id="badgeAccess">
-		<?= $clockCount['clockCount'] ?>
+		<acronym title="<?= $endOfWorkEstimated ?>"><?= $clockCount['clockCount'] ?></acronym>
 	</h4>
 
 	<?php if ($clockState['in2']=="" AND $clockState['out1']!=""): ?>
@@ -35,5 +35,4 @@
 	</a>
 
 	<label id="timer"><?= date('H:i:s')?></label>
-
 </div>

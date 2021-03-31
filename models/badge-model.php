@@ -35,11 +35,15 @@ class BadgeModel
 
   public function getClockState() {
 
-    $req='SELECT `id_badge`, `id_user`, `in1`, `out1`, `in2`, `out2`, `validation`, `comments`, `id_validator`,
+    $req='SELECT badges.id_badge, badges.id_user, badges.in1, badges.out1, badges.in2, badges.out2, badges.validation, badges.comments, badges.id_validator,
     IF(in1 IS NULL OR (in2 IS NULL AND out1 IS NOT NULL),1,0) AS unclocked,
-    IF(in1 IS NULL OR ((DATE_ADD(NOW(), INTERVAL -5 HOUR) > in1) AND in2 IS NULL),1,0) AS unclocked2
+    IF(in1 IS NULL OR ((DATE_ADD(NOW(), INTERVAL -5 HOUR) > in1) AND in2 IS NULL),1,0) AS unclocked2,
+    if(ifnull(id_type, type)=1 OR ifnull(id_type, type)=6, ifnull((TIME_TO_SEC(badges.validation)/3600),ifnull(badges.validation2,(ifnull(planning_modif.quantity, planning_users.quantity)))), 0) as Q1
     FROM badges
-    WHERE id_user='.$_COOKIE['id_user'].'
+    LEFT JOIN planning_users on planning_users.id_user=badges.id_user and planning_users.dateplanned=badges.date
+    LEFT JOIN planning_modif ON planning_modif.id_user=planning_users.id_user and planning_modif.datemodif=planning_users.dateplanned and planning_modif.id_planning_modif in (select max(pm.id_planning_modif) from planning_modif pm where pm.id_validator>0 group by pm.id_user, pm.datemodif)
+
+    WHERE badges.id_user='.$_COOKIE['id_user'].'
     AND TO_DAYS(NOW()) =  TO_DAYS(date)
     ORDER BY id_badge DESC
     LIMIT 1;';
