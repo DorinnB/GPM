@@ -23,15 +23,15 @@ $alreadyDone=new DateTime(date('H:i:s', strtotime($clockCount['clockCount'])));
 $planned=$clockState['Q1'];
 $now=date('Y-m-d H:i:s');
 //planned + now
-$origin = new DateTime(date('Y-m-d H:i:s',strtotime('+'.$planned.'hours')));
+$origin = new DateTime(date('Y-m-d H:i:s',strtotime('+'.floor($planned).'hours +0'.(($planned-floor($planned))*60).'minutes')));
 //minus already done
 $interval = $origin->diff($alreadyDone);
 
 $endOfWorkEstimated= $interval->format('%h:%i:%s');
 
+console_log( $alreadyDone );
+console_log( $planned );
 console_log( $endOfWorkEstimated );
-
-
 
 
   include('../views/badgeAccess-view.php');
