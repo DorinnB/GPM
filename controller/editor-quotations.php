@@ -52,6 +52,8 @@ Editor::inst( $db, 'quotation' )
   Field::inst( 'quotation.rfq'),
   Field::inst( 'quotation.mrsasComments'),
 
+
+  Field::inst( 'quotation.ver'),
   Field::inst( 'quotation.currency'),
   Field::inst( 'quotation.creation_date'),
   Field::inst( 'quotation.quotation_date'),

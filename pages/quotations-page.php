@@ -23,6 +23,7 @@
           <thead>
             <tr>
               <th><acronym title="Quotation ID">ID</acronym></th>
+              <th><acronym title="Version">Ver.</acronym></th>
               <th><acronym title="Customer">Cust.</acronym></th>
               <th><acronym title="Customer Contact">Contact</acronym></th>
               <th><acronym title="Customer RFQ">RFQ</acronym></th>
@@ -48,10 +49,12 @@
               <th></th>
               <th></th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tfoot>
             <tr>
+              <th></th>
               <th></th>
               <th></th>
               <th></th>

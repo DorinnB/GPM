@@ -52,6 +52,7 @@ $(document).ready(function() {
         dateForm=new Date(row.quotation.creation_date);
         return '<a href="index.php?page=quotation&id_quotation='+data+'">'+"D"+dateForm.getFullYear().toString().substr(-2)+"-"+data.padStart(5,"0")+'</a>';
       }  },
+        { data: 'quotation.ver' },
       { data: 'quotation.customer',
       render: function ( data, type, row ) {
         return data+' - '+row.entreprises.entreprise_abbr;
@@ -187,20 +188,16 @@ $(document).ready(function() {
         }
       }, className: 'editable' }
     ],
-    createdRow: function( row, data, dataIndex ) {
-    if ( data.quotation.quotation_actif <0 ) {
-      $(row).addClass( 'refused' );
-    }
-  },
+
     columnDefs: [ {
-      targets: [7],
+      targets: [8],
       createdCell: function (td, cellData, rowData, row, col) {
         if ( rowData.quotation.currency == 1 ) {
           $(td).css('color', 'blue')
         }
       }
     },{
-      targets: [10],
+      targets: [11],
       createdCell: function (td, cellData, rowData, row, col) {
 
         var unit=0;
@@ -241,6 +238,14 @@ $(document).ready(function() {
         }
         else {
           $(td).css('background-color', 'RosyBrown');
+        }
+      }
+    },
+    {
+      targets: [12],
+      createdCell: function (td, cellData, rowData, row, col) {
+        if ( rowData.quotation.quotation_actif < 0 ) {
+          $(td).addClass('refused');
         }
       }
     }  ],
