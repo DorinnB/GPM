@@ -19,8 +19,8 @@ $split=$oSplit->getSplit();
 
 
 
-$filename = '../OneNote/15.0/Sauvegarder/Notebook-JOBS En Cours/'.$split['customer'].'-'.$split['job'].'*.one';
-
+//$filename = '../OneNote/15.0/Sauvegarder/Notebook-JOBS En Cours/'.$split['customer'].'-'.$split['job'].'*.one';
+$filename = '../OneNote/16.0/Sauvegarder/Notebook-JOBS En Cours/'.$split['customer'].'-'.$split['job'].'*.one';
 
 
 if (glob($filename)) {

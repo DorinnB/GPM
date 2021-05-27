@@ -1,6 +1,7 @@
 <?php
 //date derniere mise a jour OneNote
 $files = array_merge(glob("OneNote/15.0/Sauvegarder/Notebook-JOBS En Cours/*.one"));
+$files = array_merge(glob("OneNote/16.0/Sauvegarder/Notebook-JOBS En Cours/*.one"));
 $files = array_combine($files, array_map("filemtime", $files));
 arsort($files);
 $latest_file = key($files);
