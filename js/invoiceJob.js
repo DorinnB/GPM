@@ -53,7 +53,14 @@ $(document).ready(function() {
         label: "Invoice Total:",
         name: "inv_total",
         type:  "readonly"
-      }
+      },
+      { label: "Invoice", name: "invoice_final",
+      type:  "radio",
+      options: [
+        { label: "Partial", value: 0 },
+        { label: "Final",  value: 1 }
+      ],
+      def: 0    }
     ]
   } );
 

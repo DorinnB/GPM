@@ -42,8 +42,10 @@
               <th><acronym title="TVA">TVA</acronym></th>
               <th><acronym title="TTC">TTC</acronym></th>
               <th><acronym title="Invoice Payment Date">Payment Date</acronym></th>
+              <th><acronym title="Invoice Final">Final</acronym></th>
             </tr>
             <tr>
+              <th></th>
               <th></th>
               <th></th>
               <th></th>
@@ -68,6 +70,7 @@
           </thead>
           <tfoot>
             <tr>
+              <th></th>
               <th></th>
               <th></th>
               <th></th>

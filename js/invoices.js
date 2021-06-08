@@ -17,7 +17,15 @@ $(document).ready(function() {
       { label: "SubC", name: "invoices.inv_subc"},
       { label: "TVA", name: "invoices.inv_tva"},
       { label: "USDRate if applicable", name: "invoices.USDRate"},
-      { label: "Payment date", name: "invoices.datepayement", type:  'datetime'}
+      { label: "Payment date", name: "invoices.datepayement", type:  'datetime'},
+      { label: "Invoice", name: "invoices.invoice_final",
+      type:  "radio",
+      options: [
+        { label: "Partial", value: 0 },
+        { label: "Final",  value: 1 }
+      ],
+      def: 0    }
+
     ]
   } );
 
@@ -122,7 +130,11 @@ $(document).ready(function() {
         return (row.info_jobs.invoice_currency==0 ? (parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas)+parseFloat(row.invoices.inv_tva)).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' : ((parseFloat(row.invoices.inv_subc)+parseFloat(row.invoices.inv_mrsas)+parseFloat(row.invoices.inv_tva))*row.invoices.USDRate).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €' ) ;
       }
     },
-    { data: "invoices.datepayement"  }
+    { data: "invoices.datepayement"  },
+    { data: "invoices.invoice_final",
+    render: function ( data, type, row ) {
+      return (data==0 ? '' : 'Final' );
+    } }
   ],
   scrollY: '65vh',
   scrollX : true,
@@ -206,13 +218,13 @@ $( "#dateStart" ).datepicker({
   selectOtherMonths: true,
   dateFormat: "yy-mm-dd"
 });
-  $( "#dateEnd" ).datepicker({
-    showWeek: true,
-    firstDay: 1,
-    showOtherMonths: true,
-    selectOtherMonths: true,
-    dateFormat: "yy-mm-dd"
-  });
+$( "#dateEnd" ).datepicker({
+  showWeek: true,
+  firstDay: 1,
+  showOtherMonths: true,
+  selectOtherMonths: true,
+  dateFormat: "yy-mm-dd"
+});
 
 
 

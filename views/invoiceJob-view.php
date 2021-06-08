@@ -20,10 +20,6 @@
 
 				<div class="bs-example splitInfo" data-example-id="basic-forms" data-content="Numbers">
 					<p class="title">
-						<span class="name">Invoice :</span>
-						<span class="value"></span>
-					</p>
-					<p class="title">
 						<span class="name">Quote :</span>
 						<span class="value">
 							<a href="#" class="openDocument" data-type="quote" data-file="<?= $split['devis'].'-'.$split['customer'] ?>.pdf"><?= $split['devis'] ?></a>
@@ -107,7 +103,7 @@
 					</div>
 					<?php foreach ($oInvoices->getAllInvoiceRecorded($split['id_tbljob']) as $inv) : ?>
 						<div class="row">
-							<div class="col-md-6" style="text-align: left;"><?=	$inv['inv_number'].' / '.$inv['inv_date']	?></div>
+							<div class="col-md-6" style="text-align: left;"><?=	$inv['inv_number'].' / '.$inv['inv_date'].(($inv['invoice_final']==1)?' Final':'')	?></div>
 							<div class="col-md-2 invmrsas"><?=	$inv['inv_mrsas']	?></div>
 							<div class="col-md-2 invsubc"><?=	$inv['inv_subc']	?></div>
 							<div class="col-md-2"><?=	number_format(($inv['inv_mrsas']+$inv['inv_subc']),2,'.','')	?></div>
@@ -419,13 +415,14 @@
 		<editor-field name="inv_number"></editor-field>
 		<editor-field name="inv_job"></editor-field>
 		<editor-field name="inv_date"></editor-field>
-		<editor-field name="USDRate"></editor-field>
+		<editor-field name="invoice_final"></editor-field>
 	</fieldset>
 	<fieldset class="amount">
 		<legend>Amount</legend>
 		<editor-field name="inv_mrsas"></editor-field>
 		<editor-field name="inv_subc"></editor-field>
 		<editor-field name="inv_TVA"></editor-field>
+		<editor-field name="USDRate"></editor-field>
 		<editor-field name="inv_total"></editor-field>
 	</fieldset>
 </div>

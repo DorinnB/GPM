@@ -32,8 +32,9 @@ Editor::inst( $db, 'invoices' )
   Field::inst( 'invoices.USDRate'),
   Field::inst( 'invoices.inv_tva'),
   Field::inst( 'invoices.datepayement')
-  ->setFormatter( 'Format::ifEmpty', null )
-  )
+  ->setFormatter( 'Format::ifEmpty', null ),
+  Field::inst( 'invoices.invoice_final')
+)
 
   ->leftJoin( 'info_jobs', 'info_jobs.job', '=', 'invoices.inv_job' )
 

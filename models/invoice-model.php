@@ -290,7 +290,7 @@ class InvoiceModel
 
   public function getAllInvoiceRecorded($id_tbljob) {
 
-    $req='SELECT inv_number, inv_mrsas, inv_subc, inv_date
+    $req='SELECT inv_number, inv_mrsas, inv_subc, inv_date, invoice_final
     FROM invoices
     WHERE inv_job=(
       SELECT job
