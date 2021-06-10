@@ -31,6 +31,7 @@
 
 
 					<th><acronym title='Material'>Material</acronym></th>
+					<th><acronym title='Material MRSAS'>Mat. Std</acronym></th>
 					<th><acronym title='Drawing'>Drawing</acronym></th>
 
 					<th><acronym title='Available Expected'>Available</acronym></th>
@@ -60,6 +61,7 @@
 
 
 					<th><acronym title='Material'>Material</acronym></th>
+					<th><acronym title='Material MRSAS'>Mat. Std</acronym></th>
 					<th><acronym title='Drawing'>Drawing</acronym></th>
 
 					<th><acronym title='Available Expected'>Available</acronym></th>
@@ -149,6 +151,7 @@
 
 
 						<td><?= $row['ref_matiere'] ?></td>
+						<td><?= $row['matiere'] ?></td>
 						<td><?= $row['dessin'] ?></td>
 
 
