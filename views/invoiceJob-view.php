@@ -79,12 +79,17 @@
 						<div class="col-md-2 amount" id="invoiceTotal"></div>
 					</div>
 					<div class="row">
-						<div class="col-md-6" style="text-align: left;"><abbr title="Sum that could be invoice or partialy invoiced : MRSAS / Payables">Invoicable</abbr></div>
+						<div class="col-md-6" style="text-align: left;"><abbr title="UBR : MRSAS & Payables">UBR</abbr></div>
 						<div class="col-md-2 amount" id="invoicableMRSAS"></div>
 						<div class="col-md-2 amount" id="invoicableSubC"></div>
 						<div class="col-md-2 amount" id="invoicableTotal"></div>
 					</div>
-
+					<div class="row">
+						<div class="col-md-6" style="text-align: left;"><abbr title="Sum that could be invoice or partialy invoiced">To be Invoiced</abbr></div>
+						<div class="col-md-2 amount" id="toBeInvoicedMRSAS"></div>
+						<div class="col-md-2 amount" id="toBeInvoicedSubC"></div>
+						<div class="col-md-2 amount" id="toBeInvoicedTotal"></div>
+					</div>
 
 				</div>
 

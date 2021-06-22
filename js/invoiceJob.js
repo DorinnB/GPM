@@ -207,7 +207,8 @@ $(document).ready(function() {
     invoicableSubC=0; //payables
     invMRSAS=0;    //next invoice MRSAS
     invSubC=0;    //next invoice SubC
-
+    toBeInvoicedMRSAS=0; //invoice on the Excel
+    toBeInvoicedSubC=0; //invoice on the Excel
 
 
     $('.totalUser').parents().find(".splitInfo").each(function(i) {
@@ -251,6 +252,8 @@ $(document).ready(function() {
     reachedMRSAS=invoiceMRSAS+invMRSAS;
     reachedSubC=invoicableSubC+invoiceSubC;
 
+  toBeInvoicedMRSAS=invoicableMRSAS;
+  toBeInvoicedSubC=invSubC;
 
     $('#reachedMRSAS').text(reachedMRSAS.toFixed(2));
     $('#reachedSubC').text(reachedSubC.toFixed(2));
@@ -264,7 +267,9 @@ $(document).ready(function() {
     $('#invoicableSubC').html('<acronym title="To be invoiced: '+invSubC.toFixed(2)+'">'+invoicableSubC.toFixed(2)+'</acronym>');
     $('#invoicableTotal').text((invoicableMRSAS+invoicableSubC).toFixed(2));
 
-
+    $('#toBeInvoicedMRSAS').text(toBeInvoicedMRSAS.toFixed(2));
+    $('#toBeInvoicedSubC').text(toBeInvoicedSubC.toFixed(2));
+    $('#toBeInvoicedTotal').text((toBeInvoicedMRSAS+toBeInvoicedSubC).toFixed(2));
 
 
     order_val=parseFloat($('#order_val').val());
@@ -308,6 +313,13 @@ $(document).ready(function() {
       $('#order_est_subc').removeClass('outTolerance');
     }
 
+
+    if((toBeInvoicedMRSAS+toBeInvoicedSubC - order_val)>0 || (toBeInvoicedMRSAS+toBeInvoicedSubC - order_est_total)>0) {  //estimated > po
+      $('#toBeInvoicedTotal').addClass('outTolerance');
+    }
+    else {
+      $('#toBeInvoicedTotal').removeClass('outTolerance');
+    }
   }
 
   //calcul automatique des sommes après changement
