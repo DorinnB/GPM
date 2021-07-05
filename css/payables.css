@@ -41,12 +41,10 @@ th  {
   text-align: center;
 }
 
-table.dataTable tbody > tr.selected, table.dataTable tbody > tr > .selected {
-  background-color: white;
-}
-.table-hover tbody tr.refused,.table-hover tbody td.refused {     /* attente validation */
-  background-color: darkred !important;
-  color:white;
+
+tbody tr.refused,.table-hover tbody td.refused {     /* attente validation */
+  color:darkred;
+  font-weight:bold;
 }
 .table-hover tbody tr.validated,.table-hover tbody td.validated  {     /* validé */
   background-color: lightgreen !important;
