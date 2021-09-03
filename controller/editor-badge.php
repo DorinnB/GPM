@@ -75,6 +75,26 @@ Editor::inst( $db, 'badges' )
     ->setValue( $_COOKIE['id_user'] );
   } )
 
+
+  //send notification
+  ->on( 'postEdit', function ( $editor, $id, $json, $data ) {
+
+    $id_user= $data['badges']['id_user'];
+
+
+    $comments='comments:
+    Badging on '.$data['badges']['date'].' updated : '.$data['badges']['validation'].'
+    Comments : '.$data['badges']['comments'];
+
+    $_POST["type"] = 'sendNotification';
+    $_POST["id_receiver_user"] = array ($id_user);
+    $_POST["subject"] = 'Badging validation : '.$data['badges']['date'];
+    $_POST["text"] = $comments;
+    include("updateNotification.php");
+
+  })
+
+
   ->process($_POST)
   ->json();
 ?>
