@@ -98,6 +98,15 @@ class PlanningUsersModel
     return $this->db->getAll($req);
   }
 
+  public function getWorkingTime() {
+    $req='SELECT id_user,working, resthours, vacation
+    FROM badge_hr
+    WHERE id_user = '.$this->db->quote((isset($_COOKIE['id_user'])?$_COOKIE['id_user']:0)).';';
+
+    //echo $req;
+    return $this->db->getOne($req);
+  }
+
   public function getAllPlanningSummary($getBegin,$getEnd) {
     /*
     $req='SELECT
@@ -173,7 +182,7 @@ class PlanningUsersModel
       WHERE pm.id_validator>0 AND pm.id_user=planning_users.id_user
       GROUP BY pm.datemodif )
     )
-      LEFT JOIN planning_modif p2 ON (p2.datemodif=planning_users.dateplanned AND p2.id_planning_modif IN (
+    LEFT JOIN planning_modif p2 ON (p2.datemodif=planning_users.dateplanned AND p2.id_planning_modif IN (
       SELECT max(pm.id_planning_modif)
       FROM planning_modif AS pm
       WHERE pm.id_validator=0 AND pm.id_user=planning_users.id_user

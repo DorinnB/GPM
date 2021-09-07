@@ -1,6 +1,18 @@
 <!--<link href="css/badgeValidation.css" rel="stylesheet">-->
+
+
+
+
+
 <div id="page-content-wrapper" style="height:100%">
 	<div class="container-fluid">
+		<?php
+		if (!isset($_GET['dateStartBadge'])) {
+			echo "<script type='text/javascript'>document.location.replace('index.php?page=badgeUsers&dateStartBadge=".date('Y-m-d',strtotime('-1 year'))."');</script>";
+			//echo "<script type='text/javascript'>document.location.replace('index.php?page=badgeUsers&dateStartBadge=2000-01-01');</script>";
+		}
+		?>
+		<div style="display:none;" id="dateStartBadge"><?= $_GET['dateStartBadge'] ?></div>
 
 		<link href="css/badge.css" rel="stylesheet">
 		<div class="col-md-12" style="height:100%">

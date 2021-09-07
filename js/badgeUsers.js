@@ -15,7 +15,8 @@ $(document).ready(function() {
   var table = $('#table_badge').DataTable( {
     ajax: {
       url : "controller/editor-badgeUsers.php",
-      type: "POST"
+      type: "POST",
+      data: {"dateStartBadge" : $('#dateStartBadge').text()}
     },
     order: [[ 1, "desc" ],[2,"asc"]],
     columns: [

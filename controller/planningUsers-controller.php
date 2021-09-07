@@ -21,6 +21,12 @@ if (!isset($_GET['begin']) OR !isset($_GET['end'])) {
   echo "<script>loc= (window.location.href) + '&begin=".$getBegin."&end=".$getEnd."' ;window.location.href = loc ;</script>";
 }
 
+$completeYear=0;
+if ($getBegin==$_GET['begin'] AND $getEnd==$_GET['end']) {
+  // Année complete
+  $completeYear=1;
+}
+
 
 $getBegin=$_GET['begin'];
 $getEnd=$_GET['end'];
@@ -43,6 +49,7 @@ $lstUsersManaged=$oPlanningUser->getAllUsersManaged();
 $lstPlanningTypes=$oPlanningUser->getAllPlanningTypes();
 $planningAwaiting=$oPlanningUser->getAllPlanningModifAwaiting($getBegin,$getEnd);
 
+$lstWorkingTime=$oPlanningUser->getWorkingTime();
 
 $planningUpdated=$oPlanningUser->getAllPlanningUpdated($getBegin,$getEnd);
 
@@ -53,9 +60,6 @@ foreach ($planningUpdated as $key => $value) {
 foreach ($planningAwaiting as $key => $value) {
   $planningUnconfirmed[$value['datemodif']][$value['id_user']]=array("quantity" => $value['quantity'], "id_type" => $value['id_type']);
 }
-
-
-
 
 
 

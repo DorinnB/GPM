@@ -63,13 +63,41 @@
 						<tbody>
 							<tr>
 								<td>Work</td>
-								<td> <?= round($lstSummary[$_COOKIE['id_user']]['Q1']+$lstSummary[$_COOKIE['id_user']]['Q5'],2) ?></td>
-								<td> <?= $lstSummary[$_COOKIE['id_user']]['C1'] + $lstSummary[$_COOKIE['id_user']]['C5'] ?></td>
+								<td>
+									<?php
+									if ($completeYear==1 AND round($lstSummary[$_COOKIE['id_user']]['Q1']+$lstSummary[$_COOKIE['id_user']]['Q5'],2)>$lstWorkingTime['working']) {
+										echo '<acronym title="Planned: '.$lstWorkingTime['working'].'">'.round($lstSummary[$_COOKIE['id_user']]['Q1']+$lstSummary[$_COOKIE['id_user']]['Q5'],2).' <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></acronym>';
+									}
+									elseif ($completeYear==1 AND round($lstSummary[$_COOKIE['id_user']]['Q1']+$lstSummary[$_COOKIE['id_user']]['Q5'],2)<$lstWorkingTime['working']) {
+										echo '<acronym title="Planned: '.$lstWorkingTime['working'].'">'.round($lstSummary[$_COOKIE['id_user']]['Q1']+$lstSummary[$_COOKIE['id_user']]['Q5'],2).' <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></acronym>';
+									}
+									else {
+										echo round($lstSummary[$_COOKIE['id_user']]['Q1']+$lstSummary[$_COOKIE['id_user']]['Q5'],2);
+									}
+									?>
+								</td>
+								<td><?= $lstSummary[$_COOKIE['id_user']]['C1'] + $lstSummary[$_COOKIE['id_user']]['C5'] ?></td>
 							</tr>
 							<tr>
 								<td>CP</td>
-								<td> <?= $lstSummary[$_COOKIE['id_user']]['Q2'] ?></td>
-								<td> <?= $lstSummary[$_COOKIE['id_user']]['C2'] ?></td>
+								<td>
+									<acronym title="Should be 0 unless extra CP (birth, wedding...)">
+										<?= $lstSummary[$_COOKIE['id_user']]['Q2']>"0"?'<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span> '.$lstSummary[$_COOKIE['id_user']]['Q2']:'0'	 ?>
+									</acronym>
+								</td>
+								<td>
+									<?php
+									if ($completeYear==1 AND $lstSummary[$_COOKIE['id_user']]['C2']>$lstWorkingTime['vacation']) {
+										echo '<acronym title="Planned: '.$lstWorkingTime['vacation'].'">'.$lstSummary[$_COOKIE['id_user']]['C2'].' <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></acronym>';
+									}
+									elseif ($completeYear==1 AND $lstSummary[$_COOKIE['id_user']]['C2']<$lstWorkingTime['vacation']) {
+										echo '<acronym title="Planned: '.$lstWorkingTime['vacation'].'">'.$lstSummary[$_COOKIE['id_user']]['C2'].' <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></acronym>';
+									}
+									else {
+										echo $lstSummary[$_COOKIE['id_user']]['C2'];
+									}
+									?>
+								</td>
 							</tr>
 							<tr>
 								<td>Maladie</td>

@@ -63,6 +63,8 @@ Editor::inst( $db, 'badges' )
     $q->where('badges.id_user',(isset($_COOKIE['id_user'])?$_COOKIE['id_user']:0));
   })
 
+  ->where('badges.date',$_POST['dateStartBadge'],'>=')
+
 
   ->process($_POST)
   ->json();
