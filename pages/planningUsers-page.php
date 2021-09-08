@@ -65,36 +65,57 @@
 								<td>Work</td>
 								<td>
 									<?php
-									if ($completeYear==1 AND round($lstSummary[$_COOKIE['id_user']]['Q1']+$lstSummary[$_COOKIE['id_user']]['Q5'],2)>$lstWorkingTime['working']) {
-										echo '<acronym title="Planned: '.$lstWorkingTime['working'].'">'.round($lstSummary[$_COOKIE['id_user']]['Q1']+$lstSummary[$_COOKIE['id_user']]['Q5'],2).' <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></acronym>';
+									if ($completeYear==1 AND round($lstSummary[$_COOKIE['id_user']]['Q1']+$lstSummary[$_COOKIE['id_user']]['Q5']+$lstSummary[$_COOKIE['id_user']]['Q9'],2)>$lstWorkingTimeUser[$_COOKIE['id_user']]['working']) {
+										echo '<abbr title="Planned: '.$lstWorkingTimeUser[$_COOKIE['id_user']]['working'].'">'.round($lstSummary[$_COOKIE['id_user']]['Q1']+$lstSummary[$_COOKIE['id_user']]['Q5']+$lstSummary[$_COOKIE['id_user']]['Q9'],2).' <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></abbr>';
 									}
-									elseif ($completeYear==1 AND round($lstSummary[$_COOKIE['id_user']]['Q1']+$lstSummary[$_COOKIE['id_user']]['Q5'],2)<$lstWorkingTime['working']) {
-										echo '<acronym title="Planned: '.$lstWorkingTime['working'].'">'.round($lstSummary[$_COOKIE['id_user']]['Q1']+$lstSummary[$_COOKIE['id_user']]['Q5'],2).' <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></acronym>';
+									elseif ($completeYear==1 AND round($lstSummary[$_COOKIE['id_user']]['Q1']+$lstSummary[$_COOKIE['id_user']]['Q5']+$lstSummary[$_COOKIE['id_user']]['Q9'],2)<$lstWorkingTimeUser[$_COOKIE['id_user']]['working']) {
+										echo '<abbr title="Planned: '.$lstWorkingTimeUser[$_COOKIE['id_user']]['working'].'">'.round($lstSummary[$_COOKIE['id_user']]['Q1']+$lstSummary[$_COOKIE['id_user']]['Q5']+$lstSummary[$_COOKIE['id_user']]['Q9'],2).' <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></abbr>';
 									}
 									else {
-										echo round($lstSummary[$_COOKIE['id_user']]['Q1']+$lstSummary[$_COOKIE['id_user']]['Q5'],2);
+										echo round($lstSummary[$_COOKIE['id_user']]['Q1']+$lstSummary[$_COOKIE['id_user']]['Q5']+$lstSummary[$_COOKIE['id_user']]['Q9'],2);
 									}
 									?>
 								</td>
-								<td><?= $lstSummary[$_COOKIE['id_user']]['C1'] + $lstSummary[$_COOKIE['id_user']]['C5'] ?></td>
+								<td><?= $lstSummary[$_COOKIE['id_user']]['C1'] + $lstSummary[$_COOKIE['id_user']]['C5'] + $lstSummary[$_COOKIE['id_user']]['C9'] ?></td>
 							</tr>
 							<tr>
 								<td>CP</td>
 								<td>
-									<acronym title="Should be 0 unless extra CP (birth, wedding...)">
+									<abbr title="Should be 0">
 										<?= $lstSummary[$_COOKIE['id_user']]['Q2']>"0"?'<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span> '.$lstSummary[$_COOKIE['id_user']]['Q2']:'0'	 ?>
-									</acronym>
+									</abbr>
 								</td>
 								<td>
 									<?php
-									if ($completeYear==1 AND $lstSummary[$_COOKIE['id_user']]['C2']>$lstWorkingTime['vacation']) {
-										echo '<acronym title="Planned: '.$lstWorkingTime['vacation'].'">'.$lstSummary[$_COOKIE['id_user']]['C2'].' <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></acronym>';
+									if ($completeYear==1 AND $lstSummary[$_COOKIE['id_user']]['C2']>$lstWorkingTimeUser[$_COOKIE['id_user']]['vacation']) {
+										echo '<abbr title="Planned: '.$lstWorkingTimeUser[$_COOKIE['id_user']]['vacation'].'">'.$lstSummary[$_COOKIE['id_user']]['C2'].' <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></abbr>';
 									}
-									elseif ($completeYear==1 AND $lstSummary[$_COOKIE['id_user']]['C2']<$lstWorkingTime['vacation']) {
-										echo '<acronym title="Planned: '.$lstWorkingTime['vacation'].'">'.$lstSummary[$_COOKIE['id_user']]['C2'].' <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></acronym>';
+									elseif ($completeYear==1 AND $lstSummary[$_COOKIE['id_user']]['C2']<$lstWorkingTimeUser[$_COOKIE['id_user']]['vacation']) {
+										echo '<abbr title="Planned: '.$lstWorkingTimeUser[$_COOKIE['id_user']]['vacation'].'">'.$lstSummary[$_COOKIE['id_user']]['C2'].' <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></abbr>';
 									}
 									else {
 										echo $lstSummary[$_COOKIE['id_user']]['C2'];
+									}
+									?>
+								</td>
+							</tr>
+							<tr>
+								<td><abbr title="Extra CP (birth, wedding...)">CP'</abbr></td>
+								<td>
+									<abbr title="Day/Hrs during Extra CP">
+										<?= $lstSummary[$_COOKIE['id_user']]['Q9'] ?>
+									</abbr>
+								</td>
+								<td>
+									<?php
+									if ($completeYear==1 AND $lstSummary[$_COOKIE['id_user']]['C9']>$lstWorkingTimeUser[$_COOKIE['id_user']]['extraCP']) {
+										echo '<abbr title="Planned: '.$lstWorkingTimeUser[$_COOKIE['id_user']]['extraCP'].'">'.$lstSummary[$_COOKIE['id_user']]['C9'].' <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></abbr>';
+									}
+									elseif ($completeYear==1 AND $lstSummary[$_COOKIE['id_user']]['C9']<$lstWorkingTimeUser[$_COOKIE['id_user']]['extraCP']) {
+										echo '<abbr title="Planned: '.$lstWorkingTimeUser[$_COOKIE['id_user']]['extraCP'].'">'.$lstSummary[$_COOKIE['id_user']]['C9'].' <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></abbr>';
+									}
+									else {
+										echo $lstSummary[$_COOKIE['id_user']]['C9'];
 									}
 									?>
 								</td>
@@ -117,6 +138,7 @@
 						<p class="type_1 border">Work <span class="badge"><?= (isset($lstModifSummary[$_COOKIE['id_user']]['C1'])?$lstModifSummary[$_COOKIE['id_user']]['C1']:"") ?></span></p>
 						<p class="type_6 border">Déplacement <span class="badge"><?= (isset($lstModifSummary[$_COOKIE['id_user']]['C6'])?$lstModifSummary[$_COOKIE['id_user']]['C6']:"") ?></span></p>
 						<p class="type_2 border">CP <span class="badge"><?= (isset($lstModifSummary[$_COOKIE['id_user']]['C2'])?$lstModifSummary[$_COOKIE['id_user']]['C2']:"") ?></span></p>
+						<p class="type_9 border">CP Exceptionnel <span class="badge"><?= (isset($lstModifSummary[$_COOKIE['id_user']]['C9'])?$lstModifSummary[$_COOKIE['id_user']]['C9']:"") ?></span></p>
 						<p class="type_3 border">Absence <span class="badge"><?= (isset($lstModifSummary[$_COOKIE['id_user']]['C3'])?$lstModifSummary[$_COOKIE['id_user']]['C3']:"") ?></span></p>
 						<p class="type_5 border">Maladie <span class="badge"><?= (isset($lstModifSummary[$_COOKIE['id_user']]['C5'])?$lstModifSummary[$_COOKIE['id_user']]['C5']:"") ?></span></p>
 						<p class="notWorkable border" style="color:white;">Closed <span class="badge"><?= (isset($lstModifSummary[$_COOKIE['id_user']]['C7'])?$lstModifSummary[$_COOKIE['id_user']]['C7']:"") ?></span></p>

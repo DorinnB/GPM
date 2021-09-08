@@ -195,6 +195,20 @@ td[data-toggle="tooltipNOK"]  {
   }
 }
 
+.type_9 {     /* Congé  placé après le not workable (prioritaire)*/
+  background-color: olive;
+  opacity: 0.5;
+  color:white;
+}
+.unconfirmed_9 {
+  animation: blinker9 1s linear infinite;
+}
+@keyframes blinker9 {
+  50% {
+    border-width: 0 20px 0 20px;
+    border-color : olive;
+  }
+}
 
 .border {
   border:1px;

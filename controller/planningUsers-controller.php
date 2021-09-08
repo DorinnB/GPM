@@ -51,6 +51,11 @@ $planningAwaiting=$oPlanningUser->getAllPlanningModifAwaiting($getBegin,$getEnd)
 
 $lstWorkingTime=$oPlanningUser->getWorkingTime();
 
+foreach ($lstWorkingTime as $key => $value) {
+  $lstWorkingTimeUser[$value['id_user']]=$value;
+}
+
+
 $planningUpdated=$oPlanningUser->getAllPlanningUpdated($getBegin,$getEnd);
 
 foreach ($planningUpdated as $key => $value) {

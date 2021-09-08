@@ -99,12 +99,11 @@ class PlanningUsersModel
   }
 
   public function getWorkingTime() {
-    $req='SELECT id_user,working, resthours, vacation
-    FROM badge_hr
-    WHERE id_user = '.$this->db->quote((isset($_COOKIE['id_user'])?$_COOKIE['id_user']:0)).';';
+    $req='SELECT id_user,working, resthours, vacation, extraCP
+    FROM badge_hr;';
 
     //echo $req;
-    return $this->db->getOne($req);
+    return $this->db->getAll($req);
   }
 
   public function getAllPlanningSummary($getBegin,$getEnd) {
@@ -138,7 +137,9 @@ class PlanningUsersModel
     SUM(if(ifnull(id_type, type)=4,ifnull(planning_modif.quantity, planning_users.quantity),0)) AS Q4,
     SUM(if(ifnull(id_type, type)=5,1,0)) AS C5,
     SUM(if(ifnull(id_type, type)=5,ifnull(planning_modif.quantity, planning_users.quantity),0)) AS Q5,
-    SUM(if(((ifnull(id_type, type)=1 OR ifnull(id_type, type)=6) AND DAYOFWEEK(dateplanned)=7) ,1,0)) AS QSaturdayON, SUM(if(((ifnull(id_type, type)=1 OR ifnull(id_type, type)=6) AND DAYOFWEEK(dateplanned)=7),ifnull(planning_modif.quantity, planning_users.quantity),0)) AS CSaturdayON
+    SUM(if(((ifnull(id_type, type)=1 OR ifnull(id_type, type)=6) AND DAYOFWEEK(dateplanned)=7) ,1,0)) AS QSaturdayON, SUM(if(((ifnull(id_type, type)=1 OR ifnull(id_type, type)=6) AND DAYOFWEEK(dateplanned)=7),ifnull(planning_modif.quantity, planning_users.quantity),0)) AS CSaturdayON,
+    SUM(if(ifnull(id_type, type)=9,1,0)) AS C9,
+    SUM(if(ifnull(id_type, type)=9,ifnull(planning_modif.quantity, planning_users.quantity),0)) AS Q9
 
     FROM planning_users
     LEFT JOIN planning_modif ON (planning_modif.datemodif=planning_users.dateplanned AND

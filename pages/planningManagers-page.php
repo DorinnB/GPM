@@ -6,7 +6,7 @@
 	<div class="container-fluid">
 
 		<link href="css/planningUsers.css" rel="stylesheet">
-		<?php if (isset($_COOKIE['id_user'])) :	?>
+		<?php if (isset($oUser['id_technicien'])) :	?>
 			<div class="col-md-12" style="height:40%; overflow-y:auto;">
 				<table id="table_planningUser" class="table table-condensed table-striped table-hover table-bordered" cellspacing="0" width="100%"  style="height:100%; white-space:nowrap;">
 					<thead>
@@ -54,6 +54,7 @@
 								<th>User</th>
 								<th>Work</th>
 								<th>CP</th>
+								<th><abbr title="Extra CP (birth, wedding...)">CP'</abbr></th>
 								<th>Mal.</th>
 								<th>Sat.</th>
 							</tr>
@@ -63,9 +64,44 @@
 							<?php foreach ($lstUsers as $oUser) : //$lstUsers $lstUsersManaged?>
 								<tr>
 									<td><?= $oUser['technicien'] ?></td>
-									<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['C1'] + $lstSummary[$oUser['id_technicien'] ]['C5'] ?>"> <?= round($lstSummary[$oUser['id_technicien'] ]['Q1'] + $lstSummary[$oUser['id_technicien'] ]['Q5'] ,2) ?></abbr></td>
-									<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['Q2'] ?>"> <?= $lstSummary[$oUser['id_technicien'] ]['C2'] ?></abbr></td>
-									<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['Q5'] ?>"> <?= $lstSummary[$oUser['id_technicien'] ]['C5'] ?></abbr></td>
+									<td>
+										<?php
+										if ($completeYear==1 AND round($lstSummary[$oUser['id_technicien']]['Q1']+$lstSummary[$oUser['id_technicien']]['Q5']+$lstSummary[$oUser['id_technicien']]['Q9'],2)>$lstWorkingTimeUser[$oUser['id_technicien']]['working']) {
+											echo '<abbr title="Planned: '.$lstWorkingTimeUser[$oUser['id_technicien']]['working'].' Day/Hrs">'.round($lstSummary[$oUser['id_technicien']]['Q1']+$lstSummary[$oUser['id_technicien']]['Q5']+$lstSummary[$oUser['id_technicien']]['Q9'],2).' <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></abbr>';
+										}
+										elseif ($completeYear==1 AND round($lstSummary[$oUser['id_technicien']]['Q1']+$lstSummary[$oUser['id_technicien']]['Q5']+$lstSummary[$oUser['id_technicien']]['Q9'],2)<$lstWorkingTimeUser[$oUser['id_technicien']]['working']) {
+											echo '<abbr title="Planned: '.$lstWorkingTimeUser[$oUser['id_technicien']]['working'].' Day/Hrs">'.round($lstSummary[$oUser['id_technicien']]['Q1']+$lstSummary[$oUser['id_technicien']]['Q5']+$lstSummary[$oUser['id_technicien']]['Q9'],2).' <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></abbr>';
+										}
+										else {
+											echo round($lstSummary[$oUser['id_technicien']]['Q1']+$lstSummary[$oUser['id_technicien']]['Q5']+$lstSummary[$oUser['id_technicien']]['Q9'],2);
+										}
+										?>
+									</td>
+									<td>								<?php
+									if ($completeYear==1 AND $lstSummary[$oUser['id_technicien']]['C2']>$lstWorkingTimeUser[$oUser['id_technicien']]['vacation']) {
+										echo '<abbr title="Day/Hrs: '.$lstSummary[$oUser['id_technicien']]['Q2'].' / Planned: '.$lstWorkingTimeUser[$oUser['id_technicien']]['vacation'].'">'.$lstSummary[$oUser['id_technicien']]['C2'].' <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></abbr>';
+									}
+									elseif ($completeYear==1 AND $lstSummary[$oUser['id_technicien']]['C2']<$lstWorkingTimeUser[$oUser['id_technicien']]['vacation']) {
+										echo '<abbr title="Day/Hrs: '.$lstSummary[$oUser['id_technicien']]['Q2'].' / Planned: '.$lstWorkingTimeUser[$oUser['id_technicien']]['vacation'].'">'.$lstSummary[$oUser['id_technicien']]['C2'].' <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></abbr>';
+									}
+									else {
+										echo '<abbr title="Day/Hrs: '.$lstSummary[$oUser['id_technicien']]['Q2'].' / Planned: '.$lstWorkingTimeUser[$oUser['id_technicien']]['vacation'].'">'.$lstSummary[$oUser['id_technicien']]['C2'].'</abbr>';
+									}
+									?></td>
+									<td>
+										<?php
+										if ($completeYear==1 AND $lstSummary[$oUser['id_technicien']]['C9']>$lstWorkingTimeUser[$oUser['id_technicien']]['extraCP']) {
+											echo '<abbr title="Day/Hrs: '.$lstSummary[$oUser['id_technicien']]['Q9'].' / Planned: '.$lstWorkingTimeUser[$oUser['id_technicien']]['extraCP'].'">'.$lstSummary[$oUser['id_technicien']]['C9'].' <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></abbr>';
+										}
+										elseif ($completeYear==1 AND $lstSummary[$oUser['id_technicien']]['C9']<$lstWorkingTimeUser[$oUser['id_technicien']]['extraCP']) {
+											echo '<abbr title="Day/Hrs: '.$lstSummary[$oUser['id_technicien']]['Q9'].' / Planned: '.$lstWorkingTimeUser[$oUser['id_technicien']]['extraCP'].'">'.$lstSummary[$oUser['id_technicien']]['C9'].' <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></abbr>';
+										}
+										else {
+											echo '<abbr title="Day/Hrs: '.$lstSummary[$oUser['id_technicien']]['Q9'].' / Planned: '.$lstWorkingTimeUser[$oUser['id_technicien']]['extraCP'].'">'.$lstSummary[$oUser['id_technicien']]['C9'].'</abbr>';
+										}
+										?>
+									</td>
+									<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['Q5'] ?> Day/Hrs"> <?= $lstSummary[$oUser['id_technicien'] ]['C5'] ?></abbr></td>
 									<td><abbr title="<?= $lstSummary[$oUser['id_technicien']]['CSaturdayON'] ?>"> <?= $lstSummary[$oUser['id_technicien'] ]['QSaturdayON'] ?></abbr></td>
 								</tr>
 							<?php endforeach ?>
@@ -76,6 +112,7 @@
 						<p class="type_1 border dateHighlight">Work</p>
 						<p class="type_6 border">Déplacement</p>
 						<p class="type_2 border">CP</p>
+						<p class="type_9 border">CP Exceptionnel</p>
 						<p class="type_3 border">Absence</p>
 						<p class="type_5 border">Maladie</p>
 						<p class="notWorkable border" style="color:white;">Closed</p>
