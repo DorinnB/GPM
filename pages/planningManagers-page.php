@@ -67,13 +67,13 @@
 									<td>
 										<?php
 										if ($completeYear==1 AND round($lstSummary[$oUser['id_technicien']]['Q1']+$lstSummary[$oUser['id_technicien']]['Q5']+$lstSummary[$oUser['id_technicien']]['Q9'],2)>$lstWorkingTimeUser[$oUser['id_technicien']]['working']) {
-											echo '<abbr title="Planned: '.$lstWorkingTimeUser[$oUser['id_technicien']]['working'].' Day/Hrs">'.round($lstSummary[$oUser['id_technicien']]['Q1']+$lstSummary[$oUser['id_technicien']]['Q5']+$lstSummary[$oUser['id_technicien']]['Q9'],2).' <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></abbr>';
+											echo '<abbr title="Work: '.$lstSummary[$oUser['id_technicien']]['C1'].' Days / Planned: '.$lstWorkingTimeUser[$oUser['id_technicien']]['working'].' Day/Hrs">'.round($lstSummary[$oUser['id_technicien']]['Q1']+$lstSummary[$oUser['id_technicien']]['Q5']+$lstSummary[$oUser['id_technicien']]['Q9'],2).' <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></abbr>';
 										}
 										elseif ($completeYear==1 AND round($lstSummary[$oUser['id_technicien']]['Q1']+$lstSummary[$oUser['id_technicien']]['Q5']+$lstSummary[$oUser['id_technicien']]['Q9'],2)<$lstWorkingTimeUser[$oUser['id_technicien']]['working']) {
-											echo '<abbr title="Planned: '.$lstWorkingTimeUser[$oUser['id_technicien']]['working'].' Day/Hrs">'.round($lstSummary[$oUser['id_technicien']]['Q1']+$lstSummary[$oUser['id_technicien']]['Q5']+$lstSummary[$oUser['id_technicien']]['Q9'],2).' <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></abbr>';
+											echo '<abbr title="Work: '.$lstSummary[$oUser['id_technicien']]['C1'].' Days / Planned: '.$lstWorkingTimeUser[$oUser['id_technicien']]['working'].' Day/Hrs">'.round($lstSummary[$oUser['id_technicien']]['Q1']+$lstSummary[$oUser['id_technicien']]['Q5']+$lstSummary[$oUser['id_technicien']]['Q9'],2).' <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></abbr>';
 										}
 										else {
-											echo round($lstSummary[$oUser['id_technicien']]['Q1']+$lstSummary[$oUser['id_technicien']]['Q5']+$lstSummary[$oUser['id_technicien']]['Q9'],2);
+											echo '<abbr title="Work: '.$lstSummary[$oUser['id_technicien']]['C1'].' Days">'.round($lstSummary[$oUser['id_technicien']]['Q1']+$lstSummary[$oUser['id_technicien']]['Q5']+$lstSummary[$oUser['id_technicien']]['Q9'],2).'</abbr>';
 										}
 										?>
 									</td>
@@ -85,7 +85,7 @@
 										echo '<abbr title="Day/Hrs: '.$lstSummary[$oUser['id_technicien']]['Q2'].' / Planned: '.$lstWorkingTimeUser[$oUser['id_technicien']]['vacation'].'">'.$lstSummary[$oUser['id_technicien']]['C2'].' <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></abbr>';
 									}
 									else {
-										echo '<abbr title="Day/Hrs: '.$lstSummary[$oUser['id_technicien']]['Q2'].' / Planned: '.$lstWorkingTimeUser[$oUser['id_technicien']]['vacation'].'">'.$lstSummary[$oUser['id_technicien']]['C2'].'</abbr>';
+										echo '<abbr title="Day/Hrs: '.$lstSummary[$oUser['id_technicien']]['Q2'].'">'.$lstSummary[$oUser['id_technicien']]['C2'].'</abbr>';
 									}
 									?></td>
 									<td>
@@ -97,7 +97,7 @@
 											echo '<abbr title="Day/Hrs: '.$lstSummary[$oUser['id_technicien']]['Q9'].' / Planned: '.$lstWorkingTimeUser[$oUser['id_technicien']]['extraCP'].'">'.$lstSummary[$oUser['id_technicien']]['C9'].' <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></abbr>';
 										}
 										else {
-											echo '<abbr title="Day/Hrs: '.$lstSummary[$oUser['id_technicien']]['Q9'].' / Planned: '.$lstWorkingTimeUser[$oUser['id_technicien']]['extraCP'].'">'.$lstSummary[$oUser['id_technicien']]['C9'].'</abbr>';
+											echo '<abbr title="Day/Hrs: '.$lstSummary[$oUser['id_technicien']]['Q9'].'">'.$lstSummary[$oUser['id_technicien']]['C9'].'</abbr>';
 										}
 										?>
 									</td>
