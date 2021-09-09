@@ -47,7 +47,7 @@
 
 
 
-		<?php if (isset($_COOKIE['id_user'])) :	?>
+		<?php if (isset($_COOKIE['id_user']) AND isset($lstSummary[$_COOKIE['id_user']])) :	?>
 			<div class="col-md-12" style="height:60%;">
 				<div class="col-md-2" style="overflow-y:auto;">
 					<table class="table table-condensed table-striped table-hover table-bordered" cellspacing="0" width="100%"  style="height:100%; white-space:nowrap;">
