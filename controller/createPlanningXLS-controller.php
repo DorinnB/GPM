@@ -95,7 +95,6 @@ $planningxls['space1'][]="";
 $planningxls['space2'][]="";
 $planningxls['space3'][]="";
 $planningxls['space4'][]="";
-$planningxls['space5'][]="";
 foreach ($lstUsers as $oUser)  {
   $planningxls['d'.$oUser['technicien']][] = $oUser['id_technicien'];
   $planningxls['d'.$oUser['technicien']][] = $oUser['technicien'];
@@ -103,7 +102,6 @@ foreach ($lstUsers as $oUser)  {
 $planningxls['space6'][]="";
 $planningxls['space7'][]="";
 $planningxls['space8'][]="";
-$planningxls['space9'][]="";
 $planningxls['space10'][]="";
 foreach ($lstUsers as $oUser)  {
   $planningxls['t'.$oUser['technicien']][] = $oUser['id_technicien'];
