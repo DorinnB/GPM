@@ -27,5 +27,6 @@
     <a href="index.php?page=IT&tool=matieres" class="btn btn-list" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/material.png" style="height:40px;"> Material</a>
     <a href="index.php?page=IT&tool=dessins" class="btn btn-list" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/dummy.png" style="height:40px;"> Drawing</a>
     <a href="index.php?page=IT&tool=dummies" class="btn btn-list" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/dummy.png" style="height:40px;"> Dummies</a>
+    <a href="index.php?page=IT&tool=extensometers" class="btn btn-list" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/extenso.png" style="height:40px;"> Extenso.</a>
   </div>
 </div>
