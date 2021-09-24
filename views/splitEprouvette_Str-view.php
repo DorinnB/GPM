@@ -134,7 +134,7 @@
           <td><?= $ep[$k]['nom_eprouvette'] ?><sup><?= ($ep[$k]['retest']!=1)?$ep[$k]['retest']:'' ?></sup></td>
           <td class="<?= $classpriority ?>"><?= $ep[$k]['priority'] ?></td>
           <td class="decimal1" <?= $epHisto2[$k]['c_temperature'] ?>><?= $ep[$k]['c_temp'] ?></td>
-          <td class="decimal1" <?= $epHisto2[$k]['c_frequence'] ?>><?= $ep[$k]['c_frequence'] ?></td>
+          <td class="decimal2" <?= $epHisto2[$k]['c_frequence'] ?>><?= $ep[$k]['c_frequence'] ?></td>
           <td class="decimal0" <?= $epHisto2[$k]['c_cycle_STL'] ?>><?= $ep[$k]['c_cycle_STL'] ?></td>
           <td class="decimal1"<?= $epHisto2[$k]['c_frequence_STL'] ?>><?= $ep[$k]['c_frequence_STL'] ?></td>
           <td class="decimal<?=  $ep[$k]['c_type_1_deci']  ?> <?=  $split['ChartCons1']  ?>" <?= $epHisto2[$k]['c_type_1_val'] ?>><?= $ep[$k]['c_type_1_val'] ?></td>
