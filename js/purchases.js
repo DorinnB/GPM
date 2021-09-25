@@ -127,7 +127,18 @@ $(document).ready(function() {
       { data: "payables.invoice",
       render: function ( data, type, row ) {
         if (data) {
-          return 'Yes';
+if (row['payables']['HT']) {
+  payable=" ("+row['payables']['HT']+"€)";
+}
+else if ((row['payables']['USD'])) {
+
+    payable=" ($"+row['payables']['USD']+")";
+}
+else {
+  payable='';
+}
+          return 'Yes' + payable;
+
         }
         else {
           return '';

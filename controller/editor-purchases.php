@@ -44,7 +44,10 @@ Editor::inst( $db, 'purchaserequests' )
   Field::inst( 'purchaserequests.comments')
   ->setFormatter( 'Format::ifEmpty', null ),
   Field::inst( 'purchases.generate'),
-  Field::inst( 'payables.invoice')
+  Field::inst( 'payables.invoice'),
+
+  Field::inst( 'payables.HT'),
+  Field::inst( 'payables.USD')
 
   )
   ->leftJoin( 'purchases',     'purchases.id_purchaserequest',          '=', 'purchaserequests.id_purchaserequest' )
