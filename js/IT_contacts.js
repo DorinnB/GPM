@@ -59,16 +59,13 @@ $(document).ready(function() {
     scrollCollapse: true,
     paging: false,
     fixedColumns:   {leftColumns: 4},
-    keys: {
-      columns: [4,5,6,7,8,9,10,11,12],
-      editor:  editor
-    },
     select: {
       style:    'os',
       blurable: true
     },
     buttons: [
-      { extend: "create", editor: editor }
+      { extend: "create", editor: editor },
+      { extend: "edit",   editor: editor },
     ]
   } );
 
