@@ -84,20 +84,14 @@ $(document).ready(function() {
       { data: null,
         render: function ( data, type, row ) {
 
-          dateEndMonth=$('#dateStartUBR').text()
-          var date = new Date(dateEndMonth);
-          var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-          var lastDay = new Date(date.getFullYear(), date.getMonth()+1, 0);
-
-
-          if (data.info_jobs.invoice_type==2) {
-            return 'INV';
+          if (row.info_jobs.invoice_final==1 || row.info_jobs.etape==100) {
+            return "INV.";
           }
-          else if (!isNaN(parseFloat(data.ubr.ubrMRSAS)+parseFloat(data.ubr.ubrSubC)) || data.info_jobs.invoice_type==1) {
-            return 'UBR';
+          else if (row.info_jobs.invoice_final==0) {
+            return "PART.";
           }
           else {
-            return 'Error'
+            return 'UBR';
           }
         }
       },

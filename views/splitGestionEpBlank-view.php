@@ -1,5 +1,5 @@
 
-<script type="text/javascript" src="js/splitGestionEpBlank.js"></script>
+<script type="text/javascript" src="js/splitGestionEp.js"></script>
 <link rel="stylesheet" href="css/splitGestionEp.css">
 
 <div class="container">

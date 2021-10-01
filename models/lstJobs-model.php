@@ -425,6 +425,9 @@ class LstJobsModel
     weeklyemail
 
     FROM info_jobs
+    LEFT JOIN tbljobs ON tbljobs.id_info_job=info_jobs.id_info_job
+    LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+    LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
     LEFT JOIN entreprises ON entreprises.id_entreprise=info_jobs.customer
     LEFT JOIN contacts ON contacts.id_contact=info_jobs.id_contact AND contacts.id_contact != 0
     LEFT JOIN contacts  contacts2 ON contacts2.id_contact=info_jobs.id_contact2 AND contacts2.id_contact != 0
@@ -433,8 +436,8 @@ class LstJobsModel
     LEFT JOIN master_eprouvettes ON master_eprouvettes.id_info_job=info_jobs.id_info_job
     LEFT JOIN eprouvettes ON eprouvettes.id_master_eprouvette=master_eprouvettes.id_master_eprouvette
     WHERE info_job_actif=1 AND customer='.$customer.'
-    AND master_eprouvette_actif=1 AND eprouvette_actif=1
-    AND (info_jobs.invoice_date>now()-interval 6 day OR info_jobs.invoice_type!=2)
+    AND master_eprouvette_actif=1 AND eprouvette_actif=1 AND tbljob_actif=1
+    AND etape<95
     GROUP BY job
     ORDER BY job DESC
     ';
@@ -454,8 +457,8 @@ class LstJobsModel
     LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
     LEFT JOIN contacts  contactsST ON contactsST.id_contact=tbljobs.id_contactST
     WHERE info_job_actif=1 and contactsST.ref_customer='.$subC.'
-    AND master_eprouvette_actif=1 AND eprouvette_actif=1
-    AND (info_jobs.invoice_date>now()-interval 10 day OR info_jobs.invoice_type!=2) AND etape<100
+    AND master_eprouvette_actif=1 AND eprouvette_actif=1 AND tbljob_actif=1
+    AND etape<95
     GROUP BY job
     ORDER BY job DESC
     ';

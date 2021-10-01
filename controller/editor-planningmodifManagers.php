@@ -124,7 +124,7 @@ Field::inst( 'planning_modif.datevalidation')
   $_POST["id_receiver_user"] = array ($id_user);
   $_POST["subject"] = 'Planning change: '.$values['planning_modif']['datemodif'];
   $_POST["text"] = $comments;
-  include("updateNotification.php");
+  include_once("updateNotification.php");
 
 })
 

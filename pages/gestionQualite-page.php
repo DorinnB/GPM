@@ -8,7 +8,7 @@
 
 
 
-			<div class="col-md-3" style="height:100%;; overflow:auto;>
+			<div class="col-md-3" style="height:100%; overflow:auto;">
 				<div class="row">
 					<div class="bs-example temperature" data-example-id="basic-forms">
 						<div class="form-group">

@@ -15,51 +15,86 @@ DataTables\Editor\Validate;
 
 // Build our Editor instance and process the data coming from _POST
 Editor::inst( $db, 'info_jobs' )
-->pkey( 'info_jobs.id_info_job' )
-->fields(
-  Field::inst( 'info_jobs.id_info_job'),
-  Field::inst( 'info_jobs.customer'),
-  Field::inst( 'info_jobs.job'),
-  Field::inst( 'info_jobs.datecreation'),
-  Field::inst( 'info_jobs.invoice_type'),
-  Field::inst( 'info_jobs.invoice_date'),
-  Field::inst( 'info_jobs.invoice_currency'),
+  ->pkey( 'info_jobs.id_info_job' )
+  ->fields(
+    Field::inst( 'info_jobs.id_info_job'),
+    Field::inst( 'info_jobs.customer'),
+    Field::inst( 'info_jobs.job'),
+    Field::inst( 'info_jobs.datecreation'),
+    Field::inst( 'info_jobs.job as info_jobs.invoice_final')
+      ->set(false)
+      ->getFormatter( function($val, $data, $opts) use ( $db ) {
+        $stmt = ('SELECT invoice_final
+          FROM invoices
+          WHERE inv_job = :id
+          ORDER BY id_invoice ASC LIMIT 1');
+          $result = $db ->raw()
+          ->bind(':id', $val)
+          ->exec($stmt);
+          $row = $result->fetch(PDO::FETCH_ASSOC);
+          if ( (bool)$row ) {
+            return $row["invoice_final"];
+          }
+          return -1;
+        }),
 
-  Field::inst( 'ubr.ubrMRSAS'),
-  Field::inst( 'ubr.ubrSubC'),
-  Field::inst( 'ubr.date_creation'),
-  Field::inst( 'ubr.date_UBR'),
+    Field::inst( 'info_jobs.job as info_jobs.etape')
+    ->set(false)
+    ->getFormatter( function($val, $data, $opts) use ( $db ) {
+      $stmt = ('SELECT max(etape) as etape
+      FROM info_jobs
+      LEFT JOIN tbljobs ON tbljobs.id_info_job=info_jobs.id_info_job
+      LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+      LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
+      WHERE info_jobs.job = :id
+      AND tbljobs.tbljob_actif=1');
+      $result = $db ->raw()
+      ->bind(':id', $val)
+      ->exec($stmt);
+      $row = $result->fetch(PDO::FETCH_ASSOC);
+      if ( (bool)$row ) {
+        return $row["etape"];
+      }
+      return -1;
+    }),
+    Field::inst( 'info_jobs.invoice_date'),
+    Field::inst( 'info_jobs.invoice_currency'),
 
-  Field::inst( 'ubrold.ubrMRSAS'),
-  Field::inst( 'ubrold.ubrSubC'),
-  Field::inst( 'ubrold.date_creation'),
-  Field::inst( 'ubrold.date_UBR'),
+    Field::inst( 'ubr.ubrMRSAS'),
+    Field::inst( 'ubr.ubrSubC'),
+    Field::inst( 'ubr.date_creation'),
+    Field::inst( 'ubr.date_UBR'),
 
-  Field::inst( 'invoices.inv_mrsas'),
-  Field::inst( 'invoices.inv_subc'),
-  Field::inst( 'invoices.USDRate'),
-  Field::inst( 'invoices.inv_TVA'),
-  Field::inst( 'invoices.inv_date')
-  )
+    Field::inst( 'ubrold.ubrMRSAS'),
+    Field::inst( 'ubrold.ubrSubC'),
+    Field::inst( 'ubrold.date_creation'),
+    Field::inst( 'ubrold.date_UBR'),
 
-
-  ->leftJoin('ubr', 'ubr.job=info_jobs.job and ubr.date_UBR = "'.$_POST['dateStartMonthlyStatement'].'"','','')
-  ->leftJoin('ubr as ubrold', 'ubrold.job=info_jobs.job and ubrold.date_UBR = "'.date("Y-m-t",strtotime(date("Y-m-t", strtotime($_POST['dateStartMonthlyStatement'])) . "-35 days")).'"','','')
-  ->leftJoin('invoices', 'invoices.inv_job=info_jobs.job and YEAR(invoices.inv_date) = YEAR("'.$_POST['dateStartMonthlyStatement'].'") and MONTH(invoices.inv_date) = MONTH("'.$_POST['dateStartMonthlyStatement'].'")','','')
-
-
-  ->where( function ( $q ) {
-    $q->where('ubr.date_UBR',null,'!=');
-    $q->or_where( 'ubrold.date_UBR',null,'!=');
-    $q->or_where( function($r) {
-      $r->where( 'info_jobs.datecreation',$_POST['dateStartMonthlyStatement'],'<=');
-      $r->where( 'info_jobs.datecreation',date("Y-m-01",strtotime($_POST['dateStartMonthlyStatement'])),'>');
-    });
-
-  } )
+    Field::inst( 'invoices.inv_mrsas'),
+    Field::inst( 'invoices.inv_subc'),
+    Field::inst( 'invoices.USDRate'),
+    Field::inst( 'invoices.inv_TVA'),
+    Field::inst( 'invoices.inv_date')
+    )
 
 
+    ->leftJoin('ubr', 'ubr.job=info_jobs.job and ubr.date_UBR = "'.$_POST['dateStartMonthlyStatement'].'"','','')
+    ->leftJoin('ubr as ubrold', 'ubrold.job=info_jobs.job and ubrold.date_UBR = "'.date("Y-m-t",strtotime(date("Y-m-t", strtotime($_POST['dateStartMonthlyStatement'])) . "-35 days")).'"','','')
+    ->leftJoin('invoices', 'invoices.inv_job=info_jobs.job and YEAR(invoices.inv_date) = YEAR("'.$_POST['dateStartMonthlyStatement'].'") and MONTH(invoices.inv_date) = MONTH("'.$_POST['dateStartMonthlyStatement'].'")','','')
 
-  ->process($_POST)
-  ->json();
-  ?>
+
+    ->where( function ( $q ) {
+      $q->where('ubr.date_UBR',null,'!=');
+      $q->or_where( 'ubrold.date_UBR',null,'!=');
+      $q->or_where( function($r) {
+        $r->where( 'info_jobs.datecreation',$_POST['dateStartMonthlyStatement'],'<=');
+        $r->where( 'info_jobs.datecreation',date("Y-m-01",strtotime($_POST['dateStartMonthlyStatement'])),'>');
+      });
+
+    } )
+
+
+
+    ->process($_POST)
+    ->json();
+    ?>

@@ -108,11 +108,7 @@
         </div>
         <div class="col-md-2">
           <div class="col-md-12 titre">
-            <?php if ($oInOut->overdueOut()): ?>
-              Overdue Out
-            <?php else : ?>
               Out Ready
-            <?php endif ?>
           </div>
         </div>
         <div class="col-md-2">
@@ -127,12 +123,12 @@
         </div>
         <div class="col-md-2">
           <div class="col-md-12 titre">
-            Not Invoiced
+            To Be Invoiced
           </div>
         </div>
         <div class="col-md-2">
           <div class="col-md-12 titre">
-            Not Completed
+            To Be Closed [WIP]
           </div>
         </div>
       </div>
@@ -145,18 +141,6 @@
           <?php endforeach  ?>
         </div>
         <div class="col-md-2">
-          <?php foreach ($oInOut->overdueOut() as $key => $value) : ?>
-            <a href="index.php?page=split&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
-              <?= $value['job']  ?>
-            </a>
-          <?php endforeach  ?>
-
-          <?php if ($oInOut->overdueOut() AND $oInOut->outReady()) : ?>
-            <p href="#" class="titre bandeau" style="border-bottom: 2px solid white; margin-top:20px; width: 100%;display: inline-block; border">
-              Out Ready
-            </p>
-          <?php endif ?>
-
           <?php foreach ($oInOut->outReady() as $key => $value) : ?>
             <a href="index.php?page=inOut&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
               <?= $value['job'].'-'.$value['split']  ?>
@@ -188,18 +172,16 @@
           <?php endforeach  ?>
         </div>
         <div class="col-md-2">
-          <?php foreach ($oInOut->notInvoiced() as $key => $value) : ?>
+          <?php foreach ($oInOut->toBeInvoiced() as $key => $value) : ?>
+            <?php if ($value['invoice_final']!=1): ?>
             <a href="index.php?page=inOut&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
               <?= $value['job']  ?>
             </a>
+            <?php endif ?>
           <?php endforeach  ?>
         </div>
         <div class="col-md-2">
-          <?php foreach ($oInOut->invoicedNotCompleted() as $key => $value) : ?>
-            <a href="index.php?page=inOut&amp;id_tbljob=<?= $value['id_tbljob'] ?>" class="col-md-12 valeur">
-              <?= $value['job']  ?>
-            </a>
-          <?php endforeach  ?>
+
         </div>
       </div>
     </div>

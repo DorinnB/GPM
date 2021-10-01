@@ -46,17 +46,20 @@ public function __construct($db,$id)
 
     public function getAllSplit() {
 
-    $req = 'SELECT id_tbljob, test_type, test_type_abbr, test_type_cust, split, phase, sum(if(eprouvette_actif=1,1,0)) as nbep, ST, auxilaire,
+    $req = 'SELECT id_tbljob, split, test_type, test_type_abbr, test_type_cust, split, phase, sum(if(eprouvette_actif=1,1,0)) as nbep, ST, auxilaire,
         DyT_expected, DyT_SubC, DyT_Cust, refSubC, statut, statut_color, etape,
         report_Q, report_TM, report_date, report_rev, report_rawdata, id_rawData, report_send,  sum(if(rawdatasent>0,1,0)) as nbrawdatasent, rawdatatobesent,
+        customer, job,
         COUNT(DISTINCT master_eprouvettes.id_master_eprouvette) as expected,
-        COUNT(DISTINCT CASE WHEN master_eprouvettes.master_eprouvette_inOut_B IS NOT NULL THEN master_eprouvettes.id_master_eprouvette END) AS shipped
+        COUNT(DISTINCT CASE WHEN master_eprouvettes.master_eprouvette_inOut_B IS NOT NULL THEN master_eprouvettes.id_master_eprouvette END) AS shipped,
+        SUM(IF(d_checked>0,0,1)) as nb_unDchecked
         FROM tbljobs
         LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
         LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
         LEFT JOIN eprouvettes ON eprouvettes.id_job=tbljobs.id_tbljob
         LEFT JOIN master_eprouvettes on master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
         LEFT JOIN test_type ON test_type.id_test_type=tbljobs.id_type_essai
+        LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
         WHERE tbljobs.id_info_job = (SELECT id_info_job FROM tbljobs WHERE id_tbljob='.$this->id.')
           AND tbljob_actif=1
           AND master_eprouvette_actif=1

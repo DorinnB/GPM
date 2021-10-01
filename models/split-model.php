@@ -215,6 +215,7 @@ class LstSplitModel
     LEFT JOIN techniciens as t2 on t2.id_technicien=tbljobs.checked
 
 
+
     WHERE tbljobs.id_tbljob='.$this->id.'
     AND eprouvette_actif=1
     AND master_eprouvette_actif=1

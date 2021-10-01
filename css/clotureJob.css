@@ -85,3 +85,46 @@ div.DTE .form-control {
 .splitCenter  .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: #536E94 !important;
 }
+
+#ArchivingModal .modal-dialog {
+  margin-top: 10%;
+}
+#ArchivingModal .modal-content {
+  height:500px;
+  color:white;
+  background-color : DarkGray;
+  border: 0px;
+}
+#ArchivingModal .modal-header {
+  color:black;
+  height: 15%;
+}
+#ArchivingModal .modal-body {
+  height: 85%;
+}
+#ArchivingModal .data {
+  height: 80%;
+  overflow-y: auto;
+  background-color: #44546A;
+}
+#ArchivingModal .footer {
+  height: 20%;
+}
+#ArchivingModal div.row{
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+#ArchivingModal .bandeau, #ArchivingModal .bandeau [class*="col-"] {
+background-color: #536E94;
+}
+#ArchivingModal .valeur, #ArchivingModal .titre{
+  border:0px;
+}
+#ArchivingModal .titre  {
+  color: white;
+  font-weight: bold;
+}
+#ArchivingModal [class*="col-"] {
+  background-color : #44546A;
+}

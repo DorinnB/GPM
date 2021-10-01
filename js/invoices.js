@@ -46,9 +46,9 @@ $(document).ready(function() {
     },
     order: [ 7, "desc" ],
     columns: [
-      { data: 'info_jobs.invoice_type',
+      { data: 'invoices.invoice_final',
       render: function ( data, type, row ) {
-        if (data==2) {
+        if (data==1) {
           return "INV.";
         }
         else {

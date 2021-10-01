@@ -166,7 +166,7 @@ $(document).ready(function() {
           dollar=(row.payables.USD*row.payables.taux).toFixed(2);
           euro=(row.payables.HT*1+row.payables.TVA*1).toFixed(2);
           //selon si c'est en dollar ou euro, et si le champ TTC est rempli, on compare TTC et le calcul
-          if (row.payables.USD > 0) {
+          if (row.payables.USD > 0 || row.payables.USD < 0) {
             return (row.payables.USD*row.payables.taux).toFixed(2).replace(/(\d)(?=(\d{3})+\b)/g,'$1 ')+' €';
           }
           else {

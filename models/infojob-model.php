@@ -41,8 +41,8 @@ class InfoJob
     available_expected,
     info_job_date, info_job_rev, info_job_report_Q, info_job_report_TM, info_job_send,
     DATE_FORMAT(datecreation, "%Y-%m-%d") as datecreation,
-    order_val, order_est, order_est_subc
-
+    order_val, order_est, order_est_subc,
+    (SELECT invoices.invoice_final FROM invoices WHERE invoices.inv_job=info_jobs.job ORDER BY invoices.id_invoice DESC LIMIT 1) AS invoice_final
     FROM info_jobs
     LEFT JOIN tbljobs ON tbljobs.id_info_job=info_jobs.id_info_job
     LEFT JOIN contacts ON contacts.id_contact=info_jobs.id_contact

@@ -28,7 +28,43 @@ Editor::inst( $db, 'info_jobs' )
   Field::inst( 'ubr.ubrSubC'),
   Field::inst( 'ubr.date_UBR'),
 
-  Field::inst( 'info_jobs.invoice_type'),
+  Field::inst( 'info_jobs.job as info_jobs.invoice_final')
+    ->set(false)
+    ->getFormatter( function($val, $data, $opts) use ( $db ) {
+        $stmt = ('SELECT invoice_final
+                    FROM invoices
+                     WHERE inv_job = :id
+                     ORDER BY id_invoice ASC LIMIT 1');
+        $result = $db ->raw()
+                      ->bind(':id', $val)
+                      ->exec($stmt);
+        $row = $result->fetch(PDO::FETCH_ASSOC);
+        if ( (bool)$row ) {
+            return $row["invoice_final"];
+        }
+        return -1;
+      }),
+
+      Field::inst( 'info_jobs.job as info_jobs.etape')
+        ->set(false)
+        ->getFormatter( function($val, $data, $opts) use ( $db ) {
+            $stmt = ('SELECT max(etape) as etape
+                        FROM info_jobs
+                        LEFT JOIN tbljobs ON tbljobs.id_info_job=info_jobs.id_info_job
+                        LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+                        LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
+                         WHERE info_jobs.job = :id
+                         AND tbljobs.tbljob_actif=1');
+            $result = $db ->raw()
+                          ->bind(':id', $val)
+                          ->exec($stmt);
+            $row = $result->fetch(PDO::FETCH_ASSOC);
+            if ( (bool)$row ) {
+                return $row["etape"];
+            }
+            return -1;
+          }),
+
   Field::inst( 'info_jobs.id_info_job' )->set( false ),
   Field::inst( 'info_jobs.job as info_jobs.invoicesSubC')
     ->set(false)

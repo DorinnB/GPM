@@ -214,72 +214,36 @@ class INOUT
       GROUP BY eprouvettes.id_job
     ) = 0
     AND split>0
-    AND etape!=100
+    AND etape<95
     GROUP BY id_tbljob
     ORDER BY id_tbljob DESC';
 
     return $this->db->getAll($req);
   }
 
-  public function overdueOut(){
-    $req='SELECT job, max(tbljobs.id_tbljob) as id_tbljob
+  public function toBeInvoiced(){
+    $req='SELECT job, MAX(id_tbljob) as id_tbljob, (SELECT invoices.invoice_final FROM invoices WHERE invoices.inv_job=info_jobs.job ORDER BY invoices.id_invoice DESC LIMIT 1) AS invoice_final
     FROM tbljobs
     LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
     LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
     LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
-    WHERE (
-      SELECT sum(if(eprouvettes.eprouvette_inOut_B IS NOT NULL,0,1))
-      FROM master_eprouvettes
-      LEFT JOIN eprouvettes ON eprouvettes.id_master_eprouvette=master_eprouvettes.id_master_eprouvette
-      WHERE master_eprouvettes.id_info_job=info_jobs.id_info_job
-      AND master_eprouvettes.master_eprouvette_inOut_B IS NULL
-      AND master_eprouvettes.master_eprouvette_actif=1
-      AND eprouvettes.eprouvette_actif=1
-      GROUP BY master_eprouvettes.id_info_job
-    ) = 0
-    AND invoice_type=2
-    AND etape!=100
-    GROUP BY job
-    ORDER BY job DESC';
-
-    return $this->db->getAll($req);
-  }
-
-
-  public function notInvoiced(){
-    $req='SELECT max(id_tbljob) as id_tbljob, job
-    FROM tbljobs
-    LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
-    LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
-    LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
-
-    WHERE etape = 90
-    AND cast(split AS UNSIGNED)
+    WHERE cast(split AS UNSIGNED)
     AND info_job_actif=1
     AND tbljob_actif=1
-    AND invoice_type!=2
-
+    AND etape=90
+    AND job NOT IN (
+      SELECT job
+      FROM tbljobs
+      LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
+      LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+      LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
+      WHERE cast(split AS UNSIGNED)
+      AND info_job_actif=1
+      AND tbljob_actif=1
+      AND etape<90
+      GROUP BY job
+    )
     GROUP BY job
-    ORDER BY job DESC
-    ';
-    return $this->db->getAll($req);
-  }
-
-  public function invoicedNotCompleted(){
-    $req='SELECT max(id_tbljob) as id_tbljob, job
-    FROM tbljobs
-    LEFT JOIN info_jobs ON info_jobs.id_info_job=tbljobs.id_info_job
-    LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
-    LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
-
-    WHERE etape = 90
-    AND info_job_actif=1
-    AND tbljob_actif=1
-    AND invoice_type=2
-    AND etape != 100
-
-    GROUP BY job
-    ORDER BY job DESC
     ';
     return $this->db->getAll($req);
   }
@@ -384,9 +348,12 @@ class INOUT
     FROM info_jobs
     LEFT JOIN master_eprouvettes ON master_eprouvettes.id_info_job=info_jobs.id_info_job
     LEFT JOIN eprouvettes ON eprouvettes.id_master_eprouvette=master_eprouvettes.id_master_eprouvette
+    LEFT JOIN tbljobs ON tbljobs.id_info_job=info_jobs.id_info_job
+    LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
+    LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
     WHERE info_job_actif=1
-    AND master_eprouvette_actif=1 AND eprouvette_actif=1
-    AND (info_jobs.invoice_date>now()-interval 6 day OR info_jobs.invoice_type!=2)
+    AND master_eprouvette_actif=1 AND eprouvette_actif=1 AND tbljob_actif=1
+    AND etape<95
     GROUP BY customer
     ORDER BY customer ASC
     ';
@@ -404,8 +371,8 @@ class INOUT
     LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
     LEFT JOIN contacts  contactsST ON contactsST.id_contact=tbljobs.id_contactST
     WHERE info_job_actif=1
-    AND master_eprouvette_actif=1 AND eprouvette_actif=1
-    AND (info_jobs.invoice_date>now()-interval 10 day OR info_jobs.invoice_type!=2) AND etape<90
+    AND master_eprouvette_actif=1 AND eprouvette_actif=1 AND tbljob_actif=1
+    AND etape<90
     AND ref_customer IS NOT NULL
     GROUP BY ref_customer
     ORDER BY ref_customer ASC

@@ -15,7 +15,7 @@ class QualiteModel
         LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
         LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
 
-        WHERE checked = 0 AND tbljob_actif=1 AND invoice_type!=2 and etape<90
+        WHERE checked = 0 AND tbljob_actif=1 AND etape<=95
         GROUP BY id_tbljob
         ORDER BY job, split';
         //echo $req;

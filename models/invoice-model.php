@@ -395,7 +395,7 @@ class InvoiceModel
     $this->db->query($reqUpdate);
   }
 
-  public function getAllInvoice($limit=1000) {
+  public function getAllInvoice($limit=1000) {      //UNUSED
 
     $filtreLimit=(is_numeric($limit))?$limit:$this->db->quote($limit);
 
@@ -553,8 +553,8 @@ class InvoiceModel
       SELECT DATE_FORMAT(dateplanned, "%Y-%m") as dateplanned,
       SUM(if(ifnull(id_type, type)=1 OR ifnull(id_type, type)=6, 1, 0)) AS C1,
       SUM(if(ifnull(id_type, type)=1 OR ifnull(id_type, type)=6, ifnull((TIME_TO_SEC(badges.validation)/3600),ifnull(badges.validation2,(ifnull(planning_modif.quantity, planning_users.quantity))))*if(badge_hr.badge_type=0,8,1), 0)) AS Q1,
-      SUM(if(ifnull(id_type, type)=2,1,0)) AS C2,
-      SUM(if(ifnull(id_type, type)=2,ifnull(planning_modif.quantity, planning_users.quantity)*if(badge_hr.badge_type=0,8,1),0)) AS Q2,
+      SUM(if(ifnull(id_type, type)=2 OR ifnull(id_type, type)=9,1,0)) AS C2,
+      SUM(if(ifnull(id_type, type)=2 OR ifnull(id_type, type)=9,ifnull(planning_modif.quantity, planning_users.quantity)*if(badge_hr.badge_type=0,8,1),0)) AS Q2,
       SUM(if(ifnull(id_type, type)=3,1,0)) AS C3,
       SUM(if(ifnull(id_type, type)=3,ifnull(planning_modif.quantity, planning_users.quantity)*if(badge_hr.badge_type=0,8,1),0)) AS Q3,
       SUM(if(ifnull(id_type, type)=4,1,0)) AS C4,

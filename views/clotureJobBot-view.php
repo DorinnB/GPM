@@ -9,7 +9,7 @@
 			<option value="1" <?=	(($split['invoice_type']==1)?'selected':'')	?>>Partialy Invoiced</option>
 			<option value="2" <?=	(($split['invoice_type']==2)?'selected':'')	?>>Total Invoiced</option>
 		</select>
-
+WIP : <?= (($infoJob['invoice_final']==1)?'Final':(($infoJob['invoice_final']== NULL)?'':'Partial')) ?>
 
 	</div>
 	<div class="col-md-3" style="height:100%">
@@ -36,16 +36,15 @@
 			</div>
 
 			<div class="col-md-12" style="height:33%">
-
 				<a href="index.php?page=invoiceJob&id_tbljob=<?=	$split['id_tbljob']?>">
-				<img border="0" src="img/invoice.png" style="max-width:100%; max-height:100%; padding:5px 0px;display: block; margin: auto;">
+					<img border="0" src="img/invoice.png" style="max-width:100%; max-height:100%; padding:5px 0px;display: block; margin: auto;">
 				</a>
-
 			</div>
 
-
-			<div class="col-md-12" id="export" style="height:33%">
-				??
+			<div class="col-md-12" id="archive" style="height:33%">
+				<a href="#">
+					<img border="0" src="img/archive.png" style="max-width:100%; max-height:100%; padding:5px 0px;display: block; margin: auto;">
+				</a>
 			</div>
 		</div>
 
@@ -54,4 +53,3 @@
 	</div>
 
 </div>
-<script type="text/javascript" src="js/clotureJob_invoice.js"></script>

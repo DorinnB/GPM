@@ -69,10 +69,182 @@ $(document).ready(function() {
     });
   });
 
+  $("#archive").click(function(e) {
+
+    e.preventDefault();
+
+    $.ajax({
+
+      type: "POST",
+      url: 'controller/archiveJob-controller.php',
+      dataType: "json",
+      data:  {
+        id_tbljob : $('#id_tbljob').val(),
+        type: "check"
+      },
+      success : function(data, statut){
+
+        $("#splitStatus" ).empty();
+        if (data['splitStatus']) {
+          data['splitStatus'].forEach((element) => {
+            $('#splitStatus').append(element);
+          });
+        }
 
 
+        $("#Unchecked" ).empty();
+        if (data['unchecked']) {
+          data['unchecked'].forEach((element) => {
+            $('#Unchecked').append(element);
+          });
+        }
+        $("#MissingTrans" ).empty();
+        if (data['missingTrans']) {
+          data['missingTrans'].forEach((element) => {
+            $('#MissingTrans').append(element+'<br/>');
+          });
+        }
+        $("#MissingTestFile" ).empty();
+        if (data['missingTestFile']) {
+          data['missingTestFile'].forEach((element) => {
+            $('#MissingTestFile').append(element+'<br/>');
+          });
+        }
+      //  $("#MissingTestFile" ).css('background-color','sienna');
 
 
+        $("#MissingReport" ).empty();
+        if (data['missingReport']) {
+          data['missingReport'].forEach((element) => {
+            $('#MissingReport').append(element);
+          });
+        }
+        $("#MissingShipped" ).empty();
+        if (data['missingShipped']) {
+          data['missingShipped'].forEach((element) => {
+            $('#MissingShipped').append(element);
+          });
+        }
+        $("#MissingInvoice" ).empty();
+        if (data['missingInvoice']) {
+          $('#MissingInvoice').append(data['missingInvoice']);
+        }
+        $("#OneNote" ).empty();
+        if (data['oneNote']) {
+          $('#OneNote').append(data['oneNote']);
+        }
+
+
+        $('#ArchivingModal').modal('show');
+      },
+      error : function(resultat, statut, erreur) {
+        //console.log(Object.keys(resultat));
+        alert('ERREUR lors de l\'archivage. Veuillez prevenir au plus vite le responsable SI.');
+      }
+    });
+  });
+
+  $("#closeJob").click(function(e) {
+
+    e.preventDefault();
+    var confirmation = confirm('Are you sure you want to Close this job ?');
+    if (confirmation) {
+    $.ajax({
+
+      type: "POST",
+      url: 'controller/archiveJob-controller.php',
+      dataType: "json",
+      data:  {
+        id_tbljob : $('#id_tbljob').val(),
+        type: "closeJob"
+      },
+      success : function(data, statut){
+        console.log(data);
+        alert('The job ' + data['job'] + ' was successfully Closed and the split\'s status where updated.');
+      },
+      error : function(resultat, statut, erreur) {
+        console.log(Object.keys(resultat));
+        alert('ERREUR lors de l\'archivage. Veuillez prevenir au plus vite le responsable SI.');
+      }
+    } );
+  }
+  });
+
+  $("#copyTestFile").click(function(e) {
+
+    e.preventDefault();
+
+    $.ajax({
+
+      type: "POST",
+      url: 'controller/archiveJob-controller.php',
+      dataType: "json",
+      data:  {
+        id_tbljob : $('#id_tbljob').val(),
+        type: "copyTestFile"
+      },
+      success : function(data, statut){
+        console.log(data['nb']);
+        alert(data['nb'] +' folders were transfered.');
+      },
+      error : function(data, statut, erreur) {
+        console.log(Object.keys(data));
+        alert('ERREUR lors de la copie de Trans. Fichiers trop volumineux (à faire manuellement), trop nombreux (relancer la copie) ou fichier ouvert. Dernier fichier copié : '+data['lastFile']);
+      }
+    } );
+  });
+
+  $("#zipJob").click(function(e) {
+
+    e.preventDefault();
+    var confirmation = confirm('Are you sure you want to Zip this job ?');
+    if (confirmation) {
+    $.ajax({
+
+      type: "POST",
+      url: 'controller/archiveJob-controller.php',
+      dataType: "json",
+      data:  {
+        id_tbljob : $('#id_tbljob').val(),
+        type: "zipJob"
+      },
+      success : function(data, statut){
+        console.log(data);
+        alert('The job ' + data['job'] + ' was successfully archive (zip) and the folder was deleted.');
+      },
+      error : function(resultat, statut, erreur) {
+        console.log(Object.keys(resultat));
+        alert('ERREUR lors de l\'archivage. Veuillez prevenir au plus vite le responsable SI.');
+      }
+    } );
+  }
+  });
+
+  $("#archiveJob").click(function(e) {
+
+    e.preventDefault();
+    var confirmation = confirm('Are you sure you want to Archive this job ?');
+    if (confirmation) {
+    $.ajax({
+
+      type: "POST",
+      url: 'controller/archiveJob-controller.php',
+      dataType: "json",
+      data:  {
+        id_tbljob : $('#id_tbljob').val(),
+        type: "archiveJob"
+      },
+      success : function(data, statut){
+        console.log(data);
+        alert('The job ' + data['job'] + ' was successfully archive and the split\'s status where updated.');
+      },
+      error : function(resultat, statut, erreur) {
+        console.log(Object.keys(resultat));
+        alert('ERREUR lors de l\'archivage. Veuillez prevenir au plus vite le responsable SI.');
+      }
+    } );
+  }
+  });
 
 
 
