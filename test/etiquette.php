@@ -25,27 +25,50 @@ function textCentre($image, $size, $orientation, $row, $noir, $font, $string) {
   $x = $bbox[0] + (imagesx($image) / 2) - ($bbox[4] / 2) ;
   imagettftext($image, $size, 0, $x, $row, $noir, $font, $string);
 }
+function textCentreDecale($image, $size, $orientation, $row, $noir, $font, $string) {
+  $bbox = imagettfbbox($size, 0, $font, $string);
+  $x = $bbox[0] + (imagesx($image) / 2) - ($bbox[4] / 2)+90 ;
+  imagettftext($image, $size, 0, $x, $row, $noir, $font, $string);
+}
 
+function textCentre1($image, $size, $orientation, $row, $noir, $font, $string) {
+  $bbox = imagettfbbox($size, 0, $font, $string);
+  $x = $bbox[0] + (imagesx($image) / 2) - ($bbox[4] / 2) ;
+  imagettftext($image, $size, 0, $x*0.3, $row, $noir, $font, $string);
+}
+function textCentre2($image, $size, $orientation, $row, $noir, $font, $string) {
+  $bbox = imagettfbbox($size, 0, $font, $string);
+  $x = $bbox[0] + (imagesx($image) / 2) - ($bbox[4] / 2) ;
+  imagettftext($image, $size, 0, $x*1.7, $row, $noir, $font, $string);
+}
 
-$row=75; $col=250; $col2=450;
-$size=20; $size2=25; $size3=50;
+$row=80; $col=250; $col2=450;
+$size=20; $size1=20; $size2=25; $size3=40;$size4=70;
 
-imagettftext($image, $size3, 0, $largeur/2-100, $row, $noir, $font, 'ALIGNEMENT');
+textCentreDecale($image, $size4, 0, $row, $noir, $font, 'STRAIN CAL');
 $row+=100;
 
-textCentre($image, $size3, 0, $row, $noir, $font, 'GAMME / Equipement');
-$row+=100;
+textCentreDecale($image, $size4, 0, $row, $noir, $font, '10032');
+$row+=50;
 
-imagettftext($image, $size2, 0, $col, $row, $noir, $font, 'Frame:');
-imagettftext($image, $size3, 0, $col2, $row, $noir, $font, '20021');
-$row+=100;
+textCentre1($image, $size1, 0, $row, $noir, $font, 'FRAME');
+textCentre($image, $size1, 0, $row, $noir, $font, 'By');
+textCentre2($image, $size1, 0, $row, $noir, $font, 'Gamme');
+$row+=50;
+textCentre1($image, $size2, 0, $row, $noir, $font, '20021');
+textCentre($image, $size2, 0, $row, $noir, $font, 'PGO');
+textCentre2($image, $size3, 0, $row, $noir, $font, '-2/+5%');
+$row+=50;
 
-//textCentre($image, $size3, 0, $row, $noir, $font, 'date');
-imagettftext($image, $size2, 0, $col, $row, $noir, $font, 'Frame:');
-imagettftext($image, $size3, 0, $col2, $row, $noir, $font, '20021');
-$row+=100;
+textCentre1($image, $size1, 0, $row, $noir, $font, 'Date');
+textCentre2($image, $size1, 0, $row, $noir, $font, 'Due');
+$row+=50;
+textCentre1($image, $size2, 0, $row, $noir, $font, '02 Apr 2021');
+$row+=40;
+textCentre2($image, $size4, 0, $row, $noir, $font, '01 Jul 2021');
+$row+=80;
 
-textCentre($image, $size3, 0, $row, $noir, $font, 'com');
+textCentre($image, $size3, 0, $row, $noir, $font, '0v=-2.345v / sc=7.456v');
 
 
 /*
@@ -75,12 +98,15 @@ imagettftext($image, $size2, 0, $col2, $row, $noir, $font, '0.238 Volt');
 $row+=50;
 imagettftext($image, $size, 0, $col, $row, $noir, $font, 'Technician:');
 imagettftext($image, $size2, 0, $col2, $row, $noir, $font, 'PGO');
-*/
 
+*/
 
 
 
 
 imagejpeg($image);
 imagepng($image, "../test/Expected.png");
+
+  exec('"C:\Program Files\IrfanView\i_view64.exe" c:\wamp\www\GPM\\test\Expected.png" /print="ZD420"');
+
 ?>
