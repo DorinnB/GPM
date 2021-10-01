@@ -12,7 +12,7 @@
 
   <div id="Labo" class="col-md-2" style="height:100%; color: white; border-right: 1px solid white;">Labo
     <a href="index.php?page=PlanningLab&nbDayPlanned=93&nbDayBefore=5&color=customer" class="btn btn-default" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/calendar_yes.png" style="height:40px;"> F. Planning</a>
-    <a href="index.php?page=IT&tool=outillages" class="btn btn-default" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/tool.png" style="height:40px;"> Tooling</a>
+    <a href="index.php?page=IT&tool=outillages" class="btn btn-list" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/tool.png" style="height:40px;"> Tooling</a>
     <a href="index.php?page=ListeEssais&startFile=2020" class="btn btn-default" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/list.png" style="height:40px;"> Test List</a>
     <a href="index.php?page=gestionPoste" class="btn btn-default" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/frame.png" style="height:40px;"> F. Mngt</a>
   </div>
