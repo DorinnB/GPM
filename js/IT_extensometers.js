@@ -10,12 +10,12 @@ $(document).ready(function() {
     },
     table: "#table_extensometers",
     fields: [
-      { label: "Servovalve", name: "extensometres.extensometre"  },
+      { label: "Extensometre", name: "extensometres.extensometre"  },
       { label: "Model", name: "extensometres.extensometre_model"},
-      { label: "Manufacture", name: "extensometres.extensometre_sn"  },
-      { label: "Capacity", name: "extensometres.type_extensometre"},
-      { label: "Fixing Type", name: "extensometres.Lo"  },
-      { label: "Manufacture Date", name: "extensometres.extensometre_comment"  },
+      { label: "Serial Number", name: "extensometres.extensometre_sn"  },
+      { label: "Type", name: "extensometres.type_extensometre"},
+      { label: "Lo", name: "extensometres.Lo"  },
+      { label: "Comments", name: "extensometres.extensometre_comment"  },
       { label: "Actif", name: "extensometres.extensometre_actif" },
     ]
   } );
