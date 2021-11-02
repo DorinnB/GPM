@@ -32,6 +32,9 @@
 			<a href="index.php?page=IT&tool=outillages">Tools</a>
 		</li>
 		<li>
+			<a href="index.php?page=IT&tool=extensometers">Extensometers</a>
+		</li>
+		<li>
 			<a href="index.php?page=IT&tool=servovalves">Servovalves</a>
 		</li>
 		<li>

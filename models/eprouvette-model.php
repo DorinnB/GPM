@@ -855,16 +855,6 @@ public function getEstimatedCycle(){
   AND eprouvettes.eprouvette_actif=1
   GROUP by id_job, c_type_1_val, c_type_2_val, c_type_3_val, c_type_4_val, c_type_5_val';
 
-  /*
-  // calcul sans ternir compte du d_checked >0
-  $req='SELECT AVG(IF(cycle_estime IS NOT NULL, cycle_estime,cycle_final)) AS cycle_estime, c_type_1_val, c_type_2_val
-  FROM eprouvettes
-  WHERE id_job=(SELECT id_job FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
-  AND c_type_1_val = (SELECT c_type_1_val FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
-  AND c_type_2_val = (SELECT c_type_2_val FROM eprouvettes WHERE id_eprouvette=' .$this->id.')
-  AND cycle_final IS NOT NULL
-  GROUP by id_job, c_type_1_val, c_type_2_val';
-  */
   //echo $req.'<br/><br/>';
   return $this->db->getOne($req);
 }

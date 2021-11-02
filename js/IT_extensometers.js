@@ -51,7 +51,7 @@ $(document).ready(function() {
 
     fixedColumns:   {leftColumns: 1},
     keys: {
-      columns: [7],
+      columns: [4, 5, 7],
       editor:  editor
     },
     select: {
