@@ -36,6 +36,7 @@ $db = new db(); // create a new object, class db()
 	//envoi des attributs du job
 	$oJob->job=$_POST['job'];
 	$oJob->customer=$_POST['ref_customer'];
+	$oJob->id_resp=$_POST['id_resp'];
 	$oJob->id_contact=$_POST['id_contact'];
 	$oJob->id_contact2=$_POST['id_contact2'];
 	$oJob->ref_matiere=$_POST['ref_matiere'];

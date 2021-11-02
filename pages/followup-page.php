@@ -20,6 +20,8 @@
 					<th><acronym title='Split'>Split</acronym></th>
 					<th><acronym title='Tests type'>Type</acronym></th>
 
+					<th><acronym title='MRSAS Key Project Manager'>KPM</acronym></th>
+
 					<th><acronym title='PO Number'>PO</acronym></th>
 					<th><acronym title='Customer Instructions'>Cust. Inst</acronym></th>
 
@@ -43,6 +45,8 @@
 					<th><acronym title='Job'>Job</acronym></th>
 					<th><acronym title='Split'>Split</acronym></th>
 					<th><acronym title='Tests type'>Type</acronym></th>
+
+					<th><acronym title='MRSAS Key Project Manager'>KPM</acronym></th>
 
 					<th><acronym title='PO Number'>PO</acronym></th>
 					<th><acronym title='Customer Instructions'>Cust. Inst</acronym></th>
@@ -78,6 +82,8 @@
 						<td><a href="index.php?page=split&id_tbljob=<?= $row['id_tbljob'] ?>"><?= $row['job'] ?></a></td>
 						<td><?= $row['split'] ?></td>
 						<td><?= $row['test_type_abbr'] ?></td>
+
+						<td><?= $row['resp'] ?></td>
 
 						<?php if (strlen($row['po_number'])>15):  ?>
 							<td class="popover-markup" data-placement="left"><?= ($row['po_number']=="" OR strlen($row['po_number'])<15)?$row['po_number']:substr($row['po_number'],0,15)." [...]" ?>

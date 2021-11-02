@@ -28,7 +28,7 @@ class InfoJob
   public function getInfoJob() {
 
     $req = 'SELECT info_jobs.id_info_job,
-    customer, job,
+    customer, job, id_resp,
     contacts.id_contact, contacts.prenom, contacts.nom,
     contacts2.id_contact as id_contact2, contacts2.prenom as prenom2, contacts2.nom as nom2,
     contacts3.id_contact as id_contact3, contacts3.prenom as prenom3, contacts3.nom as nom3,
@@ -65,6 +65,7 @@ class InfoJob
     $reqUpdate='UPDATE `info_jobs` SET
     `customer` = '.$this->customer.',
     `job` = '.$this->job.',
+    `id_resp` = '.$this->id_resp.',
     `id_contact` = '.$this->id_contact.',
     `id_contact2` = '.$this->id_contact2.',
     `id_contact3` = '.$this->id_contact3.',
@@ -84,7 +85,7 @@ class InfoJob
     `order_est_subc` = '.$this->order_est_subc.',
     `info_job_actif` = '.$this->info_job_actif.'
     WHERE id_info_job = '.$this->getInfoJob()['id_info_job'].';';
-    //echo $reqUpdate;
+    echo $reqUpdate;
 
     $result = $this->db->query($reqUpdate);
 

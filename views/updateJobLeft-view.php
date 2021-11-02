@@ -43,8 +43,18 @@
           </select>
         </div>
       </div>
-      <div class="bs-example contact" data-example-id="basic-forms" style="height:228px;">
-        <div style="height:190px;overflow-y:auto; margin-right:-15px;">
+      <div class="bs-example contact" data-example-id="basic-forms">
+
+          <div class="form-group">
+            <label for="Spec">Main Contact Person :</label>
+            <select id="id_resp" name="id_resp">
+              <option value="">Please choose from above</option>
+              <?php foreach ($techniciens as $row): ?>
+                <option value="<?= $row['id_technicien'] ?>" <?=  ($job['id_resp']== $row['id_technicien'])?"selected":""  ?>><?= $row['technicien'] ?></option>
+              <?php endforeach ?>
+            </select>
+          </div>
+
           <div class="form-group">
             <label for="Spec">Report Contact :</label>
             <select id="id_contact" name="id_contact">
@@ -69,7 +79,6 @@
               <option>Please choose from above</option>
             </select>
           </div>
-        </div>
       </div>
       <div class="bs-example date" data-example-id="basic-forms">
         <div class="form-group">
@@ -99,39 +108,37 @@
         </div>
       </div>
 
-      <div class="bs-example accounting" data-example-id="basic-forms" style="height:340px;">
-        <div style="height:310px;overflow-y:auto; margin-right:-15px;">
-        <div class="form-group">
-          <label for="Spec">PO Ref :</label>
-          <input type="text" class="form-control" name="po_number" value="<?= $job['po_number'] ?>">
-        </div>
-        <div class="form-group">
-          <label for="Pricing">Pricing :</label>
-          <select id="pricing" name="pricing">
-            <option value="0">-</option>
-            <?php foreach ($pricing as $row): ?>
-              <option value="<?= $row['id_pricing'] ?>" <?=  (($job['pricing'] == $row['id_pricing'])?"selected":"")  ?>><?= $row['ref_pricing'] ?></option>
-            <?php endforeach ?>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="Spec">Quote Ref :</label>
-          <input type="text" class="form-control" name="devis" value="<?= $job['devis'] ?>">
-        </div>
+      <div class="bs-example accounting" data-example-id="basic-forms">
+          <div class="form-group">
+            <label for="Spec">PO Ref :</label>
+            <input type="text" class="form-control" name="po_number" value="<?= $job['po_number'] ?>">
+          </div>
+          <div class="form-group">
+            <label for="Pricing">Pricing :</label>
+            <select id="pricing" name="pricing">
+              <option value="0">-</option>
+              <?php foreach ($pricing as $row): ?>
+                <option value="<?= $row['id_pricing'] ?>" <?=  (($job['pricing'] == $row['id_pricing'])?"selected":"")  ?>><?= $row['ref_pricing'] ?></option>
+              <?php endforeach ?>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="Spec">Quote Ref :</label>
+            <input type="text" class="form-control" name="devis" value="<?= $job['devis'] ?>">
+          </div>
 
-        <div class="form-group">
-          <label for="Spec">Order Amount (€/$) :</label>
-          <input type="text" class="form-control" name="order_val" value="<?= $job['order_val'] ?>">
-        </div>
-        <div class="form-group">
-          <label for="Spec">Est. Order MRSAS(€/$) :</label>
-          <input type="text" class="form-control" name="order_est" value="<?= $job['order_est'] ?>">
-        </div>
-        <div class="form-group">
-          <label for="Spec">Est. Order SubC (€/$) :</label>
-          <input type="text" class="form-control" name="order_est_subc" value="<?= $job['order_est_subc'] ?>">
-        </div>
-      </div>
+          <div class="form-group">
+            <label for="Spec">Order Amount (€/$) :</label>
+            <input type="text" class="form-control" name="order_val" value="<?= $job['order_val'] ?>">
+          </div>
+          <div class="form-group">
+            <label for="Spec">Est. Order MRSAS(€/$) :</label>
+            <input type="text" class="form-control" name="order_est" value="<?= $job['order_est'] ?>">
+          </div>
+          <div class="form-group">
+            <label for="Spec">Est. Order SubC (€/$) :</label>
+            <input type="text" class="form-control" name="order_est_subc" value="<?= $job['order_est_subc'] ?>">
+          </div>
       </div>
 
     </div>

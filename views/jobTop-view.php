@@ -11,10 +11,12 @@ $ecartOneNote = floor((time()-filemtime($latest_file))/3600);
 
 <div class="row jobTop" style="height:15%">
 	<div class="col-md-2" style="height:100%"><?php include('jobNumero-view.php');?></div>
+
 	<div class="col-md-2" style="height:100%">
-		<p class="titre">Material :</p><p class="commentaire2" ><?= $split['ref_matiere'] ?></p>
-		<p class="titre"><acronym title="Material Reference">Mat. Ref. :</acronym></p><p class="commentaire2"><?= $split['matiere'] ?></p>
+		<p class="titre">Key Project Manager :</p><p class="commentaire2" ><?= $split['resp'] ?>&nbsp;</p>
+		<p class="titre">Material : <i style="color:white;"><?= $split['matiere'] ?></i></p><p class="commentaire2" ><?= $split['ref_matiere'] ?></p>
 	</div>
+
 	<div class="col-md-1" style="height:100%">
 		<p class="titre">Activity :</p><p class="commentaire2" ><?= $split['activity_type'] ?></p>
 		<p class="titre">Specific Test :</p><p class="commentaire2" ><?= $split['specific_test'] ?></p>

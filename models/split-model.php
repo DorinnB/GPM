@@ -75,6 +75,7 @@ class LstSplitModel
     $req = 'SELECT  tbljobs.id_tbljob, tbljobs.id_info_job,
     customer, job, split, po_number, devis, info_jobs.instruction as info_jobs_instruction, info_jobs.commentaire as info_jobs_commentaire, inOut_recommendation,schedule_recommendation,
     activity_type, specific_test, order_val, order_est, order_est_subc,
+    resp.technicien as resp,
     contacts.genre, contacts.prenom, contacts.nom, contacts.email as email, contacts.telephone as telephone, contacts.prenom, contacts.nom, contacts.departement, contacts.rue1, contacts.rue2, contacts.ville, contacts.pays,
     contacts2.genre as genre2, contacts2.prenom as prenom2, contacts2.nom as nom2, contacts2.email as email2, contacts2.telephone as telephone2,
     contacts3.genre as genre3, contacts3.prenom as prenom3, contacts3.nom as nom3, contacts3.email as email3, contacts3.telephone as telephone3,
@@ -198,10 +199,11 @@ class LstSplitModel
     LEFT JOIN cell_load ON cell_load.id_cell_load=postes.id_cell_load
     LEFT JOIN master_eprouvettes ON master_eprouvettes.id_master_eprouvette=eprouvettes.id_master_eprouvette
     LEFT JOIN dessins ON dessins.id_dessin=master_eprouvettes.id_dwg
+    LEFT JOIN techniciens resp ON resp.id_technicien=info_jobs.id_resp
     LEFT JOIN contacts ON contacts.id_contact=info_jobs.id_contact
-    LEFT JOIN contacts  contacts2 ON contacts2.id_contact=info_jobs.id_contact2
-    LEFT JOIN contacts  contacts3 ON contacts3.id_contact=info_jobs.id_contact3
-    LEFT JOIN contacts  contacts4 ON contacts4.id_contact=info_jobs.id_contact4
+    LEFT JOIN contacts contacts2 ON contacts2.id_contact=info_jobs.id_contact2
+    LEFT JOIN contacts contacts3 ON contacts3.id_contact=info_jobs.id_contact3
+    LEFT JOIN contacts contacts4 ON contacts4.id_contact=info_jobs.id_contact4
     LEFT JOIN contacts contactST ON contactST.id_contact=tbljobs.id_contactST
     LEFT JOIN entreprises entrepriseST ON entrepriseST.id_entreprise=contactST.ref_customer
     LEFT JOIN entreprises ON entreprises.id_entreprise=info_jobs.customer

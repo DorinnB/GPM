@@ -25,3 +25,8 @@ $ref_customer=$lstCustomer->getAllref_customer();
 include 'models/lstPricing-model.php';
 $lstPricing = new PricingModel($db);
 $pricing=$lstPricing->getAllPricing();
+
+// Rendre votre modèle accessible
+include 'models/lstTech-model.php';
+$lstTech = new TechModel($db);
+$techniciens=$lstTech->getAllTech();

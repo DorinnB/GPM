@@ -127,7 +127,7 @@ class LstJobsModel
     statut, max(entreprises.entreprise_abbr) as entreprise_abbr, max(entreprises.entreprise) as entreprise, entrepriseST.entreprise_abbr as entreprise_abbrST,
     po_number, instruction,
     customer, job, split,
-    test_type_abbr, final,
+    test_type_abbr, final, resp.technicien as resp,
     etape, matiere, ref_matiere,
     GROUP_CONCAT(DISTINCT(dessin) SEPARATOR " ") as dessin,GROUP_CONCAT(DISTINCT(gripType) SEPARATOR " ") as gripType, GROUP_CONCAT(DISTINCT(gripDimension) SEPARATOR " ") as gripDimension,
     GROUP_CONCAT(DISTINCT(c_temperature) SEPARATOR " ") as temperature,
@@ -149,6 +149,7 @@ class LstJobsModel
     LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
     LEFT JOIN entreprises ON info_jobs.customer=entreprises.id_entreprise
 
+    LEFT JOIN techniciens as resp ON resp.id_technicien=info_jobs.id_resp
     LEFT JOIN contacts contactST ON contactST.id_contact=tbljobs.id_contactST
     LEFT JOIN entreprises entrepriseST ON entrepriseST.id_entreprise=contactST.ref_customer
 
@@ -188,6 +189,7 @@ class LstJobsModel
     count(DISTINCT(eprouvettes.id_master_eprouvette)) as nbep,
     if(sum(if(st=1,1,0))>0,1,0) as subc,
     if(sum(if(st=0,1,0))>0,1,0) as mrsas,
+    resp.technicien as resp,
     contacts.id_contact, contacts.prenom, contacts.nom,
     contacts2.id_contact as id_contact2, contacts2.prenom as prenom2, contacts2.nom as nom2,
     contacts3.id_contact as id_contact3, contacts3.prenom as prenom3, contacts3.nom as nom3,
@@ -201,6 +203,7 @@ class LstJobsModel
     LEFT JOIN tbljobs_temp ON tbljobs_temp.id_tbljobs_temp=tbljobs.id_tbljob
     LEFT JOIN statuts ON statuts.id_statut=tbljobs_temp.id_statut_temp
     LEFT JOIN entreprises ON info_jobs.customer=entreprises.id_entreprise
+    LEFT JOIN techniciens as resp ON resp.id_technicien=info_jobs.id_resp
     LEFT JOIN contacts ON contacts.id_contact=info_jobs.id_contact AND contacts.id_contact != 0
     LEFT JOIN contacts  contacts2 ON contacts2.id_contact=info_jobs.id_contact2 AND contacts2.id_contact != 0
     LEFT JOIN contacts  contacts3 ON contacts3.id_contact=info_jobs.id_contact3 AND contacts3.id_contact != 0

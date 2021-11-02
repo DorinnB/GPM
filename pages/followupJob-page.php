@@ -20,6 +20,7 @@
 					<th><acronym title='Job'>Job</acronym></th>
 					<th><acronym title='Tests type'>Type</acronym></th>
 
+					<th><acronym title='MRSAS Key Project Manager'>KPM</acronym></th>
 					<th><acronym title='Contacts'>Contacts</acronym></th>
 
 					<th><acronym title='Pricing'>Pricing</acronym></th>
@@ -50,6 +51,7 @@
 					<th><acronym title='Job'>Job</acronym></th>
 					<th><acronym title='Tests type'>Type</acronym></th>
 
+					<th><acronym title='MRSAS Key Project Manager'>KPM</acronym></th>
 					<th><acronym title='Contacts'>Contacts</acronym></th>
 
 					<th><acronym title='Pricing'>Pricing</acronym></th>
@@ -88,6 +90,7 @@
 
 						<td><?= $row['test_type_abbr'] ?></td>
 
+						<td><?= $row['resp'] ?></td>
 						<td><?= (isset($row['nom'])?$row['prenom'][0].'. '.$row['nom']:"")
 						.(isset($row['nom2'])?" - ".$row['prenom2'][0].'. '.$row['nom2']:"")
 						.(isset($row['nom3'])?" - ".$row['prenom3'][0].'. '.$row['nom3']:"")
