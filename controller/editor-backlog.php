@@ -34,7 +34,7 @@ Editor::inst( $db, 'info_jobs' )
         $stmt = ('SELECT invoice_final
                     FROM invoices
                      WHERE inv_job = :id
-                     ORDER BY id_invoice ASC LIMIT 1');
+                     ORDER BY id_invoice DESC LIMIT 1');
         $result = $db ->raw()
                       ->bind(':id', $val)
                       ->exec($stmt);
