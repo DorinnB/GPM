@@ -2,6 +2,9 @@
 // DataTables PHP library
 include( "../DataTables/Editor-PHP-1.9.2/lib/DataTables.php" );
 
+if (!isset($_POST['dateStartBadge'])) {
+  $_POST['dateStartBadge']='2000-01-01';
+}
 
 
 // Alias Editor classes so they are easy to use
@@ -34,6 +37,9 @@ Editor::inst( $db, 'badges' )
     Field::inst( 'badges.validation')
       ->setFormatter( 'Format::ifEmpty', null ),
     Field::inst( 'badges.validation2')
+      ->setFormatter( 'Format::ifEmpty', null ),
+
+    Field::inst( 'badges.comment_tech')
       ->setFormatter( 'Format::ifEmpty', null ),
     Field::inst( 'badges.comments')
       ->setFormatter( 'Format::ifEmpty', null ),

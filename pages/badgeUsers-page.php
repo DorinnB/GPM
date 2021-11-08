@@ -39,7 +39,8 @@
 						<th><acronym title="Validation Time">V.T.</acronym></th>
 						<th><acronym title="Delta Planning">Delta.</acronym></th>
 						<th><acronym title="Planning Time">Planning</acronym></th>
-						<th><acronym title="Comments">Comments</acronym></th>
+						<th><acronym title="Tech's Comments">T. Comments</acronym></th>
+						<th><acronym title="Manager's Comments">M. Comments</acronym></th>
 						<th><acronym title="Validating User">V.U.</acronym></th>
 					</tr>
 				</thead>
@@ -61,7 +62,8 @@
 						<th><acronym title="Validation Time">V.T.</acronym></th>
 						<th><acronym title="Delta Planning">Delta.</acronym></th>
 						<th><acronym title="Planning Time">Planning</acronym></th>
-						<th><acronym title="Comments">Comments</acronym></th>
+						<th><acronym title="Tech's Comments">T. Comments</acronym></th>
+						<th><acronym title="Manager's Comments">M. Comments</acronym></th>
 						<th><acronym title="Validating User">V.U.</acronym></th>
 					</tr>
 				</tfoot>

@@ -9,6 +9,6 @@ class ConsigneModel
     }
 
     public function getAllConsigne() {
-        return $this->db->getAll('SELECT * FROM consigne_types where consigne_type_actif=1 ORDER BY id_consigne_type;');
+        return $this->db->getAll('SELECT * FROM consigne_types where consigne_type_actif=1 ORDER BY consigne_type ASC;');
     }
 }

@@ -301,6 +301,7 @@ $(document).ready(function() {
           return (row.planning_modif.quantity>0)?row.planning_modif.quantity:row.planning_users.quantity;
         }
       },
+      { data: "badges.comment_tech" },
       { data: "badges.comments" },
       { data: "t2.technicien" }
     ],
@@ -309,11 +310,11 @@ $(document).ready(function() {
     paging: false,
     fixedColumns:   {leftColumns: 3},
     autoFill: {
-      columns: [11, 14],
+      columns: [11, 15],
       editor:  editor
     },
     keys: {
-      columns: [11, 14],
+      columns: [11, 15],
       editor:  editor
     },
     select: {

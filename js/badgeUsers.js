@@ -3,6 +3,21 @@ var editor; // use a global for the submit and return data rendering in the exam
 
 $(document).ready(function() {
 
+    editor = new $.fn.dataTable.Editor( {
+      ajax: {
+        url : "controller/editor-badgeUsers.php",
+        type: "POST"
+      },
+      table: "#table_badge",
+      fields: [
+        { label: "Date", name: "badges.date",
+        type:  'date',
+        def:   function () { return new Date(); }
+    },
+        { label: "id_user", name: "badges.id_user"  },
+        { label: "comment_tech", name: "badges.comment_tech"  }
+      ]
+    } );
 
   // Setup - add a text input to each footer cell
   $('#table_badge tfoot th').each( function (i) {
@@ -287,12 +302,26 @@ $(document).ready(function() {
           return (row.planning_modif.quantity>0)?row.planning_modif.quantity:row.planning_users.quantity;
         }
       },
+      { data: "badges.comment_tech" },
       { data: "badges.comments" },
       { data: "t2.technicien" }
     ],
     scrollY: '65vh',
     scrollCollapse: true,
-    paging: false
+    paging: false,
+    fixedColumns:   {leftColumns: 3},
+    autoFill: {
+      columns: [14],
+      editor:  editor
+    },
+    keys: {
+      columns: [14],
+      editor:  editor
+    },
+    select: {
+      style:    'os',
+      blurable: true
+    }
   } );
 
 

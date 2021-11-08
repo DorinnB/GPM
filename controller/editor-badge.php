@@ -36,6 +36,9 @@ Editor::inst( $db, 'badges' )
       ->setFormatter( 'Format::ifEmpty', null ),
     Field::inst( 'badges.validation2')
       ->setFormatter( 'Format::ifEmpty', null ),
+
+    Field::inst( 'badges.comment_tech')
+      ->setFormatter( 'Format::ifEmpty', null ),
     Field::inst( 'badges.comments')
       ->setFormatter( 'Format::ifEmpty', null ),
     Field::inst( 'badges.id_validator')
