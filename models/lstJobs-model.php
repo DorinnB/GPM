@@ -548,6 +548,7 @@ class LstJobsModel
     //echo $req;
     return $this->db->getOne($req);
   }
+
   public function getFirstSplitJob($id_infojob) {
 
     $req = 'SELECT min(id_tbljob) as id_tbljob

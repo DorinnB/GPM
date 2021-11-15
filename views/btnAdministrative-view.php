@@ -18,9 +18,9 @@
     <a  href="index.php?page=IT&tool=entreprises" class="btn btn-list" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;"role="button"><img src="img/companie.png" style="height:40px;" alt="Companies"> Companies</a>
   </div>
 
-
   <div id="Engineering" class="col-md-2" style="height:100%; color: white; border-right: 1px solid white;">Engineering
     <a href="index.php?page=WeeklyReport" class="btn btn-default" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/old.png" style="height:40px;"> W.R. Cust</a>
     <a href="index.php?page=WeeklyReportSubC&customer=1001" class="btn btn-default" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/old.png" style="height:40px;"> W.R. SubC</a>
+    <a href="index.php?page=InOutList" class="btn btn-default" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/plane.png" style="height:40px;"> InOutList</a>
   </div>
 </div>

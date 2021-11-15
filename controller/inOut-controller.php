@@ -1,6 +1,17 @@
 <?php
 
 
+
+if (isset($_GET['id_infojob'])) {
+  // Rendre votre modèle accessible
+  include 'models/lstJobs-model.php';
+  // Création d'une instance
+  $oJob = new LstJobsModel($db);
+  $split=$oJob->getFirstSplitIdJob($_GET['id_infojob']);
+  echo "<script type='text/javascript'>document.location.replace('index.php?page=inOut&id_tbljob=".$split['id_tbljob']."');</script>";
+}
+
+
 // Rendre votre modèle accessible
 include 'models/split-model.php';
 // Création d'une instance
