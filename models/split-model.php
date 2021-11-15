@@ -256,6 +256,20 @@ class LstSplitModel
     return $this->db->getOne($req);
   }
 
+  public function getAllSpecifications() {
+
+    $req = 'SELECT "Instructions Client" AS specification , NULL AS version UNION ALL
+    SELECT "Customer Instructions" AS specification , NULL AS version UNION ALL
+    SELECT specifications.specification, version
+      FROM `specifications`
+      LEFT JOIN tbljobs ON tbljobs.id_type_essai=specifications.id_test_type
+      WHERE specification_actif=1
+      AND id_tbljob='.$this->id.'
+      ORDER BY (specification = "Instructions Client") DESC, (specification = "Customer Instructions") DESC, specification ASC, version ASC;';
+    //echo $req;
+    return $this->db->getAll($req);
+  }
+
 
   public function updateDataInput(){
     $reqUpdate='UPDATE `tbljobs` SET

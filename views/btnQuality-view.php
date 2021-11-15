@@ -20,6 +20,7 @@
     <a href="index.php?page=listeFlagQualite&filtre='!='" class="btn btn-default" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/warning_orange.png" style="height:40px;"> Flag Q.</a>
     <a href="index.php?page=gestionQualite" class="btn btn-default" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/temperature.png" style="height:40px;"> T/C</a>
     <a href="index.php?page=calibration" class="btn btn-default" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/preparation.png" style="height:40px;"> Calibrations</a>
+    <a href="index.php?page=IT&tool=specifications" class="btn btn-default" style="width:100%; margin: 5px 0px; padding:0px; border-radius:10px;" role="button"><img src="img/backlog.png" style="height:40px;"> Specifications</a>
   </div>
 
   <div id="Engineering" class="col-md-2" style="height:100%; color: white; border-right: 1px solid white;">Engineering

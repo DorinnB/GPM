@@ -6,7 +6,7 @@ include 'models/split-model.php';
 $oSplit = new LstSplitModel($db,$_GET['id_tbljob']);
 $split=$oSplit->getSplit();
 $splitEp=$oSplit->getEprouvettes();
-
+$specifications=$oSplit->getAllSpecifications();
 
 
 
